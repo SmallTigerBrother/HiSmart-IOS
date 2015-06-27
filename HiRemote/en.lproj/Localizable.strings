@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  HiRemote
+
+  Created by parker on 6/25/15.
+  Copyright (c) 2015 hiremote. All rights reserved.
+*/
+"getStarted" = "Get Started";
+"scanning" = "Scanning...";
+"myBag" = "My Bag";
+"edit" = "Edit";
+"myAccount" = "My Account";
+"close" = "Close";
+"pinnedLocations" = "Pinned Locations";
+"cameraShutte" = "Camera Shutte";
+"findMyItem" = "Find My Item";
+"voiceMemos" = "Voice Memos";
