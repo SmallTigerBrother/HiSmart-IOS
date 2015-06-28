@@ -7,6 +7,7 @@
 //
 
 #import "HIRScanningViewController.h"
+#import "HIRUserInfoTableViewController.h"
 #import "PureLayout.h"
 
 @interface HIRScanningViewController ()
@@ -21,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"dddd";
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"scanningbg"]];
     self.scaningLabel = [[UILabel alloc] init];
     self.scaningLabel.text = NSLocalizedString(@"scanning", @"");
@@ -60,7 +62,9 @@
 
 
 - (void)goToRootViewController {
-    [self.delegate performSelector:@selector(scanningFinishToShowRootVC) withObject:nil];
+    HIRUserInfoTableViewController *user = [[HIRUserInfoTableViewController alloc] init];
+    //[self.navigationController pushViewController:user animated:YES];
+    //[self.delegate performSelector:@selector(scanningFinishToShowRootVC) withObject:nil];
 }
 
 
