@@ -100,7 +100,7 @@
     self.nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.nextButton.hidden = YES;
    // self.nextButton.backgroundColor = [UIColor brownColor];
-    [self.nextButton setImage:[UIImage imageNamed:@"preBtn"] forState:UIControlStateNormal];
+    [self.nextButton setImage:[UIImage imageNamed:@"nextBtn"] forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.pageControl = [[UIPageControl alloc] init];
     self.pageControl.numberOfPages = 5;

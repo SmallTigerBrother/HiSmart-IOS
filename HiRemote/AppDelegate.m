@@ -20,6 +20,7 @@
 @property(nonatomic) HIRWelcomeViewController *welcomeVC;
 @property(nonatomic) HIRScanningViewController *scanVC;
 @property(nonatomic) HIRRootViewController *rootVC;
+@property(nonatomic) HPCoreLocationManger *locManger;
 @end
 
 @implementation AppDelegate
@@ -27,10 +28,13 @@
 @synthesize welcomeVC;
 @synthesize scanVC;
 @synthesize rootVC;
+@synthesize locManger;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [[[HPCoreLocationManger alloc] init] startUpdatingUserLocation];
+    self.locManger = [[HPCoreLocationManger alloc] init];
+    [self.locManger startUpdatingUserLocation];
+    
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -48,7 +52,10 @@
     }else {
         self.scanVC = [[HIRScanningViewController alloc] init];
         self.scanVC.delegate = self;
-        [self.window addSubview:self.scanVC.view];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.scanVC];
+        nav.navigationBar.tintColor = [UIColor colorWithRed:0.43 green:0.74 blue:0.55 alpha:1];
+        nav.navigationBar.barTintColor = [UIColor colorWithRed:0.43 green:0.74 blue:0.55 alpha:1];
+        self.window.rootViewController = nav;
     }
     
     [self.window makeKeyAndVisible];
@@ -127,7 +134,11 @@
     
     self.scanVC = [[HIRScanningViewController alloc] init];
     self.scanVC.delegate = self;
-    [self.window addSubview:self.scanVC.view];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.scanVC];
+    nav.navigationBar.tintColor = [UIColor colorWithRed:0.43 green:0.74 blue:0.55 alpha:1];
+    nav.navigationBar.barTintColor = [UIColor colorWithRed:0.43 green:0.74 blue:0.55 alpha:1];
+    self.window.rootViewController = nav;
 }
 
 

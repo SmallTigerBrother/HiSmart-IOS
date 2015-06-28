@@ -8,7 +8,7 @@
 
 #import "HIRWelcomeViewController.h"
 #import "PureLayout.h"
-#define WELCOME_PAGE_COUNT 4
+#define WELCOME_PAGE_COUNT 5
 
 
 @interface HIRWelcomeViewController () <UIScrollViewDelegate>
