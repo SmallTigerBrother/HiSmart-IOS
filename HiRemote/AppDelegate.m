@@ -12,7 +12,11 @@
 #import "HIRRootViewController.h"
 #import "HPCoreLocationManger.h"
 
-@interface AppDelegate () <HIRWelcomeViewControllerDelegate,HIRScanningViewControllerDelegate>
+@interface AppDelegate () <HIRWelcomeViewControllerDelegate,HIRScanningViewControllerDelegate>{
+    UIBackgroundTaskIdentifier bgTask;
+    
+    NSUInteger counter;
+}
 @property(nonatomic) HIRWelcomeViewController *welcomeVC;
 @property(nonatomic) HIRScanningViewController *scanVC;
 @property(nonatomic) HIRRootViewController *rootVC;
@@ -59,6 +63,50 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    BOOL backgroundAccepted = [[UIApplication sharedApplication] setKeepAliveTimeout:600 handler:^{ [self backgroundHandler]; }];
+    
+    if (backgroundAccepted)
+        
+    {
+        
+        NSLog(@"backgrounding accepted");
+        
+    }
+    
+    [self backgroundHandler];
+    
+
+}
+
+- (void)backgroundHandler {
+    
+    NSLog(@"### -->backgroundinghandler");
+    
+    UIApplication* app = [UIApplication sharedApplication];
+    
+    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+        
+        [app endBackgroundTask:bgTask];
+        
+        bgTask = UIBackgroundTaskInvalid;
+        
+    }];
+    
+    // Start the long-running task
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        while (1) {
+            
+            NSLog(@"counter:%ld", counter++);
+            
+            sleep(1);
+            
+        }
+        
+    });
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

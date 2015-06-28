@@ -12,6 +12,8 @@
 #import "HIRUserInfoTableViewController.h"
 #import "HIRMainMenuView.h"
 #import "PureLayout.h"
+#import "HirLocationHistoryViewController.h"
+
 #define SCROLLVIEW_HEIGHT 160
 @interface HIRRootViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,HIRSegmentViewDelegate,HIRMainMenuViewDelegate>
 @property (nonatomic, strong) UIScrollView *showDeviceScrollView;
@@ -233,7 +235,8 @@ static float pp = 0;
 }
 
 - (void)addNewDevice:(id)sender {
-    
+    HirLocationHistoryViewController *locationHistoryViewController = [[HirLocationHistoryViewController alloc]init];
+    [self.navigationController pushViewController:locationHistoryViewController animated:YES];
 }
 
 - (void)preButtonClick:(id)sender {
@@ -250,6 +253,7 @@ static float pp = 0;
     self.pageControl.currentPage = page;
     [self pageControlChange:nil];
 }
+
 - (void)nextButtonClick:(id)sender {
     int totalPage = (int)self.pageControl.numberOfPages;
     int page = (int)self.pageControl.currentPage;

@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04BB4ADA1B4015B2009567BF /* MultiFunctionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AD51B4015B2009567BF /* MultiFunctionCell.m */; };
+		04BB4ADB1B4015B2009567BF /* MultiFunctionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AD71B4015B2009567BF /* MultiFunctionTableView.m */; };
+		04BB4ADC1B4015B2009567BF /* OverLayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AD91B4015B2009567BF /* OverLayView.m */; };
+		04D38D071B3E85270012D65A /* HirLocationHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D061B3E85270012D65A /* HirLocationHistoryViewController.m */; };
+		04D38D121B3E94990012D65A /* HirBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D111B3E94990012D65A /* HirBaseViewController.m */; };
+		04D38D161B3E96A50012D65A /* HirTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D151B3E96A50012D65A /* HirTableView.m */; };
+		04D38D1C1B3EB1410012D65A /* HirBaseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D1A1B3EB1410012D65A /* HirBaseTableCell.m */; };
+		04D38D1D1B3EB1410012D65A /* HirBaseTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D38D1B1B3EB1410012D65A /* HirBaseTableCell.xib */; };
+		04D38D241B3EB6770012D65A /* HirLocationHistoryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */; };
 		2C18AAF21B3BECDE00CE6588 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AAF11B3BECDE00CE6588 /* main.m */; };
 		2C18AAF51B3BECDE00CE6588 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AAF41B3BECDE00CE6588 /* AppDelegate.m */; };
 		2C18AAF81B3BECDE00CE6588 /* HIRRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AAF71B3BECDE00CE6588 /* HIRRootViewController.m */; };
@@ -55,11 +64,31 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04BB4AD41B4015B2009567BF /* MultiFunctionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiFunctionCell.h; sourceTree = "<group>"; };
+		04BB4AD51B4015B2009567BF /* MultiFunctionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiFunctionCell.m; sourceTree = "<group>"; };
+		04BB4AD61B4015B2009567BF /* MultiFunctionTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiFunctionTableView.h; sourceTree = "<group>"; };
+		04BB4AD71B4015B2009567BF /* MultiFunctionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiFunctionTableView.m; sourceTree = "<group>"; };
+		04BB4AD81B4015B2009567BF /* OverLayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverLayView.h; sourceTree = "<group>"; };
+		04BB4AD91B4015B2009567BF /* OverLayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverLayView.m; sourceTree = "<group>"; };
+		04D38D051B3E85270012D65A /* HirLocationHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirLocationHistoryViewController.h; sourceTree = "<group>"; };
+		04D38D061B3E85270012D65A /* HirLocationHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirLocationHistoryViewController.m; sourceTree = "<group>"; };
+		04D38D091B3E85D20012D65A /* HirDesign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirDesign.h; sourceTree = "<group>"; };
+		04D38D0C1B3E8AA40012D65A /* HirProject.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirProject.pch; sourceTree = "<group>"; };
+		04D38D0F1B3E91EB0012D65A /* HirDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirDevice.h; sourceTree = "<group>"; };
+		04D38D101B3E94980012D65A /* HirBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirBaseViewController.h; sourceTree = "<group>"; };
+		04D38D111B3E94990012D65A /* HirBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirBaseViewController.m; sourceTree = "<group>"; };
+		04D38D141B3E96A50012D65A /* HirTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirTableView.h; sourceTree = "<group>"; };
+		04D38D151B3E96A50012D65A /* HirTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirTableView.m; sourceTree = "<group>"; };
+		04D38D191B3EB1410012D65A /* HirBaseTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirBaseTableCell.h; sourceTree = "<group>"; };
+		04D38D1A1B3EB1410012D65A /* HirBaseTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirBaseTableCell.m; sourceTree = "<group>"; };
+		04D38D1B1B3EB1410012D65A /* HirBaseTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HirBaseTableCell.xib; sourceTree = "<group>"; };
+		04D38D211B3EB6770012D65A /* HirLocationHistoryTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirLocationHistoryTableCell.h; sourceTree = "<group>"; };
+		04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirLocationHistoryTableCell.m; sourceTree = "<group>"; };
 		2C18AAEC1B3BECDE00CE6588 /* HiRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HiRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C18AAF01B3BECDE00CE6588 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C18AAF11B3BECDE00CE6588 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		2C18AAF31B3BECDE00CE6588 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		2C18AAF41B3BECDE00CE6588 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2C18AAF31B3BECDE00CE6588 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HiRemote/AppDelegate.h; sourceTree = "<group>"; };
+		2C18AAF41B3BECDE00CE6588 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = HiRemote/AppDelegate.m; sourceTree = "<group>"; };
 		2C18AAF61B3BECDE00CE6588 /* HIRRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HIRRootViewController.h; sourceTree = "<group>"; };
 		2C18AAF71B3BECDE00CE6588 /* HIRRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HIRRootViewController.m; sourceTree = "<group>"; };
 		2C18AAFA1B3BECDE00CE6588 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -134,9 +163,75 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04BB4AD31B4015B2009567BF /* MultiFunctionCell */ = {
+			isa = PBXGroup;
+			children = (
+				04BB4AD41B4015B2009567BF /* MultiFunctionCell.h */,
+				04BB4AD51B4015B2009567BF /* MultiFunctionCell.m */,
+				04BB4AD61B4015B2009567BF /* MultiFunctionTableView.h */,
+				04BB4AD71B4015B2009567BF /* MultiFunctionTableView.m */,
+				04BB4AD81B4015B2009567BF /* OverLayView.h */,
+				04BB4AD91B4015B2009567BF /* OverLayView.m */,
+			);
+			path = MultiFunctionCell;
+			sourceTree = "<group>";
+		};
+		04D38D041B3E84FC0012D65A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				04D38D101B3E94980012D65A /* HirBaseViewController.h */,
+				04D38D111B3E94990012D65A /* HirBaseViewController.m */,
+				04D38D171B3EB0DA0012D65A /* Location */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		04D38D081B3E85BC0012D65A /* Commond */ = {
+			isa = PBXGroup;
+			children = (
+				04D38D0F1B3E91EB0012D65A /* HirDevice.h */,
+				04D38D091B3E85D20012D65A /* HirDesign.h */,
+			);
+			name = Commond;
+			sourceTree = "<group>";
+		};
+		04D38D131B3E96310012D65A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04D38D141B3E96A50012D65A /* HirTableView.h */,
+				04D38D151B3E96A50012D65A /* HirTableView.m */,
+				04D38D191B3EB1410012D65A /* HirBaseTableCell.h */,
+				04D38D1A1B3EB1410012D65A /* HirBaseTableCell.m */,
+				04D38D1B1B3EB1410012D65A /* HirBaseTableCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		04D38D171B3EB0DA0012D65A /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				04BB4AD31B4015B2009567BF /* MultiFunctionCell */,
+				04D38D181B3EB0F10012D65A /* View */,
+				04D38D051B3E85270012D65A /* HirLocationHistoryViewController.h */,
+				04D38D061B3E85270012D65A /* HirLocationHistoryViewController.m */,
+			);
+			name = Location;
+			sourceTree = "<group>";
+		};
+		04D38D181B3EB0F10012D65A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04D38D211B3EB6770012D65A /* HirLocationHistoryTableCell.h */,
+				04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		2C18AAE31B3BECDE00CE6588 = {
 			isa = PBXGroup;
 			children = (
+				2C18AAF31B3BECDE00CE6588 /* AppDelegate.h */,
+				2C18AAF41B3BECDE00CE6588 /* AppDelegate.m */,
 				B8DF7DBF1B3E7B16000BD43E /* Classes */,
 				2C18AAEE1B3BECDE00CE6588 /* HiRemote */,
 				2C18AB081B3BECDE00CE6588 /* HiRemoteTests */,
@@ -156,11 +251,12 @@
 		2C18AAEE1B3BECDE00CE6588 /* HiRemote */ = {
 			isa = PBXGroup;
 			children = (
+				04D38D131B3E96310012D65A /* View */,
+				04D38D081B3E85BC0012D65A /* Commond */,
+				04D38D041B3E84FC0012D65A /* ViewController */,
 				B8DF7DA61B3E7AE7000BD43E /* UIClasses */,
 				2C18AB3D1B3C221E00CE6588 /* Images */,
 				2C18AB301B3C121E00CE6588 /* PureLayout */,
-				2C18AAF31B3BECDE00CE6588 /* AppDelegate.h */,
-				2C18AAF41B3BECDE00CE6588 /* AppDelegate.m */,
 				2C18AAF61B3BECDE00CE6588 /* HIRRootViewController.h */,
 				2C18AAF71B3BECDE00CE6588 /* HIRRootViewController.m */,
 				2C18AAF91B3BECDE00CE6588 /* Main.storyboard */,
@@ -177,6 +273,7 @@
 				2C18AAF01B3BECDE00CE6588 /* Info.plist */,
 				2C18AAF11B3BECDE00CE6588 /* main.m */,
 				2C18AB4A1B3C27A700CE6588 /* Localizable.strings */,
+				04D38D0C1B3E8AA40012D65A /* HirProject.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -365,6 +462,7 @@
 				2C18AB791B3D985A00CE6588 /* location.jpg in Resources */,
 				2C18AB541B3D3B1C00CE6588 /* userAvatar.png in Resources */,
 				2C18AB5E1B3D48D700CE6588 /* deviceImage.jpg in Resources */,
+				04D38D1D1B3EB1410012D65A /* HirBaseTableCell.xib in Resources */,
 				2C18AB001B3BECDE00CE6588 /* LaunchScreen.xib in Resources */,
 				2C18AB601B3D4F5F00CE6588 /* preBtn.png in Resources */,
 				2C18AAFD1B3BECDE00CE6588 /* Images.xcassets in Resources */,
@@ -390,11 +488,19 @@
 				2C18AAF81B3BECDE00CE6588 /* HIRRootViewController.m in Sources */,
 				B8DF7DBD1B3E7AE7000BD43E /* HIRUserInfoTableViewController.m in Sources */,
 				2C18AAF51B3BECDE00CE6588 /* AppDelegate.m in Sources */,
+				04D38D1C1B3EB1410012D65A /* HirBaseTableCell.m in Sources */,
 				2C18AAF21B3BECDE00CE6588 /* main.m in Sources */,
+				04D38D161B3E96A50012D65A /* HirTableView.m in Sources */,
+				04D38D121B3E94990012D65A /* HirBaseViewController.m in Sources */,
 				B8DF7DBC1B3E7AE7000BD43E /* HIRSegmentView.m in Sources */,
+				04BB4ADC1B4015B2009567BF /* OverLayView.m in Sources */,
 				B8DF7DB81B3E7AE7000BD43E /* HIRBatteryPercentView.m in Sources */,
+				04D38D241B3EB6770012D65A /* HirLocationHistoryTableCell.m in Sources */,
 				B8DF7DB91B3E7AE7000BD43E /* HIRDeviceShowView.m in Sources */,
 				B8DF7DBA1B3E7AE7000BD43E /* HIRMainMenuView.m in Sources */,
+				04BB4ADB1B4015B2009567BF /* MultiFunctionTableView.m in Sources */,
+				04D38D071B3E85270012D65A /* HirLocationHistoryViewController.m in Sources */,
+				04BB4ADA1B4015B2009567BF /* MultiFunctionCell.m in Sources */,
 				B8DF7DBB1B3E7AE7000BD43E /* HIRScanningViewController.m in Sources */,
 				2C18AB3A1B3C121E00CE6588 /* ALView+PureLayout.m in Sources */,
 				B8DF7DBE1B3E7AE7000BD43E /* HIRWelcomeViewController.m in Sources */,
@@ -535,6 +641,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = HiRemote/HirProject.pch;
 				INFOPLIST_FILE = HiRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -546,6 +654,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = HiRemote/HirProject.pch;
 				INFOPLIST_FILE = HiRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
