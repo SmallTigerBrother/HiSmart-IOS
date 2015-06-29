@@ -17,11 +17,14 @@
     UIBackgroundTaskIdentifier bgTask;
     
     NSUInteger counter;
+    
 }
 @property(nonatomic) HIRWelcomeViewController *welcomeVC;
 @property(nonatomic) HIRScanningViewController *scanVC;
 @property(nonatomic) HIRRootViewController *rootVC;
 @property(nonatomic) HPCoreLocationManger *locManger;
+
+@property (nonatomic, strong)NSTimer *myTimer;
 @end
 
 @implementation AppDelegate
@@ -60,6 +63,15 @@
     }
     
     [self.window makeKeyAndVisible];
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.0f
+     
+                                     target:self
+     
+                                   selector:@selector(task) userInfo:nil
+     
+                                    repeats:YES];
+
     return YES;
 }
 
@@ -72,7 +84,7 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     NSLog(@"%f",CGFLOAT_MAX);
-    BOOL backgroundAccepted = [[UIApplication sharedApplication] setKeepAliveTimeout:100 handler:^{ [self backgroundHandler]; }];
+    BOOL backgroundAccepted = [[UIApplication sharedApplication] setKeepAliveTimeout:600 handler:^{ [self backgroundHandler]; }];
     
     if (backgroundAccepted)
         
@@ -92,7 +104,6 @@
     NSLog(@"### -->backgroundinghandler");
     
     UIApplication* app = [UIApplication sharedApplication];
-    
     bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
         
         [app endBackgroundTask:bgTask];
@@ -100,33 +111,36 @@
         bgTask = UIBackgroundTaskInvalid;
         
     }];
-    
+
     // Start the long-running task
-    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if ([[UIApplication sharedApplication] backgroundTimeRemaining] < 61.0) {
             
             [[SoundTool sharedSoundTool]playSound:kBirdSound];
-            
-            [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
-            
+            bgTask = [app beginBackgroundTaskWithExpirationHandler:nil];
         }
         
-
-        while (1) {
-            
-            NSLog(@"counter:%ld", counter++);
-            
-            sleep(1);
-            
-        }
-        
+//        while (1) {
+//            [self task];
+//        }
     });
     
 }
+//
+-(void)task{
+//    sleep(1);
+    NSLog(@"counter:%ld", counter++);
+    NSLog(@"backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
+}
+
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    if (bgTask != UIBackgroundTaskInvalid){
+        [[UIApplication sharedApplication] endBackgroundTask:bgTask];
+        
+        bgTask = UIBackgroundTaskInvalid;
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
