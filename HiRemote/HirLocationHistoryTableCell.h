@@ -16,5 +16,6 @@
 @property (strong, nonatomic) UIImageView *LocationImgView;
 
 +(CGFloat)heightOfCellWithData:(id)data;
+- (void)addSubviewToCell;
 
 @end

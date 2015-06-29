@@ -52,9 +52,15 @@ NSUInteger DeviceSystemMajorVersion()
         self.leftMenus = [NSArray arrayWithArray:leftUtilityButtons];
         self.rightMenus = [NSArray arrayWithArray:rightUtilityButtons];
         [self addCellView];
+        [self addSubviewToCell];
     }
     return self;
 }
+
+- (void)addSubviewToCell{
+    
+}
+
 
 - (void)initUI{
     self.baseCellView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, self.cellHeight)];

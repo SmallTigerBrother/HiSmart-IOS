@@ -63,8 +63,8 @@
 
 - (void)goToRootViewController {
     HIRUserInfoTableViewController *user = [[HIRUserInfoTableViewController alloc] init];
-    //[self.navigationController pushViewController:user animated:YES];
-    //[self.delegate performSelector:@selector(scanningFinishToShowRootVC) withObject:nil];
+    [self.navigationController pushViewController:user animated:YES];
+    [self.delegate performSelector:@selector(scanningFinishToShowRootVC) withObject:nil];
 }
 
 

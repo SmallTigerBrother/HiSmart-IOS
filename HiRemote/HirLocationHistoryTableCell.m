@@ -11,27 +11,24 @@
 @implementation HirLocationHistoryTableCell
 
 
--(instancetype)init{
-    if(self = [super init]){
-        
-        self.titleLabel = [[UILabel alloc]init];
-        [self.contentView addSubview:self.titleLabel];
-        
-        UIImage *locationImg = [UIImage imageNamed:@"locationIcon"];
-        self.LocationImgView = [[UIImageView alloc]init];
-        self.LocationImgView.image = locationImg;
-        [self.contentView addSubview:self.LocationImgView];
-        
-        self.contentLabel = [[UILabel alloc]init];
-        [self.contentView addSubview:self.contentLabel];
-        
-        self.LocationImgView.image = [UIImage imageNamed:@"locationIcon"];
-        UIImage *accessoryImg = [UIImage imageNamed:@"cellDetailAccessory"];
-        UIImageView *accessoryView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, accessoryImg.size.width, accessoryImg.size.height)];
-        accessoryView.image = accessoryImg;
-        self.accessoryView = accessoryView;
-    }
-    return self;
+- (void)addSubviewToCell{
+
+    self.titleLabel = [[UILabel alloc]init];
+    [self.cellContentView addSubview:self.titleLabel];
+    
+    UIImage *locationImg = [UIImage imageNamed:@"locationIcon"];
+    self.LocationImgView = [[UIImageView alloc]init];
+    self.LocationImgView.image = locationImg;
+    [self.cellContentView addSubview:self.LocationImgView];
+    
+    self.contentLabel = [[UILabel alloc]init];
+    [self.cellContentView addSubview:self.contentLabel];
+    
+    self.LocationImgView.image = [UIImage imageNamed:@"locationIcon"];
+    UIImage *accessoryImg = [UIImage imageNamed:@"cellDetailAccessory"];
+    UIImageView *accessoryView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, accessoryImg.size.width, accessoryImg.size.height)];
+    accessoryView.image = accessoryImg;
+    self.cellContentView = accessoryView;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -41,6 +38,7 @@
 }
 
 -(void)layoutSubviews{
+    [super layoutSubviews];
     self.titleLabel.frame = CGRectMake(Cell_Pand_H, Cell_Pand_V, 195, 21);
     self.LocationImgView.frame = CGRectMake(Cell_Pand_H, CGRectGetMaxY(self.titleLabel.frame)+ Cell_Pand_V + (self.contentLabel.frame.size.height - self.LocationImgView.image.size.height)/2, self.LocationImgView.image.size.width, self.LocationImgView.image.size.height);
     self.contentLabel.frame = CGRectMake(CGRectGetMaxX(self.LocationImgView.frame), CGRectGetMaxY(self.titleLabel.frame)+Cell_Pand_V, 163, 21);

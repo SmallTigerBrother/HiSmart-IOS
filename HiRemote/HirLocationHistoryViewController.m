@@ -34,6 +34,7 @@ MultiFunctionTableViewDelegate>
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.multiTableDelegate = self;
+    self.tableView.rowHeight = [HirLocationHistoryTableCell heightOfCellWithData:nil];
     [self.view addSubview:self.tableView];
     
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
@@ -92,9 +93,11 @@ MultiFunctionTableViewDelegate>
         cell = [[HirLocationHistoryTableCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                                                reuseIdentifier:cellId
                                                                            containingTableView:tableView
-                                                                            leftUtilityButtons:nil
-                                                                           rightUtilityButtons:@[@"right1",@"right2",@"right3"]];
+                                                                            leftUtilityButtons:@[@"right1"]
+                                                                           rightUtilityButtons:@[@"right1",@"right2"]];
         cell.cellActionDelegate = self.tableView;
+        
+        [cell addSubviewToCell];
     }
 
     if (tableView == self.tableView) {
