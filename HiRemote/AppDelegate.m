@@ -11,6 +11,7 @@
 #import "HIRScanningViewController.h"
 #import "HIRRootViewController.h"
 #import "HPCoreLocationManger.h"
+#import "SoundTool.h"
 
 @interface AppDelegate () <HIRWelcomeViewControllerDelegate,HIRScanningViewControllerDelegate>{
     UIBackgroundTaskIdentifier bgTask;
@@ -70,8 +71,8 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    
-    BOOL backgroundAccepted = [[UIApplication sharedApplication] setKeepAliveTimeout:600 handler:^{ [self backgroundHandler]; }];
+    NSLog(@"%f",CGFLOAT_MAX);
+    BOOL backgroundAccepted = [[UIApplication sharedApplication] setKeepAliveTimeout:100 handler:^{ [self backgroundHandler]; }];
     
     if (backgroundAccepted)
         
@@ -103,7 +104,15 @@
     // Start the long-running task
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if ([[UIApplication sharedApplication] backgroundTimeRemaining] < 61.0) {
+            
+            [[SoundTool sharedSoundTool]playSound:kBirdSound];
+            
+            [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+            
+        }
         
+
         while (1) {
             
             NSLog(@"counter:%ld", counter++);

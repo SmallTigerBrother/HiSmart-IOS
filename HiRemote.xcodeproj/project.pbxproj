@@ -10,6 +10,9 @@
 		04BB4ADA1B4015B2009567BF /* MultiFunctionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AD51B4015B2009567BF /* MultiFunctionCell.m */; };
 		04BB4ADB1B4015B2009567BF /* MultiFunctionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AD71B4015B2009567BF /* MultiFunctionTableView.m */; };
 		04BB4ADC1B4015B2009567BF /* OverLayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AD91B4015B2009567BF /* OverLayView.m */; };
+		04BB4AE21B4199CF009567BF /* bg_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04BB4ADD1B4199CF009567BF /* bg_music.mp3 */; };
+		04BB4AE31B4199CF009567BF /* sound.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04BB4ADE1B4199CF009567BF /* sound.bundle */; };
+		04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AE11B4199CF009567BF /* SoundTool.m */; };
 		04D38D071B3E85270012D65A /* HirLocationHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D061B3E85270012D65A /* HirLocationHistoryViewController.m */; };
 		04D38D121B3E94990012D65A /* HirBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D111B3E94990012D65A /* HirBaseViewController.m */; };
 		04D38D161B3E96A50012D65A /* HirTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D151B3E96A50012D65A /* HirTableView.m */; };
@@ -73,6 +76,12 @@
 		04BB4AD71B4015B2009567BF /* MultiFunctionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiFunctionTableView.m; sourceTree = "<group>"; };
 		04BB4AD81B4015B2009567BF /* OverLayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverLayView.h; sourceTree = "<group>"; };
 		04BB4AD91B4015B2009567BF /* OverLayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverLayView.m; sourceTree = "<group>"; };
+		04BB4ADD1B4199CF009567BF /* bg_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_music.mp3; sourceTree = "<group>"; };
+		04BB4ADE1B4199CF009567BF /* sound.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = sound.bundle; sourceTree = "<group>"; };
+		04BB4ADF1B4199CF009567BF /* SoundNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundNames.h; sourceTree = "<group>"; };
+		04BB4AE01B4199CF009567BF /* SoundTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundTool.h; sourceTree = "<group>"; };
+		04BB4AE11B4199CF009567BF /* SoundTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundTool.m; sourceTree = "<group>"; };
+		04BB4AE61B419A31009567BF /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		04D38D051B3E85270012D65A /* HirLocationHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirLocationHistoryViewController.h; sourceTree = "<group>"; };
 		04D38D061B3E85270012D65A /* HirLocationHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirLocationHistoryViewController.m; sourceTree = "<group>"; };
 		04D38D091B3E85D20012D65A /* HirDesign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirDesign.h; sourceTree = "<group>"; };
@@ -182,6 +191,18 @@
 			path = MultiFunctionCell;
 			sourceTree = "<group>";
 		};
+		04BB4AE51B4199DA009567BF /* playSound */ = {
+			isa = PBXGroup;
+			children = (
+				04BB4ADD1B4199CF009567BF /* bg_music.mp3 */,
+				04BB4ADE1B4199CF009567BF /* sound.bundle */,
+				04BB4ADF1B4199CF009567BF /* SoundNames.h */,
+				04BB4AE01B4199CF009567BF /* SoundTool.h */,
+				04BB4AE11B4199CF009567BF /* SoundTool.m */,
+			);
+			name = playSound;
+			sourceTree = "<group>";
+		};
 		04D38D041B3E84FC0012D65A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +216,8 @@
 		04D38D081B3E85BC0012D65A /* Commond */ = {
 			isa = PBXGroup;
 			children = (
+				04BB4AE61B419A31009567BF /* common.h */,
+				04BB4AE51B4199DA009567BF /* playSound */,
 				04D38D0F1B3E91EB0012D65A /* HirDevice.h */,
 				04D38D091B3E85D20012D65A /* HirDesign.h */,
 			);
@@ -424,6 +447,7 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 4H44DAN2YD;
 					};
 					2C18AB041B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -475,9 +499,11 @@
 				2C18AB541B3D3B1C00CE6588 /* userAvatar.png in Resources */,
 				2C18AB5E1B3D48D700CE6588 /* deviceImage.jpg in Resources */,
 				04D38D1D1B3EB1410012D65A /* HirBaseTableCell.xib in Resources */,
+				04BB4AE21B4199CF009567BF /* bg_music.mp3 in Resources */,
 				2C18AB001B3BECDE00CE6588 /* LaunchScreen.xib in Resources */,
 				2C18AB601B3D4F5F00CE6588 /* preBtn.png in Resources */,
 				2C18AAFD1B3BECDE00CE6588 /* Images.xcassets in Resources */,
+				04BB4AE31B4199CF009567BF /* sound.bundle in Resources */,
 				2C18AB7A1B3D985A00CE6588 /* voice.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,6 +535,7 @@
 				B8DF7DB81B3E7AE7000BD43E /* HIRBatteryPercentView.m in Sources */,
 				04D38D241B3EB6770012D65A /* HirLocationHistoryTableCell.m in Sources */,
 				B8DF7DB91B3E7AE7000BD43E /* HIRDeviceShowView.m in Sources */,
+				04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */,
 				B8DF7DBA1B3E7AE7000BD43E /* HIRMainMenuView.m in Sources */,
 				04BB4ADB1B4015B2009567BF /* MultiFunctionTableView.m in Sources */,
 				04D38D071B3E85270012D65A /* HirLocationHistoryViewController.m in Sources */,
@@ -653,6 +680,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = HiRemote/HirProject.pch;
 				INFOPLIST_FILE = HiRemote/Info.plist;
@@ -666,6 +694,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = HiRemote/HirProject.pch;
 				INFOPLIST_FILE = HiRemote/Info.plist;

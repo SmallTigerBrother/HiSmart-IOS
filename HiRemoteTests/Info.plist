@@ -4,7 +4,7 @@
 <dict>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>voip</string>
+		<string>bluetooth-peripheral</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
