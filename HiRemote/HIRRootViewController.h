@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HIRRootViewController : UIViewController
 
+@interface HIRRootViewController : UIViewController
 
 @end
 

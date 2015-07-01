@@ -10,22 +10,25 @@
 #import "HIRDeviceShowView.h"
 #import "HIRSegmentView.h"
 #import "HIRUserInfoTableViewController.h"
-#import "HIRMainMenuView.h"
 #import "PureLayout.h"
+#import "HIRRemoteData.h"
+#import "AppDelegate.h"
+#import "HIRMapViewController.h"
 #import "HirLocationHistoryViewController.h"
-
-#define SCROLLVIEW_HEIGHT 160
-@interface HIRRootViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,HIRSegmentViewDelegate,HIRMainMenuViewDelegate>
+#import "HIRFindViewController.h"
+#define SCROLLVIEW_HEIGHT 140
+@interface HIRRootViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,HIRSegmentViewDelegate>
 @property (nonatomic, strong) UIScrollView *showDeviceScrollView;
 @property (nonatomic, strong) UIButton *preButton;
 @property (nonatomic, strong) UIButton *nextButton;
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) HIRSegmentView *segControl;
-@property (nonatomic, strong) HIRMainMenuView *mainMenuView;
+@property (nonatomic, strong) UIScrollView *mainMenuScrollView;
 @property (nonatomic, strong) UITableView *mainMenuTableView;
 @property (nonatomic, strong) NSMutableArray *deviceShowArray;
+@property (nonatomic, strong) NSMutableArray *switchStatus;
 @property (nonatomic, assign) BOOL didSetupConstraints;
-@property (nonatomic, assign) NSInteger segmentIndex;
+@property (nonatomic, strong) NSMutableArray *deviceInfoArray;
 @end
 
 @implementation HIRRootViewController
@@ -34,31 +37,27 @@
 @synthesize nextButton;
 @synthesize pageControl;
 @synthesize segControl;
-@synthesize mainMenuView;
+@synthesize mainMenuScrollView;
 @synthesize mainMenuTableView;
 @synthesize deviceShowArray;
+@synthesize deviceInfoArray;
 
-- (UIImage *)createImageWithColor:(UIColor *)color {
-    CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return theImage;
-}
+
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _segmentIndex = 0;
     self.deviceShowArray = [NSMutableArray arrayWithCapacity:5];
+    self.switchStatus = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],nil];
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     ///导航界面
     self.view.backgroundColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.97 alpha:1];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:0.38 green:0.74 blue:0.59 alpha:1],NSForegroundColorAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
-    self.title = @"dsaw333okkkmyyyyyyyyy987";
+    self.title = @"dsa";
+    self.deviceInfoArray = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).deviceInfoArray;
     
     UIView *leftBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 44)];
     UIImageView *userAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
@@ -78,73 +77,81 @@
     [leftBarView addSubview:actionButton];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarView];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addDevice"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewDevice:)];
     
     ////主界面
     self.showDeviceScrollView = [[UIScrollView alloc] init];
     self.showDeviceScrollView.pagingEnabled = YES;
-    self.showDeviceScrollView.contentSize = CGSizeMake(self.view.frame.size.width,self.showDeviceScrollView.frame.size.height);
     self.showDeviceScrollView.showsHorizontalScrollIndicator = NO;
     self.showDeviceScrollView.showsVerticalScrollIndicator = NO;
     self.showDeviceScrollView.scrollsToTop = NO;
     self.showDeviceScrollView.delegate = self;
-    //self.showDeviceScrollView.backgroundColor = [UIColor darkGrayColor];
-    
+
     self.preButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.preButton.hidden = YES;
-   // self.preButton.backgroundColor = [UIColor greenColor];
     [self.preButton setImage:[UIImage imageNamed:@"preBtn"] forState:UIControlStateNormal];
     [self.preButton addTarget:self action:@selector(preButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     self.nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.nextButton.hidden = YES;
-   // self.nextButton.backgroundColor = [UIColor brownColor];
     [self.nextButton setImage:[UIImage imageNamed:@"nextBtn"] forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.pageControl = [[UIPageControl alloc] init];
     self.pageControl.numberOfPages = 5;
     self.pageControl.currentPage = 0;
-   // self.pageControl.backgroundColor = [UIColor redColor];
     [self.pageControl addTarget:self action:@selector(pageControlChange:) forControlEvents:UIControlEventValueChanged];
     
     self.segControl = [[HIRSegmentView alloc] initWithFrame:CGRectMake(60, SCROLLVIEW_HEIGHT + 15, self.view.frame.size.width - 120, 35) items:[NSArray arrayWithObjects:NSLocalizedString(@"myBag", @""),NSLocalizedString(@"edit", @""), nil]];
     self.segControl.tintColor = [UIColor colorWithRed:0.38 green:0.74 blue:0.56 alpha:1];
     self.segControl.delegate = self;
     
-    self.mainMenuView = [[HIRMainMenuView alloc] init];
-    self.mainMenuView.scrollEnabled = YES;
-    self.mainMenuView.delegate = self;
-    self.mainMenuView.showsHorizontalScrollIndicator = NO;
-    self.mainMenuView.backgroundColor = [UIColor redColor];
+    self.mainMenuScrollView = [[UIScrollView alloc] init];
+    self.mainMenuScrollView.scrollEnabled = YES;
+    self.mainMenuScrollView.showsHorizontalScrollIndicator = NO;
+    self.mainMenuScrollView.showsVerticalScrollIndicator = YES;
+    self.mainMenuScrollView.scrollsToTop = NO;
     
-//    self.mainMenuTableView = [[UITableView alloc] init];
-//    self.mainMenuTableView.hidden = YES;
-//    self.mainMenuTableView.dataSource = self;
-//    self.mainMenuTableView.delegate = self;
-//    //self.mainMenuTableView.backgroundColor = [UIColor yellowColor];
-    
-    [self setupScrollViewContentView];
+    self.mainMenuTableView = [[UITableView alloc] init];
+    self.mainMenuTableView.hidden = YES;
+    self.mainMenuTableView.dataSource = self;
+    self.mainMenuTableView.delegate = self;
+    self.mainMenuTableView.tableFooterView = [[UIView alloc] init];
     
     [self.view addSubview:self.showDeviceScrollView];
     [self.view addSubview:self.preButton];
     [self.view addSubview:self.nextButton];
     [self.view addSubview:self.pageControl];
     [self.view addSubview:self.segControl];
-   
-   // [self.view addSubview:self.mainMenuTableView];
-     [self.view addSubview:self.mainMenuView];
+    [self.view addSubview:self.mainMenuScrollView];
+    [self.view addSubview:self.mainMenuTableView];
+    
+    [self setupShowDeviceScrollViewContentView];
+    [self setupMainMenuScrollViewContentView];
     
     [self.view setNeedsUpdateConstraints];
+    
+    double delayInSeconds = 0.2;
+    dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
+        for (int i = 0; i < 5; i++) {
+            if ([self.deviceInfoArray count] > i && [self.deviceShowArray count] > i) {
+                HIRRemoteData *remoteData = [self.deviceInfoArray objectAtIndex:i];
+                HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:i];
+                UIImage *image = [UIImage imageWithContentsOfFile:remoteData.avatarPath];
+                NSLog(@"nn:%@--ll:%@--bb:%f",remoteData.name,remoteData.lastLocation,remoteData.battery);
+                device.deviceNameLabel.text = remoteData.name;
+                device.deviceLocationLabel.text = remoteData.lastLocation;
+                device.batteryPercent.percent = remoteData.battery;
+                [device.avatarImageView setImage:image];
+            }
+        }
+    });
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-     [self.mainMenuView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height*2)];
-    HIRDeviceShowView *show = [self.deviceShowArray objectAtIndex:0];
-    show.batteryPercent.percent = pp;
-    pp+= 0.1;
-    [show.avatarImageView setImage:[UIImage imageNamed:@"Default-568"]];
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 
@@ -152,7 +159,6 @@
 - (void)updateViewConstraints
 {
     if (!self.didSetupConstraints) {
-        
         [self.showDeviceScrollView autoSetDimension:ALDimensionHeight toSize:SCROLLVIEW_HEIGHT];
         [self.showDeviceScrollView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
         [self.showDeviceScrollView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
@@ -166,38 +172,29 @@
         [self.nextButton autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
         [self.nextButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.showDeviceScrollView withOffset:SCROLLVIEW_HEIGHT/2 - 20];
         
-        [self.pageControl autoSetDimension:ALDimensionHeight toSize:20];
+        [self.pageControl autoSetDimension:ALDimensionHeight toSize:18];
         [self.pageControl autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:40];
         [self.pageControl autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:40];
-        [self.pageControl autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.showDeviceScrollView withOffset:0];
+        [self.pageControl autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.showDeviceScrollView withOffset:-2];
         
-        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.mainMenuView attribute:NSLayoutAttributeLeft relatedBy: NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10];
-        NSLayoutConstraint *constraint2 = [NSLayoutConstraint constraintWithItem:self.mainMenuView attribute:NSLayoutAttributeWidth relatedBy: NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:100];
-        NSLayoutConstraint *constraint3 = [NSLayoutConstraint constraintWithItem:self.mainMenuView attribute:NSLayoutAttributeHeight relatedBy: NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:110];
-        //NSLayoutConstraint *constraint4 = [NSLayoutConstraint constraintWithItem:self.mainMenuView attribute:NSLayoutAttributeTop relatedBy: NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:20];
-        [self.view addConstraint:constraint];
-        [self.mainMenuView addConstraint:constraint2];
-        [self.mainMenuView addConstraint:constraint3];
-       // [self.mainMenuView addConstraint:constraint4];
+        [self.mainMenuScrollView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
+        [self.mainMenuScrollView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
+        [self.mainMenuScrollView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
+        [self.mainMenuScrollView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.segControl withOffset:15.0];
         
-//        [self.mainMenuView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
-//        [self.mainMenuView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
-//        [self.mainMenuView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
-//        [self.mainMenuView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.segControl withOffset:15.0];
-//        
-//        [self.mainMenuTableView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
-//        [self.mainMenuTableView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
-//        [self.mainMenuTableView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
-//        [self.mainMenuTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.segControl withOffset:15.0];
-//        
+        [self.mainMenuTableView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
+        [self.mainMenuTableView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
+        [self.mainMenuTableView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
+        [self.mainMenuTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.segControl withOffset:15.0];
         self.didSetupConstraints = YES;
     }
     
     [super updateViewConstraints];
 }
 
-- (void)setupScrollViewContentView {
+- (void)setupShowDeviceScrollViewContentView {
     self.showDeviceScrollView.contentSize = CGSizeMake(self.view.frame.size.width * 5, SCROLLVIEW_HEIGHT);
+    NSLog(@"shooo:%f,%f",self.showDeviceScrollView.contentSize.width,self.showDeviceScrollView.contentSize.height);
     for (int i= 0; i<5; i++) {
         HIRDeviceShowView *showView = [[HIRDeviceShowView alloc] init];
         showView.deviceNameLabel.text = [NSString stringWithFormat:@"device---%d",i];
@@ -217,8 +214,103 @@
         self.nextButton.hidden = YES;
     }
 }
+- (void)setupMainMenuScrollViewContentView {
+    self.mainMenuScrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height*0.8);
+    NSLog(@"%f,%f===",self.mainMenuScrollView.contentSize.width,self.mainMenuScrollView.contentSize.height);
+    CGSize size = self.view.frame.size;
+    float eightPercent = size.width/8;
+    float fourPercent = size.width/4;
+    
+    UIButton *locBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    locBtn.frame = CGRectMake(eightPercent, 5, eightPercent*2.5,eightPercent*2.5);
+    locBtn.tag = 0;
+    locBtn.contentMode = UIViewContentModeScaleToFill;
+    [locBtn setBackgroundImage:[UIImage imageNamed:@"location"] forState:UIControlStateNormal];
+    [locBtn addTarget:self action:@selector(menuButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *locLabel = [[UILabel alloc] init];
+    locLabel.frame = CGRectMake(eightPercent*0.5, locBtn.frame.origin.y + locBtn.frame.size.height + 2, fourPercent*2-eightPercent*0.5,30);
+    locLabel.textAlignment = NSTextAlignmentCenter;
+    locLabel.font = [UIFont boldSystemFontOfSize:16];
+    locLabel.text = NSLocalizedString(@"pinnedLocations", @"");
+    
+    UIButton *cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    cameraBtn.frame = CGRectMake(size.width-eightPercent*2.5-eightPercent, 5, eightPercent*2.5,eightPercent*2.5);
+    cameraBtn.tag = 1;
+    [cameraBtn setImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
+    [cameraBtn addTarget:self action:@selector(menuButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *cameraLabel = [[UILabel alloc] init];
+    cameraLabel.frame = CGRectMake(fourPercent*2, cameraBtn.frame.origin.y + cameraBtn.frame.size.height + 2, fourPercent*2-eightPercent*0.5,30);
+    cameraLabel.textAlignment = NSTextAlignmentCenter;
+    cameraLabel.font = [UIFont boldSystemFontOfSize:16];
+    cameraLabel.text = NSLocalizedString(@"cameraShutte", @"");
+    
+    UIButton *findBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    findBtn.frame = CGRectMake(eightPercent, locLabel.frame.origin.y + locLabel.frame.size.height + 20, eightPercent*2.5,eightPercent*2.5);
+    findBtn.tag = 2;
+    [findBtn setImage:[UIImage imageNamed:@"find"] forState:UIControlStateNormal];
+    [findBtn addTarget:self action:@selector(menuButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *findLabel = [[UILabel alloc] init];
+    findLabel.frame = CGRectMake(eightPercent*0.5, findBtn.frame.origin.y + findBtn.frame.size.height + 2, fourPercent*2-eightPercent*0.5,30);
+    findLabel.textAlignment = NSTextAlignmentCenter;
+    findLabel.font = [UIFont boldSystemFontOfSize:16];
+    findLabel.text = NSLocalizedString(@"findMyItem", @"");
+    
+    UIButton *voiceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    voiceBtn.frame = CGRectMake(size.width-eightPercent*2.5-eightPercent, cameraLabel.frame.origin.y+cameraLabel.frame.size.height + 20, eightPercent*2.5,eightPercent*2.5);
+    voiceBtn.tag = 3;
+    [voiceBtn setImage:[UIImage imageNamed:@"voice"] forState:UIControlStateNormal];
+    [voiceBtn addTarget:self action:@selector(menuButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *voiceLabel = [[UILabel alloc] init];
+    voiceLabel.frame = CGRectMake(fourPercent*2, voiceBtn.frame.origin.y+voiceBtn.frame.size.height+2, fourPercent*2-eightPercent*0.5,30);
+    voiceLabel.textAlignment = NSTextAlignmentCenter;
+    voiceLabel.font = [UIFont boldSystemFontOfSize:16];
+    voiceLabel.text = NSLocalizedString(@"voiceMemos", @"");
+    
+    [self.mainMenuScrollView addSubview:locBtn];
+    [self.mainMenuScrollView addSubview:locLabel];
+    [self.mainMenuScrollView addSubview:cameraBtn];
+    [self.mainMenuScrollView addSubview:cameraLabel];
+    [self.mainMenuScrollView addSubview:findBtn];
+    [self.mainMenuScrollView addSubview:findLabel];
+    [self.mainMenuScrollView addSubview:voiceBtn];
+    [self.mainMenuScrollView addSubview:voiceLabel];
+}
+
 
 static float pp = 0;
+-(void)menuButtonClick:(id)sender {
+    UIButton *btn = (UIButton *)sender;
+    if (btn.tag == 0) {
+        HirLocationHistoryViewController *locationHistoryViewController = [[HirLocationHistoryViewController alloc]init];
+        [self.navigationController pushViewController:locationHistoryViewController animated:YES];
+    }else if(btn.tag == 2) {
+        int deviceIndex = self.pageControl.currentPage;
+        HIRFindViewController *findVC = [[HIRFindViewController alloc] init];
+        findVC.location = [[CLLocation alloc] initWithLatitude:22.54 longitude:113.94];
+        findVC.deviceIndex = deviceIndex;
+        [self.navigationController pushViewController:findVC animated:YES];
+    }
+    
+    
+    return;
+    HIRDeviceShowView *view = [self.deviceShowArray objectAtIndex:btn.tag];
+    if (btn.tag == 0) {
+        HIRRemoteData *data = [self.deviceInfoArray objectAtIndex:0];
+        UIImage *image = [UIImage imageWithContentsOfFile:data.avatarPath];
+        [view.avatarImageView setImage:image];
+    }else if(btn.tag == 1) {
+        view.batteryPercent.percent = 0.5;
+    }else {
+        HIRDeviceShowView *view = [self.deviceShowArray objectAtIndex:0];
+        view.batteryPercent.percent = pp;
+        pp+=0.1;
+    }
+    
+    
+}
+
+
+
 - (void)avatarClickAction:(id)sender {
     HIRUserInfoTableViewController *userVC = [[HIRUserInfoTableViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:userVC];
@@ -235,8 +327,8 @@ static float pp = 0;
 }
 
 - (void)addNewDevice:(id)sender {
-    HirLocationHistoryViewController *locationHistoryViewController = [[HirLocationHistoryViewController alloc]init];
-    [self.navigationController pushViewController:locationHistoryViewController animated:YES];
+    AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDeleg addNewDevice];
 }
 
 - (void)preButtonClick:(id)sender {
@@ -270,9 +362,13 @@ static float pp = 0;
 }
 
 - (void)segmentViewSelectIndex:(NSInteger)index {
-    ///is My bag
-    _segmentIndex = index;
-    //[self.mainMenuTableView reloadData];
+    if (index == 0) {
+        self.mainMenuTableView.hidden = YES;
+        self.mainMenuScrollView.hidden = NO;
+    }else {
+        self.mainMenuScrollView.hidden = YES;
+        self.mainMenuTableView.hidden = NO;
+    }
 }
 
 - (void)pageControlChange:(id)sender {
@@ -312,7 +408,6 @@ static float pp = 0;
 }
 
 
-
 /////for table view
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -321,81 +416,65 @@ static float pp = 0;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (_segmentIndex == 0) {
-        return 1;
-    }else if(_segmentIndex == 1) {
-        return 4;
-    }
-    return 1;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *identifyCell = @"identifyCell";
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifyCell];
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell =  [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifyCell];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(8, 3, self.view.frame.size.width-100, 20)];
+        label.font = [UIFont boldSystemFontOfSize:16];
+        label.tag = 10;
+        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(8, 25, self.view.frame.size.width- 70, 44)];
+        label2.tag = 20;
+        label2.numberOfLines = 3;
+        UISwitch *theSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 60, 18, 70,40)];
+        theSwitch.tag = [indexPath row];
+        [theSwitch setOn:[[self.switchStatus objectAtIndex:[indexPath row]] boolValue] animated:NO];
+        [theSwitch addTarget:self action:@selector(theSwitchChange:) forControlEvents:UIControlEventValueChanged];
+        [cell.contentView addSubview:label];
+        [cell.contentView addSubview:label2];
+        [cell.contentView addSubview:theSwitch];
     }
+    NSString *title = @"";
+    NSString *info = @"";
+    if ([indexPath row] == 0) {
+        title = @"edit10";
+        info = @"edit11";
+    }else if ([indexPath row] == 1) {
+        title = @"edit20";
+        info = @"edit21";
+    }else if ([indexPath row] == 2) {
+        title = @"edit30";
+        info = @"edit31";
+    }else if ([indexPath row] == 3) {
+        title = @"edit40";
+        info = @"edit41";
+    }
+    UILabel *lab1 = (UILabel *)[cell.contentView viewWithTag:10];
+    lab1.text = NSLocalizedString(title, @"");
+    UILabel *lab2 = (UILabel *)[cell.contentView viewWithTag:20];
+    lab2.text = NSLocalizedString(info, @"");
+   
     
-    if (_segmentIndex == 0) {
-        UIView *contentView = [[UIView alloc] initWithFrame:cell.frame];
-        float width = contentView.frame.size.width;
-        float itemWidth = width/3.5;
-        
-        UIButton *locBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        locBtn.frame = CGRectMake(itemWidth/2, 30, itemWidth, itemWidth);
-        [locBtn setImage:[UIImage imageNamed:@"location.jpg"] forState:UIControlStateNormal];
-        [locBtn addTarget:self action:@selector(location:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *locLabel = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth/2, locBtn.frame.origin.y+locBtn.frame.size.height, itemWidth, 40)];
-        locLabel.text = NSLocalizedString(@"pinnedLocations", @"");
-        
-        UIButton *cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        cameraBtn.frame = CGRectMake(width-itemWidth/2 - itemWidth, 30, itemWidth, itemWidth);
-        [cameraBtn setImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
-        [cameraBtn addTarget:self action:@selector(camera:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *cameraLabel = [[UILabel alloc] initWithFrame:CGRectMake(width-itemWidth/2 - itemWidth, cameraBtn.frame.origin.y+cameraBtn.frame.size.height, itemWidth, 40)];
-        cameraLabel.text = NSLocalizedString(@"cameraShutte", @"");
-        
-        UIButton *findBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        findBtn.frame = CGRectMake(itemWidth/2, locLabel.frame.origin.y+locLabel.frame.size.height+30, itemWidth, itemWidth);
-        [findBtn setImage:[UIImage imageNamed:@"find.jpg"] forState:UIControlStateNormal];
-        [findBtn addTarget:self action:@selector(find:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *findLabel = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth/2, findBtn.frame.origin.y+findBtn.frame.size.height, itemWidth, 40)];
-        findLabel.text = NSLocalizedString(@"findMyItem", @"");
-        
-        UIButton *voiceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        voiceBtn.frame = CGRectMake(width-itemWidth/2 - itemWidth, cameraLabel.frame.origin.y+cameraLabel.frame.size.height+30, itemWidth, itemWidth);
-        [voiceBtn setImage:[UIImage imageNamed:@"voice.jpg"] forState:UIControlStateNormal];
-        [voiceBtn addTarget:self action:@selector(voice:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *voiceLabel = [[UILabel alloc] initWithFrame:CGRectMake(width-itemWidth/2 - itemWidth, voiceBtn.frame.origin.y+voiceBtn.frame.size.height, itemWidth, 40)];
-        voiceLabel.text = NSLocalizedString(@"voiceMemos", @"");
-        
-        [cell.contentView addSubview:locBtn];
-        [cell.contentView addSubview:locLabel];
-        [contentView addSubview:cameraBtn];
-        [contentView addSubview:cameraLabel];
-        [contentView addSubview:findBtn];
-        [contentView addSubview:findLabel];
-        [contentView addSubview:voiceBtn];
-        [contentView addSubview:voiceLabel];
-        [cell.contentView addSubview:contentView];
-    }
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (_segmentIndex == 0) {
-        return tableView.frame.size.width;
-    }
-    return 30;
+    return 75;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
 
+- (void)theSwitchChange:(id)sender {
+    UISwitch *theSw = (UISwitch *)sender;
+    long tag = theSw.tag;
+    [self.switchStatus replaceObjectAtIndex:tag withObject:[NSNumber numberWithBool:theSw.on]];
+    NSLog(@"tag :%ld---%d",tag,theSw.on);
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -403,12 +482,16 @@ static float pp = 0;
 }
 
 - (void)dealloc {
+    NSLog(@"rooot view dealloc");
+    self.switchStatus = nil;
     self.showDeviceScrollView = nil;
     self.preButton = nil;
     self.nextButton = nil;
     self.pageControl = nil;
     self.segControl = nil;
+    self.mainMenuScrollView = nil;
     self.mainMenuTableView = nil;
     self.deviceShowArray = nil;
+    self.deviceInfoArray = nil;
 }
 @end
