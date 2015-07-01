@@ -62,7 +62,6 @@
         _progressLayer.lineWidth    = _backgroundLayer.lineWidth;
         _progressLayer.strokeEnd    = 0.f;
         
-        NSLog(@"%f,%f,%f,%f",self.frame.origin.x,self.frame.origin.y,self.frame.size.width,self.frame.size.height);
         _progressContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         _progressContainer.layer.cornerRadius   = CGRectGetWidth(self.bounds)/2.f;
         _progressContainer.layer.masksToBounds  = NO;

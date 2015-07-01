@@ -7,13 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol HIRScanningViewControllerDelegate <NSObject>
-
-- (void)scanningFinishToShowRootVC;
-
-@end
-
 
 @interface HIRScanningViewController : UIViewController
-@property (nonatomic ,weak) id<HIRScanningViewControllerDelegate> delegate;
 @end

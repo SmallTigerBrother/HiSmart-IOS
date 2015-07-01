@@ -25,7 +25,7 @@
 @property(nonatomic ,strong) UILabel *titleLabel;
 @property(nonatomic)         NSInteger index;
 @property(nonatomic)         BOOL isSelected;
-@property(nonatomic)         id   delegate;
+@property(nonatomic, weak)   id   delegate;
 
 @end
 

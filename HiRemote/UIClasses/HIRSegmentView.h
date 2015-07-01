@@ -15,8 +15,8 @@
 /**
  *  设置风格颜色 默认蓝色风格
  */
-@property(nonatomic ,strong) UIColor *tintColor;
-@property(nonatomic) id<HIRSegmentViewDelegate> delegate;
+@property(nonatomic, strong) UIColor *tintColor;
+@property(nonatomic, weak) id<HIRSegmentViewDelegate> delegate;
 
 /**
  *  默认构造函数

@@ -17,4 +17,6 @@
 
 @interface HIRMainMenuView : UIScrollView
 @property (nonatomic, weak) id<HIRMainMenuViewDelegate> delegate;
+
+- (void)setNeedsUpdateConstraintsForLayout;
 @end

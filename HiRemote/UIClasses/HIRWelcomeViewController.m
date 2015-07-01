@@ -16,6 +16,9 @@
 @property (nonatomic ,strong) UIScrollView *welcomeScrollView;
 @property (nonatomic ,strong) UIPageControl *pageControl;
 @property (nonatomic, strong) UIButton *startButton;
+@property (nonatomic, strong) NSArray *titleArray;
+@property (nonatomic, strong) NSArray *imageArray;
+@property (nonatomic, strong) NSArray *notesArray;
 @property (nonatomic, assign) BOOL didSetupConstraints;
 @end
 
@@ -25,6 +28,9 @@
 @synthesize welcomeScrollView;
 @synthesize pageControl;
 @synthesize startButton;
+@synthesize titleArray;
+@synthesize imageArray;
+@synthesize notesArray;
 
  
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
@@ -38,6 +44,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithRed:0.35 green:0.75 blue:0.58 alpha:1];
+    self.titleArray = [NSArray arrayWithObjects:NSLocalizedString(@"pinnedLocation", @""), NSLocalizedString(@"findMyItem", @""),NSLocalizedString(@"cameraShutter", @""),NSLocalizedString(@"voiceMemos", @""),NSLocalizedString(@"hiremoteControl", @""),nil];
+    self.imageArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"pinnedm"],[UIImage imageNamed:@"findm"],[UIImage imageNamed:@"cameram"],[UIImage imageNamed:@"voicem"],[UIImage imageNamed:@"controlm"], nil];
+    self.notesArray = [NSArray arrayWithObjects:NSLocalizedString(@"pinedTips", @""), NSLocalizedString(@"findTips", @""),NSLocalizedString(@"cameraTips", @""),NSLocalizedString(@"voiceTips", @""),@"",nil];
     self.welcomeScrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
     self.welcomeScrollView.pagingEnabled = YES;
     self.welcomeScrollView.bounces = NO;
@@ -82,7 +92,7 @@
     if (!self.didSetupConstraints) {
         [self.pageControl autoSetDimensionsToSize:CGSizeMake(180, 20)];
         [self.pageControl autoAlignAxisToSuperviewAxis:ALAxisVertical];
-        [self.pageControl autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:120];
+        [self.pageControl autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:100];
         
         [self.startButton autoSetDimension:ALDimensionHeight toSize:35];
         [self.startButton autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:40.0];
@@ -110,14 +120,29 @@
 
 - (void)loadScrollViewWithPage:(int)page {
     if (page < 0 || page >= WELCOME_PAGE_COUNT) return;
-    UIImageView *imagePage = [[UIImageView alloc] initWithImage:[self imageForNumber:page]];
-    if (nil == imagePage.superview) {
-        CGRect frame = welcomeScrollView.frame;
-        frame.origin.x = frame.size.width * page;
-        frame.origin.y = 0;
-        imagePage.frame = frame;
-        [welcomeScrollView addSubview:imagePage];
-    }
+    CGRect frame = welcomeScrollView.frame;
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.textColor = [UIColor whiteColor];
+    label.text = [self.titleArray objectAtIndex:page];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont boldSystemFontOfSize:18];
+    label.frame = CGRectMake(frame.size.width * page + 50, 70, frame.size.width - 100, 40);
+    
+    UIImageView *imageV = [[UIImageView alloc] initWithImage:[self.imageArray objectAtIndex:page]];
+    imageV.frame = CGRectMake(frame.size.width * page + 80, 110, frame.size.width - 160, frame.size.width - 160);
+    NSLog(@"x:%f,y:%f,w:%f,h:%f",imageV.frame.origin.x,imageV.frame.origin.y,imageV.frame.size.width,imageV.frame.size.height);
+    UILabel *label2 = [[UILabel alloc] init];
+    label2.textColor = [UIColor whiteColor];
+    label2.text = [self.notesArray objectAtIndex:page];
+    label2.textAlignment = NSTextAlignmentCenter;
+    label2.numberOfLines = 2;
+    label2.font = [UIFont systemFontOfSize:13];
+    label2.frame = CGRectMake(frame.size.width * page + 70, 110+frame.size.width - 160, frame.size.width - 140, 45);
+    
+    [welcomeScrollView addSubview:label];
+    [welcomeScrollView addSubview:imageV];
+    [welcomeScrollView addSubview:label2];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -140,6 +165,9 @@
     self.welcomeScrollView = nil;
     self.pageControl = nil;
     self.startButton = nil;
+    self.titleArray = nil;
+    self.imageArray = nil;
+    self.notesArray = nil;
 }
 
 @end

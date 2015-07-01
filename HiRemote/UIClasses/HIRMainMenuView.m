@@ -31,10 +31,12 @@
     if (self) {
         self.locBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.locBtn.tag = 1;
-        self.locBtn.frame = CGRectMake(0, 0, self.frame.size.width/2, 100);
+       // self.locBtn.frame = CGRectMake(0, 0, self.frame.size.width/2, 100);
         [self.locBtn setImage:[UIImage imageNamed:@"location.jpg"] forState:UIControlStateNormal];
         [self.locBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.locLabel = [[UILabel alloc] init];
+        self.locLabel.textAlignment = NSTextAlignmentCenter;
+        self.locLabel.font = [UIFont boldSystemFontOfSize:16];
         self.locLabel.text = NSLocalizedString(@"pinnedLocations", @"");
         
         self.cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -42,6 +44,8 @@
         [self.cameraBtn setImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
         [self.cameraBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.cameraLabel = [[UILabel alloc] init];
+        self.cameraLabel.textAlignment = NSTextAlignmentCenter;
+        self.cameraLabel.font = [UIFont boldSystemFontOfSize:16];
         self.cameraLabel.text = NSLocalizedString(@"cameraShutte", @"");
         
         self.findBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -49,6 +53,8 @@
         [self.findBtn setImage:[UIImage imageNamed:@"find.jpg"] forState:UIControlStateNormal];
         [self.findBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.findLabel = [[UILabel alloc] init];
+        self.findLabel.textAlignment = NSTextAlignmentCenter;
+        self.findLabel.font = [UIFont boldSystemFontOfSize:16];
         self.findLabel.text = NSLocalizedString(@"findMyItem", @"");
         
         self.voiceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -56,6 +62,8 @@
         [self.voiceBtn setImage:[UIImage imageNamed:@"voice.jpg"] forState:UIControlStateNormal];
         [self.voiceBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.voiceLabel = [[UILabel alloc] init];
+        self.voiceLabel.textAlignment = NSTextAlignmentCenter;
+        self.voiceLabel.font = [UIFont boldSystemFontOfSize:16];
         self.voiceLabel.text = NSLocalizedString(@"voiceMemos", @"");
         
         [self addSubview:self.locBtn];
@@ -68,48 +76,46 @@
         [self addSubview:self.voiceLabel];
         
         [self setNeedsUpdateConstraints];
+        
     }
     return self;
 }
 
+- (void)setNeedsUpdateConstraintsForLayout {
+    [self setNeedsUpdateConstraints];
+}
+
+
+
 - (void)updateConstraints
 {
     if (!self.didSetupConstraints) {
-        [self.locBtn autoSetDimensionsToSize:CGSizeMake(90, 90)];
+        [self.locBtn autoSetDimensionsToSize:CGSizeMake(88, 88)];
         [self.locBtn autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:60];
         [self.locBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:20];
-        [self.locLabel autoSetDimensionsToSize:CGSizeMake(90, 90)];
-        [self.locLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:60];
+        [self.locLabel autoSetDimensionsToSize:CGSizeMake(100, 30)];
+        [self.locLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.locBtn withOffset:-6];
         [self.locLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.locBtn withOffset:5];
 
-       NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.cameraBtn attribute:NSLayoutAttributeTrailing relatedBy: NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailing multiplier:1.0f constant:60];
-        NSLayoutConstraint *constraint2 = [NSLayoutConstraint constraintWithItem:self.cameraBtn attribute:NSLayoutAttributeHeight relatedBy: NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:90];
-        NSLayoutConstraint *constraint3 = [NSLayoutConstraint constraintWithItem:self.cameraBtn attribute:NSLayoutAttributeWidth relatedBy: NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:90];
-//
-        [self.cameraBtn addConstraint:constraint2];
-        [self.cameraBtn addConstraint:constraint3];
-        [self addConstraint:constraint];
-//        
-//        [self.cameraBtn autoSetDimensionsToSize:CGSizeMake(90, 90)];
-//        [self.cameraBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:20];
-//        [self.cameraBtn autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:60];
-//       // [self.cameraBtn autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.locBtn withOffset:60];
-//        [self.cameraLabel autoSetDimensionsToSize:CGSizeMake(90, 90)];
-//        [self.cameraLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:60];
-//        [self.cameraLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.cameraBtn withOffset:5];
-//        
-        [self.findBtn autoSetDimensionsToSize:CGSizeMake(90, 90)];
+        [self.cameraBtn autoSetDimensionsToSize:CGSizeMake(88, 88)];
+        [self.cameraBtn autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:60];
+         [self.cameraBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:20];
+        [self.cameraLabel autoSetDimensionsToSize:CGSizeMake(100, 30)];
+        [self.cameraLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.cameraBtn withOffset:-6];
+        [self.cameraLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.cameraBtn withOffset:5];
+        
+        [self.findBtn autoSetDimensionsToSize:CGSizeMake(88, 88)];
         [self.findBtn autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:60];
-        [self.findBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.locLabel withOffset:60];
-        [self.findLabel autoSetDimensionsToSize:CGSizeMake(90, 90)];
-        [self.findLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:60];
+        [self.findBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.locLabel withOffset:40];
+        [self.findLabel autoSetDimensionsToSize:CGSizeMake(100, 30)];
+        [self.findLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.findBtn withOffset:-6];
         [self.findLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.findBtn withOffset:5];
         
-        [self.voiceBtn autoSetDimensionsToSize:CGSizeMake(90, 90)];
+        [self.voiceBtn autoSetDimensionsToSize:CGSizeMake(88, 88)];
         [self.voiceBtn autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:60];
-        [self.voiceBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.cameraLabel withOffset:60];
-        [self.voiceLabel autoSetDimensionsToSize:CGSizeMake(90, 90)];
-        [self.voiceLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:60];
+        [self.voiceBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.cameraLabel withOffset:40];
+        [self.voiceLabel autoSetDimensionsToSize:CGSizeMake(100, 30)];
+        [self.voiceLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.voiceBtn withOffset:-6];
         [self.voiceLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.voiceBtn withOffset:5];
         
         self.didSetupConstraints = YES;
