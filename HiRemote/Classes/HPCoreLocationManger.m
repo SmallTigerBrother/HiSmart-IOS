@@ -74,7 +74,7 @@
         CLPlacemark *placeMark = placeMarks[0];
         self.currentState = placeMark.administrativeArea;
         self.currentCity = placeMark.locality;
-        self.currentStreet = placeMark.subLocality;
+        self.currentStreet = [NSString stringWithFormat:@"%@ %@%@",placeMark.subLocality,placeMark.thoroughfare,placeMark.subThoroughfare];
         [self.delegate performSelector:@selector(locationFinished:withFlag:) withObject:self.location withObject:[NSNumber numberWithBool:YES]];
         NSLog(@"state:%@  city:%@  street:%@",self.currentState,self.currentCity,self.currentStreet);
     }

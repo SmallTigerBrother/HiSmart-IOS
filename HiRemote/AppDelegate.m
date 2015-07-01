@@ -8,18 +8,20 @@
 
 #import "AppDelegate.h"
 #import "HIRWelcomeViewController.h"
+#import "HIRRegisterViewController.h"
 #import "HIRScanningViewController.h"
 #import "HIRRootViewController.h"
 #import "HPCoreLocationManger.h"
 #import "SoundTool.h"
 
-@interface AppDelegate () <HIRWelcomeViewControllerDelegate,HIRScanningViewControllerDelegate>{
-    UIBackgroundTaskIdentifier bgTask;
-    
-    NSUInteger counter;
+@interface AppDelegate () <HIRWelcomeViewControllerDelegate>{
+
     
 }
+@property(nonatomic, assign)UIBackgroundTaskIdentifier bgTask;
+@property(nonatomic, assign)BOOL isBackground;
 @property(nonatomic) HIRWelcomeViewController *welcomeVC;
+@property(nonatomic) HIRRegisterViewController *registerVC;
 @property(nonatomic) HIRScanningViewController *scanVC;
 @property(nonatomic) HIRRootViewController *rootVC;
 @property(nonatomic) HPCoreLocationManger *locManger;
@@ -30,12 +32,16 @@
 @implementation AppDelegate
 @synthesize window;
 @synthesize welcomeVC;
+@synthesize registerVC;
 @synthesize scanVC;
 @synthesize rootVC;
 @synthesize locManger;
+@synthesize deviceInfoArray;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    _isBackground = NO;
+    self.deviceInfoArray = [NSMutableArray arrayWithCapacity:5];
     self.locManger = [[HPCoreLocationManger alloc] init];
     [self.locManger startUpdatingUserLocation];
     
@@ -54,23 +60,16 @@
         
         [self.window addSubview:self.welcomeVC.view];
     }else {
-        self.scanVC = [[HIRScanningViewController alloc] init];
-        self.scanVC.delegate = self;
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.scanVC];
-        nav.navigationBar.tintColor = [UIColor colorWithRed:0.43 green:0.74 blue:0.55 alpha:1];
-        nav.navigationBar.barTintColor = [UIColor colorWithRed:0.43 green:0.74 blue:0.55 alpha:1];
+        self.registerVC = [[HIRRegisterViewController alloc] init];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.registerVC];
+        nav.navigationBar.tintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
+        nav.navigationBar.hidden = YES;
+        nav.navigationBar.barTintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
         self.window.rootViewController = nav;
     }
     
     [self.window makeKeyAndVisible];
     
-    [NSTimer scheduledTimerWithTimeInterval:1.0f
-     
-                                     target:self
-     
-                                   selector:@selector(task) userInfo:nil
-     
-                                    repeats:YES];
 
     return YES;
 }
@@ -80,67 +79,50 @@
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
+static int aa = 0;
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    NSLog(@"%f",CGFLOAT_MAX);
-    BOOL backgroundAccepted = [[UIApplication sharedApplication] setKeepAliveTimeout:600 handler:^{ [self backgroundHandler]; }];
-    
-    if (backgroundAccepted)
-        
-    {
-        
-        NSLog(@"backgrounding accepted");
-        
-    }
-    
-    [self backgroundHandler];
-    
-
-}
-
-- (void)backgroundHandler {
-    
-    NSLog(@"### -->backgroundinghandler");
-    
-    UIApplication* app = [UIApplication sharedApplication];
-    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
-        
-        [app endBackgroundTask:bgTask];
-        
-        bgTask = UIBackgroundTaskInvalid;
-        
+    ////以下代码用来处理后台运行
+    _isBackground = YES;
+    _bgTask = [application beginBackgroundTaskWithExpirationHandler: ^{
+        // 如果超时这个block将被调用
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_bgTask != UIBackgroundTaskInvalid) {
+                [application endBackgroundTask:_bgTask];
+                _bgTask = UIBackgroundTaskInvalid;
+            }
+        });
     }];
-
-    // Start the long-running task
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if ([[UIApplication sharedApplication] backgroundTimeRemaining] < 61.0) {
-            
-            [[SoundTool sharedSoundTool]playSound:kBirdSound];
-            bgTask = [app beginBackgroundTaskWithExpirationHandler:nil];
-        }
-        
-//        while (1) {
-//            [self task];
-//        }
-    });
     
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        while(_isBackground)
+        {
+            [NSThread sleepForTimeInterval:5];
+            ////do something you want
+            NSLog(@"backgroud do%d",aa++);
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_bgTask != UIBackgroundTaskInvalid) {
+                [application endBackgroundTask:_bgTask];
+                _bgTask = UIBackgroundTaskInvalid;
+            }
+        });
+    });
+    //////
 }
-//
--(void)task{
-//    sleep(1);
-    NSLog(@"counter:%ld", counter++);
-    NSLog(@"backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
-}
+
+
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    if (bgTask != UIBackgroundTaskInvalid){
-        [[UIApplication sharedApplication] endBackgroundTask:bgTask];
-        
-        bgTask = UIBackgroundTaskInvalid;
-    }
+    ///进入前台，停止后台处理
+    _isBackground = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (_bgTask != UIBackgroundTaskInvalid) {
+            [application endBackgroundTask:_bgTask];
+            _bgTask = UIBackgroundTaskInvalid;
+        }
+    });
+    /////
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -155,22 +137,41 @@
     [[self.window subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     self.welcomeVC = nil;
     
-    self.scanVC = [[HIRScanningViewController alloc] init];
-    self.scanVC.delegate = self;
+    self.registerVC = [[HIRRegisterViewController alloc] init];
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.scanVC];
-    nav.navigationBar.tintColor = [UIColor colorWithRed:0.43 green:0.74 blue:0.55 alpha:1];
-    nav.navigationBar.barTintColor = [UIColor colorWithRed:0.43 green:0.74 blue:0.55 alpha:1];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.registerVC];
+    nav.navigationBar.hidden = YES;
+    nav.navigationBar.tintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
+    nav.navigationBar.barTintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
     self.window.rootViewController = nav;
 }
 
 
-- (void)scanningFinishToShowRootVC {
+- (void)connectSuccessToShowRootVC {
     [[self.window subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    self.scanVC = nil;
     self.rootVC = [[HIRRootViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.rootVC];
     self.window.rootViewController = navigationController;
+    
+    ////移除老的界面
+    [self.registerVC.navigationController popToRootViewControllerAnimated:NO];
+    self.registerVC = nil;
+}
+
+
+- (void)addNewDevice {
+    [[self.window subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    self.registerVC = [[HIRRegisterViewController alloc] init];
+    self.registerVC.isNeedAutoPushScanVC = YES;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.registerVC];
+    nav.navigationBar.tintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
+    nav.navigationBar.hidden = YES;
+    nav.navigationBar.barTintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
+    self.window.rootViewController = nav;
+    
+    [self.rootVC.navigationController popToRootViewControllerAnimated:NO];
+    self.rootVC = nil;
 }
 
 @end
