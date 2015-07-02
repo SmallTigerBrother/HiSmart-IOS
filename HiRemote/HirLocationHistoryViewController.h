@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 spark. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HirBaseViewController.h"
 
-@interface HirLocationHistoryViewController : UIViewController
+@interface HirLocationHistoryViewController : HirBaseViewController
 
 @end

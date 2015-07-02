@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 hiremote. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HirBaseViewController.h"
+
 #import <CoreLocation/CoreLocation.h>
-@interface HIRFindViewController : UIViewController
+@interface HIRFindViewController : HirBaseViewController
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) NSString *hiRemoteName;
 @property (nonatomic, strong) NSString *currentState;

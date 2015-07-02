@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EHNavBackBtn.h"
 
 @interface HirBaseViewController : UIViewController
+@property (nonatomic ,strong) EHNavBackBtn *backBtn;
 
 @end

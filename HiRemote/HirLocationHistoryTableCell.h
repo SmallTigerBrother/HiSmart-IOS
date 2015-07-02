@@ -6,16 +6,16 @@
 //  Copyright (c) 2015年 hiremote. All rights reserved.
 //
 
-#import "MultiFunctionCell.h"
+#import <UIKit/UIKit.h>
+#import "SWTableViewCell.h"
+#import "EHVerticalLabel.h"
 
-@interface HirLocationHistoryTableCell : MultiFunctionCell
-
+@interface HirLocationHistoryTableCell:SWTableViewCell
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *timeLabel;
-@property (strong, nonatomic) UILabel *contentLabel;
+@property (strong, nonatomic) EHVerticalLabel *contentLabel;
 @property (strong, nonatomic) UIImageView *LocationImgView;
 
 +(CGFloat)heightOfCellWithData:(id)data;
-- (void)addSubviewToCell;
 
 @end

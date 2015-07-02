@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04BB4ADA1B4015B2009567BF /* MultiFunctionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AD51B4015B2009567BF /* MultiFunctionCell.m */; };
-		04BB4ADB1B4015B2009567BF /* MultiFunctionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AD71B4015B2009567BF /* MultiFunctionTableView.m */; };
-		04BB4ADC1B4015B2009567BF /* OverLayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AD91B4015B2009567BF /* OverLayView.m */; };
 		04BB4AE21B4199CF009567BF /* bg_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04BB4ADD1B4199CF009567BF /* bg_music.mp3 */; };
 		04BB4AE31B4199CF009567BF /* sound.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04BB4ADE1B4199CF009567BF /* sound.bundle */; };
 		04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AE11B4199CF009567BF /* SoundTool.m */; };
+		04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AEB1B43CFC1009567BF /* SWTableViewCell.m */; };
+		04BB4AF11B43DF87009567BF /* EHVerticalLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AF01B43DF87009567BF /* EHVerticalLabel.m */; };
+		04BB4AF41B457544009567BF /* EHNavBackBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AF31B457544009567BF /* EHNavBackBtn.m */; };
 		04D38D071B3E85270012D65A /* HirLocationHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D061B3E85270012D65A /* HirLocationHistoryViewController.m */; };
 		04D38D121B3E94990012D65A /* HirBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D111B3E94990012D65A /* HirBaseViewController.m */; };
 		04D38D161B3E96A50012D65A /* HirTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D151B3E96A50012D65A /* HirTableView.m */; };
@@ -92,18 +92,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04BB4AD41B4015B2009567BF /* MultiFunctionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiFunctionCell.h; sourceTree = "<group>"; };
-		04BB4AD51B4015B2009567BF /* MultiFunctionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiFunctionCell.m; sourceTree = "<group>"; };
-		04BB4AD61B4015B2009567BF /* MultiFunctionTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiFunctionTableView.h; sourceTree = "<group>"; };
-		04BB4AD71B4015B2009567BF /* MultiFunctionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiFunctionTableView.m; sourceTree = "<group>"; };
-		04BB4AD81B4015B2009567BF /* OverLayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverLayView.h; sourceTree = "<group>"; };
-		04BB4AD91B4015B2009567BF /* OverLayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverLayView.m; sourceTree = "<group>"; };
 		04BB4ADD1B4199CF009567BF /* bg_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_music.mp3; sourceTree = "<group>"; };
 		04BB4ADE1B4199CF009567BF /* sound.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = sound.bundle; sourceTree = "<group>"; };
 		04BB4ADF1B4199CF009567BF /* SoundNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundNames.h; sourceTree = "<group>"; };
 		04BB4AE01B4199CF009567BF /* SoundTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundTool.h; sourceTree = "<group>"; };
 		04BB4AE11B4199CF009567BF /* SoundTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundTool.m; sourceTree = "<group>"; };
 		04BB4AE61B419A31009567BF /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		04BB4AEA1B43CFC1009567BF /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTableViewCell.h; sourceTree = "<group>"; };
+		04BB4AEB1B43CFC1009567BF /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWTableViewCell.m; sourceTree = "<group>"; };
+		04BB4AEF1B43DF87009567BF /* EHVerticalLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHVerticalLabel.h; sourceTree = "<group>"; };
+		04BB4AF01B43DF87009567BF /* EHVerticalLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHVerticalLabel.m; sourceTree = "<group>"; };
+		04BB4AF21B457544009567BF /* EHNavBackBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHNavBackBtn.h; sourceTree = "<group>"; };
+		04BB4AF31B457544009567BF /* EHNavBackBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHNavBackBtn.m; sourceTree = "<group>"; };
 		04D38D051B3E85270012D65A /* HirLocationHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirLocationHistoryViewController.h; sourceTree = "<group>"; };
 		04D38D061B3E85270012D65A /* HirLocationHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirLocationHistoryViewController.m; sourceTree = "<group>"; };
 		04D38D091B3E85D20012D65A /* HirDesign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirDesign.h; sourceTree = "<group>"; };
@@ -232,19 +232,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04BB4AD31B4015B2009567BF /* MultiFunctionCell */ = {
-			isa = PBXGroup;
-			children = (
-				04BB4AD41B4015B2009567BF /* MultiFunctionCell.h */,
-				04BB4AD51B4015B2009567BF /* MultiFunctionCell.m */,
-				04BB4AD61B4015B2009567BF /* MultiFunctionTableView.h */,
-				04BB4AD71B4015B2009567BF /* MultiFunctionTableView.m */,
-				04BB4AD81B4015B2009567BF /* OverLayView.h */,
-				04BB4AD91B4015B2009567BF /* OverLayView.m */,
-			);
-			path = MultiFunctionCell;
-			sourceTree = "<group>";
-		};
 		04BB4AE51B4199DA009567BF /* playSound */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +242,23 @@
 				04BB4AE11B4199CF009567BF /* SoundTool.m */,
 			);
 			name = playSound;
+			sourceTree = "<group>";
+		};
+		04BB4AED1B43DF5B009567BF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04BB4AEF1B43DF87009567BF /* EHVerticalLabel.h */,
+				04BB4AF01B43DF87009567BF /* EHVerticalLabel.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		04BB4AEE1B43DF66009567BF /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				04BB4AE51B4199DA009567BF /* playSound */,
+			);
+			name = lib;
 			sourceTree = "<group>";
 		};
 		04D38D041B3E84FC0012D65A /* ViewController */ = {
@@ -270,8 +274,9 @@
 		04D38D081B3E85BC0012D65A /* Commond */ = {
 			isa = PBXGroup;
 			children = (
+				04BB4AEE1B43DF66009567BF /* lib */,
+				04BB4AED1B43DF5B009567BF /* View */,
 				04BB4AE61B419A31009567BF /* common.h */,
-				04BB4AE51B4199DA009567BF /* playSound */,
 				04D38D0F1B3E91EB0012D65A /* HirDevice.h */,
 				04D38D091B3E85D20012D65A /* HirDesign.h */,
 			);
@@ -281,6 +286,8 @@
 		04D38D131B3E96310012D65A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04BB4AF21B457544009567BF /* EHNavBackBtn.h */,
+				04BB4AF31B457544009567BF /* EHNavBackBtn.m */,
 				04D38D141B3E96A50012D65A /* HirTableView.h */,
 				04D38D151B3E96A50012D65A /* HirTableView.m */,
 				04D38D191B3EB1410012D65A /* HirBaseTableCell.h */,
@@ -293,7 +300,6 @@
 		04D38D171B3EB0DA0012D65A /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				04BB4AD31B4015B2009567BF /* MultiFunctionCell */,
 				04D38D181B3EB0F10012D65A /* View */,
 				04D38D051B3E85270012D65A /* HirLocationHistoryViewController.h */,
 				04D38D061B3E85270012D65A /* HirLocationHistoryViewController.m */,
@@ -304,6 +310,8 @@
 		04D38D181B3EB0F10012D65A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04BB4AEA1B43CFC1009567BF /* SWTableViewCell.h */,
+				04BB4AEB1B43CFC1009567BF /* SWTableViewCell.m */,
 				04D38D211B3EB6770012D65A /* HirLocationHistoryTableCell.h */,
 				04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */,
 			);
@@ -623,6 +631,7 @@
 				2C18AB3C1B3C121E00CE6588 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				B84CD4AA1B441E58008FAA53 /* HIRFindViewController.m in Sources */,
 				2C18AAF81B3BECDE00CE6588 /* HIRRootViewController.m in Sources */,
+				04BB4AF11B43DF87009567BF /* EHVerticalLabel.m in Sources */,
 				B8DF7DBD1B3E7AE7000BD43E /* HIRUserInfoTableViewController.m in Sources */,
 				B84CD4A71B441E58008FAA53 /* CallOutAnnotationVifew.m in Sources */,
 				2C18AAF51B3BECDE00CE6588 /* AppDelegate.m in Sources */,
@@ -636,16 +645,15 @@
 				B84CD4B61B441E70008FAA53 /* HIRRemoteData.m in Sources */,
 				B8DF7DBC1B3E7AE7000BD43E /* HIRSegmentView.m in Sources */,
 				B84CD4AB1B441E58008FAA53 /* HIRMapViewController.m in Sources */,
-				04BB4ADC1B4015B2009567BF /* OverLayView.m in Sources */,
+				04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */,
 				B8DF7DB81B3E7AE7000BD43E /* HIRBatteryPercentView.m in Sources */,
 				04D38D241B3EB6770012D65A /* HirLocationHistoryTableCell.m in Sources */,
 				B8DF7DB91B3E7AE7000BD43E /* HIRDeviceShowView.m in Sources */,
 				B84CD4AC1B441E58008FAA53 /* HIRRegisterViewController.m in Sources */,
 				04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */,
 				B8DF7DBA1B3E7AE7000BD43E /* HIRMainMenuView.m in Sources */,
-				04BB4ADB1B4015B2009567BF /* MultiFunctionTableView.m in Sources */,
+				04BB4AF41B457544009567BF /* EHNavBackBtn.m in Sources */,
 				04D38D071B3E85270012D65A /* HirLocationHistoryViewController.m in Sources */,
-				04BB4ADA1B4015B2009567BF /* MultiFunctionCell.m in Sources */,
 				B8DF7DBB1B3E7AE7000BD43E /* HIRScanningViewController.m in Sources */,
 				2C18AB3A1B3C121E00CE6588 /* ALView+PureLayout.m in Sources */,
 				B8DF7DBE1B3E7AE7000BD43E /* HIRWelcomeViewController.m in Sources */,

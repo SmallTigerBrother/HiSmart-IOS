@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setCustomBackBarButttonItem];
     // Do any additional setup after loading the view.
 }
 
@@ -27,6 +28,33 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
+
+- (void)setCustomBackBarButttonItem{
+    
+    _backBtn = [[EHNavBackBtn alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    _backBtn.delegate = self;
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:_backBtn]];
+}
+
+#pragma mark - pressBtn
+- (void)pressNavBackBtn:(UIButton *)btn
+{
+    
+    if ([self.navigationController.viewControllers count] == 1)
+    {
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }
+    
+}
+
 /*
 #pragma mark - Navigation
 

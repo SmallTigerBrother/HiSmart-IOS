@@ -28,7 +28,7 @@
 //FONT1 :Helvetica
 //FONT2 :HelveticaNeue
 #define FONT1(x) [UIFont systemFontOfSize:x]
-#define FONT2(X) [UIFont systemFontOfSize:x]
+#define FONT2(x) [UIFont systemFontOfSize:x]
 
 #define FONT_NAVIGATION_TITLE       FONT1(18)
 #define FONT_TABLE_SECTION_TITLE    FONT2(20)

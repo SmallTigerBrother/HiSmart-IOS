@@ -107,7 +107,17 @@ static int aa = 0;
             }
         });
     });
+//<<<<<<< Updated upstream
     //////
+//=======
+//    
+//}
+////
+//-(void)task{
+////    sleep(1);
+//    NSLog(@"counter:%ld", counter++);
+////    NSLog(@"backgroundTimeRemaining = %   f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
+//>>>>>>> Stashed changes
 }
 
 
