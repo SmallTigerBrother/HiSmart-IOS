@@ -1,6 +1,14 @@
-#import "EHVerticalLabel.h"
+//
+//  HirBaseTableCell.h
+//  HiRemote
+//
+//  Created by minfengliu on 15/6/30.
+//  Copyright (c) 2015年 hiremote. All rights reserved.
+//
 
-@implementation EHVerticalLabel
+#import "HirVerticalLabel.h"
+
+@implementation HirVerticalLabel
 @synthesize verticalAlignment = verticalAlignment_;
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {

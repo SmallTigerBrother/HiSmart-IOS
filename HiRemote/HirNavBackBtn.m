@@ -1,8 +1,8 @@
-#import "EHNavBackBtn.h"
+#import "HirNavBackBtn.h"
 #define LeftCustomBarLeftEdge   -8
 
 
-@implementation EHNavBackBtn
+@implementation HirNavBackBtn
 @synthesize delegate = _delegate;
 
 - (id)initWithFrame:(CGRect)frame

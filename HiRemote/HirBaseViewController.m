@@ -31,7 +31,7 @@
 
 - (void)setCustomBackBarButttonItem{
     
-    _backBtn = [[EHNavBackBtn alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    _backBtn = [[HirNavBackBtn alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     _backBtn.delegate = self;
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:_backBtn]];
 }

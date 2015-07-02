@@ -8,6 +8,7 @@
 
 #import "HirLocationHistoryViewController.h"
 #import "HirLocationHistoryTableCell.h"
+#import "HirAlertView.h"
 
 @interface HirLocationHistoryViewController ()
 <UISearchDisplayDelegate,
@@ -162,6 +163,7 @@ SWTableViewCellDelegate>
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (void)swippableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index {
 }
 
@@ -175,6 +177,12 @@ SWTableViewCellDelegate>
         case 1:
         {
         }
+            break;
+        case 2:
+        {
+        }
+            break;
+
         default:
             break;
     }

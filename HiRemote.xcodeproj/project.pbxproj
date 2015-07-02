@@ -11,8 +11,14 @@
 		04BB4AE31B4199CF009567BF /* sound.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04BB4ADE1B4199CF009567BF /* sound.bundle */; };
 		04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AE11B4199CF009567BF /* SoundTool.m */; };
 		04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AEB1B43CFC1009567BF /* SWTableViewCell.m */; };
-		04BB4AF11B43DF87009567BF /* EHVerticalLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AF01B43DF87009567BF /* EHVerticalLabel.m */; };
-		04BB4AF41B457544009567BF /* EHNavBackBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AF31B457544009567BF /* EHNavBackBtn.m */; };
+		04BB4AF11B43DF87009567BF /* HirVerticalLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AF01B43DF87009567BF /* HirVerticalLabel.m */; };
+		04BB4AF41B457544009567BF /* HirNavBackBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AF31B457544009567BF /* HirNavBackBtn.m */; };
+		04BB4AF71B458057009567BF /* HirAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AF61B458057009567BF /* HirAlertView.m */; };
+		04BB4AFA1B458084009567BF /* HirWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AF91B458084009567BF /* HirWindow.m */; };
+		04BB4AFD1B45814F009567BF /* HirActionTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AFC1B45814F009567BF /* HirActionTextView.m */; };
+		04BB4B001B458512009567BF /* HirButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AFF1B458512009567BF /* HirButton.m */; };
+		04BB4B041B459C40009567BF /* UIView+AddLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4B031B459C40009567BF /* UIView+AddLine.m */; };
+		04BB4B071B459D24009567BF /* UIControl+AddLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4B061B459D24009567BF /* UIControl+AddLine.m */; };
 		04D38D071B3E85270012D65A /* HirLocationHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D061B3E85270012D65A /* HirLocationHistoryViewController.m */; };
 		04D38D121B3E94990012D65A /* HirBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D111B3E94990012D65A /* HirBaseViewController.m */; };
 		04D38D161B3E96A50012D65A /* HirTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D151B3E96A50012D65A /* HirTableView.m */; };
@@ -100,10 +106,23 @@
 		04BB4AE61B419A31009567BF /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		04BB4AEA1B43CFC1009567BF /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTableViewCell.h; sourceTree = "<group>"; };
 		04BB4AEB1B43CFC1009567BF /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWTableViewCell.m; sourceTree = "<group>"; };
-		04BB4AEF1B43DF87009567BF /* EHVerticalLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHVerticalLabel.h; sourceTree = "<group>"; };
-		04BB4AF01B43DF87009567BF /* EHVerticalLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHVerticalLabel.m; sourceTree = "<group>"; };
-		04BB4AF21B457544009567BF /* EHNavBackBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHNavBackBtn.h; sourceTree = "<group>"; };
-		04BB4AF31B457544009567BF /* EHNavBackBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHNavBackBtn.m; sourceTree = "<group>"; };
+		04BB4AEF1B43DF87009567BF /* HirVerticalLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirVerticalLabel.h; sourceTree = "<group>"; };
+		04BB4AF01B43DF87009567BF /* HirVerticalLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirVerticalLabel.m; sourceTree = "<group>"; };
+		04BB4AF21B457544009567BF /* HirNavBackBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirNavBackBtn.h; sourceTree = "<group>"; };
+		04BB4AF31B457544009567BF /* HirNavBackBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirNavBackBtn.m; sourceTree = "<group>"; };
+		04BB4AF51B458057009567BF /* HirAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirAlertView.h; sourceTree = "<group>"; };
+		04BB4AF61B458057009567BF /* HirAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirAlertView.m; sourceTree = "<group>"; };
+		04BB4AF81B458084009567BF /* HirWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirWindow.h; sourceTree = "<group>"; };
+		04BB4AF91B458084009567BF /* HirWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirWindow.m; sourceTree = "<group>"; };
+		04BB4AFB1B45814F009567BF /* HirActionTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirActionTextView.h; sourceTree = "<group>"; };
+		04BB4AFC1B45814F009567BF /* HirActionTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirActionTextView.m; sourceTree = "<group>"; };
+		04BB4AFE1B458512009567BF /* HirButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirButton.h; sourceTree = "<group>"; };
+		04BB4AFF1B458512009567BF /* HirButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirButton.m; sourceTree = "<group>"; };
+		04BB4B021B459C40009567BF /* UIView+AddLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AddLine.h"; sourceTree = "<group>"; };
+		04BB4B031B459C40009567BF /* UIView+AddLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AddLine.m"; sourceTree = "<group>"; };
+		04BB4B051B459D24009567BF /* UIControl+AddLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+AddLine.h"; sourceTree = "<group>"; };
+		04BB4B061B459D24009567BF /* UIControl+AddLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+AddLine.m"; sourceTree = "<group>"; };
+		04BB4B081B459DC4009567BF /* HirEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirEnum.h; sourceTree = "<group>"; };
 		04D38D051B3E85270012D65A /* HirLocationHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirLocationHistoryViewController.h; sourceTree = "<group>"; };
 		04D38D061B3E85270012D65A /* HirLocationHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirLocationHistoryViewController.m; sourceTree = "<group>"; };
 		04D38D091B3E85D20012D65A /* HirDesign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirDesign.h; sourceTree = "<group>"; };
@@ -247,8 +266,8 @@
 		04BB4AED1B43DF5B009567BF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				04BB4AEF1B43DF87009567BF /* EHVerticalLabel.h */,
-				04BB4AF01B43DF87009567BF /* EHVerticalLabel.m */,
+				04BB4AEF1B43DF87009567BF /* HirVerticalLabel.h */,
+				04BB4AF01B43DF87009567BF /* HirVerticalLabel.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -259,6 +278,17 @@
 				04BB4AE51B4199DA009567BF /* playSound */,
 			);
 			name = lib;
+			sourceTree = "<group>";
+		};
+		04BB4B011B459C34009567BF /* category */ = {
+			isa = PBXGroup;
+			children = (
+				04BB4B021B459C40009567BF /* UIView+AddLine.h */,
+				04BB4B031B459C40009567BF /* UIView+AddLine.m */,
+				04BB4B051B459D24009567BF /* UIControl+AddLine.h */,
+				04BB4B061B459D24009567BF /* UIControl+AddLine.m */,
+			);
+			name = category;
 			sourceTree = "<group>";
 		};
 		04D38D041B3E84FC0012D65A /* ViewController */ = {
@@ -274,11 +304,13 @@
 		04D38D081B3E85BC0012D65A /* Commond */ = {
 			isa = PBXGroup;
 			children = (
+				04BB4B011B459C34009567BF /* category */,
 				04BB4AEE1B43DF66009567BF /* lib */,
 				04BB4AED1B43DF5B009567BF /* View */,
 				04BB4AE61B419A31009567BF /* common.h */,
 				04D38D0F1B3E91EB0012D65A /* HirDevice.h */,
 				04D38D091B3E85D20012D65A /* HirDesign.h */,
+				04BB4B081B459DC4009567BF /* HirEnum.h */,
 			);
 			name = Commond;
 			sourceTree = "<group>";
@@ -286,13 +318,21 @@
 		04D38D131B3E96310012D65A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				04BB4AF21B457544009567BF /* EHNavBackBtn.h */,
-				04BB4AF31B457544009567BF /* EHNavBackBtn.m */,
+				04BB4AFE1B458512009567BF /* HirButton.h */,
+				04BB4AFF1B458512009567BF /* HirButton.m */,
+				04BB4AF81B458084009567BF /* HirWindow.h */,
+				04BB4AF91B458084009567BF /* HirWindow.m */,
+				04BB4AF51B458057009567BF /* HirAlertView.h */,
+				04BB4AF61B458057009567BF /* HirAlertView.m */,
+				04BB4AF21B457544009567BF /* HirNavBackBtn.h */,
+				04BB4AF31B457544009567BF /* HirNavBackBtn.m */,
 				04D38D141B3E96A50012D65A /* HirTableView.h */,
 				04D38D151B3E96A50012D65A /* HirTableView.m */,
 				04D38D191B3EB1410012D65A /* HirBaseTableCell.h */,
 				04D38D1A1B3EB1410012D65A /* HirBaseTableCell.m */,
 				04D38D1B1B3EB1410012D65A /* HirBaseTableCell.xib */,
+				04BB4AFB1B45814F009567BF /* HirActionTextView.h */,
+				04BB4AFC1B45814F009567BF /* HirActionTextView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -629,10 +669,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C18AB3C1B3C121E00CE6588 /* NSLayoutConstraint+PureLayout.m in Sources */,
+				04BB4B071B459D24009567BF /* UIControl+AddLine.m in Sources */,
 				B84CD4AA1B441E58008FAA53 /* HIRFindViewController.m in Sources */,
 				2C18AAF81B3BECDE00CE6588 /* HIRRootViewController.m in Sources */,
-				04BB4AF11B43DF87009567BF /* EHVerticalLabel.m in Sources */,
+				04BB4AF11B43DF87009567BF /* HirVerticalLabel.m in Sources */,
 				B8DF7DBD1B3E7AE7000BD43E /* HIRUserInfoTableViewController.m in Sources */,
+				04BB4AFD1B45814F009567BF /* HirActionTextView.m in Sources */,
+				04BB4B001B458512009567BF /* HirButton.m in Sources */,
 				B84CD4A71B441E58008FAA53 /* CallOutAnnotationVifew.m in Sources */,
 				2C18AAF51B3BECDE00CE6588 /* AppDelegate.m in Sources */,
 				04D38D1C1B3EB1410012D65A /* HirBaseTableCell.m in Sources */,
@@ -640,6 +683,7 @@
 				04D38D161B3E96A50012D65A /* HirTableView.m in Sources */,
 				B84CD4B51B441E70008FAA53 /* HIRCBCentralClass.m in Sources */,
 				B84CD4AD1B441E58008FAA53 /* HIRRenameViewController.m in Sources */,
+				04BB4B041B459C40009567BF /* UIView+AddLine.m in Sources */,
 				B84CD4A91B441E58008FAA53 /* HIRConnSuccViewController.m in Sources */,
 				04D38D121B3E94990012D65A /* HirBaseViewController.m in Sources */,
 				B84CD4B61B441E70008FAA53 /* HIRRemoteData.m in Sources */,
@@ -650,15 +694,17 @@
 				04D38D241B3EB6770012D65A /* HirLocationHistoryTableCell.m in Sources */,
 				B8DF7DB91B3E7AE7000BD43E /* HIRDeviceShowView.m in Sources */,
 				B84CD4AC1B441E58008FAA53 /* HIRRegisterViewController.m in Sources */,
+				04BB4AFA1B458084009567BF /* HirWindow.m in Sources */,
 				04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */,
 				B8DF7DBA1B3E7AE7000BD43E /* HIRMainMenuView.m in Sources */,
-				04BB4AF41B457544009567BF /* EHNavBackBtn.m in Sources */,
+				04BB4AF41B457544009567BF /* HirNavBackBtn.m in Sources */,
 				04D38D071B3E85270012D65A /* HirLocationHistoryViewController.m in Sources */,
 				B8DF7DBB1B3E7AE7000BD43E /* HIRScanningViewController.m in Sources */,
 				2C18AB3A1B3C121E00CE6588 /* ALView+PureLayout.m in Sources */,
 				B8DF7DBE1B3E7AE7000BD43E /* HIRWelcomeViewController.m in Sources */,
 				B8DF7DB71B3E7AE7000BD43E /* HIRArcImageView.m in Sources */,
 				B84CD4B41B441E70008FAA53 /* HIRAnnotations.m in Sources */,
+				04BB4AF71B458057009567BF /* HirAlertView.m in Sources */,
 				2C18AB3B1B3C121E00CE6588 /* NSArray+PureLayout.m in Sources */,
 				B84CD4A81B441E58008FAA53 /* HIRConnFailViewController.m in Sources */,
 				B8DF7DC21B3E7B16000BD43E /* HPCoreLocationManger.m in Sources */,

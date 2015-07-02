@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "SWTableViewCell.h"
-#import "EHVerticalLabel.h"
+#import "HirVerticalLabel.h"
 
 @interface HirLocationHistoryTableCell:SWTableViewCell
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *timeLabel;
-@property (strong, nonatomic) EHVerticalLabel *contentLabel;
+@property (strong, nonatomic) HirVerticalLabel *contentLabel;
 @property (strong, nonatomic) UIImageView *LocationImgView;
 
 +(CGFloat)heightOfCellWithData:(id)data;

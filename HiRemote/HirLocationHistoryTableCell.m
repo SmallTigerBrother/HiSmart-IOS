@@ -31,7 +31,7 @@
     self.LocationImgView.image = locationImg;
     [self.contentView addSubview:self.LocationImgView];
     
-    self.contentLabel = [[EHVerticalLabel alloc]init];
+    self.contentLabel = [[HirVerticalLabel alloc]init];
     self.contentLabel.verticalAlignment = VerticalAlignmentTop;
     [self.contentView addSubview:self.contentLabel];
     
