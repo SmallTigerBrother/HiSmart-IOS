@@ -1,0 +1,4 @@
+platform:ios,'7.0'
+
+pod 'DBCamera', '~> 2.3.14'
+pod 'MagicalRecord', '~> 2.2'
