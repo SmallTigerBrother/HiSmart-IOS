@@ -69,3 +69,7 @@
 "addAHiRemote" = "Add a HiRemote";
 "addTipsOne" = "ⅰ: Make sure your smartphone's Bluetooth is turned on.";
 "addTipsTwo" = "ⅱ: Hold the center button of the HiRemote to activate it.";
+"changeName" = "Change a name";
+"CANCEL" = "CANCEL";
+"CONFIRM" = "CONFIRM";
+"VoiceMemos" = "Voice Memos";

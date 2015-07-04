@@ -47,8 +47,8 @@
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    self.titleLabel.frame = CGRectMake(15, Cell_Pand_V, 195, 15);
-    self.LocationImgView.frame = CGRectMake(15, HeightOfCell - Cell_Pand_V -15, self.LocationImgView.image.size.width, self.LocationImgView.image.size.height);
+    self.titleLabel.frame = CGRectMake(Cell_LeftMargin, Cell_Pand_V, 195, 15);
+    self.LocationImgView.frame = CGRectMake(Cell_LeftMargin, HeightOfCell - Cell_Pand_V -15, self.LocationImgView.image.size.width, self.LocationImgView.image.size.height);
     self.contentLabel.frame = CGRectMake(CGRectGetMaxX(self.LocationImgView.frame) + Cell_Pand_H, CGRectGetMinY(self.LocationImgView.frame), 163, 15);
     CGFloat widthOfTimeLabel = 76;
     self.timeLabel.frame = CGRectMake(SCREEN_WIDTH - 33 - widthOfTimeLabel, Cell_Pand_V, widthOfTimeLabel, 15);

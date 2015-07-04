@@ -16,6 +16,8 @@
 @property (strong, nonatomic) HirVerticalLabel *contentLabel;
 @property (strong, nonatomic) UIImageView *LocationImgView;
 
+@property (nonatomic, strong) NSIndexPath *indexPath;
+
 +(CGFloat)heightOfCellWithData:(id)data;
 
 @end

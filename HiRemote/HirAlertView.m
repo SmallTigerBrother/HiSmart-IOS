@@ -155,8 +155,9 @@
             originY += Padding_vertical + titleLabel.frame.size.height;
         }
         
-        self.contentView = [[UIView alloc]initWithFrame:CGRectMake(0,  originY, WINDOW_WIDTH, contenView.frame.size.height)];
+        self.contentView = [[UIView alloc]initWithFrame:CGRectMake(0,  originY, WINDOW_WIDTH, contenView.frame.size.height+Padding_horizontal)];
         [self.contentView addSubview:contenView];
+        contenView.frame = CGRectMake(Padding_horizontal, Padding_vertical, WINDOW_WIDTH - 2*Padding_horizontal, contenView.frame.size.height);
         [self.backView addSubview:self.contentView];
         originY += self.contentView.frame.size.height + Padding_vertical;
         

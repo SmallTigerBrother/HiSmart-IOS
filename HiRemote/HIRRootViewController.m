@@ -16,6 +16,10 @@
 #import "HIRMapViewController.h"
 #import "HirLocationHistoryViewController.h"
 #import "HIRFindViewController.h"
+#import "HirVoiceMemosViewController.h"
+#import "SCNavigationController.h"
+#import "SCNavigationController.h"
+
 #define SCROLLVIEW_HEIGHT 140
 @interface HIRRootViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,HIRSegmentViewDelegate>
 @property (nonatomic, strong) UIScrollView *showDeviceScrollView;
@@ -29,6 +33,7 @@
 @property (nonatomic, strong) NSMutableArray *switchStatus;
 @property (nonatomic, assign) BOOL didSetupConstraints;
 @property (nonatomic, strong) NSMutableArray *deviceInfoArray;
+@property (nonatomic, strong) SCNavigationController *cameraNavigationController;
 @end
 
 @implementation HIRRootViewController
@@ -283,14 +288,27 @@ static float pp = 0;
     if (btn.tag == 0) {
         HirLocationHistoryViewController *locationHistoryViewController = [[HirLocationHistoryViewController alloc]init];
         [self.navigationController pushViewController:locationHistoryViewController animated:YES];
-    }else if(btn.tag == 2) {
+    }
+    else if (btn.tag == 1){
+        self.cameraNavigationController = [[SCNavigationController alloc] init];
+//        nav.scNaigationDelegate = self;
+        [_cameraNavigationController showCameraWithParentController:self];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self controllerCamera];
+        });
+    }
+    else if(btn.tag == 2) {
         int deviceIndex = self.pageControl.currentPage;
         HIRFindViewController *findVC = [[HIRFindViewController alloc] init];
         findVC.location = [[CLLocation alloc] initWithLatitude:22.54 longitude:113.94];
         findVC.deviceIndex = deviceIndex;
         [self.navigationController pushViewController:findVC animated:YES];
     }
-    
+    else if (btn.tag == 3){
+        HirVoiceMemosViewController *voiceMemosViewController = [[HirVoiceMemosViewController alloc]initWithNibName:@"HirVoiceMemosViewController" bundle:nil];
+        [self.navigationController pushViewController:voiceMemosViewController animated:YES];
+    }
     
     return;
     HIRDeviceShowView *view = [self.deviceShowArray objectAtIndex:btn.tag];
@@ -306,9 +324,12 @@ static float pp = 0;
         pp+=0.1;
     }
     
-    
 }
 
+//控制相机快门按钮
+-(void)controllerCamera{
+    [self.cameraNavigationController.captureCameraController controllerTakePictureBtnPressed];
+}
 
 
 - (void)avatarClickAction:(id)sender {

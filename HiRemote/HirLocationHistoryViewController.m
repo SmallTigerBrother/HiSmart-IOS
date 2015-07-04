@@ -9,17 +9,19 @@
 #import "HirLocationHistoryViewController.h"
 #import "HirLocationHistoryTableCell.h"
 #import "HirAlertView.h"
+#import "HirActionTextField.h"
 
 @interface HirLocationHistoryViewController ()
 <UISearchDisplayDelegate,
 UITableViewDataSource,
 UITableViewDelegate,
-SWTableViewCellDelegate>
-@property (nonatomic, strong)NSArray *data;
+SWTableViewCellDelegate,
+UITextFieldDelegate>
+@property (nonatomic, strong)NSMutableArray *data;
 @property (nonatomic, strong)NSArray *filterData;
 @property (nonatomic, strong)UISearchDisplayController *searchDisplayController;
 @property (nonatomic, strong)UITableView *tableView;
-
+@property (nonatomic, strong)HirActionTextField *actionTextField;
 @end
 
 @implementation HirLocationHistoryViewController
@@ -88,26 +90,6 @@ SWTableViewCellDelegate>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-//    HirLocationHistoryTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-//    if (!cell) {
-//        cell = [[HirLocationHistoryTableCell alloc] initWithStyle:UITableViewCellStyleDefault
-//                                                                               reuseIdentifier:cellId
-//                                                                           containingTableView:tableView
-//                                                                            leftUtilityButtons:@[@"right1"]
-//                                                                           rightUtilityButtons:@[@"right1",@"right2"]];
-//        cell.cellActionDelegate = self.tableView;
-//        
-//        [cell addSubviewToCell];
-//    }
-//
-//    if (tableView == self.tableView) {
-//        cell.titleLabel.text = self.data[indexPath.row];
-//    }else{
-//        cell.titleLabel.text = self.filterData[indexPath.row];
-//    }
-//    cell.contentLabel.text = @"xxxxx";
-//    cell.timeLabel.text = @"15/10/15:10:50";
-    
     static NSString *cellIdentifier = @"Cell";
     
     HirLocationHistoryTableCell *cell = (HirLocationHistoryTableCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -121,10 +103,10 @@ SWTableViewCellDelegate>
 
         [rightUtilityButtons addUtilityButtonWithColor:
          [UIColor colorWithRed:0.7373 green:0.7373 blue:0.7373 alpha:1.0]
-                                                  icon:[UIImage imageNamed:@"locationCell_ trash"]];
+                                                  icon:[UIImage imageNamed:@"locationCell_trash"]];
         [rightUtilityButtons addUtilityButtonWithColor:
          [UIColor colorWithRed:0.7373 green:0.7373 blue:0.7373 alpha:1.0]
-                                                  icon:[UIImage imageNamed:@"locationCell_ transpond"]];
+                                                  icon:[UIImage imageNamed:@"locationCell_transpond"]];
         
         cell = [[HirLocationHistoryTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:cellIdentifier
@@ -145,6 +127,7 @@ SWTableViewCellDelegate>
     cell.contentLabel.font = FONT_TABLE_CELL_CONTENT;
     cell.timeLabel.font = FONT_TABLE_CELL_RIGHT_TIME;
 
+    cell.indexPath = indexPath;
     return cell;
 }
 
@@ -164,22 +147,33 @@ SWTableViewCellDelegate>
     // Dispose of any resources that can be recreated.
 }
 
-- (void)swippableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index {
+- (void)swippableTableViewCell:(HirLocationHistoryTableCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index {
 }
 
-- (void)swippableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
+- (void)swippableTableViewCell:(HirLocationHistoryTableCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
     switch (index) {
         case 0:
         {
-            
+            self.actionTextField = [[HirActionTextField alloc]initWithFrame:CGRectMake(10, 10, 200, 30)];
+            self.actionTextField.placeholder = @"xxx";
+            self.actionTextField.delegate = self;
+                        
+            HirAlertView *hirAlertView = [[HirAlertView alloc]initWithTitle:NSLocalizedString(@"changeName", nil) contenView:self.actionTextField clickBlock:^(NSInteger index){
+            }cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) otherButtonTitles:NSLocalizedString(@"CONFIRM", nil), nil];
+            [hirAlertView showWithAnimation:YES];
             break;
         }
         case 1:
         {
+            [self.tableView beginUpdates];
+            [self.data removeObjectAtIndex:cell.indexPath.row];
+            [self.tableView deleteRowsAtIndexPaths: [NSArray arrayWithObjects:cell.indexPath, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView endUpdates];
         }
             break;
         case 2:
         {
+            NSLog(@"转发");
         }
             break;
 
@@ -187,7 +181,19 @@ SWTableViewCellDelegate>
             break;
     }
     [cell hideUtilityButtonsAnimated:YES];
-    NSLog(@"index %d pressed",index);
+}
+
+#pragma mark -- UITextFeild delegater methods
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    if (textField == self.actionTextField) {
+        [self.actionTextField drawBorderColorWith:COLOR_THEME];
+    }
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    if (textField == self.actionTextField) {
+        [self.actionTextField drawBorderColorWith:[UIColor clearColor]];
+    }
 }
 
 /*

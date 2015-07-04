@@ -62,6 +62,7 @@
 #define Cell_Pand_H         5
 //cell上下的间隔
 #define Cell_Pand_V         5
+#define Cell_LeftMargin     PHI05_SIZE_XXL
 
 
 //通用颜色定义方式
