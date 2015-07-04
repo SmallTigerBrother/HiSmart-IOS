@@ -13,8 +13,10 @@
 #import "HIRRootViewController.h"
 #import "HPCoreLocationManger.h"
 #import "SoundTool.h"
+#import "WXApi.h"
+#import "WeiboSDK.h"
 
-@interface AppDelegate () <HIRWelcomeViewControllerDelegate>{
+@interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate>{
 
     
 }
@@ -70,6 +72,11 @@
     
     [self.window makeKeyAndVisible];
     
+    //注册微信API
+    [WXApi registerApp:@"WXAPI_APPID"];
+    
+    //注册微博API
+    [WeiboSDK registerApp:@"WeiboAppId"];
 
     return YES;
 }
@@ -183,5 +190,157 @@ static int aa = 0;
     [self.rootVC.navigationController popToRootViewControllerAnimated:NO];
     self.rootVC = nil;
 }
+
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+-(void)onReq:(BaseReq *)req
+{
+}
+
+-(void)onResp:(BaseResp *)resp
+{
+    if([resp isKindOfClass:[SendMessageToWXResp class]])
+    {
+        if(resp.errCode == WXSuccess)
+        {
+            //TODO 发送生成
+        }
+        else
+        {
+            //TODO 发送失败
+        }
+    }
+}
+
+-(void)sendWXMessageToWeChat
+{
+    SendMessageToWXReq* wxReq = [[SendMessageToWXReq alloc] init];
+    wxReq.scene = WXSceneSession;
+    wxReq.bText = NO;
+    
+    WXMediaMessage* message = [[WXMediaMessage alloc] init];
+    message.title = @"标题";
+    
+    NSData* thumbData = [[NSData alloc] init];
+    message.thumbData = thumbData;
+    
+    WXWebpageObject* webpageObject = [[WXWebpageObject alloc] init];
+    webpageObject.webpageUrl = @"http://www.baidu.com";
+    
+    message.mediaObject = webpageObject;
+    
+    wxReq.message = message;
+}
+
+- (void)sendFileToWeChat
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = @"ML.3gp";
+    message.description = @"Pro CoreData";
+    [message setThumbImage:[UIImage imageNamed:@"res2.jpg"]];
+    
+    WXFileObject *ext = [WXFileObject object];
+    ext.fileExtension = @"3gp";
+    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"ML" ofType:@"3gp"];
+    ext.fileData = [NSData dataWithContentsOfFile:filePath];
+    
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneSession;
+    
+    [WXApi sendReq:req];
+}
+
+-(void)sendWXMessageToWeChatTimeline
+{
+    SendMessageToWXReq* wxReq = [[SendMessageToWXReq alloc] init];
+    wxReq.scene = WXSceneTimeline;
+    wxReq.bText = NO;
+    
+    WXMediaMessage* message = [[WXMediaMessage alloc] init];
+    message.title = @"标题";
+    
+    NSData* thumbData = [[NSData alloc] init];
+    message.thumbData = thumbData;
+    WXWebpageObject* webpageObject = [[WXWebpageObject alloc] init];
+    webpageObject.webpageUrl = @"http://www.baidu.com";
+    
+    message.mediaObject = webpageObject;
+    
+    wxReq.message = message;
+}
+
+- (void)sendFileToWeChatTimeLine
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = @"ML.3gp";
+    message.description = @"Pro CoreData";
+    [message setThumbImage:[UIImage imageNamed:@"res2.jpg"]];
+    
+    WXFileObject *ext = [WXFileObject object];
+    ext.fileExtension = @"3gp";
+    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"ML" ofType:@"3gp"];
+    ext.fileData = [NSData dataWithContentsOfFile:filePath];
+    
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneTimeline;
+    
+    [WXApi sendReq:req];
+}
+
+
+-(void)sendMessageToWeibo
+{
+    WBMessageObject* message = [WBMessageObject message];
+    WBWebpageObject* webpage = [[WBWebpageObject alloc] init];
+    webpage.title = @"标题";
+    
+    NSData* thumbnailData = [[NSData alloc] init];
+    webpage.thumbnailData = thumbnailData;
+    
+    webpage.webpageUrl = @"http://www.baidu.com";
+    webpage.description = @"这里是description";
+    
+    message.mediaObject = webpage;
+    
+    WBSendMessageToWeiboRequest* request = [WBSendMessageToWeiboRequest requestWithMessage:message];
+    
+    [WeiboSDK sendRequest:request];
+}
+
+-(void)didReceiveWeiboRequest:(WBBaseRequest *)request
+{
+}
+
+-(void)didReceiveWeiboResponse:(WBBaseResponse *)response
+{
+    if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
+    {
+        if(response.statusCode == WeiboSDKResponseStatusCodeSuccess)
+        {
+            //TODO 分享成功
+        }
+        else
+        {
+            //TODO 分享失败
+        }
+    }
+}
+
 
 @end
