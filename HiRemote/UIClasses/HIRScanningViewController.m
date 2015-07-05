@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIImageView *controlImageV;
 @property (nonatomic, strong) UILabel *scaningLabel;
 @property (nonatomic, strong) UIActivityIndicatorView *scanIndicator;
+@property (nonatomic, strong) NSTimer *outTimer;
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
 @end
@@ -69,7 +70,7 @@
     self.scaningLabel.textAlignment = NSTextAlignmentCenter;
     self.scaningLabel.textColor = [UIColor whiteColor];
     self.scaningLabel.font = [UIFont boldSystemFontOfSize:17];
-    [self.view addSubview:self.backButton];
+   // [self.view addSubview:self.backButton];
     [self.view addSubview:self.titleLabel];
     [self.view addSubview:self.tipsLabel1];
     [self.view addSubview:self.tipsLabel2];
@@ -86,25 +87,34 @@
     
 }
 
+- (void)outTimerForScanning {
+    NSNotification *notif = [NSNotification notificationWithName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:CBCENTERAL_CONNECT_PERIPHERAL_FAIL forKey:@"state"]];
+    [self hirCBStateChange:notif];
+    [self.outTimer invalidate];
+    self.outTimer = nil;
+}
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     ///放在这里进行扫描的原因是，当失败后再扫描时回回到该页面再扫描
+    self.outTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
     [self.scanIndicator startAnimating];
     [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.outTimer invalidate];
+    self.outTimer = nil;
     [self.scanIndicator stopAnimating];
 }
 
 - (void)updateViewConstraints
 {
     if (!self.didSetupConstraints) {
-        [self.backButton autoSetDimensionsToSize:CGSizeMake(60, 50)];
-        [self.backButton autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:30];
-        [self.backButton autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:10];
-        
+//        [self.backButton autoSetDimensionsToSize:CGSizeMake(60, 50)];
+//        [self.backButton autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:30];
+//        [self.backButton autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:10];
+//        
         [self.titleLabel autoSetDimensionsToSize:CGSizeMake(200, 40)];
         [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:70];
         [self.titleLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
@@ -142,6 +152,9 @@
 }
 
 - (void)hirCBStateChange:(NSNotification *)notif {
+    [self.outTimer invalidate];
+    self.outTimer = nil;
+    
     NSDictionary *info = notif.userInfo;
     NSString *state = [info valueForKey:@"state"];
     if ([state isEqualToString:CBCENTERAL_STATE_NOT_SUPPORT] || [state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_FAIL]) {

@@ -63,8 +63,10 @@
         
         [self.window addSubview:self.welcomeVC.view];
     }else {
-        self.registerVC = [[HIRRegisterViewController alloc] init];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.registerVC];
+        self.scanVC = [[HIRScanningViewController alloc] init];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.scanVC];
+        //self.registerVC = [[HIRRegisterViewController alloc] init];
+       // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.registerVC];
         nav.navigationBar.tintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
         nav.navigationBar.hidden = YES;
         nav.navigationBar.barTintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
@@ -157,9 +159,11 @@ static int aa = 0;
     [[self.window subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     self.welcomeVC = nil;
     
-    self.registerVC = [[HIRRegisterViewController alloc] init];
+    self.scanVC = [[HIRScanningViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.scanVC];
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.registerVC];
+   // self.registerVC = [[HIRRegisterViewController alloc] init];
+   // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.registerVC];
     nav.navigationBar.hidden = YES;
     nav.navigationBar.tintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
     nav.navigationBar.barTintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
@@ -174,17 +178,22 @@ static int aa = 0;
     self.window.rootViewController = navigationController;
     
     ////移除老的界面
-    [self.registerVC.navigationController popToRootViewControllerAnimated:NO];
-    self.registerVC = nil;
+    [self.scanVC.navigationController popToRootViewControllerAnimated:NO];
+    self.scanVC = nil;
+    //[self.registerVC.navigationController popToRootViewControllerAnimated:NO];
+   // self.registerVC = nil;
 }
 
 
 - (void)addNewDevice {
     [[self.window subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    self.registerVC = [[HIRRegisterViewController alloc] init];
-    self.registerVC.isNeedAutoPushScanVC = YES;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.registerVC];
+    self.scanVC = [[HIRScanningViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.scanVC];
+    
+    //self.registerVC = [[HIRRegisterViewController alloc] init];
+    //self.registerVC.isNeedAutoPushScanVC = YES;
+    //UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.registerVC];
     nav.navigationBar.tintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
     nav.navigationBar.hidden = YES;
     nav.navigationBar.barTintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];

@@ -7,6 +7,7 @@
 //
 
 #import "HIRConnFailViewController.h"
+#import "AppDelegate.h"
 #import "PureLayout.h"
 
 @interface HIRConnFailViewController ()
@@ -133,7 +134,9 @@
 }
 
 - (void)cancelButtonClick:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDeleg connectSuccessToShowRootVC];
+    //[self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)dealloc {

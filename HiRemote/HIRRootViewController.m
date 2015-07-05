@@ -65,24 +65,7 @@
     self.title = @"dsa";
     self.deviceInfoArray = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).deviceInfoArray;
     
-    UIView *leftBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 44)];
-    UIImageView *userAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    userAvatar.image = [UIImage imageNamed:@"userAvatar"];
-    UILabel *userName = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, 70, 40)];
-    userName.text = @"zhang san feng";
-    userName.textColor = [UIColor colorWithRed:0.38 green:0.74 blue:0.59 alpha:1];
-    
-    UIButton *actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    actionButton.frame = CGRectMake(0, 0, 60, 44);
-    
-    [actionButton addTarget:self action:@selector(avatarClickAction:) forControlEvents:UIControlEventTouchUpInside];
-    [actionButton addTarget:self action:@selector(avatarClickDown:) forControlEvents:UIControlEventTouchDown];
-    
-    [leftBarView addSubview:userAvatar];
-    [leftBarView addSubview:userName];
-    [leftBarView addSubview:actionButton];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarView];
+   // self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"userAvatar"] style:UIBarButtonItemStylePlain target:self action:@selector(showUserInfoVC:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addDevice"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewDevice:)];
     
     ////主界面
@@ -301,10 +284,10 @@ static float pp = 0;
         });
     }
     else if(btn.tag == 2) {
-        int deviceIndex = self.pageControl.currentPage;
+        NSInteger deviceIndex = self.pageControl.currentPage;
         HIRFindViewController *findVC = [[HIRFindViewController alloc] init];
         findVC.location = [[CLLocation alloc] initWithLatitude:22.54 longitude:113.94];
-        findVC.deviceIndex = deviceIndex;
+        findVC.deviceIndex = (int)deviceIndex;
         [self.navigationController pushViewController:findVC animated:YES];
     }
     else if (btn.tag == 3){
@@ -334,7 +317,7 @@ static float pp = 0;
 }
 
 
-- (void)avatarClickAction:(id)sender {
+- (void)showUserInfoVC:(id)sender {
     TestViewController *test = [[TestViewController alloc] init];
     // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:test];
     [self.navigationController pushViewController:test animated:YES];
@@ -343,14 +326,6 @@ static float pp = 0;
     //   UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:userVC];
     //  [self.navigationController presentViewController:nav animated:YES completion:nil];
     
-}
-
-- (void)avatarClickDown:(id)sender {
-    [UIView animateWithDuration:0.3f animations:^{
-        ((UIView *)sender).superview.alpha = 0.5;
-    } completion:^(BOOL finished) {
-        ((UIView *)sender).superview.alpha = 1;
-    }];
 }
 
 - (void)addNewDevice:(id)sender {
