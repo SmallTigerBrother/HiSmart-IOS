@@ -78,7 +78,6 @@
 		2C18AAFB1B3BECDE00CE6588 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AAF91B3BECDE00CE6588 /* Main.storyboard */; };
 		2C18AAFD1B3BECDE00CE6588 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AAFC1B3BECDE00CE6588 /* Images.xcassets */; };
 		2C18AB001B3BECDE00CE6588 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AAFE1B3BECDE00CE6588 /* LaunchScreen.xib */; };
-		2C18AB0C1B3BECDE00CE6588 /* HiRemoteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AB0B1B3BECDE00CE6588 /* HiRemoteTests.m */; };
 		2C18AB3A1B3C121E00CE6588 /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AB321B3C121E00CE6588 /* ALView+PureLayout.m */; };
 		2C18AB3B1B3C121E00CE6588 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AB341B3C121E00CE6588 /* NSArray+PureLayout.m */; };
 		2C18AB3C1B3C121E00CE6588 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AB361B3C121E00CE6588 /* NSLayoutConstraint+PureLayout.m */; };
@@ -121,9 +120,13 @@
 		B84CD4D71B441EA2008FAA53 /* voice.png in Resources */ = {isa = PBXBuildFile; fileRef = B84CD4C61B441EA2008FAA53 /* voice.png */; };
 		B84CD4D81B441EA2008FAA53 /* voicem.png in Resources */ = {isa = PBXBuildFile; fileRef = B84CD4C71B441EA2008FAA53 /* voicem.png */; };
 		B88705FB1B48F8EB00A87300 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88705FA1B48F8EB00A87300 /* TestViewController.m */; };
-		B88706011B48F9EE00A87300 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B88705FE1B48F9EE00A87300 /* libWeChatSDK.a */; };
-		B887060D1B48FA0800A87300 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B88706021B48FA0800A87300 /* libWeiboSDK.a */; };
 		B887060E1B48FA0800A87300 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B887060A1B48FA0800A87300 /* WeiboSDK.bundle */; };
+		B88706101B48FC9700A87300 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B887060F1B48FC9700A87300 /* libc++.dylib */; };
+		B88706171B48FD8400A87300 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B88706151B48FD8400A87300 /* libWeChatSDK.a */; };
+		B88706181B48FD8400A87300 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B88706161B48FD8400A87300 /* libWeiboSDK.a */; };
+		B887061A1B48FE0700A87300 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B88706191B48FE0700A87300 /* SystemConfiguration.framework */; };
+		B887061C1B48FE6800A87300 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B887061B1B48FE6800A87300 /* libz.dylib */; };
+		B887061E1B48FE6F00A87300 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B887061D1B48FE6F00A87300 /* libsqlite3.0.dylib */; };
 		B8DF7DB71B3E7AE7000BD43E /* HIRArcImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DF7DA81B3E7AE7000BD43E /* HIRArcImageView.m */; };
 		B8DF7DB81B3E7AE7000BD43E /* HIRBatteryPercentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DF7DAA1B3E7AE7000BD43E /* HIRBatteryPercentView.m */; };
 		B8DF7DB91B3E7AE7000BD43E /* HIRDeviceShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DF7DAC1B3E7AE7000BD43E /* HIRDeviceShowView.m */; };
@@ -138,16 +141,6 @@
 		B8DF7DC81B3EA910000BD43E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DF7DC61B3EA910000BD43E /* Default@2x.png */; };
 		DBC8E0BD7AE7791DAB760C88 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EEC68A1FCE3A9ABA965D36 /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		2C18AB061B3BECDE00CE6588 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2C18AAE41B3BECDE00CE6588 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2C18AAEB1B3BECDE00CE6588;
-			remoteInfo = HiRemote;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		04976BB78AFBE5AFBEEC05BA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -266,9 +259,6 @@
 		2C18AAFA1B3BECDE00CE6588 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C18AAFC1B3BECDE00CE6588 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2C18AAFF1B3BECDE00CE6588 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		2C18AB051B3BECDE00CE6588 /* HiRemoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HiRemoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2C18AB0A1B3BECDE00CE6588 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2C18AB0B1B3BECDE00CE6588 /* HiRemoteTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiRemoteTests.m; sourceTree = "<group>"; };
 		2C18AB311B3C121E00CE6588 /* ALView+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALView+PureLayout.h"; sourceTree = "<group>"; };
 		2C18AB321B3C121E00CE6588 /* ALView+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALView+PureLayout.m"; sourceTree = "<group>"; };
 		2C18AB331B3C121E00CE6588 /* NSArray+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PureLayout.h"; sourceTree = "<group>"; };
@@ -332,10 +322,8 @@
 		B84CD4C71B441EA2008FAA53 /* voicem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voicem.png; sourceTree = "<group>"; };
 		B88705F91B48F8EB00A87300 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestViewController.h; path = "../../../../成方圆 2/HiSmart-IOS/HiRemote/UIClasses/TestViewController.h"; sourceTree = "<group>"; };
 		B88705FA1B48F8EB00A87300 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestViewController.m; path = "../../../../成方圆 2/HiSmart-IOS/HiRemote/UIClasses/TestViewController.m"; sourceTree = "<group>"; };
-		B88705FE1B48F9EE00A87300 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = "../../../成方圆 2/HiSmart-IOS/HiRemote/libWeChatSDK.a"; sourceTree = "<group>"; };
 		B88705FF1B48F9EE00A87300 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApi.h; path = "../../../成方圆 2/HiSmart-IOS/HiRemote/WXApi.h"; sourceTree = "<group>"; };
 		B88706001B48F9EE00A87300 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = "../../../成方圆 2/HiSmart-IOS/HiRemote/WXApiObject.h"; sourceTree = "<group>"; };
-		B88706021B48FA0800A87300 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = "../../../成方圆 2/HiSmart-IOS/HiRemote/libWeiboSDK.a"; sourceTree = "<group>"; };
 		B88706031B48FA0800A87300 /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBHttpRequest.h; path = "../../../成方圆 2/HiSmart-IOS/HiRemote/WBHttpRequest.h"; sourceTree = "<group>"; };
 		B88706041B48FA0800A87300 /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboShare.h"; path = "../../../成方圆 2/HiSmart-IOS/HiRemote/WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
 		B88706051B48FA0800A87300 /* WBHttpRequest+WeiboToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboToken.h"; path = "../../../成方圆 2/HiSmart-IOS/HiRemote/WBHttpRequest+WeiboToken.h"; sourceTree = "<group>"; };
@@ -346,6 +334,12 @@
 		B887060A1B48FA0800A87300 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = WeiboSDK.bundle; path = "../../../成方圆 2/HiSmart-IOS/HiRemote/WeiboSDK.bundle"; sourceTree = "<group>"; };
 		B887060B1B48FA0800A87300 /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboSDK.h; path = "../../../成方圆 2/HiSmart-IOS/HiRemote/WeiboSDK.h"; sourceTree = "<group>"; };
 		B887060C1B48FA0800A87300 /* WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboUser.h; path = "../../../成方圆 2/HiSmart-IOS/HiRemote/WeiboUser.h"; sourceTree = "<group>"; };
+		B887060F1B48FC9700A87300 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		B88706151B48FD8400A87300 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = HiRemote/libWeChatSDK.a; sourceTree = "<group>"; };
+		B88706161B48FD8400A87300 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = HiRemote/libWeiboSDK.a; sourceTree = "<group>"; };
+		B88706191B48FE0700A87300 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B887061B1B48FE6800A87300 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		B887061D1B48FE6F00A87300 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		B8DF7DA71B3E7AE7000BD43E /* HIRArcImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRArcImageView.h; sourceTree = "<group>"; };
 		B8DF7DA81B3E7AE7000BD43E /* HIRArcImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRArcImageView.m; sourceTree = "<group>"; };
 		B8DF7DA91B3E7AE7000BD43E /* HIRBatteryPercentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRBatteryPercentView.h; sourceTree = "<group>"; };
@@ -375,17 +369,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B887061E1B48FE6F00A87300 /* libsqlite3.0.dylib in Frameworks */,
+				B887061C1B48FE6800A87300 /* libz.dylib in Frameworks */,
+				B887061A1B48FE0700A87300 /* SystemConfiguration.framework in Frameworks */,
+				B88706171B48FD8400A87300 /* libWeChatSDK.a in Frameworks */,
+				B88706181B48FD8400A87300 /* libWeiboSDK.a in Frameworks */,
+				B88706101B48FC9700A87300 /* libc++.dylib in Frameworks */,
 				04D7A8381B47C91900579EC2 /* CoreData.framework in Frameworks */,
 				DBC8E0BD7AE7791DAB760C88 /* libPods.a in Frameworks */,
-				B88706011B48F9EE00A87300 /* libWeChatSDK.a in Frameworks */,
-				B887060D1B48FA0800A87300 /* libWeiboSDK.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2C18AB021B3BECDE00CE6588 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,7 +657,6 @@
 				2C18AAF41B3BECDE00CE6588 /* AppDelegate.m */,
 				B8DF7DBF1B3E7B16000BD43E /* Classes */,
 				2C18AAEE1B3BECDE00CE6588 /* HiRemote */,
-				2C18AB081B3BECDE00CE6588 /* HiRemoteTests */,
 				2C18AAED1B3BECDE00CE6588 /* Products */,
 				5B23AB32055C73F387F1FB34 /* Pods */,
 				66309597BEE9CEC8844359A1 /* Frameworks */,
@@ -677,7 +667,6 @@
 			isa = PBXGroup;
 			children = (
 				2C18AAEC1B3BECDE00CE6588 /* HiRemote.app */,
-				2C18AB051B3BECDE00CE6588 /* HiRemoteTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -711,23 +700,6 @@
 				2C18AAF11B3BECDE00CE6588 /* main.m */,
 				2C18AB4A1B3C27A700CE6588 /* Localizable.strings */,
 				04D38D0C1B3E8AA40012D65A /* HirProject.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		2C18AB081B3BECDE00CE6588 /* HiRemoteTests */ = {
-			isa = PBXGroup;
-			children = (
-				2C18AB0B1B3BECDE00CE6588 /* HiRemoteTests.m */,
-				2C18AB091B3BECDE00CE6588 /* Supporting Files */,
-			);
-			path = HiRemoteTests;
-			sourceTree = "<group>";
-		};
-		2C18AB091B3BECDE00CE6588 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				2C18AB0A1B3BECDE00CE6588 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -797,6 +769,12 @@
 		66309597BEE9CEC8844359A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B887061D1B48FE6F00A87300 /* libsqlite3.0.dylib */,
+				B887061B1B48FE6800A87300 /* libz.dylib */,
+				B88706191B48FE0700A87300 /* SystemConfiguration.framework */,
+				B88706151B48FD8400A87300 /* libWeChatSDK.a */,
+				B88706161B48FD8400A87300 /* libWeiboSDK.a */,
+				B887060F1B48FC9700A87300 /* libc++.dylib */,
 				04D7A8371B47C91900579EC2 /* CoreData.framework */,
 				A3EEC68A1FCE3A9ABA965D36 /* libPods.a */,
 			);
@@ -806,7 +784,6 @@
 		B88705FC1B48F9C100A87300 /* WXSDK */ = {
 			isa = PBXGroup;
 			children = (
-				B88705FE1B48F9EE00A87300 /* libWeChatSDK.a */,
 				B88705FF1B48F9EE00A87300 /* WXApi.h */,
 				B88706001B48F9EE00A87300 /* WXApiObject.h */,
 			);
@@ -816,7 +793,6 @@
 		B88705FD1B48F9D300A87300 /* WBSDK */ = {
 			isa = PBXGroup;
 			children = (
-				B88706021B48FA0800A87300 /* libWeiboSDK.a */,
 				B88706031B48FA0800A87300 /* WBHttpRequest.h */,
 				B88706041B48FA0800A87300 /* WBHttpRequest+WeiboShare.h */,
 				B88706051B48FA0800A87300 /* WBHttpRequest+WeiboToken.h */,
@@ -908,24 +884,6 @@
 			productReference = 2C18AAEC1B3BECDE00CE6588 /* HiRemote.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2C18AB041B3BECDE00CE6588 /* HiRemoteTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2C18AB121B3BECDE00CE6588 /* Build configuration list for PBXNativeTarget "HiRemoteTests" */;
-			buildPhases = (
-				2C18AB011B3BECDE00CE6588 /* Sources */,
-				2C18AB021B3BECDE00CE6588 /* Frameworks */,
-				2C18AB031B3BECDE00CE6588 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2C18AB071B3BECDE00CE6588 /* PBXTargetDependency */,
-			);
-			name = HiRemoteTests;
-			productName = HiRemoteTests;
-			productReference = 2C18AB051B3BECDE00CE6588 /* HiRemoteTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -939,10 +897,6 @@
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = 4H44DAN2YD;
-					};
-					2C18AB041B3BECDE00CE6588 = {
-						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = 2C18AAEB1B3BECDE00CE6588;
 					};
 				};
 			};
@@ -961,7 +915,6 @@
 			projectRoot = "";
 			targets = (
 				2C18AAEB1B3BECDE00CE6588 /* HiRemote */,
-				2C18AB041B3BECDE00CE6588 /* HiRemoteTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1038,13 +991,6 @@
 				04D7A8991B47EF9700579EC2 /* touch_focus_x.png in Resources */,
 				2C18AB7A1B3D985A00CE6588 /* voice.jpg in Resources */,
 				B84CD4D41B441EA2008FAA53 /* photo.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2C18AB031B3BECDE00CE6588 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1149,23 +1095,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2C18AB011B3BECDE00CE6588 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2C18AB0C1B3BECDE00CE6588 /* HiRemoteTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		2C18AB071B3BECDE00CE6588 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2C18AAEB1B3BECDE00CE6588 /* HiRemote */;
-			targetProxy = 2C18AB061B3BECDE00CE6588 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2C18AAF91B3BECDE00CE6588 /* Main.storyboard */ = {
@@ -1292,6 +1222,7 @@
 					"$(inherited)",
 					"/Users/peng/Desktop/成方圆",
 					"2/HiSmart-IOS/HiRemote",
+					"$(PROJECT_DIR)/HiRemote",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1313,42 +1244,9 @@
 					"$(inherited)",
 					"/Users/peng/Desktop/成方圆",
 					"2/HiSmart-IOS/HiRemote",
+					"$(PROJECT_DIR)/HiRemote",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		2C18AB131B3BECDE00CE6588 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = HiRemoteTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HiRemote.app/HiRemote";
-			};
-			name = Debug;
-		};
-		2C18AB141B3BECDE00CE6588 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = HiRemoteTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HiRemote.app/HiRemote";
 			};
 			name = Release;
 		};
@@ -1369,15 +1267,6 @@
 			buildConfigurations = (
 				2C18AB101B3BECDE00CE6588 /* Debug */,
 				2C18AB111B3BECDE00CE6588 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2C18AB121B3BECDE00CE6588 /* Build configuration list for PBXNativeTarget "HiRemoteTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2C18AB131B3BECDE00CE6588 /* Debug */,
-				2C18AB141B3BECDE00CE6588 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
