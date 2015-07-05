@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PostViewController : UIViewController
+@interface PostViewController : HirBaseViewController
 
 @property (nonatomic, strong) UIImage *postImage;
 

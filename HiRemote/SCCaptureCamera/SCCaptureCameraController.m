@@ -12,6 +12,8 @@
 #import "SVProgressHUD.h"
 
 #import "SCNavigationController.h"
+#import "PostViewController.h"
+
 
 //static void * CapturingStillImageContext = &CapturingStillImageContext;
 //static void * RecordingContext = &RecordingContext;
@@ -64,9 +66,10 @@
 
 @property (nonatomic, strong) SCSlider *scSlider;
 
+@property (nonatomic, strong) UIButton *imagePickBtn;
 //@property (nonatomic) id runtimeErrorHandlingObserver;
 //@property (nonatomic) BOOL lockInterfaceRotation;
-
+@property (nonatomic, strong) UIImage *stillImage;
 @end
 
 @implementation SCCaptureCameraController
@@ -263,6 +266,17 @@
        selectedImgStr:@""
                action:@selector(takePictureBtnPressed:)
            parentView:_bottomContainerView];
+    
+    CGFloat sizeOfImageBtn = 50;
+    self.imagePickBtn = [self buildButton:CGRectMake(SC_APP_SIZE.width - sizeOfImageBtn - 20, _bottomContainerView.frame.size.height - sizeOfImageBtn - 40, sizeOfImageBtn, sizeOfImageBtn)
+         normalImgStr:@""
+      highlightImgStr:@""
+       selectedImgStr:@""
+               action:@selector(imagePickBtnPressed:)
+           parentView:_bottomContainerView];
+    self.imagePickBtn.layer.cornerRadius = IMAGE_CORNER_RADIUS;
+    self.imagePickBtn.clipsToBounds = YES;
+    self.imagePickBtn.backgroundColor = [UIColor blackColor];
     
     //拍照的菜单栏view（屏幕高度大于480的，此view在上面，其他情况在下面）
     CGFloat menuViewY = 0;//(isHigherThaniPhone4_SC ? SC_DEVICE_SIZE.height - CAMERA_MENU_VIEW_HEIGH : 0);
@@ -524,6 +538,10 @@ void c_slideAlpha() {
     [_captureManager takePicture:^(UIImage *stillImage) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [SCCommon saveImageToPhotoAlbum:stillImage];//存至本机
+            self.stillImage = stillImage;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.imagePickBtn setImage:stillImage forState:UIControlStateNormal];
+            });
         });
         
         [actiView stopAnimating];
@@ -552,6 +570,13 @@ void c_slideAlpha() {
 //    con.postImage = stillImage;
 //    [self.navigationController pushViewController:con animated:YES];
     }];
+}
+
+-(void)imagePickBtnPressed:(UIButton*)sender {
+    PostViewController *con = [[PostViewController alloc] init];
+    con.postImage = self.stillImage;
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:con];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)tmpBtnPressed:(id)sender {

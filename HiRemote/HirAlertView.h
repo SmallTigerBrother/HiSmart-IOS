@@ -17,7 +17,7 @@
 #define Font_title                  FONT2(16)
 #define Font_message                FONT2(16)
 
-#define Padding_vertical            22.f
+#define Padding_vertical            15.f
 #define Padding_horizontal          15.f
 #define Padding_btn_bottom          37.f
 

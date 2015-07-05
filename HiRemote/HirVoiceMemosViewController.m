@@ -66,6 +66,8 @@ UITableViewDelegate>
     self.data = list;
 
     self.playVoiceRecordPanel.hidden = YES;
+    
+
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -123,7 +125,13 @@ UITableViewDelegate>
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self playVoiceModel:self.data[indexPath.row]];
+    
+    if(tableView == self.tableView){
+        [self playVoiceModel:self.data[indexPath.row]];
+    }
+    else{
+        [self playVoiceModel:self.filterData[indexPath.row]];
+    }
     [self.playVoiceRecordPanel setHidden:NO];
     
 }
@@ -141,6 +149,8 @@ UITableViewDelegate>
 -(void)playVoiceModel:(id)voiceModel{
     self.recordingLabel.text = voiceModel;
     [self.playVoiceRecordPanel setHidden:NO];
+    
+    [self.view bringSubviewToFront:self.playVoiceRecordPanel];
 }
 
 - (IBAction)hidePlayVoceRecordPanel:(id)sender {

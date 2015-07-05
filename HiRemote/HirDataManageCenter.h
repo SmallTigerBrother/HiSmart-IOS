@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class DBPeripheraLocationInfo;
+
 @interface HirDataManageCenter : NSObject
 
 //查找设备ID为:peripheraUUID的定位记录信息
@@ -18,4 +20,7 @@
 
 //删除一条记录
 +(void)delLocationRecordByPeripheraUUID:(NSString *)peripheraUUID;
+
+//保存修改后的记录
++(void)saveLocationRecordByModel:(DBPeripheraLocationInfo *)peripheraLocationInfo;
 @end

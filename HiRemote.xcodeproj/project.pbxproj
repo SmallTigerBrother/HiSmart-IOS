@@ -76,6 +76,7 @@
 		04F375A61B48F29100E3FCD3 /* HirDataManageCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375A51B48F29100E3FCD3 /* HirDataManageCenter.m */; };
 		04F375AA1B48FC3800E3FCD3 /* DBPeripheraLocationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375A91B48FC3800E3FCD3 /* DBPeripheraLocationInfo.m */; };
 		04F375B91B4904D900E3FCD3 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04F375B41B4904D900E3FCD3 /* WeiboSDK.bundle */; };
+		04F375BC1B49167800E3FCD3 /* HirUserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375BB1B49167800E3FCD3 /* HirUserDefault.m */; };
 		2C18AAF21B3BECDE00CE6588 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AAF11B3BECDE00CE6588 /* main.m */; };
 		2C18AAF51B3BECDE00CE6588 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AAF41B3BECDE00CE6588 /* AppDelegate.m */; };
 		2C18AAF81B3BECDE00CE6588 /* HIRRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AAF71B3BECDE00CE6588 /* HIRRootViewController.m */; };
@@ -268,6 +269,8 @@
 		04F375B61B4904D900E3FCD3 /* WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboUser.h; sourceTree = "<group>"; };
 		04F375B71B4904D900E3FCD3 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		04F375B81B4904D900E3FCD3 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		04F375BA1B49167800E3FCD3 /* HirUserDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirUserDefault.h; sourceTree = "<group>"; };
+		04F375BB1B49167800E3FCD3 /* HirUserDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirUserDefault.m; sourceTree = "<group>"; };
 		2C18AAEC1B3BECDE00CE6588 /* HiRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HiRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C18AAF01B3BECDE00CE6588 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C18AAF11B3BECDE00CE6588 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -646,6 +649,8 @@
 		04F375AB1B48FC5800E3FCD3 /* DBManageCenter */ = {
 			isa = PBXGroup;
 			children = (
+				04F375BA1B49167800E3FCD3 /* HirUserDefault.h */,
+				04F375BB1B49167800E3FCD3 /* HirUserDefault.m */,
 				04F3759C1B48EDD000E3FCD3 /* Model.xcdatamodeld */,
 				04F375A41B48F29100E3FCD3 /* HirDataManageCenter.h */,
 				04F375A51B48F29100E3FCD3 /* HirDataManageCenter.m */,
@@ -1030,6 +1035,7 @@
 			files = (
 				2C18AB3C1B3C121E00CE6588 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				04BB4B071B459D24009567BF /* UIControl+AddLine.m in Sources */,
+				04F375BC1B49167800E3FCD3 /* HirUserDefault.m in Sources */,
 				B84CD4AA1B441E58008FAA53 /* HIRFindViewController.m in Sources */,
 				04D7A8AF1B48006600579EC2 /* SGInfoAlert.m in Sources */,
 				2C18AAF81B3BECDE00CE6588 /* HIRRootViewController.m in Sources */,

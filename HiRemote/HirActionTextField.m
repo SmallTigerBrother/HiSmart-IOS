@@ -23,6 +23,7 @@
         self.layer.cornerRadius = IMAGE_CORNER_RADIUS;
         self.clipsToBounds = YES;
         self.layer.borderWidth = 1.f;
+        self.layer.borderColor = [UIColor clearColor].CGColor;
     }
     return self;
 }

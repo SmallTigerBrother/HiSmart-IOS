@@ -30,4 +30,9 @@
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
+//保存修改后的记录
++(void)saveLocationRecordByModel:(DBPeripheraLocationInfo *)peripheraLocationInfo{
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+}
+
 @end

@@ -35,12 +35,12 @@
         imgView.center = self.view.center;
         [self.view addSubview:imgView];
     }
-    
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    backBtn.frame = CGRectMake(0, self.view.frame.size.height - 40, 80, 40);
-    [backBtn setTitle:@"back" forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backBtn];
+//    
+//    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    backBtn.frame = CGRectMake(0, self.view.frame.size.height - 40, 80, 40);
+//    [backBtn setTitle:@"back" forState:UIControlStateNormal];
+//    [backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:backBtn];
     
 }
 
