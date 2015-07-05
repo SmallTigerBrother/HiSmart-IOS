@@ -14,8 +14,8 @@
 @property (nonatomic, assign) CGRect previewRect;
 @property (nonatomic, assign) BOOL isStatusBarHiddenBeforeShowCamera;
 
-//控制相机拍照
--(void)controllerTakePictureBtnPressed;
+////控制相机拍照
+//-(void)controllerTakePictureBtnPressed;
 
 
 @end

@@ -1,26 +1,26 @@
+////
+////  HIRRemoteData.h
+////  HiRemote
+////
+////  Created by parker on 6/30/15.
+////  Copyright (c) 2015 hiremote. All rights reserved.
+////
 //
-//  HIRRemoteData.h
-//  HiRemote
+//#import <Foundation/Foundation.h>
+//#define kHiRemoteName @"theHiRemoteName"
+//#define kHiRemoteAvatarName @"theHiRemoteAvatarName"
+//#define kHiRemoteUuid @"theHiRemoteUuid"
+//#define kHiRemoteLastLocation @"theHiRemoteLastLocation"
+//#define kHiRemoteBattery @"theHiRemoteBattery"
 //
-//  Created by parker on 6/30/15.
-//  Copyright (c) 2015 hiremote. All rights reserved.
+//@interface HIRRemoteData : NSObject
+//@property (nonatomic, strong) NSString *name;
+//@property (nonatomic, strong) NSString *avatarPath;
+//@property (nonatomic, strong) NSString *uuid;
+//@property (nonatomic, strong) NSString *lastLocation;
+//@property (nonatomic, assign) float battery;
 //
-
-#import <Foundation/Foundation.h>
-#define kHiRemoteName @"theHiRemoteName"
-#define kHiRemoteAvatarName @"theHiRemoteAvatarName"
-#define kHiRemoteUuid @"theHiRemoteUuid"
-#define kHiRemoteLastLocation @"theHiRemoteLastLocation"
-#define kHiRemoteBattery @"theHiRemoteBattery"
-
-@interface HIRRemoteData : NSObject
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *avatarPath;
-@property (nonatomic, strong) NSString *uuid;
-@property (nonatomic, strong) NSString *lastLocation;
-@property (nonatomic, assign) float battery;
-
-
-+ (void)saveHiRemoteData:(NSMutableArray *)dataArray;
-+ (NSMutableArray *)getHiRemoteDataArrayFromDisk;
-@end
+//
+//+ (void)saveHiRemoteData:(NSMutableArray *)dataArray;
+//+ (NSMutableArray *)getHiRemoteDataArrayFromDisk;
+//@end

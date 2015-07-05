@@ -143,6 +143,8 @@
         [self.view addSubview:imgView];
     }
 #endif
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(controllerTakePictureBtnPressed) name:NEED_AUTO_PHONE_NOTIFICATION object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -153,13 +155,14 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
-    [HirUserDefault shareUserDefaults].currentViewController = 0;
+    [HirUserInfo shareUserInfo].currentViewController = 0;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [HirUserDefault shareUserDefaults].currentViewController = 1;
+    [HirUserInfo shareUserInfo].currentViewController = 1;
 }
+
 
 //- (void)viewWillAppear:(BOOL)animated {
 //	dispatch_async(_captureManager.sessionQueue, ^{
@@ -218,6 +221,9 @@
 #endif
     
     self.captureManager = nil;
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+
 }
 
 #pragma mark -------------UI---------------
@@ -578,10 +584,15 @@ void c_slideAlpha() {
 }
 
 -(void)imagePickBtnPressed:(UIButton*)sender {
-    PostViewController *con = [[PostViewController alloc] init];
-    con.postImage = self.stillImage;
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:con];
-    [self presentViewController:nav animated:YES completion:nil];
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:nil];
+
+//    PostViewController *con = [[PostViewController alloc] init];
+//    con.postImage = self.stillImage;
+//    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:con];
+//    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)tmpBtnPressed:(id)sender {
@@ -600,7 +611,6 @@ void c_slideAlpha() {
         [self dismissModalViewControllerAnimated:YES];
     }
 }
-
 
 //拍照页面，网格按钮
 - (void)gridBtnPressed:(UIButton*)sender {

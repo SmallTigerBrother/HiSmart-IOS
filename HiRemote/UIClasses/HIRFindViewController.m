@@ -12,8 +12,10 @@
 #import "HIRCBCentralClass.h"
 #import "PureLayout.h"
 #import "CallOutAnnotationVifew.h"
-#import "HIRRemoteData.h"
+//#import "HIRRemoteData.h"
 #import "AppDelegate.h"
+#import "HirDataManageCenter+Perphera.h"
+#import "HirDataManageCenter+Location.h"
 
 @interface HIRFindViewController ()<MKMapViewDelegate>
 @property (nonatomic, assign) BOOL didSetupConstraints;
@@ -26,7 +28,7 @@
 @property (nonatomic, strong) UILabel *loclLab;
 @property (nonatomic, strong) UIImageView *connnectImgV;
 @property (nonatomic, strong) MKMapView *mapView;
-@property (nonatomic, strong) HIRRemoteData *hiremoteData;
+@property (nonatomic, strong) DBPeriphera *hiremoteData;
 
 @end
 
@@ -46,7 +48,6 @@
 @synthesize currentCity;
 @synthesize currentStreet;
 @synthesize hiremoteData;
-@synthesize deviceIndex;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -91,13 +92,16 @@
     self.mapView.showsUserLocation = YES;
     
     
-    NSMutableArray *deviceInfoAry = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).deviceInfoArray;
+    NSMutableArray *deviceInfoAry = [HirUserInfo shareUserInfo].deviceInfoArray;
+    NSInteger deviceIndex = [HirUserInfo shareUserInfo].currentPeripheraIndex;
     if ([deviceInfoAry count] > deviceIndex) {
         self.hiremoteData = [deviceInfoAry objectAtIndex:deviceIndex];
         UIImage *image = [UIImage imageWithContentsOfFile:self.hiremoteData.avatarPath];
         self.avtarImgV.image = image;
         self.nameLab.text = self.hiremoteData.name;
-        self.loclLab.text = self.hiremoteData.lastLocation;
+        
+        DBPeripheraLocationInfo *lastLocationInf = [HirDataManageCenter findLastLocationByPeriperaUUID:self.hiremoteData.uuid];
+        self.loclLab.text = lastLocationInf.location;
     }
     
     [self.view addSubview:self.buzzBtn];

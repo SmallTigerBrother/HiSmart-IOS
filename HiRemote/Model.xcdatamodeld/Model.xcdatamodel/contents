@@ -7,14 +7,16 @@
         <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="DBPeripheraLocationInfo" representedClassName="DBPeripheraLocationInfo" syncable="YES">
+        <attribute name="dataType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="peripheraUUID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recordTime" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="remark" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DBPeripheraLocationInfo" positionX="-18" positionY="99" width="128" height="120"/>
         <element name="DBPeriphera" positionX="18" positionY="180" width="128" height="105"/>
+        <element name="DBPeripheraLocationInfo" positionX="-18" positionY="99" width="128" height="150"/>
     </elements>
 </model>

@@ -15,5 +15,4 @@
 @property (nonatomic, strong) NSString *currentState;
 @property (nonatomic, strong) NSString *currentCity;
 @property (nonatomic, strong) NSString *currentStreet;
-@property (nonatomic, assign) int deviceIndex;
 @end

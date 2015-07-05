@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPCoreLocationManger.h"
+
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
-@property (nonatomic, strong) NSMutableArray *deviceInfoArray; ///临时保存设备信息（可能有多个设备）
 @property(nonatomic) UIWindow *window;
+
+@property(nonatomic) HPCoreLocationManger *locManger;
 
 - (void)addNewDevice;
 - (void)connectSuccessToShowRootVC; ////显示主界面

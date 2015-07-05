@@ -15,13 +15,25 @@
     return periphera;
 }
 
++(NSMutableArray *)findAllPerphera{
+    NSArray *list = [DBPeriphera MR_findAll];
+    return  [NSMutableArray arrayWithArray:list];
+}
+
 //插入一条记录
 +(void)insertPerpheraByUUID:(NSString *)uuid name:(NSString *)name avatarPath:(NSString *)avatarPath battery:(NSNumber *)battery{
+    
+//    NSAssert(uuid, @"no find uuid");
+
     DBPeriphera *periphera = [HirDataManageCenter findPerpheraByPeripheraUUID:uuid];
     if (periphera) {
         periphera.name = name;
-        periphera.avatarPath = avatarPath;
-        periphera.battery = battery;
+        if (avatarPath) {
+            periphera.avatarPath = avatarPath;
+        }
+        if (battery) {
+            periphera.battery = battery;
+        }
     }
     else{
         DBPeriphera *periphera = [DBPeriphera MR_createEntity];
@@ -30,7 +42,7 @@
         periphera.avatarPath = avatarPath;
         periphera.battery = battery;
     }
-    [[NSManagedObjectContext MR_context]MR_saveOnlySelfAndWait];
+    [[NSManagedObjectContext MR_context]MR_saveOnlySelfAndWait];    
 }
 
 //删除一条记录

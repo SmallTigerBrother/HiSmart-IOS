@@ -13,6 +13,9 @@
 //查找设备ID为:peripheraUUID的定位记录信息
 +(DBPeriphera *)findPerpheraByPeripheraUUID:(NSString *)uuid;
 
+//查找所有设备
++(NSMutableArray *)findAllPerphera;
+
 //插入一条记录
 +(void)insertPerpheraByUUID:(NSString *)uuid name:(NSString *)name avatarPath:(NSString *)avatarPath battery:(NSNumber *)battery;
 

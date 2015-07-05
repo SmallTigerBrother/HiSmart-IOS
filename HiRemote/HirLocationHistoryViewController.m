@@ -10,6 +10,9 @@
 #import "HirLocationHistoryTableCell.h"
 #import "HirAlertView.h"
 #import "HirActionTextField.h"
+#import "HIRFindViewController.h"
+#import "HirDataManageCenter+Location.h"
+#import "AppDelegate.h"
 
 @interface HirLocationHistoryViewController ()
 <UISearchDisplayDelegate,
@@ -17,6 +20,9 @@ UITableViewDataSource,
 UITableViewDelegate,
 SWTableViewCellDelegate,
 UITextFieldDelegate>
+
+@property (nonatomic, assign)HirLocationDataType locationDataType;
+
 @property (nonatomic, strong)NSMutableArray *data;
 @property (nonatomic, strong)NSArray *filterData;
 @property (nonatomic, strong)UISearchDisplayController *searchDisplayController;
@@ -26,6 +32,13 @@ UITextFieldDelegate>
 
 @implementation HirLocationHistoryViewController
 @synthesize searchDisplayController;
+
+-(instancetype)initWithDataType:(HirLocationDataType)dataType{
+    if (self = [super init]) {
+        self.locationDataType = dataType;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,29 +55,17 @@ UITextFieldDelegate>
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     searchBar.placeholder = @"搜索";
     
-    // 添加 searchbar 到 headerview
-//    self.tableView.tableHeaderView = searchBar;
-    
-    // 用 searchbar 初始化 SearchDisplayController
-    // 并把 searchDisplayController 和当前 controller 关联起来
     searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-    // searchResultsDataSource 就是 UITableViewDataSource
     searchDisplayController.searchResultsDataSource = self;
-    // searchResultsDelegate 就是 UITableViewDelegate
     searchDisplayController.searchResultsDelegate = self;
     searchDisplayController.delegate = self;
     
-    NSMutableArray *list = [[NSMutableArray alloc]initWithCapacity:0];
-    for (NSInteger i = 1; i<10; i++) {
-        NSInteger re = i * 1111;
-        NSString *s = [NSString stringWithFormat:@"%ld",(long)re];
-        [list addObject:s];
-    }
-    self.data = list;
+    
+    DBPeriphera *currentPeriphera = [HirUserInfo shareUserInfo].currentPeriphera;
+    self.data = [NSMutableArray arrayWithArray:[HirDataManageCenter findAllLocationRecordByPeripheraUUID:currentPeriphera.uuid dataType:@(self.locationDataType)]];
     
     self.tableView.tableHeaderView = searchBar;
 }
-
 
 /*
  * 如果原 TableView 和 SearchDisplayController 中的 TableView 的 delete 指向同一个对象
@@ -114,19 +115,36 @@ UITextFieldDelegate>
                                    leftUtilityButtons:nil
                                   rightUtilityButtons:rightUtilityButtons];
         cell.delegate = self;
+        
+        cell.titleLabel.font = FONT_TABLE_CELL_TITLE;
+        cell.contentLabel.font = FONT_TABLE_CELL_CONTENT;
+        cell.timeLabel.font = FONT_TABLE_CELL_RIGHT_TIME;
     }
     
+    DBPeripheraLocationInfo *locationInfo;
     if (tableView == self.tableView) {
-        cell.titleLabel.text = self.data[indexPath.row];
+        locationInfo = [self.data objectAtIndex:indexPath.row];
     }else{
-        cell.titleLabel.text = self.filterData[indexPath.row];
+        locationInfo = [self.filterData objectAtIndex:indexPath.row];
     }
-    cell.contentLabel.text = @"xxxxx";
-    cell.timeLabel.text = @"15/10/15:10:50";
-    cell.titleLabel.font = FONT_TABLE_CELL_TITLE;
-    cell.contentLabel.font = FONT_TABLE_CELL_CONTENT;
-    cell.timeLabel.font = FONT_TABLE_CELL_RIGHT_TIME;
+    if (locationInfo.remark) {
+        cell.contentLabel.text = locationInfo.remark;
+    }
+    else{
+        cell.contentLabel.text = locationInfo.location;
+    }
+//    cell.timeLabel.text = @"15/10/15:10:50";
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设定时间格式,这里可以设置成自己需要的格式
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    //用[NSDate date]可以获取系统当前时间
+    
+    cell.titleLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.recordTime.longLongValue]];
 
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    cell.timeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.recordTime.longLongValue]];
+    
     cell.indexPath = indexPath;
     return cell;
 }
@@ -139,7 +157,17 @@ UITextFieldDelegate>
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    DBPeripheraLocationInfo *locationInfo;
+    if (tableView == self.tableView) {
+        locationInfo = [self.data objectAtIndex:indexPath.row];
+    }
+    else{
+        locationInfo = [self.filterData objectAtIndex:indexPath.row];
+    }
     
+    HIRFindViewController *findVC = [[HIRFindViewController alloc] init];
+    findVC.location = [[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue];
+    [self.navigationController pushViewController:findVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

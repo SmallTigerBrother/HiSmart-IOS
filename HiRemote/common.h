@@ -34,7 +34,7 @@ return _instance; \
 #define SECRET_KEY @"zxE6eYCmRmIaRzm5LVV6t6CDfiiskt5Z" // 请修改您在百度开发者平台申请的SECRET_KEY
 
 #pragma mark -Common
-#define appDelegate (AppDelegate *)[[UIApplication sharedApplication] delegate]
+#define appDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 #define KUIStoryBoard(name)   [UIStoryboard storyboardWithName:(name) bundle:nil]
 #define kMainBundlePath  [[NSBundle mainBundle] bundlePath]
 #define kLoadImage(file) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:file ofType:@"png"]]

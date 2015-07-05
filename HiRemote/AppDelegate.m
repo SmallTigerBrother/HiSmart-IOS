@@ -11,11 +11,11 @@
 #import "HIRRegisterViewController.h"
 #import "HIRScanningViewController.h"
 #import "HIRRootViewController.h"
-#import "HPCoreLocationManger.h"
-#import "HIRRemoteData.h"
+//#import "HIRRemoteData.h"
 #import "SoundTool.h"
 #import "WXApi.h"
 #import "WeiboSDK.h"
+#import "HirDataManageCenter+Perphera.h"
 
 @interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate>{
     
@@ -27,7 +27,6 @@
 @property(nonatomic) HIRRegisterViewController *registerVC;
 @property(nonatomic) HIRScanningViewController *scanVC;
 @property(nonatomic) HIRRootViewController *rootVC;
-@property(nonatomic) HPCoreLocationManger *locManger;
 
 @property (nonatomic, strong)NSTimer *myTimer;
 @end
@@ -39,12 +38,10 @@
 @synthesize scanVC;
 @synthesize rootVC;
 @synthesize locManger;
-@synthesize deviceInfoArray;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _isBackground = NO;
-    self.deviceInfoArray = [HIRRemoteData getHiRemoteDataArrayFromDisk];
     self.locManger = [[HPCoreLocationManger alloc] init];
     [self.locManger startUpdatingUserLocation];
     
@@ -83,6 +80,8 @@
     
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"MyDatabase.sqlite"];
 
+    [HirUserInfo shareUserInfo].deviceInfoArray = [HirDataManageCenter findAllPerphera];
+    
     return YES;
 }
 
@@ -93,7 +92,9 @@
 
 static int aa = 0;
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [HIRRemoteData saveHiRemoteData:self.deviceInfoArray];
+//    [HIRRemoteData saveHiRemoteData:self.deviceInfoArray];
+    
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     
     ////以下代码用来处理后台运行
     _isBackground = YES;

@@ -16,4 +16,10 @@ typedef NS_ENUM(NSInteger, HirAddLineType){
     HirAddLineTypeRight  = 1<<3, //1000右
 };
 
+
+typedef NS_ENUM(NSInteger, HirLocationDataType){
+    HirLocationDataType_history,        //蓝牙控制记录的位置
+    HirLocationDataType_lost,           //丢失记录的位置
+};
+
 #endif

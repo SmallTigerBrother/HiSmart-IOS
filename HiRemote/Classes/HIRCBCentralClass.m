@@ -7,8 +7,9 @@
 //
 
 #import "HIRCBCentralClass.h"
-#import "HIRRemoteData.h"
+//#import "HIRRemoteData.h"
 #import "AppDelegate.h"
+#import "HirDataManageCenter+Perphera.h"
 
 @interface HIRCBCentralClass () <CBCentralManagerDelegate, CBPeripheralDelegate>
 @property (strong, nonatomic) NSMutableArray *peripheralsMArray;
@@ -37,8 +38,7 @@
         self.peripheralsMArray = [NSMutableArray arrayWithCapacity:5];
         self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
         
-        AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        self.remoteDataObjArray = appDeleg.deviceInfoArray;
+        self.remoteDataObjArray = [HirUserInfo shareUserInfo].deviceInfoArray;
         _isScanningPeripherals = NO;
         self.batteryLevel = 0.5;
     }
@@ -146,19 +146,21 @@
     self.discoveredPeripheral.delegate = self;
     
     NSString *perUuid = [peripheral.identifier UUIDString];
-    BOOL hasTheDevice = NO;
-    for (HIRRemoteData *remot in self.remoteDataObjArray) {
-        if ([remot.uuid isEqualToString:perUuid]) {
-            hasTheDevice = YES;
-        }
-    }
-    if (!hasTheDevice) {
-        HIRRemoteData *remoteData = [[HIRRemoteData alloc] init];
-        NSLog(@"remooo ble:%@",remoteData);
-        remoteData.name = peripheral.name;
-        remoteData.uuid = perUuid;
-        [self.remoteDataObjArray addObject:remoteData];
-    }
+//    BOOL hasTheDevice = NO;
+//    for (HIRRemoteData *remot in self.remoteDataObjArray) {
+//        if ([remot.uuid isEqualToString:perUuid]) {
+//            hasTheDevice = YES;
+//        }
+//    }
+//    if (!hasTheDevice) {
+//        HIRRemoteData *remoteData = [[HIRRemoteData alloc] init];
+//        NSLog(@"remooo ble:%@",remoteData);
+//        remoteData.name = peripheral.name;
+//        remoteData.uuid = perUuid;
+//        [self.remoteDataObjArray addObject:remoteData];
+//    }
+    
+    [HirDataManageCenter insertPerpheraByUUID:perUuid name:peripheral.name avatarPath:nil battery:nil];
     
     NSArray	*serviceArray = [NSArray arrayWithObjects:[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_IMMEDIATE_ALERT_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_LOSS_ALERT_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_POWER_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_BATTERY_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_SEARCHPHONE_SERVICE], nil];
     
@@ -343,7 +345,7 @@
         [notificationCenter postNotificationName:BATTERY_LEVEL_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:level] forKey:@"level"]];
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_SEARCHPHONE_CHARACTER]]) {
         ////判断是否打开相机
-        if ([HirUserDefault shareUserDefaults].currentViewController == 1) {
+        if ([HirUserInfo shareUserInfo].currentViewController == 1) {
             ////自动拍照
             NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
             [notificationCenter postNotificationName:NEED_AUTO_PHONE_NOTIFICATION object:nil userInfo:nil];

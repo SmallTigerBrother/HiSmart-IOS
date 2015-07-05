@@ -8,6 +8,10 @@
 
 #import "HirBaseViewController.h"
 
+
 @interface HirLocationHistoryViewController : HirBaseViewController
+
+-(instancetype)initWithDataType:(HirLocationDataType)dataType;
+
 
 @end

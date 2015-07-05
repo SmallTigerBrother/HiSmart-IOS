@@ -11,9 +11,10 @@
 #import <AVFoundation/AVFoundation.h>
 #import "PureLayout.h"
 #import "HIRCBCentralClass.h"
-#import "HIRRemoteData.h"
+//#import "HIRRemoteData.h"
 #import "HIRArcImageView.h"
 #import "AppDelegate.h"
+#import "HirDataManageCenter+Perphera.h"
 
 @interface HIRRenameViewController () <UIAlertViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic, strong)HIRArcImageView *photoView;
@@ -24,7 +25,7 @@
 @property (nonatomic, strong) NSMutableArray *deviceInfoArray;
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
-@property (nonatomic, strong)HIRRemoteData *hiRemoteData; ///保存更新后的名字
+@property (nonatomic, strong)DBPeriphera *hiRemoteData; ///保存更新后的名字
 @end
 
 @implementation HIRRenameViewController
@@ -40,7 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:0.35 green:0.75 blue:0.58 alpha:1];
-    self.deviceInfoArray = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).deviceInfoArray;
+    self.deviceInfoArray = [HirUserInfo shareUserInfo].deviceInfoArray;
     self.photoView = [[HIRArcImageView alloc] init];
     self.photoButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.photoButton setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
@@ -61,7 +62,8 @@
     [self.nextButton setTitle:NSLocalizedString(@"next", @"") forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    for (HIRRemoteData *data in self.deviceInfoArray) {
+    
+    for (DBPeriphera *data in self.deviceInfoArray) {
         NSLog(@"disav:%@===data:%@",[[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString],data.uuid);
         if ([[[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString] isEqualToString:data.uuid]) {
             self.hiRemoteData = data;
@@ -158,8 +160,11 @@
 
 - (void)nextButtonClick:(id)sender {
     AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    HIRRemoteData *data = [appDeleg.deviceInfoArray objectAtIndex:0];
-    NSLog(@"data:%@--path：%@",data.name,data.avatarPath);
+    NSMutableArray *list = [HirUserInfo shareUserInfo].deviceInfoArray;
+    if (list.count) {
+        DBPeriphera *data = [list objectAtIndex:0];
+        NSLog(@"data:%@--path：%@",data.name,data.avatarPath);
+    }
     [appDeleg connectSuccessToShowRootVC];
 }
 

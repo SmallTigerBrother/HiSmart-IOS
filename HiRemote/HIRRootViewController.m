@@ -19,6 +19,7 @@
 #import "HIRFindViewController.h"
 #import "HirVoiceMemosViewController.h"
 #import "SCNavigationController.h"
+#import "HirDataManageCenter+Location.h"
 
 #define SCROLLVIEW_HEIGHT 140
 @interface HIRRootViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,HIRSegmentViewDelegate>
@@ -63,7 +64,7 @@
     self.title = @"dsa";
     
     self.deviceShowArray = [NSMutableArray arrayWithCapacity:5];
-    self.deviceInfoArray = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).deviceInfoArray;
+    self.deviceInfoArray = [HirUserInfo shareUserInfo].deviceInfoArray;
     
    // self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"userAvatar"] style:UIBarButtonItemStylePlain target:self action:@selector(showUserInfoVC:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addDevice"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewDevice:)];
@@ -130,16 +131,17 @@
         NSLog(@"self.device:%@",self.deviceInfoArray);
         for (int i = 0; i < [self.deviceInfoArray count]; i++) {
             if ([self.deviceShowArray count] > i) {
-                HIRRemoteData *remoteData = [self.deviceInfoArray objectAtIndex:i];
+                DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:i];
                 NSLog(@"rooot data:%@",remoteData);
                 HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:i];
                 
                 NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
                 if ([remoteData.uuid isEqualToString:currentUuid]) {
                     UIImage *image = [UIImage imageWithContentsOfFile:remoteData.avatarPath];
-                    NSLog(@"nn:%@--ll:%@--bb:%f",remoteData.name,remoteData.lastLocation,remoteData.battery);
+                    DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:currentUuid];
+                    NSLog(@"nn:%@--ll:%@--bb:%f",remoteData.name,locationInfo.location,remoteData.battery);
                     device.deviceNameLabel.text = remoteData.name;
-                    device.deviceLocationLabel.text = remoteData.lastLocation;
+                    device.deviceLocationLabel.text = locationInfo.location;
                     device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
                     [device.avatarImageView setImage:image];
                 }
@@ -148,6 +150,8 @@
     });
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(batteryLevelChange:) name:BATTERY_LEVEL_CHANGE_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needSavePeripheralLocation:) name:NEED_SAVE_PERIPHERAL_LOCATION_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peripheralDisconnect:) name:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil];
 }
 
 
@@ -160,10 +164,23 @@
         HIRDeviceShowView *view = [self.deviceShowArray objectAtIndex:page];
         view.batteryPercent.percent = level;
     }
-    
 }
 
+-(void)needSavePeripheralLocation:(NSNotification *)notify{
+    NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;
+    NSNumber *latitude = @(appDelegate.locManger.location.coordinate.latitude);
+    NSNumber *longitude = @(appDelegate.locManger.location.coordinate.longitude);
+    NSString *location = appDelegate.locManger.currentStreet;
+    [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:location dataType:@(HirLocationDataType_history) remark:nil];
+}
 
+-(void)peripheralDisconnect:(NSNotification *)notify{
+    NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;
+    NSNumber *latitude = @(appDelegate.locManger.location.coordinate.latitude);
+    NSNumber *longitude = @(appDelegate.locManger.location.coordinate.longitude);
+    NSString *location = appDelegate.locManger.currentStreet;
+    [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:location dataType:@(HirLocationDataType_lost) remark:nil];
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -301,7 +318,7 @@ static float pp = 0;
 -(void)menuButtonClick:(id)sender {
     UIButton *btn = (UIButton *)sender;
     if (btn.tag == 0) {
-        HirLocationHistoryViewController *locationHistoryViewController = [[HirLocationHistoryViewController alloc]init];
+        HirLocationHistoryViewController *locationHistoryViewController = [[HirLocationHistoryViewController alloc]initWithDataType:HirLocationDataType_history];
         [self.navigationController pushViewController:locationHistoryViewController animated:YES];
     }
     else if (btn.tag == 1){
@@ -309,28 +326,16 @@ static float pp = 0;
         //        nav.scNaigationDelegate = self;
         [_cameraNavigationController showCameraWithParentController:self];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self controllerCamera];
-        });
     }
     else if(btn.tag == 2) {
-        NSInteger deviceIndex = self.pageControl.currentPage;
-        HIRFindViewController *findVC = [[HIRFindViewController alloc] init];
-        findVC.location = [[CLLocation alloc] initWithLatitude:22.54 longitude:113.94];
-        findVC.deviceIndex = (int)deviceIndex;
-        [self.navigationController pushViewController:findVC animated:YES];
+        HirLocationHistoryViewController *locationHistoryViewController = [[HirLocationHistoryViewController alloc]initWithDataType:HirLocationDataType_lost];
+        [self.navigationController pushViewController:locationHistoryViewController animated:YES];
     }
     else if (btn.tag == 3){
         HirVoiceMemosViewController *voiceMemosViewController = [[HirVoiceMemosViewController alloc]initWithNibName:@"HirVoiceMemosViewController" bundle:nil];
         [self.navigationController pushViewController:voiceMemosViewController animated:YES];
     }
 }
-
-//控制相机快门按钮
--(void)controllerCamera{
-    [self.cameraNavigationController.captureCameraController controllerTakePictureBtnPressed];
-}
-
 
 - (void)avatarClickAction:(id)sender {
 //    TestViewController *test = [[TestViewController alloc] init];
@@ -361,7 +366,11 @@ static float pp = 0;
         self.preButton.hidden = YES;
     }
     self.pageControl.currentPage = page;
+    
+    [HirUserInfo shareUserInfo].currentPeripheraIndex = page;
+    
     [self pageControlChange:nil];
+    
 }
 
 - (void)nextButtonClick:(id)sender {
