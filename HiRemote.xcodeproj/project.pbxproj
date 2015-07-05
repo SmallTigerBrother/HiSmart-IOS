@@ -77,6 +77,9 @@
 		04F375AA1B48FC3800E3FCD3 /* DBPeripheraLocationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375A91B48FC3800E3FCD3 /* DBPeripheraLocationInfo.m */; };
 		04F375B91B4904D900E3FCD3 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04F375B41B4904D900E3FCD3 /* WeiboSDK.bundle */; };
 		04F375BC1B49167800E3FCD3 /* HirUserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375BB1B49167800E3FCD3 /* HirUserDefault.m */; };
+		04F375BF1B49310000E3FCD3 /* DBPeriphera.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375BE1B49310000E3FCD3 /* DBPeriphera.m */; };
+		04F375C21B49314D00E3FCD3 /* HirDataManageCenter+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375C11B49314D00E3FCD3 /* HirDataManageCenter+Location.m */; };
+		04F375C51B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375C41B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m */; };
 		2C18AAF21B3BECDE00CE6588 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AAF11B3BECDE00CE6588 /* main.m */; };
 		2C18AAF51B3BECDE00CE6588 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AAF41B3BECDE00CE6588 /* AppDelegate.m */; };
 		2C18AAF81B3BECDE00CE6588 /* HIRRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AAF71B3BECDE00CE6588 /* HIRRootViewController.m */; };
@@ -272,6 +275,12 @@
 		04F375B81B4904D900E3FCD3 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		04F375BA1B49167800E3FCD3 /* HirUserDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirUserDefault.h; sourceTree = "<group>"; };
 		04F375BB1B49167800E3FCD3 /* HirUserDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirUserDefault.m; sourceTree = "<group>"; };
+		04F375BD1B49310000E3FCD3 /* DBPeriphera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPeriphera.h; sourceTree = "<group>"; };
+		04F375BE1B49310000E3FCD3 /* DBPeriphera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPeriphera.m; sourceTree = "<group>"; };
+		04F375C01B49314D00E3FCD3 /* HirDataManageCenter+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HirDataManageCenter+Location.h"; sourceTree = "<group>"; };
+		04F375C11B49314D00E3FCD3 /* HirDataManageCenter+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HirDataManageCenter+Location.m"; sourceTree = "<group>"; };
+		04F375C31B49319F00E3FCD3 /* HirDataManageCenter+Perphera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HirDataManageCenter+Perphera.h"; sourceTree = "<group>"; };
+		04F375C41B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HirDataManageCenter+Perphera.m"; sourceTree = "<group>"; };
 		2C18AAEC1B3BECDE00CE6588 /* HiRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HiRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C18AAF01B3BECDE00CE6588 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C18AAF11B3BECDE00CE6588 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -656,6 +665,12 @@
 				04F3759C1B48EDD000E3FCD3 /* Model.xcdatamodeld */,
 				04F375A41B48F29100E3FCD3 /* HirDataManageCenter.h */,
 				04F375A51B48F29100E3FCD3 /* HirDataManageCenter.m */,
+				04F375C01B49314D00E3FCD3 /* HirDataManageCenter+Location.h */,
+				04F375C11B49314D00E3FCD3 /* HirDataManageCenter+Location.m */,
+				04F375C31B49319F00E3FCD3 /* HirDataManageCenter+Perphera.h */,
+				04F375C41B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m */,
+				04F375BD1B49310000E3FCD3 /* DBPeriphera.h */,
+				04F375BE1B49310000E3FCD3 /* DBPeriphera.m */,
 				04F375A81B48FC3800E3FCD3 /* DBPeripheraLocationInfo.h */,
 				04F375A91B48FC3800E3FCD3 /* DBPeripheraLocationInfo.m */,
 			);
@@ -1071,6 +1086,7 @@
 				04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */,
 				04D7A8A11B47EF9700579EC2 /* DCCrossHairView.m in Sources */,
 				B8DF7DB81B3E7AE7000BD43E /* HIRBatteryPercentView.m in Sources */,
+				04F375C51B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m in Sources */,
 				04D38D241B3EB6770012D65A /* HirLocationHistoryTableCell.m in Sources */,
 				B8DF7DB91B3E7AE7000BD43E /* HIRDeviceShowView.m in Sources */,
 				B84CD4AC1B441E58008FAA53 /* HIRRegisterViewController.m in Sources */,
@@ -1081,6 +1097,7 @@
 				04D7A8A41B47EF9700579EC2 /* DCStatusBarOverlay.m in Sources */,
 				04D7A8A21B47EF9700579EC2 /* DCFrameView.m in Sources */,
 				04BB4AF41B457544009567BF /* HirNavBackBtn.m in Sources */,
+				04F375BF1B49310000E3FCD3 /* DBPeriphera.m in Sources */,
 				04D7A8A61B47EF9700579EC2 /* UIView+DCAdditions.m in Sources */,
 				04D7A8A31B47EF9700579EC2 /* DCIntrospect.m in Sources */,
 				04D38D071B3E85270012D65A /* HirLocationHistoryViewController.m in Sources */,
@@ -1088,6 +1105,7 @@
 				2C18AB3A1B3C121E00CE6588 /* ALView+PureLayout.m in Sources */,
 				B8DF7DBE1B3E7AE7000BD43E /* HIRWelcomeViewController.m in Sources */,
 				04D7A89F1B47EF9700579EC2 /* UIImage+Resize.m in Sources */,
+				04F375C21B49314D00E3FCD3 /* HirDataManageCenter+Location.m in Sources */,
 				B8DF7DB71B3E7AE7000BD43E /* HIRArcImageView.m in Sources */,
 				B84CD4B41B441E70008FAA53 /* HIRAnnotations.m in Sources */,
 				04BB4AF71B458057009567BF /* HirAlertView.m in Sources */,
