@@ -130,6 +130,7 @@
 		B887061A1B48FE0700A87300 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B88706191B48FE0700A87300 /* SystemConfiguration.framework */; };
 		B887061C1B48FE6800A87300 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B887061B1B48FE6800A87300 /* libz.dylib */; };
 		B887061E1B48FE6F00A87300 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B887061D1B48FE6F00A87300 /* libsqlite3.0.dylib */; };
+		B88706201B4939CE00A87300 /* darkConnYes.png in Resources */ = {isa = PBXBuildFile; fileRef = B887061F1B4939CE00A87300 /* darkConnYes.png */; };
 		B8DF7DB71B3E7AE7000BD43E /* HIRArcImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DF7DA81B3E7AE7000BD43E /* HIRArcImageView.m */; };
 		B8DF7DB81B3E7AE7000BD43E /* HIRBatteryPercentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DF7DAA1B3E7AE7000BD43E /* HIRBatteryPercentView.m */; };
 		B8DF7DB91B3E7AE7000BD43E /* HIRDeviceShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DF7DAC1B3E7AE7000BD43E /* HIRDeviceShowView.m */; };
@@ -349,6 +350,7 @@
 		B88706191B48FE0700A87300 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B887061B1B48FE6800A87300 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		B887061D1B48FE6F00A87300 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		B887061F1B4939CE00A87300 /* darkConnYes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkConnYes.png; sourceTree = "<group>"; };
 		B8DF7DA71B3E7AE7000BD43E /* HIRArcImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRArcImageView.h; sourceTree = "<group>"; };
 		B8DF7DA81B3E7AE7000BD43E /* HIRArcImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRArcImageView.m; sourceTree = "<group>"; };
 		B8DF7DA91B3E7AE7000BD43E /* HIRBatteryPercentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRBatteryPercentView.h; sourceTree = "<group>"; };
@@ -749,6 +751,7 @@
 		2C18AB3D1B3C221E00CE6588 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B887061F1B4939CE00A87300 /* darkConnYes.png */,
 				2C18AB511B3C2E4200CE6588 /* scanningbg.png */,
 				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
 				B84CD4B71B441EA2008FAA53 /* avatar_circle.png */,
@@ -895,7 +898,7 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 4H44DAN2YD;
+						DevelopmentTeam = NWV45KKX6C;
 					};
 				};
 			};
@@ -982,6 +985,7 @@
 				04D7A8811B47EF9700579EC2 /* camera_line.png in Resources */,
 				2C18AAFD1B3BECDE00CE6588 /* Images.xcassets in Resources */,
 				04BB4AE31B4199CF009567BF /* sound.bundle in Resources */,
+				B88706201B4939CE00A87300 /* darkConnYes.png in Resources */,
 				04D7A8861B47EF9700579EC2 /* close_cha@2x.png in Resources */,
 				04D7A8951B47EF9700579EC2 /* switch_camera_h.png in Resources */,
 				B84CD4CE1B441EA2008FAA53 /* darkConn.png in Resources */,
@@ -1147,7 +1151,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: guang wu (9BABY7Y4D7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: guang wu (9BABY7Y4D7)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1189,7 +1194,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: guang wu (9BABY7Y4D7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: guang wu (9BABY7Y4D7)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
