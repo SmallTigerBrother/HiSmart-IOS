@@ -94,6 +94,8 @@
 
 static int aa = 0;
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    [HIRRemoteData saveHiRemoteData:self.deviceInfoArray];
+    
     ////以下代码用来处理后台运行
     _isBackground = YES;
     _bgTask = [application beginBackgroundTaskWithExpirationHandler: ^{
@@ -137,8 +139,6 @@ static int aa = 0;
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    [HIRRemoteData saveHiRemoteData:self.deviceInfoArray];
-    
     ///进入前台，停止后台处理
     _isBackground = NO;
     dispatch_async(dispatch_get_main_queue(), ^{

@@ -9,6 +9,7 @@
 #import "HIRFindViewController.h"
 #import <MapKit/MapKit.h>
 #import "HIRAnnotations.h"
+#import "HIRCBCentralClass.h"
 #import "PureLayout.h"
 #import "CallOutAnnotationVifew.h"
 #import "HIRRemoteData.h"
@@ -69,16 +70,22 @@
     self.avtarImgV = [[UIImageView alloc] init];
     self.bgImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"avatar_circle"]];
     self.nameLab = [[UILabel alloc] init];
-    self.nameLab.backgroundColor = [UIColor orangeColor];
+   // self.nameLab.backgroundColor = [UIColor orangeColor];
     self.nameLab.textAlignment = NSTextAlignmentLeft;
     self.versLab = [[UILabel alloc] init];
-    self.versLab.backgroundColor = [UIColor purpleColor];
+   // self.versLab.backgroundColor = [UIColor purpleColor];
     self.versLab.textAlignment = NSTextAlignmentLeft;
     self.loclLab = [[UILabel alloc] init];
-    self.loclLab.backgroundColor = [UIColor darkGrayColor];
+  //  self.loclLab.backgroundColor = [UIColor darkGrayColor];
     self.loclLab.textAlignment = NSTextAlignmentLeft;
-    self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConn"]];
-    self.connnectImgV.backgroundColor = [UIColor greenColor];
+    
+    if ([HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.state == CBPeripheralStateConnected) {
+        self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConnYes"]];;
+    }else {
+        self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConn"]];
+    }
+    
+   // self.connnectImgV.backgroundColor = [UIColor greenColor];
     self.mapView = [[MKMapView alloc] init];
     self.mapView.delegate = self;
     self.mapView.showsUserLocation = YES;
@@ -103,7 +110,11 @@
     [self.view addSubview:self.connnectImgV];
     [self.view addSubview:self.mapView];
     [self setAnnotation];
+    
     [self.view setNeedsUpdateConstraints];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hirCBStateChange:) name:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil];
 }
 
 
@@ -154,10 +165,16 @@
 }
 
 - (void)buzzButton:(id)sender {
+    uint8_t val = 2;
+    NSData* data = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
     
+    [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral writeValue:data forCharacteristic:[HIRCBCentralClass shareHIRCBcentralClass].alertImmediateCharacter type:CBCharacteristicWriteWithoutResponse];
 }
 - (void)stopButton:(id)sender {
+    uint8_t val = 0;
+    NSData* data = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
     
+    [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral writeValue:data forCharacteristic:[HIRCBCentralClass shareHIRCBcentralClass].alertImmediateCharacter type:CBCharacteristicWriteWithoutResponse];
 }
 
 - (void)setAnnotation {
@@ -203,6 +220,19 @@
 }
 
 - (void) showDetails:(id)sender {
+}
+
+
+- (void)hirCBStateChange:(NSNotification *)notif {
+    NSDictionary *info = notif.userInfo;
+    NSString *state = [info valueForKey:@"state"];
+    if ([state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_FAIL] || [state isEqualToString:CBCENTERAL_STATE_NOT_SUPPORT]) {
+        ////链接失败
+        self.connnectImgV.image = [UIImage imageNamed:@"darkConn"];
+    }else if ([state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_SUCCESS]) {
+        ////蓝牙链接外设成功
+        self.connnectImgV.image = [UIImage imageNamed:@"darkConnYes"];
+    }
 }
 
 

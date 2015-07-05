@@ -24,7 +24,7 @@ typedef enum
 ////立即报警：只写（without response）： 特征是2A06 0无，1低，2高
 #define      SPARK_ANTILOST_BLE_UUID_IMMEDIATE_ALERT_SERVICE     @"1802"  ///立即报警 服务
 
-////断开报警：读写: 特征是2A06  0无，1低，2高
+////断开报警：读写: (只用到了写）特征是2A06  0无，1低，2高
 #define      SPARK_ANTILOST_BLE_UUID_LOSS_ALERT_SERVICE          @"1803"  ///断开丢失 服务
 
 ////发射功能：只读: 特征是2A07  -100--20
@@ -44,12 +44,17 @@ typedef enum
 
 ////通知名称
 #define HIR_CBSTATE_CHANGE_NOTIFICATION @"HirCBStateChangeNotification" //蓝牙状态改变通知（可用，不可用,链接商，断开链接等）
-#define NEED_SAVE_PERIPHERAL_LOCATION_NOTIFICATION  @"needSavePeripheralLocation" ///需要定位外设位置通知
+#define NEED_SAVE_PERIPHERAL_LOCATION_NOTIFICATION  @"needSavePeripheralLocationNotification" ///需要记录定位位置通知
+#define NEED_DISCONNECT_LOCATION_NOTIFICATION @"needDisconnectLocationNotification" ////断开时需要记录位置的通知
+#define NEED_AUTO_PHONE_NOTIFICATION @"needAutoPhoneNotification" /////需要自动拍摄通知
+#define BATTERY_LEVEL_CHANGE_NOTIFICATION @"batteryLevelChangeNotification" ////电池发生变化通知
 
 
 #define CBCENTERAL_STATE_NOT_SUPPORT @"notSupport"   ////蓝牙不支持 （通知值）
 #define CBCENTERAL_CONNECT_PERIPHERAL_FAIL @"connectPeripheralFail" ///外设链接失败 (通知值）
 #define CBCENTERAL_CONNECT_PERIPHERAL_SUCCESS  @"connectPeripheralSuccess"  ///外设链接成功 （通知值）
+
+
 
 
 @interface HIRCBCentralClass : NSObject
@@ -61,6 +66,8 @@ typedef enum
 @property (strong, nonatomic) CBCharacteristic *batteryCharacter;
 @property (strong, nonatomic) CBCharacteristic *searchPhoneCharacter;
 @property (nonatomic, assign) BOOL isDisconnectByUser;
+@property (nonatomic, assign) float batteryLevel;
+
 + (HIRCBCentralClass *)shareHIRCBcentralClass;
 - (void)scanPeripheral;
 -(void)stopCentralManagerScan;

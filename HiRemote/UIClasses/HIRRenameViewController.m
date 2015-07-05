@@ -10,6 +10,7 @@
 #import <AVFoundation/AVCaptureDevice.h>
 #import <AVFoundation/AVFoundation.h>
 #import "PureLayout.h"
+#import "HIRCBCentralClass.h"
 #import "HIRRemoteData.h"
 #import "HIRArcImageView.h"
 #import "AppDelegate.h"
@@ -20,6 +21,7 @@
 @property (nonatomic, strong)UILabel *tipsLabel;
 @property (nonatomic, strong)UIButton *renameButton;
 @property (nonatomic, strong)UIButton *nextButton;
+@property (nonatomic, strong) NSMutableArray *deviceInfoArray;
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
 @property (nonatomic, strong)HIRRemoteData *hiRemoteData; ///保存更新后的名字
@@ -32,10 +34,13 @@
 @synthesize renameButton;
 @synthesize nextButton;
 @synthesize hiRemoteData;
+@synthesize deviceInfoArray;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:0.35 green:0.75 blue:0.58 alpha:1];
+    self.deviceInfoArray = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).deviceInfoArray;
     self.photoView = [[HIRArcImageView alloc] init];
     self.photoButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.photoButton setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
@@ -56,7 +61,14 @@
     [self.nextButton setTitle:NSLocalizedString(@"next", @"") forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.hiRemoteData = [[HIRRemoteData alloc] init];
+    for (HIRRemoteData *data in self.deviceInfoArray) {
+        NSLog(@"disav:%@===data:%@",[[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString],data.uuid);
+        if ([[[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString] isEqualToString:data.uuid]) {
+            self.hiRemoteData = data;
+            NSLog(@"sssssssrem:%@",self.hiRemoteData);
+            break;
+        }
+    }
     
     [self.view addSubview:self.photoView];
     [self.view addSubview:self.photoButton];
@@ -64,6 +76,17 @@
     [self.view addSubview:self.renameButton];
     [self.view addSubview:self.nextButton];
     [self.view setNeedsUpdateConstraints];
+    
+    double delayInSeconds = 0.1;
+    dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
+        if ([self.hiRemoteData.avatarPath length] > 0) {
+            UIImage *image = [UIImage imageWithContentsOfFile:self.hiRemoteData.avatarPath];
+            if (image) {
+                [self.photoView setImage:image];
+            }
+        }
+    });
 }
 
 - (void)updateViewConstraints
@@ -76,7 +99,7 @@
         [self.photoButton autoSetDimensionsToSize:CGSizeMake(130, 130)];
         [self.photoButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self.photoView];
         [self.photoButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.photoView];
-        
+
         [self.tipsLabel autoSetDimension:ALDimensionHeight toSize:60];
         [self.tipsLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:40];
         [self.tipsLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:40];
@@ -98,12 +121,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //[self.photoView setImage:[UIImage imageNamed:@"photo.png"]];
-    double delayInSeconds = 1.5;
-    dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
-        
-    });
 }
 
 - (void) photoButtonClick:(id)sender {
@@ -141,8 +158,8 @@
 
 - (void)nextButtonClick:(id)sender {
     AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDeleg.deviceInfoArray addObject:self.hiRemoteData];
-    
+    HIRRemoteData *data = [appDeleg.deviceInfoArray objectAtIndex:0];
+    NSLog(@"data:%@--path：%@",data.name,data.avatarPath);
     [appDeleg connectSuccessToShowRootVC];
 }
 

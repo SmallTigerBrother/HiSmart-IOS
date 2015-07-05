@@ -13,7 +13,7 @@
 #define kHiRemoteLastLocation @"theHiRemoteLastLocation"
 #define kHiRemoteBattery @"theHiRemoteBattery"
 
-@interface HIRRemoteData : NSObject <NSCoding,NSCopying>
+@interface HIRRemoteData : NSObject
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *avatarPath;
 @property (nonatomic, strong) NSString *uuid;

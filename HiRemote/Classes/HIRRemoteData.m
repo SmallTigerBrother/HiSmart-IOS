@@ -26,65 +26,71 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {
-    if (self = [super init]) {
-        self.name = [decoder decodeObjectForKey:kHiRemoteName];
-        self.avatarPath = [decoder decodeObjectForKey:kHiRemoteAvatarName];
-        self.uuid = [decoder decodeObjectForKey:kHiRemoteUuid];
-        self.lastLocation = [decoder decodeObjectForKey:kHiRemoteLastLocation];
-        self.battery = [[decoder decodeObjectForKey:kHiRemoteBattery] floatValue];
-    }
-    return self;
-}
-
-
-- (void)encodeWithCoder:(NSCoder *)encode {
-    [encode encodeObject:name forKey:kHiRemoteName];
-    [encode encodeObject:avatarPath forKey:kHiRemoteAvatarName];
-    [encode encodeObject:uuid forKey:kHiRemoteUuid];
-    [encode encodeObject:lastLocation forKey:kHiRemoteLastLocation];
-    [encode encodeObject:[NSNumber numberWithFloat:battery] forKey:kHiRemoteBattery];
-}
-
-- (id)copyWithZone:(NSZone *)zone{
-    HIRRemoteData *theRemote = [[[self class] allocWithZone:zone] init];
-    theRemote.name = self.name;
-    theRemote.avatarPath = self.avatarPath;
-    theRemote.uuid = self.uuid;
-    return theRemote;
-}
-
 
 + (void)saveHiRemoteData:(NSMutableArray *)dataArray {
-    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-    documentsDirectory =[documentsDirectory stringByAppendingPathComponent:@"HiRemoteData"];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:documentsDirectory withIntermediateDirectories:TRUE attributes:nil error:nil];
+    NSMutableArray *myDataArray = [NSMutableArray arrayWithCapacity:5];
+    HIRRemoteData *tempData;
+    for (tempData in dataArray) {
+        NSMutableDictionary *dataDic = [NSMutableDictionary dictionary];
+        if ([tempData.name length] > 0) {
+            [dataDic setObject:tempData.name forKey:@"name"];
+        }
+        if ([tempData.avatarPath length] > 0) {
+            [dataDic setObject:tempData.avatarPath forKey:@"path"];
+        }
+        if ([tempData.uuid length] > 0) {
+            [dataDic setObject:tempData.uuid forKey:@"uuid"];
+        }
+        if ([tempData.lastLocation length] > 0) {
+            [dataDic setObject:tempData.lastLocation forKey:@"loca"];
+        }
+        if (tempData.battery > 0) {
+            [dataDic setObject:[NSNumber numberWithFloat:tempData.battery] forKey:@"batt"];
+        }
+        if ([dataDic count] > 0) {
+            [myDataArray addObject:dataDic];
+        }
     }
-    if (!documentsDirectory) {
-        return;
-    }
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"HiRemoteInfo"];
-    NSMutableData *data = [[NSMutableData alloc] init];
-    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    [archiver encodeObject:dataArray forKey:@"DATAKEY"];
-    [archiver finishEncoding];
-    [data writeToFile:filePath atomically:YES];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:myDataArray forKey:@"hirRemoteData"];
+    [userDefaults synchronize];
 }
 
 + (NSMutableArray *)getHiRemoteDataArrayFromDisk {
-    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    documentsDirectory =[documentsDirectory stringByAppendingPathComponent:@"HiRemoteData/HiRemoteInfo"];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
-        return [NSMutableArray arrayWithCapacity:5];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *dataArray = (NSMutableArray *)[userDefaults objectForKey:@"hirRemoteData"];
+    NSMutableArray *tempDataArray = [NSMutableArray arrayWithCapacity:5];
+    NSMutableDictionary *tempDic;
+    for (tempDic in dataArray) {
+        HIRRemoteData *remoteData = [[HIRRemoteData alloc] init];
+        if ([tempDic valueForKey:@"name"]) {
+            remoteData.name = [tempDic valueForKey:@"name"];
+        }else {
+            remoteData.name = @"";
+        }
+        if ([tempDic valueForKey:@"path"]) {
+            remoteData.avatarPath = [tempDic valueForKey:@"path"];
+        }else {
+            remoteData.avatarPath = @"";
+        }
+        if ([tempDic valueForKey:@"uuid"]) {
+            remoteData.uuid = [tempDic valueForKey:@"uuid"];
+        }else {
+            remoteData.uuid = @"";
+        }
+        if ([tempDic valueForKey:@"loca"]) {
+            remoteData.lastLocation = [tempDic valueForKey:@"loca"];
+        }else {
+            remoteData.lastLocation = @"";
+        }
+        if ([tempDic valueForKey:@"batt"]) {
+            remoteData.battery = [[tempDic valueForKey:@"batt"] floatValue];
+        }else {
+            remoteData.battery = 0.5;
+        }
+        [tempDataArray addObject:remoteData];
     }
-    NSData *data = [[NSMutableData alloc] initWithContentsOfFile:documentsDirectory];
-    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-    NSMutableArray *dataArray = (NSMutableArray *)[unarchiver decodeObjectForKey:@"DATAKEY"];
-    if (!dataArray) {
-        dataArray = [NSMutableArray array];
-    }
-    return dataArray;
+    return tempDataArray;
 }
 
 

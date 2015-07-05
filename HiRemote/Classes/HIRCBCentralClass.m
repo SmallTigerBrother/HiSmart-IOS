@@ -29,6 +29,7 @@
 @synthesize peripheralsMArray;
 @synthesize remoteDataObjArray;
 @synthesize isDisconnectByUser;
+@synthesize batteryLevel;
 
 - (id)init {
     self = [super init];
@@ -38,8 +39,8 @@
         
         AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         self.remoteDataObjArray = appDeleg.deviceInfoArray;
-        
         _isScanningPeripherals = NO;
+        self.batteryLevel = 0.5;
     }
     return self;
 }
@@ -60,7 +61,7 @@
     ///蓝牙关闭的
     if (self.centralManager.state != CBCentralManagerStatePoweredOn) {
         [self stopCentralManagerScan];
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"checkBluetooth", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
+        //[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"checkBluetooth", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
         return;
     }
     
@@ -153,6 +154,7 @@
     }
     if (!hasTheDevice) {
         HIRRemoteData *remoteData = [[HIRRemoteData alloc] init];
+        NSLog(@"remooo ble:%@",remoteData);
         remoteData.name = peripheral.name;
         remoteData.uuid = perUuid;
         [self.remoteDataObjArray addObject:remoteData];
@@ -205,7 +207,7 @@
     
     NSLog(@"断开连接，要定位");
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter postNotificationName:NEED_SAVE_PERIPHERAL_LOCATION_NOTIFICATION object:nil userInfo:nil];
+    [notificationCenter postNotificationName:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil userInfo:nil];
     
     ///并定位手机
     // We're disconnected, so start scanning again
@@ -247,7 +249,7 @@
         for (CBCharacteristic *characteristic in service.characteristics) {
             if([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_ALERT_LOSS_CHARACTER]])
                 self.alertImmediateCharacter = characteristic;
-            NSLog(@"immed loss charct");
+            NSLog(@"immed loss charct%@",characteristic.value);
             
         }
     }else if([service.UUID isEqual:[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_LOSS_ALERT_SERVICE]]) {
@@ -255,16 +257,16 @@
             if([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_ALERT_LOSS_CHARACTER]]) {
                 [peripheral readValueForCharacteristic:characteristic];
                 self.alertLossCharacter = characteristic;
-                NSLog(@"alert loss charct");
+                NSLog(@"alert loss charct%@",characteristic.value);
             }
         }
         
     }else if([service.UUID isEqual:[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_POWER_SERVICE]]) {
         for (CBCharacteristic *characteristic in service.characteristics) {
             if([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_POWER_CHARACTER]]){
-                [peripheral readValueForCharacteristic:characteristic];
+              //  [peripheral readValueForCharacteristic:characteristic];
                 self.firePowerCharacter = characteristic;
-                NSLog(@"power charct");
+                NSLog(@"power charct%@",characteristic.value);
             }
         }
         
@@ -272,7 +274,7 @@
         for (CBCharacteristic *characteristic in service.characteristics) {
             if([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_BATTERY_CHARACTER]]){
                 [peripheral setNotifyValue:YES forCharacteristic:characteristic];
-                NSLog(@"battery charct");
+                NSLog(@"battery charct%@",characteristic.value);
                 self.batteryCharacter = characteristic;
             }
         }
@@ -281,7 +283,7 @@
         for (CBCharacteristic *characteristic in service.characteristics) {
             if([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_SEARCHPHONE_CHARACTER]]){
                 [peripheral setNotifyValue:YES forCharacteristic:characteristic];
-                NSLog(@"phone charct");
+                NSLog(@"phone charct:%@",characteristic.value);
                 self.batteryCharacter = characteristic;
             }
         }
@@ -295,13 +297,9 @@
         return;
     }
     // Notification has started
-    if (([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_BATTERY_CHARACTER]] || [characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_SEARCHPHONE_CHARACTER]]) && characteristic.isNotifying) {
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_BATTERY_CHARACTER]] && characteristic.isNotifying) {
         NSLog(@"nitoffffffuuid:%@---val:%@",characteristic.UUID,characteristic.value);
-        //[peripheral readValueForCharacteristic:characteristic];
-    }else { // Notification has stopped
-        // so disconnect from the peripheral
-        NSLog(@"Notification stopped on %@.  Disconnecting", characteristic);
-        // [self.manager cancelPeripheralConnection:self.peripheral];
+        [peripheral readValueForCharacteristic:characteristic];
     }
 }
 
@@ -326,24 +324,36 @@
     if (error) {
         return;
     }
-    
-    
-    
-    
+
     NSString *strr = [self hexadecimalString:characteristic.value];
     NSLog(@"cha:%@---%ld",characteristic.UUID,strtol([strr UTF8String], 0, 16));
     
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_POWER_CHARACTER]]) {
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_ALERT_LOSS_CHARACTER]]) {
         NSString *value = [[NSString alloc]initWithData:characteristic.value encoding:NSUTF8StringEncoding];
         float batteryValue = [value floatValue];
-        NSLog(@"发射功能率：%@",[self hexadecimalString:characteristic.value]);
+        NSLog(@"断开报警当前设备值：%@",[self hexadecimalString:characteristic.value]);
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_BATTERY_CHARACTER]]) {
-        NSString *value = [[NSString alloc]initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-        float batteryValue = [value floatValue];
-        NSLog(@"电量：%@",[self hexadecimalString:characteristic.value]);
+        NSString *strr = [self hexadecimalString:characteristic.value];
+        float level = (float)strtol([strr UTF8String], 0, 16)/99.99f;
+        if (level > 1) {
+            level = 1;
+        }
+        self.batteryLevel = level;
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter postNotificationName:BATTERY_LEVEL_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:level] forKey:@"level"]];
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_SEARCHPHONE_CHARACTER]]) {
-        NSString *value = [[NSString alloc]initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-        float batteryValue = [value floatValue];
+        ////判断是否打开相机
+        int open = 1;
+        if (open == 1) {
+            ////自动拍照
+            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+            [notificationCenter postNotificationName:NEED_AUTO_PHONE_NOTIFICATION object:nil userInfo:nil];
+        }else {
+            /////定位手机
+            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+            [notificationCenter postNotificationName:NEED_SAVE_PERIPHERAL_LOCATION_NOTIFICATION object:nil userInfo:nil];
+        }
+        
         NSLog(@"查找手机：%@",[self hexadecimalString:characteristic.value]);
     }else {
         NSLog(@"update value fialue==%@",[self hexadecimalString:characteristic.value]);

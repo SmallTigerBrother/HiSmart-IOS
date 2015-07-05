@@ -53,7 +53,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.deviceShowArray = [NSMutableArray arrayWithCapacity:5];
     self.switchStatus = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],nil];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
@@ -62,6 +61,8 @@
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:0.38 green:0.74 blue:0.59 alpha:1],NSForegroundColorAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     self.title = @"dsa";
+    
+    self.deviceShowArray = [NSMutableArray arrayWithCapacity:5];
     self.deviceInfoArray = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).deviceInfoArray;
     
    // self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"userAvatar"] style:UIBarButtonItemStylePlain target:self action:@selector(showUserInfoVC:)];
@@ -85,7 +86,12 @@
     [self.nextButton setImage:[UIImage imageNamed:@"nextBtn"] forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.pageControl = [[UIPageControl alloc] init];
-    self.pageControl.numberOfPages = 5;
+    if ([self.deviceInfoArray count] > 0) {
+        self.pageControl.numberOfPages = [self.deviceInfoArray count];
+    }else {
+        self.pageControl.numberOfPages = 1;
+    }
+    
     self.pageControl.currentPage = 0;
     [self.pageControl addTarget:self action:@selector(pageControlChange:) forControlEvents:UIControlEventValueChanged];
     
@@ -122,19 +128,39 @@
     dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
         NSLog(@"self.device:%@",self.deviceInfoArray);
-        for (int i = 0; i < 5; i++) {
-            if ([self.deviceInfoArray count] > i && [self.deviceShowArray count] > i) {
+        for (int i = 0; i < [self.deviceInfoArray count]; i++) {
+            if ([self.deviceShowArray count] > i) {
                 HIRRemoteData *remoteData = [self.deviceInfoArray objectAtIndex:i];
+                NSLog(@"rooot data:%@",remoteData);
                 HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:i];
-                UIImage *image = [UIImage imageWithContentsOfFile:remoteData.avatarPath];
-                NSLog(@"nn:%@--ll:%@--bb:%f",remoteData.name,remoteData.lastLocation,remoteData.battery);
-                device.deviceNameLabel.text = remoteData.name;
-                device.deviceLocationLabel.text = remoteData.lastLocation;
-                device.batteryPercent.percent = remoteData.battery;
-                [device.avatarImageView setImage:image];
+                
+                NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+                if ([remoteData.uuid isEqualToString:currentUuid]) {
+                    UIImage *image = [UIImage imageWithContentsOfFile:remoteData.avatarPath];
+                    NSLog(@"nn:%@--ll:%@--bb:%f",remoteData.name,remoteData.lastLocation,remoteData.battery);
+                    device.deviceNameLabel.text = remoteData.name;
+                    device.deviceLocationLabel.text = remoteData.lastLocation;
+                    device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
+                    [device.avatarImageView setImage:image];
+                }
             }
         }
     });
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(batteryLevelChange:) name:BATTERY_LEVEL_CHANGE_NOTIFICATION object:nil];
+}
+
+
+- (void)batteryLevelChange:(NSNotification *)notify {
+    NSDictionary *info = notify.userInfo;
+    float level = [[info valueForKey:@"level"] floatValue];
+    
+    int page = (int)(self.pageControl.currentPage);
+    if ([self.deviceShowArray count] > page) {
+        HIRDeviceShowView *view = [self.deviceShowArray objectAtIndex:page];
+        view.batteryPercent.percent = level;
+    }
+    
 }
 
 
@@ -182,9 +208,14 @@
 }
 
 - (void)setupShowDeviceScrollViewContentView {
-    self.showDeviceScrollView.contentSize = CGSizeMake(self.view.frame.size.width * 5, SCROLLVIEW_HEIGHT);
+    if ([self.deviceInfoArray count] > 0) {
+        self.showDeviceScrollView.contentSize = CGSizeMake(self.view.frame.size.width * [self.deviceInfoArray count], SCROLLVIEW_HEIGHT);
+    }else {
+        self.showDeviceScrollView.contentSize = CGSizeMake(self.view.frame.size.width, SCROLLVIEW_HEIGHT);
+    }
+    
     NSLog(@"shooo:%f,%f",self.showDeviceScrollView.contentSize.width,self.showDeviceScrollView.contentSize.height);
-    for (int i= 0; i<5; i++) {
+    for (int i= 0; i < [self.deviceInfoArray count]; i++) {
         HIRDeviceShowView *showView = [[HIRDeviceShowView alloc] init];
         showView.deviceNameLabel.text = [NSString stringWithFormat:@"device---%d",i];
         showView.deviceLocationLabel.text = [NSString stringWithFormat:@"device location===%d",i];
@@ -293,21 +324,6 @@ static float pp = 0;
         HirVoiceMemosViewController *voiceMemosViewController = [[HirVoiceMemosViewController alloc]initWithNibName:@"HirVoiceMemosViewController" bundle:nil];
         [self.navigationController pushViewController:voiceMemosViewController animated:YES];
     }
-    
-    return;
-    HIRDeviceShowView *view = [self.deviceShowArray objectAtIndex:btn.tag];
-    if (btn.tag == 0) {
-        HIRRemoteData *data = [self.deviceInfoArray objectAtIndex:0];
-        UIImage *image = [UIImage imageWithContentsOfFile:data.avatarPath];
-        [view.avatarImageView setImage:image];
-    }else if(btn.tag == 1) {
-        view.batteryPercent.percent = 0.5;
-    }else {
-        HIRDeviceShowView *view = [self.deviceShowArray objectAtIndex:0];
-        view.batteryPercent.percent = pp;
-        pp+=0.1;
-    }
-    
 }
 
 //控制相机快门按钮
@@ -485,6 +501,7 @@ static float pp = 0;
 
 - (void)dealloc {
     NSLog(@"rooot view dealloc");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.switchStatus = nil;
     self.showDeviceScrollView = nil;
     self.preButton = nil;

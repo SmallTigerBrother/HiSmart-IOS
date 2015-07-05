@@ -97,7 +97,7 @@
     [super viewDidAppear:animated];
     
     ///放在这里进行扫描的原因是，当失败后再扫描时回回到该页面再扫描
-    self.outTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
+    self.outTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
     [self.scanIndicator startAnimating];
     [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral];
 }
@@ -165,8 +165,12 @@
         [self.navigationController pushViewController:connFailVC animated:YES];
     }else if ([state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_SUCCESS]) {
         ////蓝牙链接外设成功
-        HIRConnSuccViewController *connectedVC = [[HIRConnSuccViewController alloc] init];
-        [self.navigationController pushViewController:connectedVC animated:YES];
+        double delayInSeconds = 2;
+        dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
+            HIRConnSuccViewController *connectedVC = [[HIRConnSuccViewController alloc] init];
+            [self.navigationController pushViewController:connectedVC animated:YES];
+        });
     }
 }
 
