@@ -16,6 +16,5 @@
 @dynamic longitude;
 @dynamic recordTime;
 @dynamic peripheraUUID;
-@dynamic name;
 
 @end

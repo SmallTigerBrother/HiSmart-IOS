@@ -80,7 +80,6 @@
     
     //注册微博API
     //  [WeiboSDK registerApp:@"WeiboAppId"];
-
     
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"MyDatabase.sqlite"];
 

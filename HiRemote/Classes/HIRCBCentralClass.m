@@ -343,8 +343,7 @@
         [notificationCenter postNotificationName:BATTERY_LEVEL_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:level] forKey:@"level"]];
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_SEARCHPHONE_CHARACTER]]) {
         ////判断是否打开相机
-        int open = 1;
-        if (open == 1) {
+        if ([HirUserDefault shareUserDefaults].currentViewController == 1) {
             ////自动拍照
             NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
             [notificationCenter postNotificationName:NEED_AUTO_PHONE_NOTIFICATION object:nil userInfo:nil];

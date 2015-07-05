@@ -17,6 +17,5 @@
 @property (nonatomic, retain) NSNumber * longitude;
 @property (nonatomic, retain) NSString * peripheraUUID;
 @property (nonatomic, retain) NSNumber * recordTime;
-@property (nonatomic, retain) NSString * name;
 
 @end
