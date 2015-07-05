@@ -80,7 +80,10 @@
     
     //注册微博API
     //  [WeiboSDK registerApp:@"WeiboAppId"];
+
     
+    [MagicalRecord setupCoreDataStackWithStoreNamed:@"MyDatabase.sqlite"];
+
     return YES;
 }
 
@@ -153,6 +156,7 @@ static int aa = 0;
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [MagicalRecord cleanUp];
 }
 
 - (void)welcomViewControllerNeedDisapear {

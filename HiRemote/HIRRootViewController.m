@@ -17,7 +17,6 @@
 #import "HIRMapViewController.h"
 #import "HirLocationHistoryViewController.h"
 #import "HIRFindViewController.h"
-#import "TestViewController.h"
 #import "HirVoiceMemosViewController.h"
 #import "SCNavigationController.h"
 
@@ -317,10 +316,10 @@ static float pp = 0;
 }
 
 
-- (void)showUserInfoVC:(id)sender {
-    TestViewController *test = [[TestViewController alloc] init];
-    // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:test];
-    [self.navigationController pushViewController:test animated:YES];
+- (void)avatarClickAction:(id)sender {
+//    TestViewController *test = [[TestViewController alloc] init];
+//    // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:test];
+//    [self.navigationController pushViewController:test animated:YES];
     
     //   HIRUserInfoTableViewController *userVC = [[HIRUserInfoTableViewController alloc] init];
     //   UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:userVC];

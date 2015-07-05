@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="DBPeripheraLocationInfo" representedClassName="DBPeripheraLocationInfo" syncable="YES">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="peripheraUUID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recordTime" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="DBPeripheraLocationInfo" positionX="-18" positionY="99" width="128" height="135"/>
+    </elements>
+</model>

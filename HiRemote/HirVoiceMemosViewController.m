@@ -55,6 +55,7 @@ UITableViewDelegate>
     searchDisplayController.searchResultsDelegate = self;
     searchDisplayController.delegate = self;
 
+    self.tableView.tableHeaderView = searchBar;
     
     NSMutableArray *list = [[NSMutableArray alloc]initWithCapacity:0];
     for (NSInteger i = 1; i<10; i++) {
