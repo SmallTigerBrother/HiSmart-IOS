@@ -55,7 +55,7 @@
 }
 
 
-+ (void)saveHiRemoteData:(NSArray *)dataArray {
++ (void)saveHiRemoteData:(NSMutableArray *)dataArray {
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
     documentsDirectory =[documentsDirectory stringByAppendingPathComponent:@"HiRemoteData"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
@@ -72,15 +72,18 @@
     [data writeToFile:filePath atomically:YES];
 }
 
-+ (NSArray *)getHiRemoteDataArrayFromDisk {
++ (NSMutableArray *)getHiRemoteDataArrayFromDisk {
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     documentsDirectory =[documentsDirectory stringByAppendingPathComponent:@"HiRemoteData/HiRemoteInfo"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
-        return nil;
+        return [NSMutableArray arrayWithCapacity:5];
     }
     NSData *data = [[NSMutableData alloc] initWithContentsOfFile:documentsDirectory];
     NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-    NSArray *dataArray = (NSArray *)[unarchiver decodeObjectForKey:@"DATAKEY"];
+    NSMutableArray *dataArray = (NSMutableArray *)[unarchiver decodeObjectForKey:@"DATAKEY"];
+    if (!dataArray) {
+        dataArray = [NSMutableArray array];
+    }
     return dataArray;
 }
 

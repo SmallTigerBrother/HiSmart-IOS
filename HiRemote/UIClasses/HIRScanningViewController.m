@@ -40,13 +40,13 @@
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.backButton setImage:[UIImage imageNamed:@"nextBtn"] forState:UIControlStateNormal];
     [self.backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-   
+    
     self.titleLabel = [[UILabel alloc] init];
     self.titleLabel.text = NSLocalizedString(@"addAHiRemote", @"");
     self.titleLabel.textColor = [UIColor whiteColor];
     self.titleLabel.font = [UIFont boldSystemFontOfSize:18];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
-
+    
     self.tipsLabel1 = [[UILabel alloc] init];
     self.tipsLabel1.text = NSLocalizedString(@"addTipsOne", @"");
     self.tipsLabel1.textColor = [UIColor whiteColor];
@@ -81,14 +81,14 @@
     // Do any additional setup after loading the view.
     
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hirCBStateChange:) name:HIR_CBSTATE_CHANGE_NOTIFICATION_NAME object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hirCBStateChange:) name:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil];
     
     
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
+    
     ///放在这里进行扫描的原因是，当失败后再扫描时回回到该页面再扫描
     [self.scanIndicator startAnimating];
     [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral];
@@ -136,15 +136,12 @@
 }
 
 - (void)backButtonClick:(id)sender {
+    [self.scanIndicator startAnimating];
+    [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)hirCBStateChange:(NSNotification *)notif {
-    HIRConnSuccViewController *connectedVC = [[HIRConnSuccViewController alloc] init];
-    [self.navigationController pushViewController:connectedVC animated:YES];
-    return;
-    
-    
     NSDictionary *info = notif.userInfo;
     NSString *state = [info valueForKey:@"state"];
     if ([state isEqualToString:CBCENTERAL_STATE_NOT_SUPPORT] || [state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_FAIL]) {

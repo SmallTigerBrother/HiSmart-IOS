@@ -76,7 +76,7 @@
         [self.photoButton autoSetDimensionsToSize:CGSizeMake(130, 130)];
         [self.photoButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self.photoView];
         [self.photoButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.photoView];
-
+        
         [self.tipsLabel autoSetDimension:ALDimensionHeight toSize:60];
         [self.tipsLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:40];
         [self.tipsLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:40];
@@ -108,13 +108,13 @@
 
 - (void) photoButtonClick:(id)sender {
     float version = [[[UIDevice currentDevice] systemVersion] floatValue];
-//    if (version > 6.99) {
-//        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-//        if (authStatus != AVAuthorizationStatusAuthorized) {
-//            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"accessCameraTip", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
-//            return;
-//        }
-//    }
+    if (version > 6.99) {
+        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if (authStatus != AVAuthorizationStatusAuthorized) {
+            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"accessCameraTip", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
+            return;
+        }
+    }
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
     {

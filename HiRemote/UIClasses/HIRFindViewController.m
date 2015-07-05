@@ -165,6 +165,7 @@
     
     HIRAnnotations *annotation = [[HIRAnnotations alloc] initWithCoordinate:c2d];
     annotation.title = self.hiRemoteName;
+    annotation.subtitle = [NSString stringWithFormat:@"%@ %@",self.currentCity,self.currentStreet];
     [mapView addAnnotation:annotation];
     MKCoordinateRegion newRegion;
     newRegion.center = annotation.coordinate;
@@ -184,23 +185,9 @@
     {
         static NSString* annotationIdentifier = @"annotationIdentifier";
         
-        //
-        //        CallOutAnnotationVifew *annotationView = (CallOutAnnotationVifew *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
-        //        if (!annotationView) {
-        //            annotationView = [[CallOutAnnotationVifew alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
-        //        }
-        //        UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        //        [rightButton addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
-        //        rightButton.tag = ((HIRAnnotations *)annotation).tag;
-        //        annotationView.rightCalloutAccessoryView = rightButton;
-        //        annotationView.annotation = annotation;
-        //
-        //        return annotationView;
-        
         MKPinAnnotationView* pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
         if (!pinView){
             pinView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:annotationIdentifier] ;
-            pinView.image = [UIImage imageNamed:@"pinImage"];
             pinView.canShowCallout = YES;
         }
         

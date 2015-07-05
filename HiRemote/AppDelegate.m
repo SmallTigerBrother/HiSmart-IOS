@@ -12,12 +12,13 @@
 #import "HIRScanningViewController.h"
 #import "HIRRootViewController.h"
 #import "HPCoreLocationManger.h"
+#import "HIRRemoteData.h"
 #import "SoundTool.h"
 #import "WXApi.h"
 #import "WeiboSDK.h"
 
 @interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate>{
-
+    
     
 }
 @property(nonatomic, assign)UIBackgroundTaskIdentifier bgTask;
@@ -43,7 +44,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _isBackground = NO;
-    self.deviceInfoArray = [NSMutableArray arrayWithCapacity:5];
+    self.deviceInfoArray = [HIRRemoteData getHiRemoteDataArrayFromDisk];
     self.locManger = [[HPCoreLocationManger alloc] init];
     [self.locManger startUpdatingUserLocation];
     
@@ -73,11 +74,11 @@
     [self.window makeKeyAndVisible];
     
     //注册微信API
-    [WXApi registerApp:@"WXAPI_APPID"];
+    //  [WXApi registerApp:@"WXAPI_APPID"];
     
     //注册微博API
-    [WeiboSDK registerApp:@"WeiboAppId"];
-
+    //  [WeiboSDK registerApp:@"WeiboAppId"];
+    
     return YES;
 }
 
@@ -114,23 +115,25 @@ static int aa = 0;
             }
         });
     });
-//<<<<<<< Updated upstream
+    //<<<<<<< Updated upstream
     //////
-//=======
-//    
-//}
-////
-//-(void)task{
-////    sleep(1);
-//    NSLog(@"counter:%ld", counter++);
-////    NSLog(@"backgroundTimeRemaining = %   f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
-//>>>>>>> Stashed changes
+    //=======
+    //
+    //}
+    ////
+    //-(void)task{
+    ////    sleep(1);
+    //    NSLog(@"counter:%ld", counter++);
+    ////    NSLog(@"backgroundTimeRemaining = %   f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
+    //>>>>>>> Stashed changes
 }
 
 
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    [HIRRemoteData saveHiRemoteData:self.deviceInfoArray];
+    
     ///进入前台，停止后台处理
     _isBackground = NO;
     dispatch_async(dispatch_get_main_queue(), ^{

@@ -20,6 +20,6 @@
 @property (nonatomic, strong) NSString *lastLocation;
 @property (nonatomic, assign) float battery;
 
-+ (void)saveHiRemoteData:(NSArray *)dataArray;
-+ (NSArray *)getHiRemoteDataArrayFromDisk;
++ (void)saveHiRemoteData:(NSMutableArray *)dataArray;
++ (NSMutableArray *)getHiRemoteDataArrayFromDisk;
 @end

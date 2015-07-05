@@ -13,11 +13,12 @@
 #import "PureLayout.h"
 #import "HIRRemoteData.h"
 #import "AppDelegate.h"
+#import "HIRCBCentralClass.h"
 #import "HIRMapViewController.h"
 #import "HirLocationHistoryViewController.h"
 #import "HIRFindViewController.h"
+#import "TestViewController.h"
 #import "HirVoiceMemosViewController.h"
-#import "SCNavigationController.h"
 #import "SCNavigationController.h"
 
 #define SCROLLVIEW_HEIGHT 140
@@ -73,7 +74,7 @@
     
     UIButton *actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
     actionButton.frame = CGRectMake(0, 0, 60, 44);
-
+    
     [actionButton addTarget:self action:@selector(avatarClickAction:) forControlEvents:UIControlEventTouchUpInside];
     [actionButton addTarget:self action:@selector(avatarClickDown:) forControlEvents:UIControlEventTouchDown];
     
@@ -91,7 +92,7 @@
     self.showDeviceScrollView.showsVerticalScrollIndicator = NO;
     self.showDeviceScrollView.scrollsToTop = NO;
     self.showDeviceScrollView.delegate = self;
-
+    
     self.preButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.preButton.hidden = YES;
     [self.preButton setImage:[UIImage imageNamed:@"preBtn"] forState:UIControlStateNormal];
@@ -138,6 +139,7 @@
     double delayInSeconds = 0.2;
     dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
+        NSLog(@"self.device:%@",self.deviceInfoArray);
         for (int i = 0; i < 5; i++) {
             if ([self.deviceInfoArray count] > i && [self.deviceShowArray count] > i) {
                 HIRRemoteData *remoteData = [self.deviceInfoArray objectAtIndex:i];
@@ -168,7 +170,7 @@
         [self.showDeviceScrollView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
         [self.showDeviceScrollView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
         [self.showDeviceScrollView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
- 
+        
         [self.preButton autoSetDimensionsToSize:CGSizeMake(50, 40)];
         [self.preButton autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];;
         [self.preButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.showDeviceScrollView withOffset:SCROLLVIEW_HEIGHT/2 - 20];
@@ -291,7 +293,7 @@ static float pp = 0;
     }
     else if (btn.tag == 1){
         self.cameraNavigationController = [[SCNavigationController alloc] init];
-//        nav.scNaigationDelegate = self;
+        //        nav.scNaigationDelegate = self;
         [_cameraNavigationController showCameraWithParentController:self];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -333,9 +335,13 @@ static float pp = 0;
 
 
 - (void)avatarClickAction:(id)sender {
-    HIRUserInfoTableViewController *userVC = [[HIRUserInfoTableViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:userVC];
-    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    TestViewController *test = [[TestViewController alloc] init];
+    // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:test];
+    [self.navigationController pushViewController:test animated:YES];
+    
+    //   HIRUserInfoTableViewController *userVC = [[HIRUserInfoTableViewController alloc] init];
+    //   UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:userVC];
+    //  [self.navigationController presentViewController:nav animated:YES completion:nil];
     
 }
 
@@ -348,6 +354,7 @@ static float pp = 0;
 }
 
 - (void)addNewDevice:(id)sender {
+    [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
     AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDeleg addNewDevice];
 }
@@ -480,7 +487,7 @@ static float pp = 0;
     lab1.text = NSLocalizedString(title, @"");
     UILabel *lab2 = (UILabel *)[cell.contentView viewWithTag:20];
     lab2.text = NSLocalizedString(info, @"");
-   
+    
     
     return cell;
 }
