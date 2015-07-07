@@ -27,7 +27,9 @@
 
     DBPeriphera *periphera = [HirDataManageCenter findPerpheraByPeripheraUUID:uuid];
     if (periphera) {
-        periphera.name = name;
+        if (name) {
+            periphera.name = name;
+        }
         if (avatarPath) {
             periphera.avatarPath = avatarPath;
         }

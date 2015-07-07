@@ -54,14 +54,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.switchStatus = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],nil];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSArray *statusArray = [userDefaults valueForKey:@"theHiremoteSettingStatus"];
+    if (!statusArray || [statusArray count] < 4) {
+        self.switchStatus = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],nil];
+    }else {
+        self.switchStatus = [NSMutableArray arrayWithArray:statusArray];
+    }
+    
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     ///导航界面
     self.view.backgroundColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.97 alpha:1];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:0.38 green:0.74 blue:0.59 alpha:1],NSForegroundColorAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
-    self.title = @"dsa";
+    self.title = NSLocalizedString(@"hiRemote", @"");
     
     self.deviceShowArray = [NSMutableArray arrayWithCapacity:5];
     self.deviceInfoArray = [HirUserInfo shareUserInfo].deviceInfoArray;
@@ -134,7 +142,7 @@
                 DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:i];
                 NSLog(@"rooot data:%@",remoteData);
                 HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:i];
-                
+                device.deviceNameLabel.text = @"text";
                 NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
                 if ([remoteData.uuid isEqualToString:currentUuid]) {
                     UIImage *image = [UIImage imageWithContentsOfFile:remoteData.avatarPath];
@@ -153,6 +161,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needSavePeripheralLocation:) name:NEED_SAVE_PERIPHERAL_LOCATION_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peripheralDisconnect:) name:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil];
 }
+
+
+
 
 
 - (void)batteryLevelChange:(NSNotification *)notify {
@@ -232,16 +243,24 @@
     }
     
     NSLog(@"shooo:%f,%f",self.showDeviceScrollView.contentSize.width,self.showDeviceScrollView.contentSize.height);
-    for (int i= 0; i < [self.deviceInfoArray count]; i++) {
+    if ([self.deviceInfoArray count] == 0) {
         HIRDeviceShowView *showView = [[HIRDeviceShowView alloc] init];
-        showView.deviceNameLabel.text = [NSString stringWithFormat:@"device---%d",i];
-        showView.deviceLocationLabel.text = [NSString stringWithFormat:@"device location===%d",i];
         CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, SCROLLVIEW_HEIGHT);
-        frame.origin.x = frame.size.width * i;
+        frame.origin.x = 0;
         frame.origin.y = 0;
         showView.frame = frame;
         [self.showDeviceScrollView addSubview:showView];
         [self.deviceShowArray addObject:showView];
+    }else {
+        for (int i= 0; i < [self.deviceInfoArray count]; i++) {
+            HIRDeviceShowView *showView = [[HIRDeviceShowView alloc] init];
+            CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, SCROLLVIEW_HEIGHT);
+            frame.origin.x = frame.size.width * i;
+            frame.origin.y = 0;
+            showView.frame = frame;
+            [self.showDeviceScrollView addSubview:showView];
+            [self.deviceShowArray addObject:showView];
+        }
     }
     
     int totalPage = (int)self.pageControl.numberOfPages;
@@ -458,6 +477,7 @@ static float pp = 0;
         label.tag = 10;
         UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(8, 25, self.view.frame.size.width- 70, 44)];
         label2.tag = 20;
+        label2.font = [UIFont systemFontOfSize:12];
         label2.numberOfLines = 3;
         UISwitch *theSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 60, 18, 70,40)];
         theSwitch.tag = [indexPath row];
@@ -467,6 +487,13 @@ static float pp = 0;
         [cell.contentView addSubview:label2];
         [cell.contentView addSubview:theSwitch];
     }
+    
+    for (UIView *tempV in [cell.contentView subviews]) {
+        if ([tempV isKindOfClass:[UISwitch class]]) {
+            [(UISwitch *)tempV setOn:[[self.switchStatus objectAtIndex:[indexPath row]] boolValue] animated:NO];
+        }
+    }
+
     NSString *title = @"";
     NSString *info = @"";
     if ([indexPath row] == 0) {
@@ -499,8 +526,23 @@ static float pp = 0;
 - (void)theSwitchChange:(id)sender {
     UISwitch *theSw = (UISwitch *)sender;
     long tag = theSw.tag;
+    if (tag == 1) {
+        if (theSw.on == YES) {
+            [self.switchStatus replaceObjectAtIndex:3 withObject:[NSNumber numberWithBool:NO]];
+        }
+    }else if(tag == 3) {
+        if (theSw.on == YES) {
+            [self.switchStatus replaceObjectAtIndex:1 withObject:[NSNumber numberWithBool:NO]];
+        }
+    }
+    
     [self.switchStatus replaceObjectAtIndex:tag withObject:[NSNumber numberWithBool:theSw.on]];
-    NSLog(@"tag :%ld---%d",tag,theSw.on);
+    [self.mainMenuTableView reloadData];
+    
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:self.switchStatus forKey:@"theHiremoteSettingStatus"];
+    [userDefaults synchronize];
 }
 
 - (void)didReceiveMemoryWarning {

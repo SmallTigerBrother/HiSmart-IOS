@@ -44,9 +44,7 @@
 @synthesize mapView;
 @synthesize location;
 @synthesize hiRemoteName;
-@synthesize currentState;
-@synthesize currentCity;
-@synthesize currentStreet;
+@synthesize locationStr;
 @synthesize hiremoteData;
 
 - (void)viewDidLoad {
@@ -80,11 +78,7 @@
   //  self.loclLab.backgroundColor = [UIColor darkGrayColor];
     self.loclLab.textAlignment = NSTextAlignmentLeft;
     
-    if ([HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.state == CBPeripheralStateConnected) {
-        self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConnYes"]];;
-    }else {
-        self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConn"]];
-    }
+    self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConn"]];
     
    // self.connnectImgV.backgroundColor = [UIColor greenColor];
     self.mapView = [[MKMapView alloc] init];
@@ -101,7 +95,21 @@
         self.nameLab.text = self.hiremoteData.name;
         
         DBPeripheraLocationInfo *lastLocationInf = [HirDataManageCenter findLastLocationByPeriperaUUID:self.hiremoteData.uuid];
-        self.loclLab.text = lastLocationInf.location;
+        self.locationStr = lastLocationInf.location;
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];
+        self.loclLab.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:lastLocationInf.recordTime.longLongValue]];
+        
+        NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+        if ([self.hiremoteData.uuid isEqualToString:currentUuid]) {
+            if ([HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.state == CBPeripheralStateConnected) {
+                self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConnYes"]];;
+            }else {
+                self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConn"]];
+            }
+        }
+        
     }
     
     [self.view addSubview:self.buzzBtn];
@@ -169,12 +177,21 @@
 }
 
 - (void)buzzButton:(id)sender {
+    NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+    if (![self.hiremoteData.uuid isEqualToString:currentUuid]) {
+        return; ////该设备不是正在连接的设备
+    }
+    
     uint8_t val = 2;
     NSData* data = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
     
     [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral writeValue:data forCharacteristic:[HIRCBCentralClass shareHIRCBcentralClass].alertImmediateCharacter type:CBCharacteristicWriteWithoutResponse];
 }
 - (void)stopButton:(id)sender {
+    NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+    if (![self.hiremoteData.uuid isEqualToString:currentUuid]) {
+        return; ////该设备不是正在连接的设备
+    }
     uint8_t val = 0;
     NSData* data = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
     
@@ -186,7 +203,7 @@
     
     HIRAnnotations *annotation = [[HIRAnnotations alloc] initWithCoordinate:c2d];
     annotation.title = self.hiRemoteName;
-    annotation.subtitle = [NSString stringWithFormat:@"%@ %@",self.currentCity,self.currentStreet];
+    annotation.subtitle = locationStr;
     [mapView addAnnotation:annotation];
     MKCoordinateRegion newRegion;
     newRegion.center = annotation.coordinate;
@@ -228,6 +245,11 @@
 
 
 - (void)hirCBStateChange:(NSNotification *)notif {
+    NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+    if (![self.hiremoteData.uuid isEqualToString:currentUuid]) {
+        return; ////该设备不是正在连接的设备
+    }
+    
     NSDictionary *info = notif.userInfo;
     NSString *state = [info valueForKey:@"state"];
     if ([state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_FAIL] || [state isEqualToString:CBCENTERAL_STATE_NOT_SUPPORT]) {
@@ -257,9 +279,7 @@
     self.mapView = nil;
     self.location = nil;
     self.hiRemoteName = nil;
-    self.currentCity = nil;
-    self.currentState = nil;
-    self.currentStreet = nil;
+    self.locationStr = nil;
     self.hiremoteData = nil;
 }
 

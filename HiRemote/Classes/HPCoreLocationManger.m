@@ -59,7 +59,6 @@
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0){
         [self.locManager requestWhenInUseAuthorization];  //调用了这句,就会弹出允许框了.
     }
-    
 }
 
 
