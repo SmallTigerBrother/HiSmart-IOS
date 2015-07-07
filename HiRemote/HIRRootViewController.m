@@ -168,16 +168,17 @@
 
 -(void)needSavePeripheralLocation:(NSNotification *)notify{
     NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;
-    NSNumber *latitude = @(appDelegate.locManger.location.coordinate.latitude);
-    NSNumber *longitude = @(appDelegate.locManger.location.coordinate.longitude);
+    
+    NSString *latitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.latitude];
+    NSString *longitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.longitude];
     NSString *location = appDelegate.locManger.currentStreet;
     [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:location dataType:@(HirLocationDataType_history) remark:nil];
 }
 
 -(void)peripheralDisconnect:(NSNotification *)notify{
     NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;
-    NSNumber *latitude = @(appDelegate.locManger.location.coordinate.latitude);
-    NSNumber *longitude = @(appDelegate.locManger.location.coordinate.longitude);
+    NSNumber *latitude = [NSNumber numberWithDouble:appDelegate.locManger.location.coordinate.latitude];
+    NSNumber *longitude = [NSNumber numberWithDouble:appDelegate.locManger.location.coordinate.longitude];
     NSString *location = appDelegate.locManger.currentStreet;
     [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:location dataType:@(HirLocationDataType_lost) remark:nil];
 }
@@ -452,7 +453,7 @@ static float pp = 0;
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifyCell];
     if (cell == nil) {
         cell =  [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifyCell];
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(8, 3, self.view.frame.size.width-100, 20)];
         label.font = [UIFont boldSystemFontOfSize:16];
         label.tag = 10;
@@ -460,6 +461,8 @@ static float pp = 0;
         label2.tag = 20;
         label2.numberOfLines = 3;
         UISwitch *theSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 60, 18, 70,40)];
+        theSwitch.tintColor = COLOR_THEME;
+        theSwitch.onTintColor = COLOR_THEME;
         theSwitch.tag = [indexPath row];
         [theSwitch setOn:[[self.switchStatus objectAtIndex:[indexPath row]] boolValue] animated:NO];
         [theSwitch addTarget:self action:@selector(theSwitchChange:) forControlEvents:UIControlEventValueChanged];
@@ -522,4 +525,5 @@ static float pp = 0;
     self.deviceShowArray = nil;
     self.deviceInfoArray = nil;
 }
+
 @end

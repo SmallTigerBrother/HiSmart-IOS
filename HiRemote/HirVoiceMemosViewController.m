@@ -8,12 +8,21 @@
 
 #import "HirVoiceMemosViewController.h"
 #import "HirVoiceCell.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface HirVoiceMemosViewController ()
 <UISearchDisplayDelegate,
 UITableViewDataSource,
-UITableViewDelegate>
+UITableViewDelegate,
+AVAudioRecorderDelegate>
+{
+    BOOL toggle;
+    
+    //Variable setup for access in the class
+    NSURL *recordedTmpFile;
+    AVAudioRecorder *recorder;
 
+}
 @property (nonatomic, strong)NSMutableArray *data;
 @property (nonatomic, strong)NSArray *filterData;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -67,8 +76,9 @@ UITableViewDelegate>
 
     self.playVoiceRecordPanel.hidden = YES;
     
-
+    [self prepareAudio];
     // Do any additional setup after loading the view from its nib.
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -178,5 +188,123 @@ UITableViewDelegate>
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)prepareAudio{
+    NSError *adioError;
+    AVAudioSession * audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error: &adioError];
+    //Activate the session
+    [audioSession setActive:YES error: &adioError];
+}
+
+- (IBAction)start_button_pressed{
+    
+    if(toggle)
+    {
+        toggle = NO;
+        
+        //Begin the recording session.
+        //Error handling removed.  Please add to your own code.
+        
+        //Setup the dictionary object with all the recording settings that this
+        //Recording sessoin will use
+        //Its not clear to me which of these are required and which are the bare minimum.
+        //This is a good resource: http://www.totodotnet.net/tag/avaudiorecorder/
+        NSMutableDictionary* recordSetting = [[NSMutableDictionary alloc] init];
+        
+        [recordSetting setValue :[NSNumber numberWithInt:kAudioFormatAppleIMA4] forKey:AVFormatIDKey];
+        
+        [recordSetting setValue:[NSNumber numberWithFloat:44110] forKey:AVSampleRateKey];
+        [recordSetting setValue:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
+        
+        //Now that we have our settings we are going to instanciate an instance of our recorder instance.
+        //Generate a temp file for use by the recording.
+        //This sample was one I found online and seems to be a good choice for making a tmp file that
+        //will not overwrite an existing one.
+        //I know this is a mess of collapsed things into 1 call.  I can break it out if need be.
+        recordedTmpFile = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent: [NSString stringWithFormat: @"%.0f.%@", [NSDate timeIntervalSinceReferenceDate] * 1000.0, @"caf"]]];
+        NSLog(@"Using File called: %@",recordedTmpFile);
+        //Setup the recorder to use this file and record to it.
+        
+        NSError *error;
+        recorder = [[ AVAudioRecorder alloc] initWithURL:recordedTmpFile settings:recordSetting error:&error];
+        //Use the recorder to start the recording.
+        //Im not sure why we set the delegate to self yet.
+        //Found this in antother example, but Im fuzzy on this still.
+        [recorder setDelegate:self];
+        //We call this to start the recording process and initialize
+        //the subsstems so that when we actually say "record" it starts right away.
+        [recorder prepareToRecord];
+        //Start the actual Recording
+        [recorder record];
+        //There is an optional method for doing the recording for a limited time see
+        //[recorder recordForDuration:(NSTimeInterval) 10]
+        
+    }
+    else
+    {
+        toggle = YES;
+        
+        NSLog(@"Using File called: %@",recordedTmpFile);
+        //Stop the recorder.
+        [recorder stop];
+    }
+}
+
+- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag;
+{
+    
+}
+/* if an error occurs while encoding it will be reported to the delegate. */
+- (void)audioRecorderEncodeErrorDidOccur:(AVAudioRecorder *)recorder error:(NSError *)error;
+{
+    
+}
+
+/* AVAudioRecorder INTERRUPTION NOTIFICATIONS ARE DEPRECATED - Use AVAudioSession instead. */
+
+/* audioRecorderBeginInterruption: is called when the audio session has been interrupted while the recorder was recording. The recorded file will be closed. */
+- (void)audioRecorderBeginInterruption:(AVAudioRecorder *)recorder NS_DEPRECATED_IOS(2_2, 8_0);
+{
+    
+}
+/* audioRecorderEndInterruption:withOptions: is called when the audio session interruption has ended and this recorder had been interrupted while recording. */
+/* Currently the only flag is AVAudioSessionInterruptionFlags_ShouldResume. */
+- (void)audioRecorderEndInterruption:(AVAudioRecorder *)recorder withOptions:(NSUInteger)flags NS_DEPRECATED_IOS(6_0, 8_0);
+{
+    
+}
+- (void)audioRecorderEndInterruption:(AVAudioRecorder *)recorder withFlags:(NSUInteger)flags NS_DEPRECATED_IOS(4_0, 6_0);
+{
+    
+}
+/* audioRecorderEndInterruption: is called when the preferred method, audioRecorderEndInterruption:withFlags:, is not implemented. */
+- (void)audioRecorderEndInterruption:(AVAudioRecorder *)recorder NS_DEPRECATED_IOS(2_2, 6_0);
+{
+    
+}
+
+-(IBAction) play_button_pressed{
+    
+    //The play button was pressed...
+    //Setup the AVAudioPlayer to play the file that we just recorded.
+    NSError *error;
+    AVAudioPlayer * avPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:recordedTmpFile error:&error];
+    [avPlayer prepareToPlay];
+    [avPlayer play];
+    
+}
+
+- (void)viewDidUnload {
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+    //Clean up the temp file.
+    NSFileManager * fm = [NSFileManager defaultManager];
+    NSError *error;
+    [fm removeItemAtPath:[recordedTmpFile path] error:&error];
+    //Call the dealloc on the remaining objects.
+    recorder = nil;
+    recordedTmpFile = nil;
+}
 
 @end

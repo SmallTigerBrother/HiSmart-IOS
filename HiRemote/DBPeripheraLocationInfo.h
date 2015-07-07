@@ -12,9 +12,9 @@
 
 @interface DBPeripheraLocationInfo : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * latitude;
+@property (nonatomic, retain) NSString * latitude;
 @property (nonatomic, retain) NSString * location;
-@property (nonatomic, retain) NSNumber * longitude;
+@property (nonatomic, retain) NSString * longitude;
 @property (nonatomic, retain) NSString * peripheraUUID;
 @property (nonatomic, retain) NSNumber * recordTime;
 @property (nonatomic, retain) NSNumber * dataType;

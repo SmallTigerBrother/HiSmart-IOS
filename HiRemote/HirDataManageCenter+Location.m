@@ -7,12 +7,13 @@
 //
 
 #import "HirDataManageCenter+Location.h"
+#import "CLLocation+Sino.h"
 
 @implementation HirDataManageCenter (Location)
 +(NSArray *)findAllLocationRecordByPeripheraUUID:(NSString *)peripheraUUID dataType:(NSNumber *)dataType{
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheraUUID == %@ AND dataType == %@",peripheraUUID,dataType];
-    NSArray *results = [DBPeripheraLocationInfo MR_findAllWithPredicate:predicate];
+    NSArray *results = [DBPeripheraLocationInfo MR_findAllSortedBy:@"recordTime" ascending:NO withPredicate:predicate];
     
     return results;
 }
@@ -23,7 +24,8 @@
     return peripheraLocationInfo;
 }
 
-+(void)insertLocationRecordByPeripheraUUID:(NSString *)peripheraUUID latitude:(NSNumber *)latitude longitude:(NSNumber *)longitude location:(NSString *)location dataType:(NSNumber *)dataType remark:(NSString *)remark{
++(void)insertLocationRecordByPeripheraUUID:(NSString *)peripheraUUID latitude:(NSString *)latitude longitude:(NSString *)longitude location:(NSString *)location dataType:(NSNumber *)dataType remark:(NSString *)remark{
+    NSLog(@"latitude = %@,longitude = %@",latitude,longitude);
     DBPeripheraLocationInfo *peripheraLocationInfo = [DBPeripheraLocationInfo MR_createEntity];
     peripheraLocationInfo.peripheraUUID = peripheraUUID;
     peripheraLocationInfo.latitude = latitude;
@@ -33,7 +35,6 @@
     peripheraLocationInfo.dataType = dataType;
     peripheraLocationInfo.remark = remark;
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-    
     
 }
 
@@ -47,5 +48,4 @@
 +(void)saveLocationRecordByModel:(DBPeripheraLocationInfo *)peripheraLocationInfo{
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
-
 @end

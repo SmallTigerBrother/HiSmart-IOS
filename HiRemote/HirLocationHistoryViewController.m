@@ -13,6 +13,7 @@
 #import "HIRFindViewController.h"
 #import "HirDataManageCenter+Location.h"
 #import "AppDelegate.h"
+#import "CLLocation+Sino.h"
 
 @interface HirLocationHistoryViewController ()
 <UISearchDisplayDelegate,
@@ -167,7 +168,7 @@ UITextFieldDelegate>
     }
     
     HIRFindViewController *findVC = [[HIRFindViewController alloc] init];
-    findVC.location = [[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue];
+    findVC.location = [[[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue]locationMarsFromEarth];
     [self.navigationController pushViewController:findVC animated:YES];
 }
 

@@ -195,7 +195,6 @@
     [mapView setRegion:newRegion];
 }
 
-
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
     if ([annotation isKindOfClass:[MKUserLocation class]]){
