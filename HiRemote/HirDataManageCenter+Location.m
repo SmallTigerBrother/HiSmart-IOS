@@ -33,6 +33,8 @@
     peripheraLocationInfo.dataType = dataType;
     peripheraLocationInfo.remark = remark;
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    
+    
 }
 
 //删除一条记录

@@ -44,7 +44,10 @@
 //    bottomContainerViewTypeAudio     =   1   //录音页面
 //} BottomContainerViewType;
 
-@interface SCCaptureCameraController () {
+@interface SCCaptureCameraController ()
+<UINavigationControllerDelegate,
+UIImagePickerControllerDelegate>
+{
     int alphaTimes;
     CGPoint currTouchPoint;
 }
@@ -587,13 +590,20 @@ void c_slideAlpha() {
     
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
     [self presentViewController:picker animated:YES completion:nil];
 
-//    PostViewController *con = [[PostViewController alloc] init];
-//    con.postImage = self.stillImage;
-//    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:con];
-//    [self presentViewController:nav animated:YES completion:nil];
 }
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    PostViewController *con = [[PostViewController alloc] init];
+    con.postImage = self.stillImage;
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:con];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
 
 - (void)tmpBtnPressed:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];

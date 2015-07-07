@@ -55,7 +55,7 @@ static HirUserInfo *hirUserDefault;
         return _currentPeriphera;
     }
     else{
-        NSAssert(0, @"数据非法");
+//        NSAssert(0, @"数据非法");
         return nil;
     }
 }

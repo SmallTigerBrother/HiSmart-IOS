@@ -53,6 +53,13 @@
     }
     
     [self.locManager startUpdatingLocation];
+    
+    //在ios 8.0下要授权
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0){
+        [self.locManager requestWhenInUseAuthorization];  //调用了这句,就会弹出允许框了.
+    }
+    
 }
 
 

@@ -77,7 +77,8 @@ UITextFieldDelegate>
         return self.data.count;
     }else{
         // 谓词搜索
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains [cd] %@",self.searchDisplayController.searchBar.text];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"location contains [cd] %@",self.searchDisplayController.searchBar.text];
+        
         self.filterData =  [[NSArray alloc] initWithArray:[self.data filteredArrayUsingPredicate:predicate]];
         return self.filterData.count;
     }
@@ -194,6 +195,8 @@ UITextFieldDelegate>
         case 1:
         {
             [self.tableView beginUpdates];
+            DBPeripheraLocationInfo *peripheraLocationInfo = [self.data objectAtIndex:cell.indexPath.row];
+            [HirDataManageCenter delLocationRecordByModel:peripheraLocationInfo];
             [self.data removeObjectAtIndex:cell.indexPath.row];
             [self.tableView deleteRowsAtIndexPaths: [NSArray arrayWithObjects:cell.indexPath, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
             [self.tableView endUpdates];
