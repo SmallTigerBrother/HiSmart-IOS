@@ -471,7 +471,7 @@ static float pp = 0;
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifyCell];
     if (cell == nil) {
         cell =  [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifyCell];
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(8, 3, self.view.frame.size.width-100, 20)];
         label.font = [UIFont boldSystemFontOfSize:16];
         label.tag = 10;
