@@ -36,6 +36,12 @@
     peripheraLocationInfo.remark = remark;
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     
+    if (dataType.integerValue == HirLocationDataType_history) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:PERIPHERAL_HISTORY_LOCATION_UPDATA_NOTIFICATION object:nil];
+    }
+    else if (dataType.integerValue == HirLocationDataType_lost){
+        [[NSNotificationCenter defaultCenter] postNotificationName:PERIPHERAL_DISCONNECT_LOCATION_UPDATA_NOTIFICATION object:nil];
+    }
 }
 
 //删除一条记录

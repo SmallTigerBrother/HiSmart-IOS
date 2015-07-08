@@ -61,11 +61,16 @@ UITextFieldDelegate>
     searchDisplayController.searchResultsDelegate = self;
     searchDisplayController.delegate = self;
     
-    
-    DBPeriphera *currentPeriphera = [HirUserInfo shareUserInfo].currentPeriphera;
-    self.data = [NSMutableArray arrayWithArray:[HirDataManageCenter findAllLocationRecordByPeripheraUUID:currentPeriphera.uuid dataType:@(self.locationDataType)]];
+    [self getDataAndRefreshTable];
     
     self.tableView.tableHeaderView = searchBar;
+    
+    if (self.locationDataType == HirLocationDataType_history) {
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(peripheralHistoryLocationNeedRefresh:) name:PERIPHERAL_HISTORY_LOCATION_UPDATA_NOTIFICATION object:nil];
+    }
+    else if (self.locationDataType == HirLocationDataType_lost){
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(peripheralDicconnectLocationNeedRefresh:) name:PERIPHERAL_DISCONNECT_LOCATION_UPDATA_NOTIFICATION object:nil];
+    }
 }
 
 /*
@@ -83,6 +88,23 @@ UITextFieldDelegate>
         self.filterData =  [[NSArray alloc] initWithArray:[self.data filteredArrayUsingPredicate:predicate]];
         return self.filterData.count;
     }
+}
+
+#pragma mark - notification
+-(void)peripheralHistoryLocationNeedRefresh:(NSNotification *)notification{
+    [self getDataAndRefreshTable];
+}
+
+-(void)peripheralDicconnectLocationNeedRefresh:(NSNotification *)notification{
+    [self getDataAndRefreshTable];
+}
+
+-(void)getDataAndRefreshTable{
+    DBPeriphera *currentPeriphera = [HirUserInfo shareUserInfo].currentPeriphera;
+    
+    self.data = [NSMutableArray arrayWithArray:[HirDataManageCenter findAllLocationRecordByPeripheraUUID:currentPeriphera.uuid dataType:@(self.locationDataType)]];
+
+    [self.tableView reloadData];
 }
 
 #pragma mark - MultiFunctionTableViewDelegate

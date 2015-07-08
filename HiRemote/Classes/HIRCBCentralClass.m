@@ -210,6 +210,7 @@
     }
     
     
+    
     NSLog(@"断开连接，要定位");
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter postNotificationName:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil userInfo:nil];

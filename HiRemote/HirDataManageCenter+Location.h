@@ -9,6 +9,9 @@
 #import "HirDataManageCenter.h"
 #import "DBPeripheraLocationInfo.h"
 
+#define PERIPHERAL_HISTORY_LOCATION_UPDATA_NOTIFICATION @"PERIPHERAL_HISTORY_LOCATION_UPDATA_NOTIFICATION"
+#define PERIPHERAL_DISCONNECT_LOCATION_UPDATA_NOTIFICATION @"PERIPHERAL_DISCONNECT_LOCATION_UPDATA_NOTIFICATION"
+
 @interface HirDataManageCenter (Location)
 //查找设备ID为:peripheraUUID的定位记录信息
 +(NSArray *)findAllLocationRecordByPeripheraUUID:(NSString *)peripheraUUID dataType:(NSNumber *)dataType;
