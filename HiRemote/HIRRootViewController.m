@@ -22,7 +22,13 @@
 #import "HirDataManageCenter+Location.h"
 
 #define SCROLLVIEW_HEIGHT 140
-@interface HIRRootViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,HIRSegmentViewDelegate,HPCoreLocationMangerDelegate>
+
+@interface HIRRootViewController () <UIScrollViewDelegate,
+UITableViewDataSource,
+UITableViewDelegate,
+HIRSegmentViewDelegate,
+HPCoreLocationMangerDelegate>
+
 @property (nonatomic, strong) UIScrollView *showDeviceScrollView;
 @property (nonatomic, strong) UIButton *preButton;
 @property (nonatomic, strong) UIButton *nextButton;
@@ -37,6 +43,9 @@
 @property (nonatomic, assign) BOOL isDisconnectLocation;
 @property (nonatomic, strong) NSMutableArray *deviceInfoArray;
 @property (nonatomic, strong) SCNavigationController *cameraNavigationController;
+
+@property (nonatomic, assign) NSInteger needSavePeripheralLocationCount;    //需要记录历史的次数
+@property (nonatomic, assign) NSInteger peripheralDisconnectCount;          //需要记录到断开连接表的次数
 @end
 
 @implementation HIRRootViewController
@@ -180,6 +189,7 @@
 }
 
 -(void)needSavePeripheralLocation:(NSNotification *)notify{
+
     if (self.isLocationing) {
         return;
     }
@@ -216,14 +226,12 @@
     else{
         [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:locationStr dataType:@(HirLocationDataType_history) remark:nil];
     }
-    
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
-
 
 
 - (void)updateViewConstraints
