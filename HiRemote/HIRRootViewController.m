@@ -22,7 +22,7 @@
 #import "HirDataManageCenter+Location.h"
 
 #define SCROLLVIEW_HEIGHT 140
-@interface HIRRootViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,HIRSegmentViewDelegate>
+@interface HIRRootViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,HIRSegmentViewDelegate,HPCoreLocationMangerDelegate>
 @property (nonatomic, strong) UIScrollView *showDeviceScrollView;
 @property (nonatomic, strong) UIButton *preButton;
 @property (nonatomic, strong) UIButton *nextButton;
@@ -33,6 +33,8 @@
 @property (nonatomic, strong) NSMutableArray *deviceShowArray;
 @property (nonatomic, strong) NSMutableArray *switchStatus;
 @property (nonatomic, assign) BOOL didSetupConstraints;
+@property (nonatomic, assign) BOOL isLocationing;
+@property (nonatomic, assign) BOOL isDisconnectLocation;
 @property (nonatomic, strong) NSMutableArray *deviceInfoArray;
 @property (nonatomic, strong) SCNavigationController *cameraNavigationController;
 @end
@@ -178,21 +180,45 @@
 }
 
 -(void)needSavePeripheralLocation:(NSNotification *)notify{
-    NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;
+    if (self.isLocationing) {
+        return;
+    }
+    self.isLocationing = YES;
+    self.isDisconnectLocation = NO;
+    appDelegate.locManger.delegate = self;
+    [appDelegate.locManger startUpdatingUserLocation];
     
-    NSString *latitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.latitude];
-    NSString *longitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.longitude];
-    NSString *location = appDelegate.locManger.currentStreet;
-    [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:location dataType:@(HirLocationDataType_history) remark:nil];
 }
 
 -(void)peripheralDisconnect:(NSNotification *)notify{
-    NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;
-    NSNumber *latitude = [NSNumber numberWithDouble:appDelegate.locManger.location.coordinate.latitude];
-    NSNumber *longitude = [NSNumber numberWithDouble:appDelegate.locManger.location.coordinate.longitude];
-    NSString *location = appDelegate.locManger.currentStreet;
-    [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:location dataType:@(HirLocationDataType_lost) remark:nil];
+    if (self.isLocationing) {
+        return;
+    }
+    self.isLocationing = YES;
+    self.isDisconnectLocation = YES;
+    appDelegate.locManger.delegate = self;
+    [appDelegate.locManger startUpdatingUserLocation];
+    
+    
 }
+
+- (void) locationFinished:(CLLocation *)location withFlag:(NSNumber *)isSuccess{
+    self.isLocationing = NO;
+    
+    NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;
+    NSString *latitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.latitude];
+    NSString *longitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.longitude];
+    NSString *locationStr = appDelegate.locManger.currentStreet;
+
+    if (_isDisconnectLocation) {
+        [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:locationStr dataType:@(HirLocationDataType_lost) remark:nil];
+    }
+    else{
+        [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:locationStr dataType:@(HirLocationDataType_history) remark:nil];
+    }
+    
+}
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

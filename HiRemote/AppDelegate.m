@@ -41,6 +41,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSLog(@"111111");
     _isBackground = NO;
     self.locManger = [[HPCoreLocationManger alloc] init];
     [self.locManger startUpdatingUserLocation];

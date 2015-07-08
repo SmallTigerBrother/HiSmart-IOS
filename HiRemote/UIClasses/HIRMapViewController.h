@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-
-@interface HIRMapViewController : UIViewController
+#import "HirBaseViewController.h"
+@interface HIRMapViewController : HirBaseViewController
 
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) NSString *hiRemoteName;

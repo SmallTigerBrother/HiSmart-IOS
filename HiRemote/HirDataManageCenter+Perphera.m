@@ -44,6 +44,8 @@
         periphera.avatarPath = avatarPath;
         periphera.battery = battery;
     }
+    
+    [HirUserInfo shareUserInfo].deviceInfoArray = [HirDataManageCenter findAllPerphera];
     [[NSManagedObjectContext MR_context]MR_saveOnlySelfAndWait];    
 }
 

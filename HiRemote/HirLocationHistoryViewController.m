@@ -8,13 +8,13 @@
 
 #import "HirLocationHistoryViewController.h"
 #import "HirLocationHistoryTableCell.h"
+#import "HIRMapViewController.h"
 #import "HirAlertView.h"
 #import "HirActionTextField.h"
-#import "HIRFindViewController.h"
 #import "HirDataManageCenter+Location.h"
 #import "AppDelegate.h"
 #import "CLLocation+Sino.h"
-
+#import "HIRFindViewController.h"
 @interface HirLocationHistoryViewController ()
 <UISearchDisplayDelegate,
 UITableViewDataSource,
@@ -54,7 +54,7 @@ UITextFieldDelegate>
     [self.view addSubview:self.tableView];
     
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-    searchBar.placeholder = @"搜索";
+    searchBar.placeholder = NSLocalizedString(@"search", nil);
     
     searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
     searchDisplayController.searchResultsDataSource = self;
@@ -167,9 +167,16 @@ UITextFieldDelegate>
         locationInfo = [self.filterData objectAtIndex:indexPath.row];
     }
     
-    HIRFindViewController *findVC = [[HIRFindViewController alloc] init];
-    findVC.location = [[[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue]locationMarsFromEarth];
-    [self.navigationController pushViewController:findVC animated:YES];
+    if (self.locationDataType == HirLocationDataType_history) {
+        HIRMapViewController *mapVC = [[HIRMapViewController alloc] init];
+        mapVC.location = [[[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue]locationMarsFromEarth];
+        [self.navigationController pushViewController:mapVC animated:YES];
+    }
+    else{
+        HIRFindViewController *findViewController = [[HIRFindViewController alloc] init];
+        findViewController.location = [[[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue]locationMarsFromEarth];
+        [self.navigationController pushViewController:findViewController animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
