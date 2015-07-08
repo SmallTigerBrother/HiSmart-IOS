@@ -22,7 +22,12 @@
 #import "HirDataManageCenter+Location.h"
 
 #define SCROLLVIEW_HEIGHT 140
-@interface HIRRootViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,HIRSegmentViewDelegate>
+@interface HIRRootViewController () <UIScrollViewDelegate,
+UITableViewDataSource,
+UITableViewDelegate,
+HIRSegmentViewDelegate,
+HPCoreLocationMangerDelegate>
+
 @property (nonatomic, strong) UIScrollView *showDeviceScrollView;
 @property (nonatomic, strong) UIButton *preButton;
 @property (nonatomic, strong) UIButton *nextButton;
@@ -35,6 +40,9 @@
 @property (nonatomic, assign) BOOL didSetupConstraints;
 @property (nonatomic, strong) NSMutableArray *deviceInfoArray;
 @property (nonatomic, strong) SCNavigationController *cameraNavigationController;
+
+@property (nonatomic, assign) NSInteger needSavePeripheralLocationCount;    //需要记录历史的次数
+@property (nonatomic, assign) NSInteger peripheralDisconnectCount;          //需要记录到断开连接表的次数
 @end
 
 @implementation HIRRootViewController
@@ -178,20 +186,41 @@
 }
 
 -(void)needSavePeripheralLocation:(NSNotification *)notify{
-    NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;
-    
-    NSString *latitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.latitude];
-    NSString *longitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.longitude];
-    NSString *location = appDelegate.locManger.currentStreet;
-    [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:location dataType:@(HirLocationDataType_history) remark:nil];
+    [appDelegate.locManger startUpdatingUserLocation];
+    appDelegate.locManger.delegate = self;
+
+    self.needSavePeripheralLocationCount ++;
 }
 
 -(void)peripheralDisconnect:(NSNotification *)notify{
-    NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;
-    NSNumber *latitude = [NSNumber numberWithDouble:appDelegate.locManger.location.coordinate.latitude];
-    NSNumber *longitude = [NSNumber numberWithDouble:appDelegate.locManger.location.coordinate.longitude];
-    NSString *location = appDelegate.locManger.currentStreet;
-    [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:location dataType:@(HirLocationDataType_lost) remark:nil];
+    
+    
+    [appDelegate.locManger startUpdatingUserLocation];
+    appDelegate.locManger.delegate = self;
+
+    self.peripheralDisconnectCount ++;
+}
+
+#pragma mark HPCoreLocationMangerDelegate
+///定位完成（成功或者失败） location表示当前的位置（失败为nil) isSuccess是Bool值，表示定位成功还是失败
+- (void) locationFinished:(CLLocation *)location withFlag:(NSNumber *)isSuccess{
+    @synchronized(self){
+        NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;
+        
+        NSString *latitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.latitude];
+        NSString *longitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.longitude];
+        NSString *locationStr = appDelegate.locManger.currentStreet;
+        
+        if (_needSavePeripheralLocationCount>0) {
+            _needSavePeripheralLocationCount--;
+            [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:locationStr dataType:@(HirLocationDataType_history) remark:nil];
+        }
+        
+        if (_peripheralDisconnectCount>0) {
+            _peripheralDisconnectCount--;
+            [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:locationStr dataType:@(HirLocationDataType_lost) remark:nil];
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
