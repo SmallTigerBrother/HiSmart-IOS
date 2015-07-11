@@ -333,7 +333,7 @@
     if (error) {
         return;
     }
-
+    
     NSString *strr = [self hexadecimalString:characteristic.value];
     NSLog(@"cha:%@---%ld",characteristic.UUID,strtol([strr UTF8String], 0, 16));
     
@@ -352,14 +352,32 @@
         [notificationCenter postNotificationName:BATTERY_LEVEL_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:level] forKey:@"level"]];
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_SEARCHPHONE_CHARACTER]]) {
         ////判断是否打开相机
-        if ([HirUserInfo shareUserInfo].currentViewController == 1) {
-            ////自动拍照
-            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-            [notificationCenter postNotificationName:NEED_AUTO_PHONE_NOTIFICATION object:nil userInfo:nil];
-        }else {
-            /////定位手机
-            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-            [notificationCenter postNotificationName:NEED_SAVE_PERIPHERAL_LOCATION_NOTIFICATION object:nil userInfo:nil];
+        switch ([HirUserInfo shareUserInfo].currentViewControllerType) {
+            case CurrentViewControllerType_other:
+            {
+                /////定位手机
+                NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+                [notificationCenter postNotificationName:NEED_SAVE_PERIPHERAL_LOCATION_NOTIFICATION object:nil userInfo:nil];
+                
+            }
+                break;
+            case CurrentViewControllerType_phone:
+            {
+                ////自动拍照
+                NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+                [notificationCenter postNotificationName:NEED_AUTO_PHONE_NOTIFICATION object:nil userInfo:nil];
+                
+            }
+                break;
+            case CurrentViewControllerType_voice:
+            {
+                //开始录音通知
+                NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+                [notificationCenter postNotificationName:NEED_RECORD_VOICE object:nil userInfo:nil];
+            }
+                break;
+            default:
+                break;
         }
         
         NSLog(@"查找手机：%@",[self hexadecimalString:characteristic.value]);
@@ -367,8 +385,6 @@
         NSLog(@"update value fialue==%@",[self hexadecimalString:characteristic.value]);
     }
 }
-
-
 
 //用于检测中心向外设写数据是否成功
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error

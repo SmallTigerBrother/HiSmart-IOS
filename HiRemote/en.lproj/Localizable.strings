@@ -76,3 +76,5 @@
 "search" = "search";
 "history" = "History";
 "isNotConnected" = "Device is not connected";
+"warning" = "WARNING";
+"doYouWantToDelThisRecord" = "do you want to deleter this record?";

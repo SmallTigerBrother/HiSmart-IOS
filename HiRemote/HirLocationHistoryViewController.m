@@ -85,7 +85,7 @@ UITextFieldDelegate>
         return self.data.count;
     }else{
         // 谓词搜索
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"location contains [cd] %@",self.searchDisplayController.searchBar.text];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"location contains [cd] %@ OR remark contains [cd] %@",self.searchDisplayController.searchBar.text,self.searchDisplayController.searchBar.text];
         
         self.filterData =  [[NSArray alloc] initWithArray:[self.data filteredArrayUsingPredicate:predicate]];
         return self.filterData.count;
@@ -131,9 +131,6 @@ UITextFieldDelegate>
         [rightUtilityButtons addUtilityButtonWithColor:
          [UIColor colorWithRed:0.7373 green:0.7373 blue:0.7373 alpha:1.0]
                                                   icon:[UIImage imageNamed:@"locationCell_trash"]];
-        [rightUtilityButtons addUtilityButtonWithColor:
-         [UIColor colorWithRed:0.7373 green:0.7373 blue:0.7373 alpha:1.0]
-                                                  icon:[UIImage imageNamed:@"locationCell_transpond"]];
         
         cell = [[HirLocationHistoryTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:cellIdentifier
@@ -216,23 +213,38 @@ UITextFieldDelegate>
     switch (index) {
         case 0:
         {
+            DBPeripheraLocationInfo *peripheraLocationInfo = [self.data objectAtIndex:cell.indexPath.row];
+            
             self.actionTextField = [[HirActionTextField alloc]initWithFrame:CGRectMake(10, 10, 200, 30)];
-            self.actionTextField.placeholder = @"xxx";
+            if (peripheraLocationInfo.remark) {
+                self.actionTextField.placeholder = peripheraLocationInfo.remark;
+            }
+            else{
+                self.actionTextField.placeholder = peripheraLocationInfo.location;
+            }
             self.actionTextField.delegate = self;
-                        
+            
             HirAlertView *hirAlertView = [[HirAlertView alloc]initWithTitle:NSLocalizedString(@"changeName", nil) contenView:self.actionTextField clickBlock:^(NSInteger index){
+                peripheraLocationInfo.remark = self.actionTextField.text;
+                [HirDataManageCenter saveLocationRecordByModel:peripheraLocationInfo];
+                [self.tableView reloadData];
             }cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) otherButtonTitles:NSLocalizedString(@"CONFIRM", nil), nil];
             [hirAlertView showWithAnimation:YES];
             break;
         }
         case 1:
         {
-            [self.tableView beginUpdates];
-            DBPeripheraLocationInfo *peripheraLocationInfo = [self.data objectAtIndex:cell.indexPath.row];
-            [HirDataManageCenter delLocationRecordByModel:peripheraLocationInfo];
-            [self.data removeObjectAtIndex:cell.indexPath.row];
-            [self.tableView deleteRowsAtIndexPaths: [NSArray arrayWithObjects:cell.indexPath, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self.tableView endUpdates];
+            HirAlertView *alertView = [[HirAlertView alloc]initWithTitle:NSLocalizedString(@"warning", nil) message:NSLocalizedString(@"doYouWantToDelThisRecord", nil) clickBlock:^(NSInteger index){
+                if (index == 1) {
+                    [self.tableView beginUpdates];
+                    DBPeripheraLocationInfo *peripheraLocationInfo = [self.data objectAtIndex:cell.indexPath.row];
+                    [HirDataManageCenter delLocationRecordByModel:peripheraLocationInfo];
+                    [self.data removeObjectAtIndex:cell.indexPath.row];
+                    [self.tableView deleteRowsAtIndexPaths: [NSArray arrayWithObjects:cell.indexPath, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.tableView endUpdates];
+                }
+            }cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) otherButtonTitles:NSLocalizedString(@"CONFIRM", nil), nil];
+            [alertView showWithAnimation:YES];
         }
             break;
         case 2:
@@ -240,7 +252,7 @@ UITextFieldDelegate>
             NSLog(@"转发");
         }
             break;
-
+            
         default:
             break;
     }
