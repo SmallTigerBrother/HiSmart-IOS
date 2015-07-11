@@ -2,7 +2,7 @@
 //  UIControl+AddLine.h
 //  HiRemote
 //
-//  Created by minfengliu on 15/7/3.
+//  Created by rick on 15/7/3.
 //  Copyright (c) 2015年 hiremote. All rights reserved.
 //
 

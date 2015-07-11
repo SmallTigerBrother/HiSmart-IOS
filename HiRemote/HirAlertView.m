@@ -2,7 +2,7 @@
 //  HirBaseTableCell.h
 //  HiRemote
 //
-//  Created by minfengliu on 15/6/30.
+//  Created by rick on 15/6/30.
 //  Copyright (c) 2015年 hiremote. All rights reserved.
 //
 

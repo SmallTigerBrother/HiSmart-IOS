@@ -2,7 +2,7 @@
 //  HirVoceViewController.h
 //  HiRemote
 //
-//  Created by minfengliu on 15/7/4.
+//  Created by rick on 15/7/4.
 //  Copyright (c) 2015年 hiremote. All rights reserved.
 //
 

@@ -14,6 +14,10 @@ void transform_bear_paw_2_mars(double lat, double lng, double* tarLat, double* t
 
 - (CLLocation*)locationMarsFromEarth;
 {
+    
+    if([self isLocationOutOfChina:self.coordinate]){
+        return self;
+    }
     double lat = 0.0;
     double lng = 0.0;
     transform_earth_2_mars(self.coordinate.latitude, self.coordinate.longitude, &lat, &lng);
@@ -25,6 +29,15 @@ void transform_bear_paw_2_mars(double lat, double lng, double* tarLat, double* t
                                             speed:self.speed
                                         timestamp:self.timestamp];
 }
+
+//判断是不是在中国
+-(BOOL)isLocationOutOfChina:(CLLocationCoordinate2D)location
+{
+    if (location.longitude < 72.004 || location.longitude > 137.8347 || location.latitude < 0.8293 || location.latitude > 55.8271)
+        return YES;
+    return NO;
+}
+
 
 - (CLLocation*)locationEarthFromMars;
 {

@@ -2,14 +2,14 @@
 //  HirBaseTableCell.h
 //  HiRemote
 //
-//  Created by minfengliu on 15/6/30.
+//  Created by rick on 15/6/30.
 //  Copyright (c) 2015年 hiremote. All rights reserved.
 //
 
 
 #import "HirWindow.h"
 
-#define WINDOW_LEFT_PADDING         (10)
+#define WINDOW_LEFT_PADDING         (30)
 #define WINDOW_WIDTH                (SCREEN_WIDTH - 2*WINDOW_LEFT_PADDING)
 
 #define Size_font_message           FONT2(16)

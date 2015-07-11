@@ -2,7 +2,7 @@
 //  HirUserDefault.m
 //  HiRemote
 //
-//  Created by minfengliu on 15/7/5.
+//  Created by rick on 15/7/5.
 //  Copyright (c) 2015年 hiremote. All rights reserved.
 //
 
@@ -31,12 +31,12 @@ static HirUserInfo *hirUserDefault;
     return self;
 }
 
--(void)setCurrentViewController:(NSInteger)currentViewController{
-    [self.stateUserDef setObject:@(currentViewController) forKey:@"currentViewController"];
+-(void)setCurrentViewControllerType:(CurrentViewControllerType)currentViewControllerType{
+    [self.stateUserDef setObject:@(currentViewControllerType) forKey:@"currentViewController"];
     [self.stateUserDef synchronize];
 }
 
--(NSInteger)currentViewController{
+-(CurrentViewControllerType)currentViewControllerType{
     return [[self.stateUserDef objectForKey:@"currentViewController"]integerValue];
 }
 
