@@ -83,37 +83,30 @@
 
     [HirUserInfo shareUserInfo].deviceInfoArray = [HirDataManageCenter findAllPerphera];
     
-    // 初始化本地通知对象
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    if (notification) {
-        // 设置通知的提醒时间
-        NSDate *currentDate   = [NSDate date];
-        notification.timeZone = [NSTimeZone defaultTimeZone]; // 使用本地时区
-        notification.fireDate = [currentDate dateByAddingTimeInterval:5.0];
-        
-        // 设置重复间隔
-        notification.repeatInterval = kCFCalendarUnitMinute;
-        
-        // 设置提醒的文字内容
-        notification.alertBody   = @"Wake up, man";
-        notification.alertAction = NSLocalizedString(@"起床了", nil);
-        
-        // 通知提示音 使用默认的
-        notification.soundName= UILocalNotificationDefaultSoundName;
-        
-        // 设置应用程序右上角的提醒个数
-        notification.applicationIconBadgeNumber++;
-        
-        // 设定通知的userInfo，用来标识该通知
-        NSMutableDictionary *aUserInfo = [[NSMutableDictionary alloc] init];
-        [aUserInfo setObject:@"LocalNotificationID" forKey:@"kLocalNotificationID"];
-        notification.userInfo = aUserInfo;
-        
-        // 将通知添加到系统中
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    }
     
+
     return YES;
+}
+
+-(void)locationNotification{
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    if (localNotification == nil) {
+        return;
+    }
+//    //设置本地通知的触发时间（如果要立即触发，无需设置），这里设置为20妙后
+//    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:20];
+    //设置本地通知的时区
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    //设置通知的内容
+    localNotification.alertBody = @"Your HiSmart bag is 90 feet away from you!";
+    //设置通知动作按钮的标题
+    localNotification.alertAction = @"Alert";
+    //设置提醒的声音，可以自己添加声音文件，这里设置为默认提示声
+    localNotification.soundName = UILocalNotificationDefaultSoundName;
+    
+    //立即触发一个通知
+    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+
 }
 
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification{
@@ -160,6 +153,12 @@ static int aa = 0;
             }
         });
     });
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self locationNotification];
+    });
+    
     //<<<<<<< Updated upstream
     //////
     //=======
@@ -195,6 +194,9 @@ static int aa = 0;
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [MagicalRecord cleanUp];
+    
+    //取消所有的本地通知
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 - (void)welcomViewControllerNeedDisapear {

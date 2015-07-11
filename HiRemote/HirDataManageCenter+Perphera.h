@@ -16,8 +16,10 @@
 //查找所有设备
 +(NSMutableArray *)findAllPerphera;
 
++(NSString *)getNameWithPerphera:(DBPeriphera *)periphera;
+
 //插入一条记录
-+(void)insertPerpheraByUUID:(NSString *)uuid name:(NSString *)name avatarPath:(NSString *)avatarPath battery:(NSNumber *)battery;
++(void)insertPerpheraByUUID:(NSString *)uuid name:(NSString *)name remarkName:(NSString *)remarkName avatarPath:(NSString *)avatarPath battery:(NSNumber *)battery;
 
 //删除一条记录
 +(void)delPerpheraByModel:(DBPeriphera *)periphera;

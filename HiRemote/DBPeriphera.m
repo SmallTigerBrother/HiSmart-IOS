@@ -12,6 +12,7 @@
 @implementation DBPeriphera
 
 @dynamic name;
+@dynamic remarkName;
 @dynamic avatarPath;
 @dynamic uuid;
 @dynamic battery;

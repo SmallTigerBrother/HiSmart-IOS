@@ -15,13 +15,20 @@
     return periphera;
 }
 
++(NSString *)getNameWithPerphera:(DBPeriphera *)periphera{
+    if (periphera.remarkName) {
+        return periphera.remarkName;
+    }
+    return periphera.name;
+}
+
 +(NSMutableArray *)findAllPerphera{
     NSArray *list = [DBPeriphera MR_findAll];
     return  [NSMutableArray arrayWithArray:list];
 }
 
 //插入一条记录
-+(void)insertPerpheraByUUID:(NSString *)uuid name:(NSString *)name avatarPath:(NSString *)avatarPath battery:(NSNumber *)battery{
++(void)insertPerpheraByUUID:(NSString *)uuid name:(NSString *)name remarkName:(NSString *)remarkName avatarPath:(NSString *)avatarPath battery:(NSNumber *)battery{
     
 //    NSAssert(uuid, @"no find uuid");
 
@@ -29,6 +36,9 @@
     if (periphera) {
         if (name) {
             periphera.name = name;
+        }
+        if (remarkName) {
+            periphera.remarkName = remarkName;
         }
         if (avatarPath) {
             periphera.avatarPath = avatarPath;
@@ -41,6 +51,7 @@
         DBPeriphera *periphera = [DBPeriphera MR_createEntity];
         periphera.uuid = uuid;
         periphera.name = name;
+        periphera.remarkName = remarkName;
         periphera.avatarPath = avatarPath;
         periphera.battery = battery;
     }

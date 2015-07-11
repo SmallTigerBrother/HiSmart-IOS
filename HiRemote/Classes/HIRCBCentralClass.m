@@ -166,7 +166,7 @@
 //    }
     
     
-    [HirDataManageCenter insertPerpheraByUUID:perUuid name:peripheral.name avatarPath:nil battery:nil];
+    [HirDataManageCenter insertPerpheraByUUID:perUuid name:peripheral.name remarkName:nil avatarPath:nil battery:nil];
     
     NSArray	*serviceArray = [NSArray arrayWithObjects:[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_IMMEDIATE_ALERT_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_LOSS_ALERT_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_POWER_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_BATTERY_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_SEARCHPHONE_SERVICE], nil];
     
