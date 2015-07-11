@@ -13,5 +13,5 @@
 
 -(instancetype)initWithDataType:(HirLocationDataType)dataType;
 
-
+@property (nonatomic, weak)id findDelegate;
 @end

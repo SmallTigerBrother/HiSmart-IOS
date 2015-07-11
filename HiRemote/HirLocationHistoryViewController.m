@@ -33,6 +33,8 @@ UITextFieldDelegate>
 
 @implementation HirLocationHistoryViewController
 @synthesize searchDisplayController;
+@synthesize findDelegate;
+
 
 -(instancetype)initWithDataType:(HirLocationDataType)dataType{
     if (self = [super init]) {
@@ -195,9 +197,10 @@ UITextFieldDelegate>
         [self.navigationController pushViewController:mapVC animated:YES];
     }
     else{
-        HIRFindViewController *findViewController = [[HIRFindViewController alloc] init];
-        findViewController.location = [[[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue]locationMarsFromEarth];
-        [self.navigationController pushViewController:findViewController animated:YES];
+        if([self.findDelegate respondsToSelector:@selector(resetTheLocation:peripheraLocationInfo:)]) {
+            [self.findDelegate performSelector:@selector(resetTheLocation:peripheraLocationInfo:) withObject:[[[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue]locationMarsFromEarth] withObject:locationInfo];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

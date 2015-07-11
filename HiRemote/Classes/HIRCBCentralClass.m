@@ -36,6 +36,7 @@
     self = [super init];
     if (self) {
         self.peripheralsMArray = [NSMutableArray arrayWithCapacity:5];
+        self.discoveredPeripheral = nil;
         self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
         
         self.remoteDataObjArray = [HirUserInfo shareUserInfo].deviceInfoArray;
@@ -103,7 +104,9 @@
         [notificationCenter postNotificationName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:CBCENTERAL_STATE_NOT_SUPPORT,@"state", nil]];
         
         NSLog(@"断开连接，要定位");
-        [notificationCenter postNotificationName:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil userInfo:nil];
+        if (self.discoveredPeripheral) {
+            [notificationCenter postNotificationName:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil userInfo:nil];
+        }
     }
 }
 

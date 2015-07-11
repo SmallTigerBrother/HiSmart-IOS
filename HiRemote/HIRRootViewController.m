@@ -20,7 +20,7 @@
 #import "HirVoiceMemosViewController.h"
 #import "SCNavigationController.h"
 #import "HirDataManageCenter+Location.h"
-
+#import "CLLocation+Sino.h"
 #define SCROLLVIEW_HEIGHT 140
 
 @interface HIRRootViewController () <UIScrollViewDelegate,
@@ -106,6 +106,7 @@ HPCoreLocationMangerDelegate>
     [self.nextButton setImage:[UIImage imageNamed:@"nextBtn"] forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.pageControl = [[UIPageControl alloc] init];
+    self.pageControl.userInteractionEnabled = NO;
     if ([self.deviceInfoArray count] > 0) {
         self.pageControl.numberOfPages = [self.deviceInfoArray count];
     }else {
@@ -113,8 +114,6 @@ HPCoreLocationMangerDelegate>
     }
     
     self.pageControl.currentPage = 0;
-    [self.pageControl addTarget:self action:@selector(pageControlChange:) forControlEvents:UIControlEventValueChanged];
-    
     self.segControl = [[HIRSegmentView alloc] initWithFrame:CGRectMake(60, SCROLLVIEW_HEIGHT + 15, self.view.frame.size.width - 120, 35) items:[NSArray arrayWithObjects:NSLocalizedString(@"myBag", @""),NSLocalizedString(@"edit", @""), nil]];
     self.segControl.tintColor = [UIColor colorWithRed:0.38 green:0.74 blue:0.56 alpha:1];
     self.segControl.delegate = self;
@@ -284,6 +283,7 @@ HPCoreLocationMangerDelegate>
         frame.origin.x = 0;
         frame.origin.y = 0;
         showView.frame = frame;
+        showView.deviceNameLabel.text = NSLocalizedString(@"isNotConnected", @"");
         [self.showDeviceScrollView addSubview:showView];
         [self.deviceShowArray addObject:showView];
     }else {
@@ -382,8 +382,11 @@ static float pp = 0;
         
     }
     else if(btn.tag == 2) {
-        HirLocationHistoryViewController *locationHistoryViewController = [[HirLocationHistoryViewController alloc]initWithDataType:HirLocationDataType_lost];
-        [self.navigationController pushViewController:locationHistoryViewController animated:YES];
+        HIRFindViewController *findViewController = [[HIRFindViewController alloc] init];
+        NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+        DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:currentUuid];
+        findViewController.location = [[[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue]locationMarsFromEarth];
+        [self.navigationController pushViewController:findViewController animated:YES];
     }
     else if (btn.tag == 3){
         HirVoiceMemosViewController *voiceMemosViewController = [[HirVoiceMemosViewController alloc]initWithNibName:@"HirVoiceMemosViewController" bundle:nil];
@@ -420,11 +423,7 @@ static float pp = 0;
         self.preButton.hidden = YES;
     }
     self.pageControl.currentPage = page;
-    
-    [HirUserInfo shareUserInfo].currentPeripheraIndex = page;
-    
-    [self pageControlChange:nil];
-    
+    [self changeTheDeviceByUser];
 }
 
 - (void)nextButtonClick:(id)sender {
@@ -439,7 +438,7 @@ static float pp = 0;
         self.nextButton.hidden = YES;
     }
     self.pageControl.currentPage = page;
-    [self pageControlChange:nil];
+    [self changeTheDeviceByUser];
 }
 
 - (void)segmentViewSelectIndex:(NSInteger)index {
@@ -452,24 +451,7 @@ static float pp = 0;
     }
 }
 
-- (void)pageControlChange:(id)sender {
-    int totalPage = (int)self.pageControl.numberOfPages;
-    int page = (int)self.pageControl.currentPage;
-    if (totalPage > 1) {
-        self.preButton.hidden = NO;
-        self.nextButton.hidden = NO;
-    }
-    if (page >= (totalPage - 1)) {
-        self.nextButton.hidden = YES;
-    }
-    if (page <= 0) {
-        self.preButton.hidden = YES;
-    }
-    [self.showDeviceScrollView  setContentOffset:CGPointMake(page * self.view.frame.size.width, 0) animated:YES];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     CGFloat pageWidth = scrollView.frame.size.width;
     int page = scrollView.contentOffset.x / pageWidth;
     self.pageControl.currentPage = page;
@@ -485,6 +467,20 @@ static float pp = 0;
     }
     if (page <= 0) {
         self.preButton.hidden = YES;
+    }
+    [self changeTheDeviceByUser];
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    [self changeTheDeviceByUser];
+}
+
+
+- (void)changeTheDeviceByUser {
+    int page = (int)self.pageControl.currentPage;
+    if (page != [HirUserInfo shareUserInfo].currentPeripheraIndex) {
+        [HirUserInfo shareUserInfo].currentPeripheraIndex = page;
+        NSLog(@"page：%d",page);
     }
 }
 
