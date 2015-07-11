@@ -10,7 +10,7 @@
 #import "HIRWelcomeViewController.h"
 #import "HIRRegisterViewController.h"
 #import "HIRScanningViewController.h"
-#import "HIRRootViewController.h"
+
 //#import "HIRRemoteData.h"
 #import "SoundTool.h"
 #import "WXApi.h"
@@ -26,7 +26,7 @@
 @property(nonatomic) HIRWelcomeViewController *welcomeVC;
 @property(nonatomic) HIRRegisterViewController *registerVC;
 @property(nonatomic) HIRScanningViewController *scanVC;
-@property(nonatomic) HIRRootViewController *rootVC;
+
 
 @property (nonatomic, strong)NSTimer *myTimer;
 @end
@@ -44,7 +44,7 @@
     NSLog(@"111111");
     _isBackground = NO;
     self.locManger = [[HPCoreLocationManger alloc] init];
-    [self.locManger startUpdatingUserLocation];
+
     
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

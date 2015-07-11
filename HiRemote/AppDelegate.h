@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "HPCoreLocationManger.h"
-
+#import "HIRRootViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property(nonatomic) UIWindow *window;
 
 @property(nonatomic) HPCoreLocationManger *locManger;
-
+@property(nonatomic) HIRRootViewController *rootVC;
 - (void)addNewDevice;
 - (void)connectSuccessToShowRootVC; ////显示主界面
 

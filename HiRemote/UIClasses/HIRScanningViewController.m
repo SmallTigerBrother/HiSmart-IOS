@@ -83,11 +83,11 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hirCBStateChange:) name:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil];
-    
-    
 }
 
 - (void)outTimerForScanning {
+    NSLog(@"out timer for scning");
+    [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
     NSNotification *notif = [NSNotification notificationWithName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:CBCENTERAL_CONNECT_PERIPHERAL_FAIL forKey:@"state"]];
     [self hirCBStateChange:notif];
     [self.outTimer invalidate];
@@ -97,9 +97,9 @@
     [super viewDidAppear:animated];
     
     ///放在这里进行扫描的原因是，当失败后再扫描时回回到该页面再扫描
-    self.outTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
+    self.outTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
     [self.scanIndicator startAnimating];
-    [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral];
+    [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:nil];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -146,7 +146,7 @@
 }
 
 - (void)backButtonClick:(id)sender {
-    [self.scanIndicator startAnimating];
+    [self.scanIndicator stopAnimating];
     [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -154,12 +154,13 @@
 - (void)hirCBStateChange:(NSNotification *)notif {
     [self.outTimer invalidate];
     self.outTimer = nil;
-    
+    [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
+    NSLog(@"SCANING  CHANG NOTFI:%@",notif);
     NSDictionary *info = notif.userInfo;
     NSString *state = [info valueForKey:@"state"];
     if ([state isEqualToString:CBCENTERAL_STATE_NOT_SUPPORT] || [state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_FAIL]) {
         ////蓝牙不支持或关闭或者链接失败
-        [self.scanIndicator stopAnimating];
+        [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"checkBluetooth", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
         HIRConnFailViewController *connFailVC = [[HIRConnFailViewController alloc] init];
         [self.navigationController pushViewController:connFailVC animated:YES];
@@ -172,6 +173,7 @@
             [self.navigationController pushViewController:connectedVC animated:YES];
         });
     }
+    [self.scanIndicator stopAnimating];
 }
 
 
@@ -184,6 +186,8 @@
 - (void)dealloc {
     NSLog(@"scann delloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.outTimer invalidate];
+    self.outTimer = nil;
     self.backButton = nil;
     self.titleLabel = nil;
     self.tipsLabel1 = nil;

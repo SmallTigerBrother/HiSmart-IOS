@@ -69,7 +69,7 @@ typedef enum
 @property (nonatomic, assign) float batteryLevel;
 
 + (HIRCBCentralClass *)shareHIRCBcentralClass;
-- (void)scanPeripheral;
+- (void)scanPeripheral:(NSString *)uuid;
 -(void)stopCentralManagerScan;
 - (void)cancelConnectionWithPeripheral:(CBPeripheral *)peripheral;
 @end

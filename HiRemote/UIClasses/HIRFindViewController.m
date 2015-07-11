@@ -248,6 +248,7 @@
         if (!pinView){
             pinView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:annotationIdentifier] ;
             pinView.canShowCallout = YES;
+            pinView.pinColor = MKPinAnnotationColorPurple;
         }
         
         UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];

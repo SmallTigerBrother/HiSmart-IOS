@@ -40,13 +40,13 @@ static HirUserInfo *hirUserDefault;
     return [[self.stateUserDef objectForKey:@"currentViewController"]integerValue];
 }
 
--(void)setcurrentPeripheraIndex:(NSInteger)currentDeviceIndex{
-    [self.stateUserDef setObject:@(currentDeviceIndex) forKey:@"currentDeviceIndex"];
+-(void)setCurrentPeripheraIndex:(NSInteger)currentPeripheraIndex{
+    [self.stateUserDef setObject:@(currentPeripheraIndex) forKey:@"currentPeripheraIndex"];
     [self.stateUserDef synchronize];
 }
 
 -(NSInteger)currentPeripheraIndex{
-    return [[self.stateUserDef objectForKey:@"currentDeviceIndex"]integerValue];
+    return [[self.stateUserDef objectForKey:@"currentPeripheraIndex"]integerValue];
 }
 
 -(DBPeriphera *)currentPeriphera{

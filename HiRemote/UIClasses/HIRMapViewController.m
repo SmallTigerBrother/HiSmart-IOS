@@ -77,6 +77,7 @@
             pinView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:annotationIdentifier] ;
            // pinView.image = [UIImage imageNamed:@"pinImage"];
             pinView.canShowCallout = YES;
+            pinView.pinColor = MKPinAnnotationColorPurple;
         }
         
         UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
