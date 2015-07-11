@@ -48,7 +48,7 @@ typedef enum
 #define NEED_DISCONNECT_LOCATION_NOTIFICATION @"needDisconnectLocationNotification" ////断开时需要记录位置的通知
 #define NEED_AUTO_PHONE_NOTIFICATION @"needAutoPhoneNotification" /////需要自动拍摄通知
 #define BATTERY_LEVEL_CHANGE_NOTIFICATION @"batteryLevelChangeNotification" ////电池发生变化通知
-
+#define NEED_RECORD_VOICE @"NEED_RECORD_VOICE"  //录音通知
 
 #define CBCENTERAL_STATE_NOT_SUPPORT @"notSupport"   ////蓝牙不支持 （通知值）
 #define CBCENTERAL_CONNECT_PERIPHERAL_FAIL @"connectPeripheralFail" ///外设链接失败 (通知值）

@@ -4,6 +4,7 @@
         <attribute name="avatarPath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="battery" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remarkName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="DBPeripheraLocationInfo" representedClassName="DBPeripheraLocationInfo" syncable="YES">
@@ -16,7 +17,7 @@
         <attribute name="remark" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DBPeriphera" positionX="18" positionY="180" width="128" height="105"/>
+        <element name="DBPeriphera" positionX="18" positionY="180" width="128" height="120"/>
         <element name="DBPeripheraLocationInfo" positionX="-18" positionY="99" width="128" height="150"/>
     </elements>
 </model>

@@ -167,12 +167,14 @@
     [appDeleg connectSuccessToShowRootVC];
 }
 
-
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
         UITextField *textField = [alertView textFieldAtIndex:0];
         if (textField.text && [textField.text length] > 0) {
             self.hiRemoteData.name = textField.text;
+            
+            [HirDataManageCenter savePerpheraByModel:self.hiRemoteData];
+            
             [self.renameButton setTitle:textField.text forState:UIControlStateNormal];
         }
     }

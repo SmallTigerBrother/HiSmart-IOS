@@ -158,12 +158,12 @@ UIImagePickerControllerDelegate>
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
-    [HirUserInfo shareUserInfo].currentViewController = 0;
+    [HirUserInfo shareUserInfo].currentViewControllerType = 0;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [HirUserInfo shareUserInfo].currentViewController = 1;
+    [HirUserInfo shareUserInfo].currentViewControllerType = 1;
 }
 
 

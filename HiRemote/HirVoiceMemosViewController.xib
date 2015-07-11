@@ -17,7 +17,6 @@
                 <outlet property="voiceBeginTimeLabel" destination="qPt-kL-4zj" id="EGN-Sc-kJV"/>
                 <outlet property="voiceEndTimeLabel" destination="5yh-PF-N1q" id="JH9-Wj-7N1"/>
                 <outlet property="voicePlayBtn" destination="kLS-Hy-rZT" id="cMq-v9-zHZ"/>
-                <outlet property="voiceProgressView" destination="7Tj-fV-obd" id="EjT-sq-b91"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -130,9 +129,6 @@
                                     <state key="normal" title="录音">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
-                                    <connections>
-                                        <action selector="start_button_pressed" destination="-1" eventType="touchUpInside" id="WGm-I0-kRg"/>
-                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uWz-3u-lxI">
                                     <rect key="frame" x="81" y="112" width="30" height="30"/>
@@ -141,7 +137,17 @@
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="play_button_pressed" destination="-1" eventType="touchUpInside" id="PTV-xf-rJQ"/>
+                                        <action selector="playRecording" destination="-1" eventType="touchUpInside" id="BXR-Ys-qmm"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="D2K-aM-sS1">
+                                    <rect key="frame" x="130" y="112" width="60" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="停止播放">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="stopPlaying" destination="-1" eventType="touchUpInside" id="tdk-7b-JZp"/>
                                     </connections>
                                 </button>
                             </subviews>

@@ -2,7 +2,7 @@
 //  HirDesign.h
 //  Bluth
 //
-//  Created by minfengliu on 15/6/25.
+//  Created by rick on 15/6/25.
 //  Copyright (c) 2015年 tom.liu. All rights reserved.
 //
 

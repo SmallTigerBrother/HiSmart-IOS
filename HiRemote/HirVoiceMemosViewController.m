@@ -2,7 +2,7 @@
 //  HirVoceViewController.m
 //  HiRemote
 //
-//  Created by minfengliu on 15/7/4.
+//  Created by rick on 15/7/4.
 //  Copyright (c) 2015年 hiremote. All rights reserved.
 //
 
@@ -17,10 +17,20 @@ UITableViewDelegate,
 AVAudioRecorderDelegate>
 {
     BOOL toggle;
-    
-    //Variable setup for access in the class
-    NSURL *recordedTmpFile;
-    AVAudioRecorder *recorder;
+    AVAudioPlayer *audioPlayer;
+    AVAudioRecorder *audioRecorder;
+    enum
+    {
+        ENC_AAC = 1,
+        ENC_ALAC = 2,
+        ENC_IMA4 = 3,
+        ENC_ILBC = 4,
+        ENC_ULAW = 5,
+        ENC_PCM = 6,
+    } encodingTypes;
+    int recordEncoding;
+    NSTimer *timerForPitch;
+    float Pitch;
 
 }
 @property (nonatomic, strong)NSMutableArray *data;
@@ -34,6 +44,7 @@ AVAudioRecorderDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *voiceBeginTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *voiceEndTimeLabel;
 @property (weak, nonatomic) IBOutlet UIProgressView *voiceProgressView;
+
 @property (weak, nonatomic) IBOutlet UILabel *recordingLabel;
 
 @property (nonatomic, strong)UISearchDisplayController *searchDisplayController;
@@ -76,7 +87,6 @@ AVAudioRecorderDelegate>
 
     self.playVoiceRecordPanel.hidden = YES;
     
-    [self prepareAudio];
     // Do any additional setup after loading the view from its nib.
     
 }
@@ -84,6 +94,184 @@ AVAudioRecorderDelegate>
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [HirUserInfo shareUserInfo].currentViewControllerType = CurrentViewControllerType_voice;
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recordVoiceNotification:) name:NEED_RECORD_VOICE object:nil];
+}
+
+-(void)recordVoiceNotification:(NSNotification *)notification{
+    static BOOL isRecord = NO;
+    isRecord = !isRecord;
+
+    if (isRecord) {
+        [self startRecording];
+        NSLog(@"收到录音信号");
+    }
+    else{
+        [self stopRecording];
+        NSLog(@"收到停止录音信号");
+    }
+}
+
+-(IBAction) startRecording
+{
+    // kSeconds = 150.0;
+    NSLog(@"startRecording");
+    audioRecorder = nil;
+    NSError *erro;
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+//    [audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
+    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionDefaultToSpeaker error:&erro];
+    
+    NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] initWithCapacity:10];
+    if(recordEncoding == ENC_PCM)
+    {
+        [recordSettings setObject:[NSNumber numberWithInt: kAudioFormatLinearPCM] forKey: AVFormatIDKey];
+        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
+        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
+        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
+        [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
+        [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
+    }
+    else
+    {
+        NSNumber *formatObject;
+        
+        switch (recordEncoding) {
+            case (ENC_AAC):
+                formatObject = [NSNumber numberWithInt: kAudioFormatMPEG4AAC];
+                break;
+            case (ENC_ALAC):
+                formatObject = [NSNumber numberWithInt: kAudioFormatAppleLossless];
+                break;
+            case (ENC_IMA4):
+                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
+                break;
+            case (ENC_ILBC):
+                formatObject = [NSNumber numberWithInt: kAudioFormatiLBC];
+                break;
+            case (ENC_ULAW):
+                formatObject = [NSNumber numberWithInt: kAudioFormatULaw];
+                break;
+            default:
+                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
+        }
+        
+        [recordSettings setObject:formatObject forKey: AVFormatIDKey];
+        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
+        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
+        [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
+        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
+        [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
+    }
+    
+    //    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/recordTest.caf", [[NSBundle mainBundle] resourcePath]]];
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
+                                                            NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = [dirPaths objectAtIndex:0];
+    NSString *soundFilePath = [docsDir
+                               stringByAppendingPathComponent:@"recordTest.caf"];
+    
+    NSURL *url = [NSURL fileURLWithPath:soundFilePath];
+    
+    
+    NSError *error = nil;
+    audioRecorder = [[ AVAudioRecorder alloc] initWithURL:url settings:recordSettings error:&error];
+    audioRecorder.meteringEnabled = YES;
+    if ([audioRecorder prepareToRecord] == YES){
+        audioRecorder.meteringEnabled = YES;
+        [audioRecorder record];
+        timerForPitch =[NSTimer scheduledTimerWithTimeInterval: 0.01 target: self selector: @selector(levelTimerCallback:) userInfo: nil repeats: YES];
+    }else {
+        
+        int errorCode = CFSwapInt32HostToBig ([error code]);
+        NSLog(@"Error: %@ [%4.4s])" , [error localizedDescription], (char*)&errorCode);
+        
+    }
+    
+}
+
+- (void)levelTimerCallback:(NSTimer *)timer {
+    [audioRecorder updateMeters];
+    NSLog(@"Average input: %f Peak input: %f", [audioRecorder averagePowerForChannel:0], [audioRecorder peakPowerForChannel:0]);
+    
+    float linear = pow (10, [audioRecorder peakPowerForChannel:0] / 20);
+    NSLog(@"linear===%f",linear);
+    float linear1 = pow (10, [audioRecorder averagePowerForChannel:0] / 20);
+    NSLog(@"linear1===%f",linear1);
+    if (linear1>0.03) {
+        
+        Pitch = linear1+.20;//pow (10, [audioRecorder averagePowerForChannel:0] / 20);//[audioRecorder peakPowerForChannel:0];
+    }
+    else {
+        
+        Pitch = 0.0;
+    }
+    //Pitch =linear1;
+    NSLog(@"Pitch==%f",Pitch);
+//    _customRangeBar.value = Pitch;//linear1+.30;
+    [_voiceProgressView setProgress:Pitch];
+    float minutes = floor(audioRecorder.currentTime/60);
+    float seconds = audioRecorder.currentTime - (minutes * 60);
+    
+    NSString *time = [NSString stringWithFormat:@"%0.0f.%0.0f",minutes, seconds];
+    [self.recordTimeLabel setText:[NSString stringWithFormat:@"%@ sec", time]];
+    NSLog(@"recording");
+    
+}
+
+-(IBAction) stopRecording
+{
+    NSLog(@"stopRecording");
+    // kSeconds = 0.0;
+    [audioRecorder stop];
+    NSLog(@"stopped");
+    [timerForPitch invalidate];
+    timerForPitch = nil;
+}
+
+-(IBAction) playRecording
+{
+    NSLog(@"playRecording");
+    // Init audio with playback capability
+    NSError *erro;
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+//    [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionDefaultToSpeaker error:&erro];
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
+                                                            NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = [dirPaths objectAtIndex:0];
+    NSString *soundFilePath = [docsDir
+                               stringByAppendingPathComponent:@"recordTest.caf"];
+    
+    NSURL *url = [NSURL fileURLWithPath:soundFilePath];
+    
+    // NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/recordTest.caf", [[NSBundle mainBundle] resourcePath]]];
+    NSError *error;
+    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    audioPlayer.numberOfLoops = 0;
+    [audioPlayer play];
+    NSLog(@"playing");
+}
+
+-(IBAction) stopPlaying
+{
+    NSLog(@"stopPlaying");
+    [audioPlayer stop];
+    NSLog(@"stopped");
+    
+}
+
+
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 /*
@@ -189,68 +377,6 @@ AVAudioRecorderDelegate>
 }
 */
 
--(void)prepareAudio{
-    NSError *adioError;
-    AVAudioSession * audioSession = [AVAudioSession sharedInstance];
-    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error: &adioError];
-    //Activate the session
-    [audioSession setActive:YES error: &adioError];
-}
-
-- (IBAction)start_button_pressed{
-    
-    if(toggle)
-    {
-        toggle = NO;
-        
-        //Begin the recording session.
-        //Error handling removed.  Please add to your own code.
-        
-        //Setup the dictionary object with all the recording settings that this
-        //Recording sessoin will use
-        //Its not clear to me which of these are required and which are the bare minimum.
-        //This is a good resource: http://www.totodotnet.net/tag/avaudiorecorder/
-        NSMutableDictionary* recordSetting = [[NSMutableDictionary alloc] init];
-        
-        [recordSetting setValue :[NSNumber numberWithInt:kAudioFormatAppleIMA4] forKey:AVFormatIDKey];
-        
-        [recordSetting setValue:[NSNumber numberWithFloat:44110] forKey:AVSampleRateKey];
-        [recordSetting setValue:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-        
-        //Now that we have our settings we are going to instanciate an instance of our recorder instance.
-        //Generate a temp file for use by the recording.
-        //This sample was one I found online and seems to be a good choice for making a tmp file that
-        //will not overwrite an existing one.
-        //I know this is a mess of collapsed things into 1 call.  I can break it out if need be.
-        recordedTmpFile = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent: [NSString stringWithFormat: @"%.0f.%@", [NSDate timeIntervalSinceReferenceDate] * 1000.0, @"caf"]]];
-        NSLog(@"Using File called: %@",recordedTmpFile);
-        //Setup the recorder to use this file and record to it.
-        
-        NSError *error;
-        recorder = [[ AVAudioRecorder alloc] initWithURL:recordedTmpFile settings:recordSetting error:&error];
-        //Use the recorder to start the recording.
-        //Im not sure why we set the delegate to self yet.
-        //Found this in antother example, but Im fuzzy on this still.
-        [recorder setDelegate:self];
-        //We call this to start the recording process and initialize
-        //the subsstems so that when we actually say "record" it starts right away.
-        [recorder prepareToRecord];
-        //Start the actual Recording
-        [recorder record];
-        //There is an optional method for doing the recording for a limited time see
-        //[recorder recordForDuration:(NSTimeInterval) 10]
-        
-    }
-    else
-    {
-        toggle = YES;
-        
-        NSLog(@"Using File called: %@",recordedTmpFile);
-        //Stop the recorder.
-        [recorder stop];
-    }
-}
-
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag;
 {
     
@@ -283,28 +409,4 @@ AVAudioRecorderDelegate>
 {
     
 }
-
--(IBAction) play_button_pressed{
-    
-    //The play button was pressed...
-    //Setup the AVAudioPlayer to play the file that we just recorded.
-    NSError *error;
-    AVAudioPlayer * avPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:recordedTmpFile error:&error];
-    [avPlayer prepareToPlay];
-    [avPlayer play];
-    
-}
-
-- (void)viewDidUnload {
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    //Clean up the temp file.
-    NSFileManager * fm = [NSFileManager defaultManager];
-    NSError *error;
-    [fm removeItemAtPath:[recordedTmpFile path] error:&error];
-    //Call the dealloc on the remaining objects.
-    recorder = nil;
-    recordedTmpFile = nil;
-}
-
 @end
