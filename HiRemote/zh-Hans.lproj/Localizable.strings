@@ -74,3 +74,5 @@
 "CONFIRM" = "CONFIRM";
 "VoiceMemos" = "Voice Memos";
 "search" = "search";
+"history" = "History";
+"isNotConnected" = "Device is not connected";

@@ -16,6 +16,7 @@
 #import "AppDelegate.h"
 #import "HirDataManageCenter+Perphera.h"
 #import "HirDataManageCenter+Location.h"
+#import "HirLocationHistoryViewController.h"
 
 @interface HIRFindViewController ()<MKMapViewDelegate>
 @property (nonatomic, assign) BOOL didSetupConstraints;
@@ -85,6 +86,8 @@
     self.mapView.delegate = self;
     self.mapView.showsUserLocation = YES;
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"history", @"") style:UIBarButtonItemStylePlain target:self action:@selector(showTheHistoryList:)];
+    
     
     NSMutableArray *deviceInfoAry = [HirUserInfo shareUserInfo].deviceInfoArray;
     NSInteger deviceIndex = [HirUserInfo shareUserInfo].currentPeripheraIndex;
@@ -95,12 +98,14 @@
         self.nameLab.text = self.hiremoteData.name;
         
         DBPeripheraLocationInfo *lastLocationInf = [HirDataManageCenter findLastLocationByPeriperaUUID:self.hiremoteData.uuid];
-        self.locationStr = lastLocationInf.location;
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];
-        self.loclLab.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:lastLocationInf.recordTime.longLongValue]];
-        
+        if (lastLocationInf) {
+            self.locationStr = lastLocationInf.location;
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];
+            self.loclLab.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:lastLocationInf.recordTime.longLongValue]];
+        }
+    
         NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
         if ([self.hiremoteData.uuid isEqualToString:currentUuid]) {
             if ([HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.state == CBPeripheralStateConnected) {
@@ -176,6 +181,22 @@
     [super updateViewConstraints];
 }
 
+
+- (void)showTheHistoryList:(id)sender {
+    HirLocationHistoryViewController *locationHistoryViewController = [[HirLocationHistoryViewController alloc]initWithDataType:HirLocationDataType_lost];
+    [self.navigationController pushViewController:locationHistoryViewController animated:YES];
+}
+
+
+- (void)resetTheLocation:(CLLocation *)cllocation peripheraLocationInfo:(DBPeripheraLocationInfo *)perInfo {
+    self.location = cllocation;
+    self.locationStr = perInfo.location;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];
+    self.loclLab.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:perInfo.recordTime.longLongValue]];
+    [self setAnnotation];
+}
+
 - (void)buzzButton:(id)sender {
     NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
     if (![self.hiremoteData.uuid isEqualToString:currentUuid]) {
@@ -209,6 +230,7 @@
     newRegion.center = annotation.coordinate;
     newRegion.span.latitudeDelta = 0.2f;
     newRegion.span.longitudeDelta = 0.2f;
+    [mapView selectAnnotation:annotation animated:YES];
     [mapView setRegion:newRegion];
 }
 
