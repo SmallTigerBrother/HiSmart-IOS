@@ -27,6 +27,9 @@
 
 +(NSMutableArray *)findAllPerphera{
     NSArray *list = [DBPeriphera MR_findAll];
+    if ([list count] == 0) {
+        return [NSMutableArray arrayWithCapacity:3];
+    }
     return  [NSMutableArray arrayWithArray:list];
 }
 

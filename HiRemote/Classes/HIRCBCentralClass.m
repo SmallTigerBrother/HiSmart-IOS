@@ -13,7 +13,7 @@
 
 @interface HIRCBCentralClass () <CBCentralManagerDelegate, CBPeripheralDelegate>
 @property (strong, nonatomic) NSMutableArray *peripheralsMArray;
-@property (nonatomic, strong) NSMutableArray *remoteDataObjArray;
+@property (strong, nonatomic) NSString *theChangeUuid;
 @property (nonatomic, assign) BOOL isScanningPeripherals;
 @property (nonatomic, assign) int retryTimes;
 @end
@@ -28,7 +28,6 @@
 @synthesize batteryCharacter;
 @synthesize searchPhoneCharacter;
 @synthesize peripheralsMArray;
-@synthesize remoteDataObjArray;
 @synthesize isDisconnectByUser;
 @synthesize batteryLevel;
 
@@ -38,8 +37,7 @@
         self.peripheralsMArray = [NSMutableArray arrayWithCapacity:5];
         self.discoveredPeripheral = nil;
         self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-        
-        self.remoteDataObjArray = [HirUserInfo shareUserInfo].deviceInfoArray;
+        _theChangeUuid = nil;
         _isScanningPeripherals = NO;
         self.batteryLevel = 0.5;
     }
@@ -57,7 +55,8 @@
     return shareHIRCBCentralClass;
 }
 
-- (void)scanPeripheral {
+- (void)scanPeripheral:(NSString *)uuid {
+    self.theChangeUuid = uuid;
     isDisconnectByUser = NO;
     ///蓝牙关闭的
     if (self.centralManager.state != CBCentralManagerStatePoweredOn) {
@@ -81,6 +80,7 @@
 
 -(void)stopCentralManagerScan
 {
+    NSLog(@"stooooooooop");
     [self.centralManager stopScan];
     _isScanningPeripherals = NO;
 }
@@ -88,7 +88,9 @@
 - (void)cancelConnectionWithPeripheral:(CBPeripheral *)peripheral {
     [self cleanDiscoveredPeripheral];
     _retryTimes = 0;
+    [self.peripheralsMArray removeObject:self.discoveredPeripheral];
     self.discoveredPeripheral = nil;
+    self.theChangeUuid = nil;
 }
 
 #pragma mark - CBCentralManagerDelegate
@@ -97,7 +99,7 @@
 {
     ///表示蓝牙可用
     if (central.state == CBCentralManagerStatePoweredOn) {
-        [self scanPeripheral];
+        [self scanPeripheral:nil];
     }else {
         [self stopCentralManagerScan];
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -114,8 +116,10 @@
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     NSLog(@"per:%@, SSI:%d, uuid:%@, data:%@",peripheral,[RSSI intValue],peripheral.identifier,advertisementData);
-    if (RSSI.integerValue > -15) return;
-    
+    if ([self.theChangeUuid length] > 0 && ![[peripheral.identifier UUIDString] isEqualToString:self.theChangeUuid]) {
+        return;
+    }
+
     if (![self.peripheralsMArray containsObject:peripheral]) {
         [self.peripheralsMArray addObject:peripheral];
         if ([self.peripheralsMArray count] == 1) {
@@ -128,6 +132,7 @@
         [self stopCentralManagerScan];
     }
     
+    self.theChangeUuid = nil;
     //    [self.centralManager retrievePeripheralsWithIdentifiers:[NSArray arrayWithObjects:peripheral.identifier, nil]];
     //    [self stopCentralManagerScan];
     
@@ -151,22 +156,17 @@
     self.discoveredPeripheral.delegate = self;
     
     NSString *perUuid = [peripheral.identifier UUIDString];
-//    BOOL hasTheDevice = NO;
-//    for (HIRRemoteData *remot in self.remoteDataObjArray) {
-//        if ([remot.uuid isEqualToString:perUuid]) {
-//            hasTheDevice = YES;
-//        }
-//    }
-//    if (!hasTheDevice) {
-//        HIRRemoteData *remoteData = [[HIRRemoteData alloc] init];
-//        NSLog(@"remooo ble:%@",remoteData);
-//        remoteData.name = peripheral.name;
-//        remoteData.uuid = perUuid;
-//        [self.remoteDataObjArray addObject:remoteData];
-//    }
     
+    if (!(appDelegate.rootVC)) {
+        [HirDataManageCenter insertPerpheraByUUID:perUuid name:peripheral.name avatarPath:nil battery:nil];
+    }else {
+        [HirDataManageCenter insertPerpheraByUUID:perUuid name:nil avatarPath:nil battery:nil];
+    }
     
+<<<<<<< HEAD
+=======
     [HirDataManageCenter insertPerpheraByUUID:perUuid name:peripheral.name remarkName:nil avatarPath:nil battery:nil];
+>>>>>>> 704a0dd4112c3857e73f655357d37921335cdc1a
     
     NSArray	*serviceArray = [NSArray arrayWithObjects:[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_IMMEDIATE_ALERT_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_LOSS_ALERT_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_POWER_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_BATTERY_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_SEARCHPHONE_SERVICE], nil];
     
@@ -177,7 +177,7 @@
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     NSLog(@"%@",error);
-    
+    self.theChangeUuid = nil;
     ////进行三次重试
     if (_retryTimes++ < 3) {
         [self.centralManager connectPeripheral:peripheral options:nil];
@@ -186,10 +186,9 @@
         [self cleanDiscoveredPeripheral];
         [self.peripheralsMArray removeObject:peripheral];
         self.discoveredPeripheral = nil;
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter postNotificationName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:CBCENTERAL_CONNECT_PERIPHERAL_FAIL,@"state", nil]];
     }
-    
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter postNotificationName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:CBCENTERAL_CONNECT_PERIPHERAL_FAIL,@"state", nil]];
 }
 
 -(void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
@@ -203,6 +202,7 @@
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    self.theChangeUuid = nil;
     if (isDisconnectByUser) {
         isDisconnectByUser = NO;
         [self.peripheralsMArray removeObject:peripheral];
@@ -422,6 +422,5 @@
     self.firePowerCharacter = nil;
     self.batteryCharacter = nil;
     self.searchPhoneCharacter = nil;
-    self.remoteDataObjArray = nil;
 }
 @end

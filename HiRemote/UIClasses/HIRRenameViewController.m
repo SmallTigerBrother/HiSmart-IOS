@@ -64,10 +64,8 @@
     
     
     for (DBPeriphera *data in self.deviceInfoArray) {
-        NSLog(@"disav:%@===data:%@",[[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString],data.uuid);
         if ([[[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString] isEqualToString:data.uuid]) {
             self.hiRemoteData = data;
-            NSLog(@"sssssssrem:%@",self.hiRemoteData);
             break;
         }
     }
@@ -87,6 +85,7 @@
             if (image) {
                 [self.photoView setImage:image];
             }
+            [self.renameButton setTitle:self.hiRemoteData.name forState:UIControlStateNormal];
         }
     });
 }
@@ -200,10 +199,12 @@
         return;
     }
     
-    NSString *avatarName = [NSString stringWithFormat:@"avata%lld",(long long)[[NSDate date] timeIntervalSince1970]];
+    NSString *avatarName = [NSString stringWithFormat:@"avata%lld.png",(long long)[[NSDate date] timeIntervalSince1970]];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:avatarName];
     self.hiRemoteData.avatarPath = filePath;
     [imageData writeToFile:filePath atomically:YES];
+    
+    UIImage *mmmm = [UIImage imageWithContentsOfFile:filePath];
     
     [self.photoButton setImage:nil forState:UIControlStateNormal];
     [self.photoView setImage:image];

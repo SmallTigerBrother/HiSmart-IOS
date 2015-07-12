@@ -32,6 +32,7 @@ HIRSegmentViewDelegate,
 HPCoreLocationMangerDelegate>
 
 @property (nonatomic, strong) UIScrollView *showDeviceScrollView;
+@property (nonatomic, strong) UIActivityIndicatorView *changeIndicator;
 @property (nonatomic, strong) UIButton *preButton;
 @property (nonatomic, strong) UIButton *nextButton;
 @property (nonatomic, strong) UIPageControl *pageControl;
@@ -40,6 +41,7 @@ HPCoreLocationMangerDelegate>
 @property (nonatomic, strong) UITableView *mainMenuTableView;
 @property (nonatomic, strong) NSMutableArray *deviceShowArray;
 @property (nonatomic, strong) NSMutableArray *switchStatus;
+@property (nonatomic, strong) NSTimer *outTimer;
 @property (nonatomic, assign) BOOL didSetupConstraints;
 @property (nonatomic, assign) BOOL isLocationing;
 @property (nonatomic, assign) BOOL isDisconnectLocation;
@@ -52,6 +54,7 @@ HPCoreLocationMangerDelegate>
 
 @implementation HIRRootViewController
 @synthesize showDeviceScrollView;
+@synthesize changeIndicator;
 @synthesize preButton;
 @synthesize nextButton;
 @synthesize pageControl;
@@ -94,6 +97,9 @@ HPCoreLocationMangerDelegate>
     self.showDeviceScrollView.scrollsToTop = NO;
     self.showDeviceScrollView.delegate = self;
     
+    self.changeIndicator = [[UIActivityIndicatorView alloc] init];
+    self.changeIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    
     self.preButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.preButton.hidden = YES;
     [self.preButton setImage:[UIImage imageNamed:@"preBtn"] forState:UIControlStateNormal];
@@ -129,45 +135,52 @@ HPCoreLocationMangerDelegate>
     self.mainMenuTableView.tableFooterView = [[UIView alloc] init];
     
     [self.view addSubview:self.showDeviceScrollView];
+    
     [self.view addSubview:self.preButton];
     [self.view addSubview:self.nextButton];
     [self.view addSubview:self.pageControl];
     [self.view addSubview:self.segControl];
     [self.view addSubview:self.mainMenuScrollView];
     [self.view addSubview:self.mainMenuTableView];
+    [self.view addSubview:self.changeIndicator];
+    
     
     [self setupShowDeviceScrollViewContentView];
     [self setupMainMenuScrollViewContentView];
     
     [self.view setNeedsUpdateConstraints];
     
-    double delayInSeconds = 0.2;
+    double delayInSeconds = 0.3;
     dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
-        NSLog(@"self.device:%@",self.deviceInfoArray);
         for (int i = 0; i < [self.deviceInfoArray count]; i++) {
             if ([self.deviceShowArray count] > i) {
                 DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:i];
-                NSLog(@"rooot data:%@",remoteData);
                 HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:i];
-                device.deviceNameLabel.text = @"text";
+                UIImage *image = [UIImage imageWithContentsOfFile:remoteData.avatarPath];
+                DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
+                device.deviceNameLabel.text = remoteData.name;
+                device.deviceLocationLabel.text = locationInfo.location;
+                device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
+                [device.avatarImageView setImage:image];
+                
                 NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
                 if ([remoteData.uuid isEqualToString:currentUuid]) {
-                    UIImage *image = [UIImage imageWithContentsOfFile:remoteData.avatarPath];
-                    DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:currentUuid];
-                    NSLog(@"nn:%@--ll:%@--bb:%f",remoteData.name,locationInfo.location,remoteData.battery);
-                    device.deviceNameLabel.text = remoteData.name;
-                    device.deviceLocationLabel.text = locationInfo.location;
-                    device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
-                    [device.avatarImageView setImage:image];
+                    self.pageControl.currentPage = i;
+                    [HirUserInfo shareUserInfo].currentPeripheraIndex = i;
+                    [self.showDeviceScrollView  setContentOffset:CGPointMake(i * self.view.frame.size.width, 0) animated:NO];
                 }
             }
         }
     });
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hirCBStateChange:) name:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(batteryLevelChange:) name:BATTERY_LEVEL_CHANGE_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needSavePeripheralLocation:) name:NEED_SAVE_PERIPHERAL_LOCATION_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peripheralDisconnect:) name:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil];
+    
+    appDelegate.locManger.delegate = self;
+    [appDelegate.locManger startUpdatingUserLocation];
 }
 
 - (void)batteryLevelChange:(NSNotification *)notify {
@@ -232,6 +245,18 @@ HPCoreLocationMangerDelegate>
     else{
         [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:locationStr dataType:@(HirLocationDataType_history) remark:nil];
     }
+    
+    for (int i = 0; i < [self.deviceInfoArray count]; i++) {
+        if ([self.deviceShowArray count] > i) {
+            DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:i];
+            HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:i];
+            NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+            if ([remoteData.uuid isEqualToString:currentUuid]) {
+                device.deviceLocationLabel.text = locationStr;
+                break;
+            }
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -265,6 +290,10 @@ HPCoreLocationMangerDelegate>
         [self.showDeviceScrollView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
         [self.showDeviceScrollView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
         [self.showDeviceScrollView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
+        
+        [self.changeIndicator autoSetDimensionsToSize:CGSizeMake(100, 100)];
+        [self.changeIndicator autoAlignAxisToSuperviewAxis:ALAxisVertical];
+        [self.changeIndicator autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.showDeviceScrollView withOffset:-70];
         
         [self.preButton autoSetDimensionsToSize:CGSizeMake(50, 40)];
         [self.preButton autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];;
@@ -300,15 +329,13 @@ HPCoreLocationMangerDelegate>
     }else {
         self.showDeviceScrollView.contentSize = CGSizeMake(self.view.frame.size.width, SCROLLVIEW_HEIGHT);
     }
-    
-    NSLog(@"shooo:%f,%f",self.showDeviceScrollView.contentSize.width,self.showDeviceScrollView.contentSize.height);
     if ([self.deviceInfoArray count] == 0) {
         HIRDeviceShowView *showView = [[HIRDeviceShowView alloc] init];
         CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, SCROLLVIEW_HEIGHT);
         frame.origin.x = 0;
         frame.origin.y = 0;
         showView.frame = frame;
-        showView.deviceNameLabel.text = NSLocalizedString(@"isNotConnected", @"");
+        showView.deviceLocationLabel.text = NSLocalizedString(@"isNotConnected", @"");
         [self.showDeviceScrollView addSubview:showView];
         [self.deviceShowArray addObject:showView];
     }else {
@@ -394,7 +421,6 @@ HPCoreLocationMangerDelegate>
 }
 
 
-static float pp = 0;
 -(void)menuButtonClick:(id)sender {
     UIButton *btn = (UIButton *)sender;
     if (btn.tag == 0) {
@@ -403,14 +429,17 @@ static float pp = 0;
     }
     else if (btn.tag == 1){
         self.cameraNavigationController = [[SCNavigationController alloc] init];
-        //        nav.scNaigationDelegate = self;
         [_cameraNavigationController showCameraWithParentController:self];
-        
     }
     else if(btn.tag == 2) {
         HIRFindViewController *findViewController = [[HIRFindViewController alloc] init];
         NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
         DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:currentUuid];
+        if ([self.deviceInfoArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
+            DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+            findViewController.hiRemoteName = remoteData.name;
+        }
+        findViewController.locationStr = locationInfo.location;
         findViewController.location = [[[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue]locationMarsFromEarth];
         [self.navigationController pushViewController:findViewController animated:YES];
     }
@@ -501,13 +530,54 @@ static float pp = 0;
     [self changeTheDeviceByUser];
 }
 
+<<<<<<< HEAD
+=======
+///以下是用来设置设备切换的
+>>>>>>> 1f4a0e438f3422d53e2c06218d0bd0db715d1473
 - (void)changeTheDeviceByUser {
+    [self.outTimer invalidate];
+    self.outTimer = nil;
+    [self.changeIndicator stopAnimating];
+    
     int page = (int)self.pageControl.currentPage;
     if (page != [HirUserInfo shareUserInfo].currentPeripheraIndex) {
         [HirUserInfo shareUserInfo].currentPeripheraIndex = page;
-        NSLog(@"page：%d",page);
+        [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
+        if ([self.deviceInfoArray count] > page) {
+            DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:page];
+            [self.changeIndicator startAnimating];
+            self.outTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
+            [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:remoteData.uuid];
+        }
     }
 }
+
+- (void)outTimerForScanning {
+    [self.outTimer invalidate];
+    self.outTimer = nil;
+    [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
+    NSNotification *notif = [NSNotification notificationWithName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:CBCENTERAL_CONNECT_PERIPHERAL_FAIL forKey:@"state"]];
+    [self hirCBStateChange:notif];
+}
+
+- (void)hirCBStateChange:(NSNotification *)notif {
+    [self.outTimer invalidate];
+    self.outTimer = nil;
+    [self.changeIndicator stopAnimating];
+    [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
+    NSDictionary *info = notif.userInfo;
+    NSString *state = [info valueForKey:@"state"];
+    if ([state isEqualToString:CBCENTERAL_STATE_NOT_SUPPORT] || [state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_FAIL]) {
+        ////蓝牙不支持或关闭或者链接失败
+        if ([self.deviceShowArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
+            HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+            device.deviceLocationLabel.text = NSLocalizedString(@"isNotConnected", @"");
+        }
+    }else if ([state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_SUCCESS]) {
+        ////蓝牙链接外设成功
+    }
+}
+/////
 
 
 /////for table view
@@ -612,8 +682,12 @@ static float pp = 0;
 - (void)dealloc {
     NSLog(@"rooot view dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.outTimer invalidate];
+    self.outTimer = nil;
+    
     self.switchStatus = nil;
     self.showDeviceScrollView = nil;
+    self.changeIndicator = nil;
     self.preButton = nil;
     self.nextButton = nil;
     self.pageControl = nil;
