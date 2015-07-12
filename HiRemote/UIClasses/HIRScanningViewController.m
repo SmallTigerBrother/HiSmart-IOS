@@ -182,13 +182,8 @@
     NSString *state = [info valueForKey:@"state"];
     if ([state isEqualToString:CBCENTERAL_STATE_NOT_SUPPORT] || [state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_FAIL]) {
         ////蓝牙不支持或关闭或者链接失败
-<<<<<<< HEAD
-        [self.scanIndicator stopAnimating];
-//        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"checkBluetooth", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
-=======
         [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"checkBluetooth", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
->>>>>>> 1f4a0e438f3422d53e2c06218d0bd0db715d1473
         HIRConnFailViewController *connFailVC = [[HIRConnFailViewController alloc] init];
         [self.navigationController pushViewController:connFailVC animated:YES];
         [self.scanIndicator stopAnimating];

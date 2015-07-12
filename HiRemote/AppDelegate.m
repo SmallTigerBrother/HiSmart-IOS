@@ -143,18 +143,10 @@
     
     // Start the long-running task
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-<<<<<<< HEAD
-        while(_isBackground)
-        {
-            [NSThread sleepForTimeInterval:2];
-            ////do something you want
-            NSLog(@"backgroud do%d",aa++);
-=======
         if ([[UIApplication sharedApplication] backgroundTimeRemaining] < 61.0) {
             
             [[SoundTool sharedSoundTool]playSound:kBirdSound];
             bgTask = [app beginBackgroundTaskWithExpirationHandler:nil];
->>>>>>> 757863cd6e6401c2826e7bd84310e91e6007cb67
         }
         
         //        while (1) {

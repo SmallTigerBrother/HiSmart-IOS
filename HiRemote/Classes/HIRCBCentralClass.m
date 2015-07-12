@@ -213,17 +213,8 @@
         [self cleanDiscoveredPeripheral];
         [self.peripheralsMArray removeObject:peripheral];
         self.discoveredPeripheral = nil;
-<<<<<<< HEAD
     }
-    
-    
-=======
-    }else {
-        ////不是用户手动断开，则重试
-        [self.centralManager connectPeripheral:peripheral options:nil];
-    }    
->>>>>>> 757863cd6e6401c2826e7bd84310e91e6007cb67
-    
+
     NSLog(@"断开连接，要定位");
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter postNotificationName:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil userInfo:nil];

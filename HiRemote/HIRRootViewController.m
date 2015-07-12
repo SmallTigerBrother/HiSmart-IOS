@@ -552,10 +552,8 @@ HPCoreLocationMangerDelegate>
     [self changeTheDeviceByUser];
 }
 
-<<<<<<< HEAD
-=======
+
 ///以下是用来设置设备切换的
->>>>>>> 1f4a0e438f3422d53e2c06218d0bd0db715d1473
 - (void)changeTheDeviceByUser {
     [self.outTimer invalidate];
     self.outTimer = nil;
