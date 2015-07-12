@@ -18,11 +18,10 @@
 #import "HirDataManageCenter+Perphera.h"
 
 @interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate>{
+    UIBackgroundTaskIdentifier bgTask;
     
-    
+    NSUInteger counter;
 }
-@property(nonatomic, assign)UIBackgroundTaskIdentifier bgTask;
-@property(nonatomic, assign)BOOL isBackground;
 @property(nonatomic) HIRWelcomeViewController *welcomeVC;
 @property(nonatomic) HIRRegisterViewController *registerVC;
 @property(nonatomic) HIRScanningViewController *scanVC;
@@ -41,8 +40,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSLog(@"111111");
-    _isBackground = NO;
+
     self.locManger = [[HPCoreLocationManger alloc] init];
     [self.locManger startUpdatingUserLocation];
     
@@ -80,40 +78,26 @@
     //  [WeiboSDK registerApp:@"WeiboAppId"];
     
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"MyDatabase.sqlite"];
-
+    
     [HirUserInfo shareUserInfo].deviceInfoArray = [HirDataManageCenter findAllPerphera];
     
+#if DEBUG
+    [NSTimer scheduledTimerWithTimeInterval:1.0f
+     
+                                     target:self
+     
+                                   selector:@selector(task) userInfo:nil
+     
+                                    repeats:YES];
+#endif
     
-
     return YES;
 }
 
--(void)locationNotification{
-    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    if (localNotification == nil) {
-        return;
-    }
-//    //设置本地通知的触发时间（如果要立即触发，无需设置），这里设置为20妙后
-//    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:20];
-    //设置本地通知的时区
-    localNotification.timeZone = [NSTimeZone defaultTimeZone];
-    //设置通知的内容
-    localNotification.alertBody = @"Your HiSmart bag is 90 feet away from you!";
-    //设置通知动作按钮的标题
-    localNotification.alertAction = @"Alert";
-    //设置提醒的声音，可以自己添加声音文件，这里设置为默认提示声
-    localNotification.soundName = UILocalNotificationDefaultSoundName;
-    
-    //立即触发一个通知
-    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-
-}
-
--(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification{
-    NSLog(@"Application did receive local notifications");
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hello" message:@"welcome" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [alert show];
+-(void)task{
+    //    sleep(1);
+    NSLog(@"counter:%ld", (unsigned long)counter++);
+    NSLog(@"backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -121,70 +105,66 @@
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
-static int aa = 0;
 - (void)applicationDidEnterBackground:(UIApplication *)application {
 //    [HIRRemoteData saveHiRemoteData:self.deviceInfoArray];
     
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     
-    ////以下代码用来处理后台运行
-    _isBackground = YES;
-    _bgTask = [application beginBackgroundTaskWithExpirationHandler: ^{
-        // 如果超时这个block将被调用
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (_bgTask != UIBackgroundTaskInvalid) {
-                [application endBackgroundTask:_bgTask];
-                _bgTask = UIBackgroundTaskInvalid;
-            }
-        });
-    }];
+    [HirUserInfo shareUserInfo].appIsEnterBackgroud = YES;
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        while(_isBackground)
-        {
-            [NSThread sleepForTimeInterval:5];
-            ////do something you want
-            NSLog(@"backgroud do%d",aa++);
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (_bgTask != UIBackgroundTaskInvalid) {
-                [application endBackgroundTask:_bgTask];
-                _bgTask = UIBackgroundTaskInvalid;
-            }
-        });
-    });
+    NSLog(@"%f",CGFLOAT_MAX);
+    BOOL backgroundAccepted = [[UIApplication sharedApplication] setKeepAliveTimeout:600 handler:^{ [self backgroundHandler]; }];
     
+    if (backgroundAccepted)
+        
+    {
+        
+        NSLog(@"backgrounding accepted");
+        
+    }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self locationNotification];
-    });
-    
-    //<<<<<<< Updated upstream
-    //////
-    //=======
-    //
-    //}
-    ////
-    //-(void)task{
-    ////    sleep(1);
-    //    NSLog(@"counter:%ld", counter++);
-    ////    NSLog(@"backgroundTimeRemaining = %   f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
-    //>>>>>>> Stashed changes
+    [self backgroundHandler];
+
 }
 
-
-
+- (void)backgroundHandler {
+    
+    NSLog(@"### -->backgroundinghandler");
+    
+    UIApplication* app = [UIApplication sharedApplication];
+    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+        
+        [app endBackgroundTask:bgTask];
+        
+        bgTask = UIBackgroundTaskInvalid;
+        
+    }];
+    
+    // Start the long-running task
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if ([[UIApplication sharedApplication] backgroundTimeRemaining] < 61.0) {
+            
+            [[SoundTool sharedSoundTool]playSound:kBirdSound];
+            bgTask = [app beginBackgroundTaskWithExpirationHandler:nil];
+        }
+        
+        //        while (1) {
+        //            [self task];
+        //        }
+    });
+    
+}
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    ///进入前台，停止后台处理
-    _isBackground = NO;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (_bgTask != UIBackgroundTaskInvalid) {
-            [application endBackgroundTask:_bgTask];
-            _bgTask = UIBackgroundTaskInvalid;
-        }
-    });
-    /////
+    
+    [HirUserInfo shareUserInfo].appIsEnterBackgroud = NO;
+    
+    if (bgTask != UIBackgroundTaskInvalid){
+        [[UIApplication sharedApplication] endBackgroundTask:bgTask];
+        
+        bgTask = UIBackgroundTaskInvalid;
+    }
+
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -228,13 +208,12 @@ static int aa = 0;
    // self.registerVC = nil;
 }
 
-
 - (void)addNewDevice {
     [[self.window subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
+
     self.scanVC = [[HIRScanningViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.scanVC];
-    
+
     //self.registerVC = [[HIRRegisterViewController alloc] init];
     //self.registerVC.isNeedAutoPushScanVC = YES;
     //UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.registerVC];

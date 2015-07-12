@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "HPCoreLocationManger.h"
 
-
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property(nonatomic) UIWindow *window;
 

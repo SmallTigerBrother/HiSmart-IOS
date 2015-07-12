@@ -28,4 +28,7 @@ typedef NS_ENUM(NSInteger, CurrentViewControllerType) {
 @property (nonatomic, strong)NSMutableArray *deviceInfoArray; ///临时保存设备信息（可能有多个设备）
 
 @property (nonatomic, strong)DBPeriphera *currentPeriphera;
+
+@property (nonatomic, assign)BOOL appIsEnterBackgroud;  //系统是否已进入后台
+@property (nonatomic, assign)BOOL isNotificationMyWhenDeviceNoWithin;   //当设备断开连接是否提示我
 @end

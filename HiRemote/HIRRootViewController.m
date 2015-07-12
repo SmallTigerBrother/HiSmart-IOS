@@ -21,6 +21,8 @@
 #import "SCNavigationController.h"
 #import "HirDataManageCenter+Location.h"
 #import "CLLocation+Sino.h"
+#import "HirMsgPlaySound.h"
+
 #define SCROLLVIEW_HEIGHT 140
 
 @interface HIRRootViewController () <UIScrollViewDelegate,
@@ -58,10 +60,6 @@ HPCoreLocationMangerDelegate>
 @synthesize mainMenuTableView;
 @synthesize deviceShowArray;
 @synthesize deviceInfoArray;
-
-
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -172,10 +170,6 @@ HPCoreLocationMangerDelegate>
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peripheralDisconnect:) name:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil];
 }
 
-
-
-
-
 - (void)batteryLevelChange:(NSNotification *)notify {
     NSDictionary *info = notify.userInfo;
     float level = [[info valueForKey:@"level"] floatValue];
@@ -200,6 +194,21 @@ HPCoreLocationMangerDelegate>
 }
 
 -(void)peripheralDisconnect:(NSNotification *)notify{
+    if ([HirUserInfo shareUserInfo].isNotificationMyWhenDeviceNoWithin) {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        
+        HirMsgPlaySound *msgPlaySound = [[HirMsgPlaySound alloc]initSystemSoundWithName:@"sms-received4" SoundType:@"caf"];
+        [msgPlaySound play];
+        
+        if([HirUserInfo shareUserInfo].appIsEnterBackgroud){
+            [self locationNotification];
+        }
+        else{
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"warning", nil) message:NSLocalizedString(@"youDeviceIsAwayFromYou", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
+            [alertView show];
+        }
+    }
+    
     if (self.isLocationing) {
         return;
     }
@@ -207,11 +216,9 @@ HPCoreLocationMangerDelegate>
     self.isDisconnectLocation = YES;
     appDelegate.locManger.delegate = self;
     [appDelegate.locManger startUpdatingUserLocation];
-    
-    
 }
 
-- (void) locationFinished:(CLLocation *)location withFlag:(NSNumber *)isSuccess{
+- (void)locationFinished:(CLLocation *)location withFlag:(NSNumber *)isSuccess{
     self.isLocationing = NO;
     
     NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;
@@ -227,11 +234,29 @@ HPCoreLocationMangerDelegate>
     }
 }
 
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
 
+-(void)locationNotification{
+    if (is_IOS8) {
+        if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)])
+        {
+            UIApplication *appDelega = [UIApplication sharedApplication];
+            [appDelega registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+        }
+    }
+    
+    UILocalNotification *notification=[[UILocalNotification alloc] init];
+    if (notification!=nil) {
+        NSLog(@">> support local notification");
+        NSDate *now=[NSDate new];
+        notification.fireDate=[now addTimeInterval:.1];
+        notification.timeZone=[NSTimeZone defaultTimeZone];
+        notification.alertBody=NSLocalizedString(@"youDeviceIsAwayFromYou", nil);
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    }
+}
 
 - (void)updateViewConstraints
 {
@@ -305,6 +330,7 @@ HPCoreLocationMangerDelegate>
         self.nextButton.hidden = YES;
     }
 }
+
 - (void)setupMainMenuScrollViewContentView {
     self.mainMenuScrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height*0.8);
     NSLog(@"%f,%f===",self.mainMenuScrollView.contentSize.width,self.mainMenuScrollView.contentSize.height);
@@ -475,7 +501,6 @@ static float pp = 0;
     [self changeTheDeviceByUser];
 }
 
-
 - (void)changeTheDeviceByUser {
     int page = (int)self.pageControl.currentPage;
     if (page != [HirUserInfo shareUserInfo].currentPeripheraIndex) {
@@ -558,12 +583,12 @@ static float pp = 0;
 
 - (void)theSwitchChange:(id)sender {
     UISwitch *theSw = (UISwitch *)sender;
-    long tag = theSw.tag;
-    if (tag == 1) {
+    HirRootSetSwith tag = theSw.tag;
+    if (tag == HirRootSetSwith_Connect) {
         if (theSw.on == YES) {
             [self.switchStatus replaceObjectAtIndex:3 withObject:[NSNumber numberWithBool:NO]];
         }
-    }else if(tag == 3) {
+    }else if(tag == HirRootSetSwith_VoiceMemo) {
         if (theSw.on == YES) {
             [self.switchStatus replaceObjectAtIndex:1 withObject:[NSNumber numberWithBool:NO]];
         }
@@ -572,6 +597,7 @@ static float pp = 0;
     [self.switchStatus replaceObjectAtIndex:tag withObject:[NSNumber numberWithBool:theSw.on]];
     [self.mainMenuTableView reloadData];
     
+    [HirUserInfo shareUserInfo].isNotificationMyWhenDeviceNoWithin = [[self.switchStatus objectAtIndex:HirRootSetSwith_Notification]boolValue];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:self.switchStatus forKey:@"theHiremoteSettingStatus"];

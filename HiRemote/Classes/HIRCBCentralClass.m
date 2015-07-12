@@ -210,9 +210,7 @@
     }else {
         ////不是用户手动断开，则重试
         [self.centralManager connectPeripheral:peripheral options:nil];
-    }
-    
-    
+    }    
     
     NSLog(@"断开连接，要定位");
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
