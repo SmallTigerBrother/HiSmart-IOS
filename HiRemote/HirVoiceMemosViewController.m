@@ -74,7 +74,7 @@ AVAudioRecorderDelegate>
     // searchResultsDelegate 就是 UITableViewDelegate
     searchDisplayController.searchResultsDelegate = self;
     searchDisplayController.delegate = self;
-
+    
     self.tableView.tableHeaderView = searchBar;
     
     NSMutableArray *list = [[NSMutableArray alloc]initWithCapacity:0];
@@ -107,7 +107,7 @@ AVAudioRecorderDelegate>
 -(void)recordVoiceNotification:(NSNotification *)notification{
     static BOOL isRecord = NO;
     isRecord = !isRecord;
-
+    
     if (isRecord) {
         [self startRecording];
         NSLog(@"收到录音信号");
@@ -315,7 +315,6 @@ AVAudioRecorderDelegate>
     
     return cell;
 }
-
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return [HirVoiceCell heightOfCellWithData:nil];

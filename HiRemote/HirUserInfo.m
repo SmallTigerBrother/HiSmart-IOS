@@ -49,6 +49,15 @@ static HirUserInfo *hirUserDefault;
     return [[self.stateUserDef objectForKey:@"currentPeripheraIndex"]integerValue];
 }
 
+-(void)setIsNotificationMyWhenDeviceNoWithin:(BOOL)isNotificationMyWhenDeviceNoWithin{
+    [self.stateUserDef setObject:[NSNumber numberWithBool:isNotificationMyWhenDeviceNoWithin] forKey:@"isNotificationMyWhenDeviceNoWithin"];
+    [self.stateUserDef synchronize];
+}
+
+-(BOOL)isNotificationMyWhenDeviceNoWithin{
+    return [[self.stateUserDef objectForKey:@"isNotificationMyWhenDeviceNoWithin"]boolValue];
+}
+
 -(DBPeriphera *)currentPeriphera{
     if ([self.deviceInfoArray count] > self.currentPeripheraIndex) {
         _currentPeriphera = [self.deviceInfoArray objectAtIndex:self.currentPeripheraIndex];

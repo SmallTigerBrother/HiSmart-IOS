@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "HPCoreLocationManger.h"
+<<<<<<< HEAD
+=======
 #import "HIRRootViewController.h"
+>>>>>>> 1f4a0e438f3422d53e2c06218d0bd0db715d1473
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property(nonatomic) UIWindow *window;

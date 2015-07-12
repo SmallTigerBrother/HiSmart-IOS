@@ -11,6 +11,9 @@
 @implementation HirDataManageCenter (Perphera)
 //查找设备ID为:peripheraUUID的定位记录信息
 +(DBPeriphera *)findPerpheraByPeripheraUUID:(NSString *)uuid{
+    if (!uuid) {
+        return nil;
+    }
     DBPeriphera *periphera = [[DBPeriphera MR_findByAttribute:@"uuid" withValue:uuid]firstObject];
     return periphera;
 }
