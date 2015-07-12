@@ -45,6 +45,7 @@
 @synthesize mapView;
 @synthesize location;
 @synthesize hiRemoteName;
+@synthesize remarkName;
 @synthesize locationStr;
 @synthesize hiremoteData;
 
@@ -93,9 +94,26 @@
     NSInteger deviceIndex = [HirUserInfo shareUserInfo].currentPeripheraIndex;
     if ([deviceInfoAry count] > deviceIndex) {
         self.hiremoteData = [deviceInfoAry objectAtIndex:deviceIndex];
-        UIImage *image = [UIImage imageWithContentsOfFile:self.hiremoteData.avatarPath];
-        self.avtarImgV.image = image;
-        self.nameLab.text = self.hiremoteData.name;
+        
+        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+        documentsDirectory = [documentsDirectory stringByAppendingPathComponent:@"HiRemoteData"];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:documentsDirectory withIntermediateDirectories:TRUE attributes:nil error:nil];
+        }
+        if (documentsDirectory) {
+            NSString *filePath = [documentsDirectory stringByAppendingPathComponent:self.hiremoteData.avatarPath];
+            NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+            UIImage *image = [UIImage imageWithData:imageData];
+            if (image) {
+                self.avtarImgV.image = image;
+            }
+        }
+        
+        if ([self.hiremoteData.remarkName length] > 0) {
+            self.nameLab.text = self.hiremoteData.remarkName;
+        }else {
+            self.nameLab.text = self.hiremoteData.name;
+        }
         
         DBPeripheraLocationInfo *lastLocationInf = [HirDataManageCenter findLastLocationByPeriperaUUID:self.hiremoteData.uuid];
         if (lastLocationInf) {
@@ -184,6 +202,7 @@
 
 - (void)showTheHistoryList:(id)sender {
     HirLocationHistoryViewController *locationHistoryViewController = [[HirLocationHistoryViewController alloc]initWithDataType:HirLocationDataType_lost];
+    locationHistoryViewController.findDelegate = self;
     [self.navigationController pushViewController:locationHistoryViewController animated:YES];
 }
 
@@ -223,7 +242,11 @@
     CLLocationCoordinate2D c2d = self.location.coordinate;
     
     HIRAnnotations *annotation = [[HIRAnnotations alloc] initWithCoordinate:c2d];
-    annotation.title = self.hiRemoteName;
+    if([self.remarkName length] > 0) {
+        annotation.title = self.remarkName;
+    }else {
+        annotation.title = self.hiRemoteName;
+    }
     annotation.subtitle = locationStr;
     [mapView addAnnotation:annotation];
     MKCoordinateRegion newRegion;
@@ -254,7 +277,7 @@
         UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         [rightButton addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
         rightButton.tag = ((HIRAnnotations *)annotation).tag;
-        pinView.rightCalloutAccessoryView = rightButton;
+       // pinView.rightCalloutAccessoryView = rightButton;
         
         pinView.annotation = annotation;
         return pinView;
@@ -301,6 +324,7 @@
     self.mapView = nil;
     self.location = nil;
     self.hiRemoteName = nil;
+    self.remarkName = nil;
     self.locationStr = nil;
     self.hiremoteData = nil;
 }

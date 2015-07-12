@@ -31,7 +31,13 @@
         UIImageView *imgView = [[UIImageView alloc] initWithImage:_postImage];
         imgView.clipsToBounds = YES;
         imgView.contentMode = UIViewContentModeScaleAspectFill;
-        imgView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width);
+        CGFloat offsetY_H = 0;
+        if (DEVICE_IS_IPHONE5) {
+            offsetY_H = 70;
+        }else if(!DEVICE_IS_IPHONE4) {
+            offsetY_H = 100;
+        }
+        imgView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width+offsetY_H);
         imgView.center = self.view.center;
         [self.view addSubview:imgView];
     }

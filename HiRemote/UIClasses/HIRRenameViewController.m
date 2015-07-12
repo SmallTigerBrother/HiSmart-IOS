@@ -81,11 +81,26 @@
     dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
         if ([self.hiRemoteData.avatarPath length] > 0) {
-            UIImage *image = [UIImage imageWithContentsOfFile:self.hiRemoteData.avatarPath];
-            if (image) {
-                [self.photoView setImage:image];
+            NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+            documentsDirectory = [documentsDirectory stringByAppendingPathComponent:@"HiRemoteData"];
+            if (![[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
+                [[NSFileManager defaultManager] createDirectoryAtPath:documentsDirectory withIntermediateDirectories:TRUE attributes:nil error:nil];
             }
-            [self.renameButton setTitle:self.hiRemoteData.name forState:UIControlStateNormal];
+            if (documentsDirectory) {
+                 NSString *filePath = [documentsDirectory stringByAppendingPathComponent:self.hiRemoteData.avatarPath];
+                NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+                UIImage *image = [UIImage imageWithData:imageData];
+                if (image) {
+                    [self.photoView setImage:image];
+                    [self.photoButton setImage:nil forState:UIControlStateNormal];
+                    
+                }
+            }
+            if ([self.hiRemoteData.remarkName length] > 0) {
+                [self.renameButton setTitle:self.hiRemoteData.remarkName forState:UIControlStateNormal];
+            }else {
+                [self.renameButton setTitle:self.hiRemoteData.name forState:UIControlStateNormal];
+            }
         }
     });
 }
@@ -126,13 +141,13 @@
 
 - (void) photoButtonClick:(id)sender {
     float version = [[[UIDevice currentDevice] systemVersion] floatValue];
-    if (version > 6.99) {
-        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-        if (authStatus != AVAuthorizationStatusAuthorized) {
-            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"accessCameraTip", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
-            return;
-        }
-    }
+//    if (version > 6.99) {
+//        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+//        if (authStatus != AVAuthorizationStatusAuthorized) {
+//            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"accessCameraTip", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
+//            return;
+//        }
+//    }
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
     {
@@ -159,11 +174,8 @@
 
 - (void)nextButtonClick:(id)sender {
     AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSMutableArray *list = [HirUserInfo shareUserInfo].deviceInfoArray;
-    if (list.count) {
-        DBPeriphera *data = [list objectAtIndex:0];
-        NSLog(@"data:%@--path：%@",data.name,data.avatarPath);
-    }
+  
+    [HirDataManageCenter savePerpheraByModel:self.hiRemoteData];
     [appDeleg connectSuccessToShowRootVC];
 }
 
@@ -171,10 +183,7 @@
     if (buttonIndex == 0) {
         UITextField *textField = [alertView textFieldAtIndex:0];
         if (textField.text && [textField.text length] > 0) {
-            self.hiRemoteData.name = textField.text;
-            
-            [HirDataManageCenter savePerpheraByModel:self.hiRemoteData];
-            
+            self.hiRemoteData.remarkName = textField.text;
             [self.renameButton setTitle:textField.text forState:UIControlStateNormal];
         }
     }
@@ -188,7 +197,20 @@
         image = info[UIImagePickerControllerOriginalImage];
     }
     
-    NSData *imageData = UIImagePNGRepresentation(image);
+    CGSize size = CGSizeMake(130, 130);
+    // 并把它设置成为当前正在使用的context
+    UIGraphicsBeginImageContext(size);
+    // 绘制改变大小的图片
+    [image drawInRect:CGRectMake(0,0, size.width, size.height)];
+    // 从当前context中创建一个改变大小后的图片
+    UIImage* scaledImage =UIGraphicsGetImageFromCurrentImageContext();
+    // 使当前的context出堆栈
+    UIGraphicsEndImageContext();
+
+    NSData *imageData = UIImagePNGRepresentation(scaledImage);
+    
+    [self.photoButton setImage:nil forState:UIControlStateNormal];
+    [self.photoView setImage:scaledImage];
     
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
     documentsDirectory = [documentsDirectory stringByAppendingPathComponent:@"HiRemoteData"];
@@ -198,17 +220,11 @@
     if (!documentsDirectory) {
         return;
     }
-    
-    NSString *avatarName = [NSString stringWithFormat:@"avata%lld.png",(long long)[[NSDate date] timeIntervalSince1970]];
+    NSString *avatarName = [NSString stringWithFormat:@"avata%lld",(long long)[[NSDate date] timeIntervalSince1970]];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:avatarName];
-    self.hiRemoteData.avatarPath = filePath;
+    self.hiRemoteData.avatarPath = avatarName;
+    
     [imageData writeToFile:filePath atomically:YES];
-    
-    UIImage *mmmm = [UIImage imageWithContentsOfFile:filePath];
-    
-    [self.photoButton setImage:nil forState:UIControlStateNormal];
-    [self.photoView setImage:image];
-    
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 

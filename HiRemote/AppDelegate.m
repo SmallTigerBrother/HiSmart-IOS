@@ -62,6 +62,7 @@
         [self.window addSubview:self.welcomeVC.view];
     }else {
         self.scanVC = [[HIRScanningViewController alloc] init];
+        [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil;
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.scanVC];
         //self.registerVC = [[HIRRegisterViewController alloc] init];
        // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.registerVC];
@@ -142,7 +143,7 @@ static int aa = 0;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         while(_isBackground)
         {
-            [NSThread sleepForTimeInterval:5];
+            [NSThread sleepForTimeInterval:2];
             ////do something you want
             NSLog(@"backgroud do%d",aa++);
         }
@@ -204,6 +205,7 @@ static int aa = 0;
     self.welcomeVC = nil;
     
     self.scanVC = [[HIRScanningViewController alloc] init];
+    [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.scanVC];
     
    // self.registerVC = [[HIRRegisterViewController alloc] init];

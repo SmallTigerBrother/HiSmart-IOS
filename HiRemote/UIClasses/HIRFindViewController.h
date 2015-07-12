@@ -12,6 +12,7 @@
 @interface HIRFindViewController : HirBaseViewController
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) NSString *hiRemoteName;
+@property (nonatomic, strong) NSString *remarkName;
 @property (nonatomic, strong) NSString *locationStr;
 
 - (void)resetTheLocation:(CLLocation *)cllocation peripheraLocationInfo:(DBPeripheraLocationInfo *)perInfo;

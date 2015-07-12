@@ -21,6 +21,7 @@
 "checkLocation" = "Please check the setting for location!";
 "location" = "Location";
 "hello" = "Hello";
+"addNewFailure" = "The new device cannot find. connecting the last one!";
 "rateus" = "RATE US";
 "about" = "ABOUT";
 "facebook" = "Facebook";

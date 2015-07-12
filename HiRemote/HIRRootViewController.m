@@ -88,8 +88,8 @@ HPCoreLocationMangerDelegate>
     self.deviceShowArray = [NSMutableArray arrayWithCapacity:5];
     self.deviceInfoArray = [HirUserInfo shareUserInfo].deviceInfoArray;
     
-   // self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"userAvatar"] style:UIBarButtonItemStylePlain target:self action:@selector(showUserInfoVC:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addDevice"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewDevice:)];
+    //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addDevice"] style:UIBarButtonItemStylePlain target:self action:@selector(showUserInfoVC:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewDevice:)];//[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addDevice"] style:UIBarButtonItemStyleDone target:self action:@selector(addNewDevice:)];
     
     ////主界面
     self.showDeviceScrollView = [[UIScrollView alloc] init];
@@ -159,15 +159,32 @@ HPCoreLocationMangerDelegate>
             if ([self.deviceShowArray count] > i) {
                 DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:i];
                 HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:i];
-                UIImage *image = [UIImage imageWithContentsOfFile:remoteData.avatarPath];
-                DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
-                device.deviceNameLabel.text = remoteData.name;
-                device.deviceLocationLabel.text = locationInfo.location;
-                device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
-                [device.avatarImageView setImage:image];
                 
+                NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+                documentsDirectory = [documentsDirectory stringByAppendingPathComponent:@"HiRemoteData"];
+                if (![[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
+                    [[NSFileManager defaultManager] createDirectoryAtPath:documentsDirectory withIntermediateDirectories:TRUE attributes:nil error:nil];
+                }
+                if (documentsDirectory) {
+                    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:remoteData.avatarPath];
+                    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+                    UIImage *image = [UIImage imageWithData:imageData];
+                    if (image) {
+                        [device.avatarImageView setImage:image];
+                    }
+                }
+                if ([remoteData.remarkName length] > 0) {
+                    device.deviceNameLabel.text = remoteData.remarkName;
+                }else {
+                    device.deviceNameLabel.text = remoteData.name;
+                }
+
+                DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
                 NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
                 if ([remoteData.uuid isEqualToString:currentUuid]) {
+                    device.deviceLocationLabel.text = locationInfo.location;
+                    device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
+
                     self.pageControl.currentPage = i;
                     [HirUserInfo shareUserInfo].currentPeripheraIndex = i;
                     [self.showDeviceScrollView  setContentOffset:CGPointMake(i * self.view.frame.size.width, 0) animated:NO];
@@ -320,6 +337,7 @@ HPCoreLocationMangerDelegate>
             frame.origin.x = frame.size.width * i;
             frame.origin.y = 0;
             showView.frame = frame;
+            showView.deviceLocationLabel.text = NSLocalizedString(@"isNotConnected", @"");
             [self.showDeviceScrollView addSubview:showView];
             [self.deviceShowArray addObject:showView];
         }
@@ -333,7 +351,7 @@ HPCoreLocationMangerDelegate>
     }
 }
 - (void)setupMainMenuScrollViewContentView {
-    self.mainMenuScrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height*0.8);
+    self.mainMenuScrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height*0.6);
     NSLog(@"%f,%f===",self.mainMenuScrollView.contentSize.width,self.mainMenuScrollView.contentSize.height);
     CGSize size = self.view.frame.size;
     float eightPercent = size.width/8;
@@ -407,12 +425,14 @@ HPCoreLocationMangerDelegate>
     }
     else if(btn.tag == 2) {
         HIRFindViewController *findViewController = [[HIRFindViewController alloc] init];
-        NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
-        DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:currentUuid];
+        DBPeriphera *remoteData = nil;
         if ([self.deviceInfoArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
-            DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+            remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
             findViewController.hiRemoteName = remoteData.name;
+            findViewController.remarkName = remoteData.remarkName;
         }
+        DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
+   
         findViewController.locationStr = locationInfo.location;
         findViewController.location = [[[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue]locationMarsFromEarth];
         [self.navigationController pushViewController:findViewController animated:YES];
@@ -435,6 +455,8 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)addNewDevice:(id)sender {
+    ////添加新设备时，防止为上次的设备
+    [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
     [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
     AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDeleg addNewDevice];
@@ -518,6 +540,8 @@ HPCoreLocationMangerDelegate>
             DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:page];
             [self.changeIndicator startAnimating];
             self.outTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
+            
+            [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil; 
             [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:remoteData.uuid];
         }
     }
@@ -546,6 +570,18 @@ HPCoreLocationMangerDelegate>
         }
     }else if ([state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_SUCCESS]) {
         ////蓝牙链接外设成功
+        if ([self.deviceShowArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
+            DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+            HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+            DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
+            if ([remoteData.remarkName length] > 0) {
+                device.deviceNameLabel.text = remoteData.remarkName;
+            }else {
+                device.deviceNameLabel.text = remoteData.name;
+            }
+            device.deviceLocationLabel.text = locationInfo.location;
+            device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
+        }
     }
 }
 /////

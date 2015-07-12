@@ -20,9 +20,9 @@
 @synthesize mapView;
 @synthesize location;
 @synthesize hiRemoteName;
-@synthesize currentState;
-@synthesize currentCity;
-@synthesize currentStreet;
+@synthesize remarkName;
+@synthesize locationStr;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,12 +39,18 @@
     CLLocationCoordinate2D c2d = self.location.coordinate;
 
     HIRAnnotations *annotation = [[HIRAnnotations alloc] initWithCoordinate:c2d];
-    annotation.title = self.hiRemoteName;
+    if([self.remarkName length] > 0) {
+        annotation.title = self.remarkName;
+    }else {
+        annotation.title = self.hiRemoteName;
+    }
+    annotation.subtitle = locationStr;
     [mapView addAnnotation:annotation];
     MKCoordinateRegion newRegion;
     newRegion.center = annotation.coordinate;
     newRegion.span.latitudeDelta = 0.2f;
     newRegion.span.longitudeDelta = 0.2f;
+    [mapView selectAnnotation:annotation animated:YES];
     [mapView setRegion:newRegion];
 }
 
@@ -83,7 +89,7 @@
         UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         [rightButton addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
         rightButton.tag = ((HIRAnnotations *)annotation).tag;
-        pinView.rightCalloutAccessoryView = rightButton;
+        //pinView.rightCalloutAccessoryView = rightButton;
         
         pinView.annotation = annotation;
         return pinView;
@@ -104,9 +110,7 @@
     self.mapView = nil;
     self.location = nil;
     self.hiRemoteName = nil;
-    self.currentCity = nil;
-    self.currentState = nil;
-    self.currentStreet = nil;
+    self.locationStr = nil;
 }
 
 @end

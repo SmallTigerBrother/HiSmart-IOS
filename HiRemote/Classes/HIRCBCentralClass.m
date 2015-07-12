@@ -27,8 +27,8 @@
 @synthesize firePowerCharacter;
 @synthesize batteryCharacter;
 @synthesize searchPhoneCharacter;
+@synthesize theAddNewNeedToAvoidLastUuid;
 @synthesize peripheralsMArray;
-@synthesize isDisconnectByUser;
 @synthesize batteryLevel;
 
 - (id)init {
@@ -38,6 +38,7 @@
         self.discoveredPeripheral = nil;
         self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
         _theChangeUuid = nil;
+        self.theAddNewNeedToAvoidLastUuid = nil;
         _isScanningPeripherals = NO;
         self.batteryLevel = 0.5;
     }
@@ -55,9 +56,10 @@
     return shareHIRCBCentralClass;
 }
 
+
+
 - (void)scanPeripheral:(NSString *)uuid {
     self.theChangeUuid = uuid;
-    isDisconnectByUser = NO;
     ///蓝牙关闭的
     if (self.centralManager.state != CBCentralManagerStatePoweredOn) {
         [self stopCentralManagerScan];
@@ -86,6 +88,9 @@
 }
 
 - (void)cancelConnectionWithPeripheral:(CBPeripheral *)peripheral {
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter postNotificationName:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil userInfo:nil];
+    
     [self cleanDiscoveredPeripheral];
     _retryTimes = 0;
     [self.peripheralsMArray removeObject:self.discoveredPeripheral];
@@ -105,8 +110,10 @@
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
         [notificationCenter postNotificationName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:CBCENTERAL_STATE_NOT_SUPPORT,@"state", nil]];
         
-        NSLog(@"断开连接，要定位");
         if (self.discoveredPeripheral) {
+            [self stopCentralManagerScan];
+            [self.peripheralsMArray removeObject:self.discoveredPeripheral];
+            self.discoveredPeripheral = nil;
             [notificationCenter postNotificationName:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil userInfo:nil];
         }
     }
@@ -117,6 +124,10 @@
 {
     NSLog(@"per:%@, SSI:%d, uuid:%@, data:%@",peripheral,[RSSI intValue],peripheral.identifier,advertisementData);
     if ([self.theChangeUuid length] > 0 && ![[peripheral.identifier UUIDString] isEqualToString:self.theChangeUuid]) {
+        return;
+    }
+    
+    if ([self.theAddNewNeedToAvoidLastUuid length] > 0 && [[peripheral.identifier UUIDString] isEqualToString:self.theAddNewNeedToAvoidLastUuid]) {
         return;
     }
 
@@ -157,16 +168,7 @@
     
     NSString *perUuid = [peripheral.identifier UUIDString];
     
-    if (!(appDelegate.rootVC)) {
-        [HirDataManageCenter insertPerpheraByUUID:perUuid name:peripheral.name avatarPath:nil battery:nil];
-    }else {
-        [HirDataManageCenter insertPerpheraByUUID:perUuid name:nil avatarPath:nil battery:nil];
-    }
-    
-<<<<<<< HEAD
-=======
     [HirDataManageCenter insertPerpheraByUUID:perUuid name:peripheral.name remarkName:nil avatarPath:nil battery:nil];
->>>>>>> 704a0dd4112c3857e73f655357d37921335cdc1a
     
     NSArray	*serviceArray = [NSArray arrayWithObjects:[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_IMMEDIATE_ALERT_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_LOSS_ALERT_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_POWER_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_BATTERY_SERVICE],[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_SEARCHPHONE_SERVICE], nil];
     
@@ -203,13 +205,14 @@
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     self.theChangeUuid = nil;
-    if (isDisconnectByUser) {
-        isDisconnectByUser = NO;
+
+    if (_retryTimes++ < 3) {
+        [self.centralManager connectPeripheral:peripheral options:nil];
+    }else {
+        _retryTimes = 0;
+        [self cleanDiscoveredPeripheral];
         [self.peripheralsMArray removeObject:peripheral];
         self.discoveredPeripheral = nil;
-    }else {
-        ////不是用户手动断开，则重试
-        [self.centralManager connectPeripheral:peripheral options:nil];
     }
     
     

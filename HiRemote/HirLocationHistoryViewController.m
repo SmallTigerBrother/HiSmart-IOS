@@ -190,6 +190,14 @@ UITextFieldDelegate>
     
     if (self.locationDataType == HirLocationDataType_history) {
         HIRMapViewController *mapVC = [[HIRMapViewController alloc] init];
+        DBPeriphera *remoteData = nil;
+        if ([[HirUserInfo shareUserInfo].deviceInfoArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
+            remoteData = [[HirUserInfo shareUserInfo].deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+            mapVC.hiRemoteName = remoteData.name;
+            mapVC.remarkName = remoteData.remarkName;
+        }
+        DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
+        mapVC.locationStr = locationInfo.location;
         mapVC.location = [[[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue]locationMarsFromEarth];
         [self.navigationController pushViewController:mapVC animated:YES];
     }

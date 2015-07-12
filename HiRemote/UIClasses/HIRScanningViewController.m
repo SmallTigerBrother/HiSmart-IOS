@@ -22,7 +22,7 @@
 @property (nonatomic, strong) UIActivityIndicatorView *scanIndicator;
 @property (nonatomic, strong) NSTimer *outTimer;
 @property (nonatomic, assign) BOOL didSetupConstraints;
-
+@property (nonatomic, assign) BOOL isGetPeripheralStatus; ////为了防止获得外设链接失败通知后，又获得成功通知，导致push多个界面
 @end
 
 @implementation HIRScanningViewController
@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:0.35 green:0.75 blue:0.58 alpha:1];
-    
+    _isGetPeripheralStatus = NO;
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.backButton setImage:[UIImage imageNamed:@"nextBtn"] forState:UIControlStateNormal];
     [self.backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -86,20 +86,35 @@
 }
 
 - (void)outTimerForScanning {
-    NSLog(@"out timer for scning");
     [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
-    NSNotification *notif = [NSNotification notificationWithName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:CBCENTERAL_CONNECT_PERIPHERAL_FAIL forKey:@"state"]];
-    [self hirCBStateChange:notif];
     [self.outTimer invalidate];
     self.outTimer = nil;
-}
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
     
+    if ([[HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid length] > 0) {
+        [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil;
+        [self scanningTheDevice];
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"addNewFailure", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
+        return;
+    }
+    
+    NSNotification *notif = [NSNotification notificationWithName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:CBCENTERAL_CONNECT_PERIPHERAL_FAIL forKey:@"state"]];
+    [self hirCBStateChange:notif];
+}
+
+
+- (void)scanningTheDevice {
+    [self.outTimer invalidate];
+    self.outTimer = nil;
+    _isGetPeripheralStatus = NO;
     ///放在这里进行扫描的原因是，当失败后再扫描时回回到该页面再扫描
     self.outTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
     [self.scanIndicator startAnimating];
     [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self scanningTheDevice];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -133,7 +148,7 @@
         
         [self.scanIndicator autoSetDimensionsToSize:CGSizeMake(50, 50)];
         [self.scanIndicator autoAlignAxisToSuperviewAxis:ALAxisVertical];
-        [self.scanIndicator autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:60];
+        [self.scanIndicator autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:50];
         
         [self.scaningLabel autoSetDimension:ALDimensionHeight toSize:30];
         [self.scaningLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:40.0];
@@ -146,6 +161,8 @@
 }
 
 - (void)backButtonClick:(id)sender {
+    [self.outTimer invalidate];
+    self.outTimer = nil;
     [self.scanIndicator stopAnimating];
     [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
     [self.navigationController popViewControllerAnimated:YES];
@@ -155,7 +172,12 @@
     [self.outTimer invalidate];
     self.outTimer = nil;
     [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
-    NSLog(@"SCANING  CHANG NOTFI:%@",notif);
+    if (_isGetPeripheralStatus) {
+        return;
+    }
+    _isGetPeripheralStatus = YES;
+    
+    
     NSDictionary *info = notif.userInfo;
     NSString *state = [info valueForKey:@"state"];
     if ([state isEqualToString:CBCENTERAL_STATE_NOT_SUPPORT] || [state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_FAIL]) {
@@ -164,16 +186,17 @@
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"checkBluetooth", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
         HIRConnFailViewController *connFailVC = [[HIRConnFailViewController alloc] init];
         [self.navigationController pushViewController:connFailVC animated:YES];
+        [self.scanIndicator stopAnimating];
     }else if ([state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_SUCCESS]) {
         ////蓝牙链接外设成功
-        double delayInSeconds = 2;
+        double delayInSeconds = 1;
         dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
             HIRConnSuccViewController *connectedVC = [[HIRConnSuccViewController alloc] init];
             [self.navigationController pushViewController:connectedVC animated:YES];
+            [self.scanIndicator stopAnimating];
         });
     }
-    [self.scanIndicator stopAnimating];
 }
 
 
