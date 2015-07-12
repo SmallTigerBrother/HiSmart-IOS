@@ -10,7 +10,8 @@
 		043772201B4BF8130089051C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0437721F1B4BF8130089051C /* AVFoundation.framework */; };
 		043772221B4BF81D0089051C /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043772211B4BF81D0089051C /* CoreAudio.framework */; };
 		043772251B4C19380089051C /* CLLocation+Sino.m in Sources */ = {isa = PBXBuildFile; fileRef = 043772241B4C19380089051C /* CLLocation+Sino.m */; };
-		04BB4AE21B4199CF009567BF /* bg_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04BB4ADD1B4199CF009567BF /* bg_music.mp3 */; };
+		0450BCB21B52786900B3BF93 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0450BCB11B52786900B3BF93 /* AudioToolbox.framework */; };
+		0450BCB51B5279BC00B3BF93 /* HirMsgPlaySound.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */; };
 		04BB4AE31B4199CF009567BF /* sound.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04BB4ADE1B4199CF009567BF /* sound.bundle */; };
 		04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AE11B4199CF009567BF /* SoundTool.m */; };
 		04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AEB1B43CFC1009567BF /* SWTableViewCell.m */; };
@@ -157,8 +158,10 @@
 		043772211B4BF81D0089051C /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		043772231B4C19380089051C /* CLLocation+Sino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+Sino.h"; sourceTree = "<group>"; };
 		043772241B4C19380089051C /* CLLocation+Sino.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+Sino.m"; sourceTree = "<group>"; };
+		0450BCB11B52786900B3BF93 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		0450BCB31B5279BC00B3BF93 /* HirMsgPlaySound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirMsgPlaySound.h; sourceTree = "<group>"; };
+		0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirMsgPlaySound.m; sourceTree = "<group>"; };
 		04976BB78AFBE5AFBEEC05BA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		04BB4ADD1B4199CF009567BF /* bg_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_music.mp3; sourceTree = "<group>"; };
 		04BB4ADE1B4199CF009567BF /* sound.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = sound.bundle; sourceTree = "<group>"; };
 		04BB4ADF1B4199CF009567BF /* SoundNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundNames.h; sourceTree = "<group>"; };
 		04BB4AE01B4199CF009567BF /* SoundTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundTool.h; sourceTree = "<group>"; };
@@ -395,6 +398,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0450BCB21B52786900B3BF93 /* AudioToolbox.framework in Frameworks */,
 				043772221B4BF81D0089051C /* CoreAudio.framework in Frameworks */,
 				043772201B4BF8130089051C /* AVFoundation.framework in Frameworks */,
 				B887061E1B48FE6F00A87300 /* libsqlite3.0.dylib in Frameworks */,
@@ -414,11 +418,12 @@
 		04BB4AE51B4199DA009567BF /* playSound */ = {
 			isa = PBXGroup;
 			children = (
-				04BB4ADD1B4199CF009567BF /* bg_music.mp3 */,
 				04BB4ADE1B4199CF009567BF /* sound.bundle */,
 				04BB4ADF1B4199CF009567BF /* SoundNames.h */,
 				04BB4AE01B4199CF009567BF /* SoundTool.h */,
 				04BB4AE11B4199CF009567BF /* SoundTool.m */,
+				0450BCB31B5279BC00B3BF93 /* HirMsgPlaySound.h */,
+				0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */,
 			);
 			name = playSound;
 			sourceTree = "<group>";
@@ -823,6 +828,7 @@
 		66309597BEE9CEC8844359A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0450BCB11B52786900B3BF93 /* AudioToolbox.framework */,
 				043772211B4BF81D0089051C /* CoreAudio.framework */,
 				0437721F1B4BF8130089051C /* AVFoundation.framework */,
 				B887061D1B48FE6F00A87300 /* libsqlite3.0.dylib */,
@@ -996,7 +1002,6 @@
 				B84CD4D81B441EA2008FAA53 /* voicem.png in Resources */,
 				04D38D1D1B3EB1410012D65A /* HirBaseTableCell.xib in Resources */,
 				04D7A8A71B47EF9700579EC2 /* SVProgressHUD.bundle in Resources */,
-				04BB4AE21B4199CF009567BF /* bg_music.mp3 in Resources */,
 				2C18AB001B3BECDE00CE6588 /* LaunchScreen.xib in Resources */,
 				B84CD4D31B441EA2008FAA53 /* location.png in Resources */,
 				04D7A8881B47EF9700579EC2 /* close_cha_h@2x.png in Resources */,
@@ -1096,6 +1101,7 @@
 				B8DF7DBC1B3E7AE7000BD43E /* HIRSegmentView.m in Sources */,
 				B84CD4AB1B441E58008FAA53 /* HIRMapViewController.m in Sources */,
 				04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */,
+				0450BCB51B5279BC00B3BF93 /* HirMsgPlaySound.m in Sources */,
 				04D7A8A11B47EF9700579EC2 /* DCCrossHairView.m in Sources */,
 				B8DF7DB81B3E7AE7000BD43E /* HIRBatteryPercentView.m in Sources */,
 				04F375C51B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m in Sources */,
