@@ -130,6 +130,7 @@
 }
 
 - (void)retryButtonClick:(id)sender {
+    [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

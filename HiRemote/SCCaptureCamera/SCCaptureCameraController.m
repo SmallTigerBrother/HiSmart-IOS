@@ -296,7 +296,13 @@ UIImagePickerControllerDelegate>
            parentView:_bottomContainerView];
     
     CGFloat sizeOfImageBtn = 50;
-    self.imagePickBtn = [self buildButton:CGRectMake(SC_APP_SIZE.width - sizeOfImageBtn - 20, _bottomContainerView.frame.size.height - sizeOfImageBtn - 40, sizeOfImageBtn, sizeOfImageBtn)
+    CGFloat offsetY_H = 0;
+    if (DEVICE_IS_IPHONE5) {
+        offsetY_H = 70;
+    }else if(!DEVICE_IS_IPHONE4) {
+        offsetY_H = 100;
+    }
+    self.imagePickBtn = [self buildButton:CGRectMake(SC_APP_SIZE.width - sizeOfImageBtn - 20, _bottomContainerView.frame.size.height - sizeOfImageBtn - 60, sizeOfImageBtn, sizeOfImageBtn)
          normalImgStr:@""
       highlightImgStr:@""
        selectedImgStr:@""
@@ -407,9 +413,15 @@ UIImagePickerControllerDelegate>
         upFrame.size.height = (toShow ? SC_APP_SIZE.width / 2 + CAMERA_TOPVIEW_HEIGHT : 0);
         _doneCameraUpView.frame = upFrame;
         
+        CGFloat offsetY_H = 0;
+        if (DEVICE_IS_IPHONE5) {
+            offsetY_H = 70;
+        }else if(!DEVICE_IS_IPHONE4) {
+            offsetY_H = 100;
+        }
         CGRect downFrame = _doneCameraDownView.frame;
         downFrame.origin.y = (toShow ? SC_APP_SIZE.width / 2 + CAMERA_TOPVIEW_HEIGHT : _bottomContainerView.frame.origin.y);
-        downFrame.size.height = (toShow ? SC_APP_SIZE.width / 2 : 0);
+        downFrame.size.height = (toShow ? SC_APP_SIZE.width / 2 + offsetY_H : 0);
         _doneCameraDownView.frame = downFrame;
     }];
 }

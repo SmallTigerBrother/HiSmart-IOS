@@ -18,10 +18,11 @@
 "Location history" = "Location history";
 "ok" = "OK";
 "tips" = "Tips";
+"deviceConnectionFailed" = "Device Connection Failed";
 "checkLocation" = "Please check the setting for location!";
 "location" = "Location";
 "hello" = "Hello";
-"addNewFailure" = "The new device cannot find. connecting the last one!";
+"addNewFailure" = "The new device cannot find. connecting the last one?";
 "rateus" = "RATE US";
 "about" = "ABOUT";
 "facebook" = "Facebook";

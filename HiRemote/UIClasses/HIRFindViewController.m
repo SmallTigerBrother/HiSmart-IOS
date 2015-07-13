@@ -58,14 +58,14 @@
     self.buzzBtn.layer.borderWidth = 0.5;
     [self.buzzBtn.layer setBorderColor:[UIColor colorWithRed:0.25 green:0.73 blue:0.81 alpha:1].CGColor];
     [self.buzzBtn setTitle:NSLocalizedString(@"buzzItem", @"") forState:UIControlStateNormal];
-    [self.buzzBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [self.buzzBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     [self.buzzBtn setTitleColor:[UIColor colorWithRed:0.25 green:0.73 blue:0.81 alpha:1] forState:UIControlStateNormal];
     [self.buzzBtn addTarget:self action:@selector(buzzButton:) forControlEvents:UIControlEventTouchUpInside];
     self.stopBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.stopBtn.layer.borderWidth = 0.5;
     [self.stopBtn.layer setBorderColor:[UIColor colorWithRed:0.25 green:0.73 blue:0.81 alpha:1].CGColor];
     [self.stopBtn setTitle:NSLocalizedString(@"stop", @"") forState:UIControlStateNormal];
-    [self.stopBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [self.stopBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     [self.stopBtn setTitleColor:[UIColor colorWithRed:0.25 green:0.73 blue:0.81 alpha:1] forState:UIControlStateNormal];
     [self.stopBtn addTarget:self action:@selector(stopButton:) forControlEvents:UIControlEventTouchUpInside];
     self.avtarImgV = [[UIImageView alloc] init];
@@ -87,8 +87,10 @@
     self.mapView.delegate = self;
     self.mapView.showsUserLocation = YES;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"history", @"") style:UIBarButtonItemStylePlain target:self action:@selector(showTheHistoryList:)];
     
+    NSDictionary* textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:0.35 green:0.75 blue:0.58 alpha:1],NSForegroundColorAttributeName,nil];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"history", @"") style:UIBarButtonItemStylePlain target:self action:@selector(showTheHistoryList:)];
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:textAttributes forState:UIControlStateNormal];
     
     NSMutableArray *deviceInfoAry = [HirUserInfo shareUserInfo].deviceInfoArray;
     NSInteger deviceIndex = [HirUserInfo shareUserInfo].currentPeripheraIndex;
@@ -208,6 +210,8 @@
 
 
 - (void)resetTheLocation:(CLLocation *)cllocation peripheraLocationInfo:(DBPeripheraLocationInfo *)perInfo {
+    NSArray *annos = self.mapView.annotations;
+    [self.mapView removeAnnotations:annos];
     self.location = cllocation;
     self.locationStr = perInfo.location;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

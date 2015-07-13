@@ -12,7 +12,7 @@
 #import "HIRCBCentralClass.h"
 #import "PureLayout.h"
 
-@interface HIRScanningViewController ()
+@interface HIRScanningViewController () <UIAlertViewDelegate>
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *tipsLabel1;
@@ -85,15 +85,28 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hirCBStateChange:) name:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil];
 }
 
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    ////扫描老的设备
+    if (buttonIndex == 0) {
+        NSString *uuid = [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid;
+        [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil;
+        [self scanningTheDevice:uuid];
+    }else { ///进入retry
+        [self.outTimer invalidate];
+        self.outTimer = nil;
+        [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
+        AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDeleg connectSuccessToShowRootVC];
+    }
+}
 - (void)outTimerForScanning {
     [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
     [self.outTimer invalidate];
     self.outTimer = nil;
     
     if ([[HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid length] > 0) {
-        [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil;
-        [self scanningTheDevice];
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"addNewFailure", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"addNewFailure", @"") delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""),NSLocalizedString(@"cancel", @""), nil] show];
         return;
     }
     
@@ -102,19 +115,23 @@
 }
 
 
-- (void)scanningTheDevice {
+- (void)scanningTheDevice:(NSString *)uuid {
     [self.outTimer invalidate];
     self.outTimer = nil;
     _isGetPeripheralStatus = NO;
     ///放在这里进行扫描的原因是，当失败后再扫描时回回到该页面再扫描
     self.outTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
     [self.scanIndicator startAnimating];
-    [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:nil];
+    if ([uuid length] > 0) {
+        [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:uuid];
+    }else {
+        [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:nil];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self scanningTheDevice];
+    [self scanningTheDevice:nil];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -183,7 +200,7 @@
     if ([state isEqualToString:CBCENTERAL_STATE_NOT_SUPPORT] || [state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_FAIL]) {
         ////蓝牙不支持或关闭或者链接失败
         [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"checkBluetooth", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
+       // [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"checkBluetooth", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
         HIRConnFailViewController *connFailVC = [[HIRConnFailViewController alloc] init];
         [self.navigationController pushViewController:connFailVC animated:YES];
         [self.scanIndicator stopAnimating];

@@ -15,7 +15,6 @@
 @property (strong, nonatomic) NSMutableArray *peripheralsMArray;
 @property (strong, nonatomic) NSString *theChangeUuid;
 @property (nonatomic, assign) BOOL isScanningPeripherals;
-@property (nonatomic, assign) int retryTimes;
 @end
 
 
@@ -66,8 +65,7 @@
         //[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"checkBluetooth", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
         return;
     }
-    
-    _retryTimes = 0;
+
     if (_isScanningPeripherals) {
         [self stopCentralManagerScan];
         [self.peripheralsMArray removeObject:self.discoveredPeripheral];
@@ -92,7 +90,7 @@
     [notificationCenter postNotificationName:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil userInfo:nil];
     
     [self cleanDiscoveredPeripheral];
-    _retryTimes = 0;
+
     [self.peripheralsMArray removeObject:self.discoveredPeripheral];
     self.discoveredPeripheral = nil;
     self.theChangeUuid = nil;
@@ -180,17 +178,11 @@
 {
     NSLog(@"%@",error);
     self.theChangeUuid = nil;
-    ////进行三次重试
-    if (_retryTimes++ < 3) {
-        [self.centralManager connectPeripheral:peripheral options:nil];
-    }else {
-        _retryTimes = 0;
-        [self cleanDiscoveredPeripheral];
-        [self.peripheralsMArray removeObject:peripheral];
-        self.discoveredPeripheral = nil;
-        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-        [notificationCenter postNotificationName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:CBCENTERAL_CONNECT_PERIPHERAL_FAIL,@"state", nil]];
-    }
+    [self cleanDiscoveredPeripheral];
+    [self.peripheralsMArray removeObject:peripheral];
+    self.discoveredPeripheral = nil;
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter postNotificationName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:CBCENTERAL_CONNECT_PERIPHERAL_FAIL,@"state", nil]];
 }
 
 -(void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
@@ -205,20 +197,14 @@
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     self.theChangeUuid = nil;
-
-    if (_retryTimes++ < 3) {
-        [self.centralManager connectPeripheral:peripheral options:nil];
-    }else {
-        _retryTimes = 0;
-        [self cleanDiscoveredPeripheral];
-        [self.peripheralsMArray removeObject:peripheral];
-        self.discoveredPeripheral = nil;
-    }
+    [self cleanDiscoveredPeripheral];
+    [self.peripheralsMArray removeObject:peripheral];
+    self.discoveredPeripheral = nil;
 
     NSLog(@"断开连接，要定位");
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+     [notificationCenter postNotificationName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:CBCENTERAL_CONNECT_PERIPHERAL_FAIL,@"state", nil]];
     [notificationCenter postNotificationName:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil userInfo:nil];
-    
     ///并定位手机
     // We're disconnected, so start scanning again
 }
