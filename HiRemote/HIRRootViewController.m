@@ -69,8 +69,8 @@ HPCoreLocationMangerDelegate>
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSArray *statusArray = [userDefaults valueForKey:@"theHiremoteSettingStatus"];
-    if (!statusArray || [statusArray count] < 4) {
-        self.switchStatus = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],nil];
+    if (!statusArray || [statusArray count] < 3) {
+        self.switchStatus = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],nil];
     }else {
         self.switchStatus = [NSMutableArray arrayWithArray:statusArray];
     }
@@ -87,7 +87,7 @@ HPCoreLocationMangerDelegate>
     self.deviceInfoArray = [HirUserInfo shareUserInfo].deviceInfoArray;
     
     //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addDevice"] style:UIBarButtonItemStylePlain target:self action:@selector(showUserInfoVC:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewDevice:)];//[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addDevice"] style:UIBarButtonItemStyleDone target:self action:@selector(addNewDevice:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addDevice"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(addNewDevice:)];
     
     ////主界面
     self.showDeviceScrollView = [[UIScrollView alloc] init];
@@ -186,6 +186,21 @@ HPCoreLocationMangerDelegate>
                     self.pageControl.currentPage = i;
                     [HirUserInfo shareUserInfo].currentPeripheraIndex = i;
                     [self.showDeviceScrollView  setContentOffset:CGPointMake(i * self.view.frame.size.width, 0) animated:NO];
+                    
+                    CGFloat pageWidth = self.showDeviceScrollView.frame.size.width;
+                    int page = self.showDeviceScrollView.contentOffset.x / pageWidth;
+                    self.pageControl.currentPage = page;
+                    int totalPage = (int)self.pageControl.numberOfPages;
+                    if (totalPage > 1) {
+                        self.preButton.hidden = NO;
+                        self.nextButton.hidden = NO;
+                    }
+                    if (page >= (totalPage - 1)) {
+                        self.nextButton.hidden = YES;
+                    }
+                    if (page <= 0) {
+                        self.preButton.hidden = YES;
+                    }
                 }
             }
         }
@@ -312,11 +327,11 @@ HPCoreLocationMangerDelegate>
         [self.changeIndicator autoAlignAxisToSuperviewAxis:ALAxisVertical];
         [self.changeIndicator autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.showDeviceScrollView withOffset:-70];
         
-        [self.preButton autoSetDimensionsToSize:CGSizeMake(50, 40)];
+        [self.preButton autoSetDimensionsToSize:CGSizeMake(40, 40)];
         [self.preButton autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];;
         [self.preButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.showDeviceScrollView withOffset:SCROLLVIEW_HEIGHT/2 - 20];
         
-        [self.nextButton autoSetDimensionsToSize:CGSizeMake(50, 40)];
+        [self.nextButton autoSetDimensionsToSize:CGSizeMake(40, 40)];
         [self.nextButton autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
         [self.nextButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.showDeviceScrollView withOffset:SCROLLVIEW_HEIGHT/2 - 20];
         
@@ -500,7 +515,7 @@ HPCoreLocationMangerDelegate>
         self.preButton.hidden = YES;
     }
     self.pageControl.currentPage = page;
-    [self changeTheDeviceByUser];
+    [self.showDeviceScrollView  setContentOffset:CGPointMake(page * self.view.frame.size.width, 0) animated:YES];
 }
 
 - (void)nextButtonClick:(id)sender {
@@ -515,7 +530,7 @@ HPCoreLocationMangerDelegate>
         self.nextButton.hidden = YES;
     }
     self.pageControl.currentPage = page;
-    [self changeTheDeviceByUser];
+    [self.showDeviceScrollView  setContentOffset:CGPointMake(page * self.view.frame.size.width, 0) animated:YES];
 }
 
 - (void)segmentViewSelectIndex:(NSInteger)index {
@@ -545,6 +560,7 @@ HPCoreLocationMangerDelegate>
     if (page <= 0) {
         self.preButton.hidden = YES;
     }
+    
     [self changeTheDeviceByUser];
 }
 
@@ -561,6 +577,10 @@ HPCoreLocationMangerDelegate>
     
     int page = (int)self.pageControl.currentPage;
     if (page != [HirUserInfo shareUserInfo].currentPeripheraIndex) {
+        for (HIRDeviceShowView *tmpDevice in self.deviceShowArray) {
+            tmpDevice.deviceLocationLabel.text = NSLocalizedString(@"isNotConnected", @"");
+        }
+        
         [HirUserInfo shareUserInfo].currentPeripheraIndex = page;
         [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
         if ([self.deviceInfoArray count] > page) {
@@ -595,9 +615,12 @@ HPCoreLocationMangerDelegate>
             HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
             device.deviceLocationLabel.text = NSLocalizedString(@"isNotConnected", @"");
         }
+        
+        [SGInfoAlert showInfo:NSLocalizedString(@"deviceConnectionFailed", @"") bgColor:[UIColor darkGrayColor].CGColor inView:[UIApplication sharedApplication].delegate.window vertical:.8];
+        
     }else if ([state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_SUCCESS]) {
         ////蓝牙链接外设成功
-        if ([self.deviceShowArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
+        if ([self.deviceInfoArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex && [self.deviceShowArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
             DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
             HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
             DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
@@ -622,7 +645,7 @@ HPCoreLocationMangerDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -658,16 +681,17 @@ HPCoreLocationMangerDelegate>
 
     NSString *title = @"";
     NSString *info = @"";
+//    if ([indexPath row] == 0) {
+//        title = @"edit10";
+//        info = @"edit11";
+//    }else
     if ([indexPath row] == 0) {
-        title = @"edit10";
-        info = @"edit11";
-    }else if ([indexPath row] == 1) {
         title = @"edit20";
         info = @"edit21";
-    }else if ([indexPath row] == 2) {
+    }else if ([indexPath row] == 1) {
         title = @"edit30";
         info = @"edit31";
-    }else if ([indexPath row] == 3) {
+    }else if ([indexPath row] == 2) {
         title = @"edit40";
         info = @"edit41";
     }
@@ -688,13 +712,13 @@ HPCoreLocationMangerDelegate>
 - (void)theSwitchChange:(id)sender {
     UISwitch *theSw = (UISwitch *)sender;
     HirRootSetSwith tag = theSw.tag;
-    if (tag == HirRootSetSwith_Connect) {
+    if (tag == HirRootSetSwith_FindMyItem) {
         if (theSw.on == YES) {
-            [self.switchStatus replaceObjectAtIndex:3 withObject:[NSNumber numberWithBool:NO]];
+            [self.switchStatus replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:NO]];
         }
     }else if(tag == HirRootSetSwith_VoiceMemo) {
         if (theSw.on == YES) {
-            [self.switchStatus replaceObjectAtIndex:1 withObject:[NSNumber numberWithBool:NO]];
+            [self.switchStatus replaceObjectAtIndex:0 withObject:[NSNumber numberWithBool:NO]];
         }
     }
     
@@ -702,6 +726,7 @@ HPCoreLocationMangerDelegate>
     [self.mainMenuTableView reloadData];
     
     [HirUserInfo shareUserInfo].isNotificationMyWhenDeviceNoWithin = [[self.switchStatus objectAtIndex:HirRootSetSwith_Notification]boolValue];
+    [HirUserInfo shareUserInfo].isNotificationForVoiceMemo = [[self.switchStatus objectAtIndex:HirRootSetSwith_VoiceMemo]boolValue];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:self.switchStatus forKey:@"theHiremoteSettingStatus"];

@@ -31,4 +31,5 @@ typedef NS_ENUM(NSInteger, CurrentViewControllerType) {
 
 @property (nonatomic, assign)BOOL appIsEnterBackgroud;  //系统是否已进入后台
 @property (nonatomic, assign)BOOL isNotificationMyWhenDeviceNoWithin;   //当设备断开连接是否提示我
+@property (nonatomic, assign)BOOL isNotificationForVoiceMemo;   //设置了语音追踪开关
 @end

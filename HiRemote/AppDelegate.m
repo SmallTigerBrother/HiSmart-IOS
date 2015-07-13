@@ -83,13 +83,13 @@
     [HirUserInfo shareUserInfo].deviceInfoArray = [HirDataManageCenter findAllPerphera];
     
 #if DEBUG
-    [NSTimer scheduledTimerWithTimeInterval:1.0f
-     
-                                     target:self
-     
-                                   selector:@selector(task) userInfo:nil
-     
-                                    repeats:YES];
+//    [NSTimer scheduledTimerWithTimeInterval:1.0f
+//     
+//                                     target:self
+//     
+//                                   selector:@selector(task) userInfo:nil
+//     
+//                                    repeats:YES];
 #endif
     
     return YES;

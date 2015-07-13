@@ -49,6 +49,15 @@ static HirUserInfo *hirUserDefault;
     return [[self.stateUserDef objectForKey:@"currentPeripheraIndex"]integerValue];
 }
 
+-(void)setIsNotificationForVoiceMemo:(BOOL)isNotificationForVoiceMemo{
+    [self.stateUserDef setObject:[NSNumber numberWithBool:isNotificationForVoiceMemo] forKey:@"isNotificationForVoiceMemo"];
+    [self.stateUserDef synchronize];
+}
+
+-(BOOL)isNotificationForVoiceMemo{
+    return [[self.stateUserDef objectForKey:@"isNotificationForVoiceMemo"]boolValue];
+}
+
 -(void)setIsNotificationMyWhenDeviceNoWithin:(BOOL)isNotificationMyWhenDeviceNoWithin{
     [self.stateUserDef setObject:[NSNumber numberWithBool:isNotificationMyWhenDeviceNoWithin] forKey:@"isNotificationMyWhenDeviceNoWithin"];
     [self.stateUserDef synchronize];
