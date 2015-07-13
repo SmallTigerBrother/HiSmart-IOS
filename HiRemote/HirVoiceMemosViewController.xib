@@ -68,6 +68,9 @@
                                     <state key="normal">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="playBtnPressed:" destination="-1" eventType="touchUpInside" id="0x0-Np-tqZ"/>
+                                    </connections>
                                 </button>
                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" id="7Tj-fV-obd">
                                     <rect key="frame" x="59" y="75" width="210" height="2"/>
@@ -113,26 +116,6 @@
                                         <action selector="trashBtnPressed:" destination="-1" eventType="touchUpInside" id="FWI-sm-Ums"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uWz-3u-lxI">
-                                    <rect key="frame" x="8" y="110" width="30" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="播放">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="playRecording" destination="-1" eventType="touchUpInside" id="BXR-Ys-qmm"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="D2K-aM-sS1">
-                                    <rect key="frame" x="68" y="110" width="60" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="停止播放">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="stopPlaying" destination="-1" eventType="touchUpInside" id="tdk-7b-JZp"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -161,6 +144,28 @@
                 <outlet property="searchResultsDelegate" destination="-1" id="006-Fd-W1J"/>
             </connections>
         </searchDisplayController>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uWz-3u-lxI">
+            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <state key="normal" title="播放">
+                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <connections>
+                <action selector="playRecording" destination="-1" eventType="touchUpInside" id="BXR-Ys-qmm"/>
+            </connections>
+            <point key="canvasLocation" x="-138" y="34"/>
+        </button>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="D2K-aM-sS1">
+            <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <state key="normal" title="停止播放">
+                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <connections>
+                <action selector="stopPlaying" destination="-1" eventType="touchUpInside" id="tdk-7b-JZp"/>
+            </connections>
+            <point key="canvasLocation" x="-141" y="120"/>
+        </button>
     </objects>
     <resources>
         <image name="locationCell_edit" width="15" height="15"/>

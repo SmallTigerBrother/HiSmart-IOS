@@ -9,12 +9,16 @@
 #import "HirVoiceMemosViewController.h"
 #import "HirVoiceCell.h"
 #import <AVFoundation/AVFoundation.h>
+#import "HirDataManageCenter+DeviceRecord.h"
+#import "HirActionTextField.h"
+#import "HirAlertView.h"
 
 @interface HirVoiceMemosViewController ()
 <UISearchDisplayDelegate,
 UITableViewDataSource,
 UITableViewDelegate,
-AVAudioRecorderDelegate>
+AVAudioRecorderDelegate,
+UITextFieldDelegate>
 {
     BOOL toggle;
     AVAudioPlayer *audioPlayer;
@@ -49,6 +53,9 @@ AVAudioRecorderDelegate>
 
 @property (nonatomic, strong)UISearchDisplayController *searchDisplayController;
 
+@property (nonatomic, strong)DBDeviceRecord *currentDeviceRecord;
+@property (nonatomic, strong)HirActionTextField *actionTextField;
+
 @end
 
 @implementation HirVoiceMemosViewController
@@ -77,18 +84,13 @@ AVAudioRecorderDelegate>
     
     self.tableView.tableHeaderView = searchBar;
     
-    NSMutableArray *list = [[NSMutableArray alloc]initWithCapacity:0];
-    for (NSInteger i = 1; i<10; i++) {
-        NSInteger re = i * 1111;
-        NSString *s = [NSString stringWithFormat:@"%ld",(long)re];
-        [list addObject:s];
-    }
-    self.data = list;
-
+    [self getDataAndRefreshTable];
+    
     self.playVoiceRecordPanel.hidden = YES;
     
-    // Do any additional setup after loading the view from its nib.
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getDataAndRefreshTable) name:DEVICE_RECORD_UPDATA_NOTIFICATION object:nil];
     
+    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -102,6 +104,10 @@ AVAudioRecorderDelegate>
     [HirUserInfo shareUserInfo].currentViewControllerType = CurrentViewControllerType_voice;
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recordVoiceNotification:) name:NEED_RECORD_VOICE object:nil];
+}
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 -(void)recordVoiceNotification:(NSNotification *)notification{
@@ -174,11 +180,13 @@ AVAudioRecorderDelegate>
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
                                                             NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docsDir = [dirPaths objectAtIndex:0];
+    
+    NSString *mediaPath = [NSString stringWithFormat:@"%lld.caf",(long long)[[NSDate date] timeIntervalSince1970]];
+   // NSString *mediaPath = [NSString stringWithFormat:@"%lld.caf",(long long)[[NSDate date]timeIntervalSinceReferenceDate]*1000000];
     NSString *soundFilePath = [docsDir
-                               stringByAppendingPathComponent:@"recordTest.caf"];
+                               stringByAppendingPathComponent:mediaPath];
     
     NSURL *url = [NSURL fileURLWithPath:soundFilePath];
-    
     
     NSError *error = nil;
     audioRecorder = [[ AVAudioRecorder alloc] initWithURL:url settings:recordSettings error:&error];
@@ -233,6 +241,24 @@ AVAudioRecorderDelegate>
     NSLog(@"stopped");
     [timerForPitch invalidate];
     timerForPitch = nil;
+    
+    NSLog(@"url=%@",audioRecorder.url);
+    
+    NSString *mediaPath = [audioRecorder.url.path lastPathComponent];
+    
+    NSLog(@"mmmm:%@",mediaPath);
+    NSRange range = [mediaPath rangeOfString:@"."];
+    NSString *recoderTimestamp;
+    if (range.location != NSNotFound) {
+        recoderTimestamp = [mediaPath substringToIndex:range.location];
+        NSLog(@"tttt:%@",recoderTimestamp);
+    }
+    
+    double beginRecordTime = recoderTimestamp.doubleValue;
+    
+    double voiceTime = [[NSDate date]timeIntervalSinceReferenceDate] - beginRecordTime;
+    
+    [HirDataManageCenter insertVoicePath:mediaPath peripheraUUID:[HirUserInfo shareUserInfo].currentPeriphera.uuid recoderTimestamp:[NSNumber numberWithDouble:beginRecordTime] title:NSLocalizedString(@"newRecording", nil) voiceTime:[NSNumber numberWithDouble:voiceTime]];
 }
 
 -(IBAction) playRecording
@@ -241,13 +267,14 @@ AVAudioRecorderDelegate>
     // Init audio with playback capability
     NSError *erro;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-//    [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
-    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionDefaultToSpeaker error:&erro];
+    [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+//    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionDefaultToSpeaker error:&erro];
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
                                                             NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docsDir = [dirPaths objectAtIndex:0];
+    
     NSString *soundFilePath = [docsDir
-                               stringByAppendingPathComponent:@"recordTest.caf"];
+                               stringByAppendingPathComponent:self.currentDeviceRecord.voicePath];
     
     NSURL *url = [NSURL fileURLWithPath:soundFilePath];
     
@@ -267,7 +294,37 @@ AVAudioRecorderDelegate>
     
 }
 
+#pragma mark -- UITextFeild delegater methods
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    if (textField == self.actionTextField) {
+        [self.actionTextField drawBorderColorWith:COLOR_THEME];
+    }
+}
 
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    if (textField == self.actionTextField) {
+        [self.actionTextField drawBorderColorWith:[UIColor clearColor]];
+    }
+}
+
+- (IBAction)playBtnPressed:(id)sender {
+    static BOOL isPlaying = NO;
+    isPlaying = !isPlaying;
+
+    if (isPlaying) {
+        [self playRecording];
+    }
+    else{
+        [self stopPlaying];
+    }
+    
+}
+
+-(void)getDataAndRefreshTable{
+    self.data = [HirDataManageCenter findAllRecord];
+    
+    [self.tableView reloadData];
+}
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -302,13 +359,22 @@ AVAudioRecorderDelegate>
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
+    DBDeviceRecord *deviceRecord;
     if (tableView == self.tableView) {
-        cell.titleLabel.text = self.data[indexPath.row];
+        deviceRecord = self.data[indexPath.row];
     }else{
-        cell.titleLabel.text = self.filterData[indexPath.row];
+        deviceRecord = self.filterData[indexPath.row];
     }
-    cell.dateLabel.text = @"xxxxx";
-    cell.voiceRecodeTimeLabel.text = @"15/10/15:10:50";
+    cell.titleLabel.text = deviceRecord.title;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设定时间格式,这里可以设置成自己需要的格式
+    [dateFormatter setDateFormat:@"MM/dd/yy"];
+    //用[NSDate date]可以获取系统当前时间
+    cell.dateLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.recoderTimestamp.doubleValue]];//@"15/10/15:10:50";
+    
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    cell.voiceRecodeTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.recoderTimestamp.doubleValue]];//@"15/10/15:10:50";
     cell.titleLabel.font = FONT_TABLE_CELL_TITLE;
     cell.dateLabel.font = FONT_TABLE_CELL_CONTENT;
     cell.voiceRecodeTimeLabel.font = FONT_TABLE_CELL_CONTENT;
@@ -343,8 +409,19 @@ AVAudioRecorderDelegate>
 //    }
 //}
 
--(void)playVoiceModel:(id)voiceModel{
-    self.recordingLabel.text = voiceModel;
+-(void)playVoiceModel:(DBDeviceRecord *)deviceRecord{
+    self.recordingLabel.text = deviceRecord.title;
+    self.voiceEndTimeLabel.text = [NSString stringWithFormat:@"%@",deviceRecord.voiceTime];
+    self.currentDeviceRecord = deviceRecord;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设定时间格式,这里可以设置成自己需要的格式
+    [dateFormatter setDateFormat:@"MM/dd/yy"];
+    //用[NSDate date]可以获取系统当前时间
+    self.recordDateLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.recoderTimestamp.doubleValue]];//@"15/10/15:10:50";
+    
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    self.recordTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.recoderTimestamp.doubleValue]];//@"15/10/15:10:50";
+    
     [self.playVoiceRecordPanel setHidden:NO];
     
     [self.view bringSubviewToFront:self.playVoiceRecordPanel];
@@ -356,15 +433,26 @@ AVAudioRecorderDelegate>
 
 - (IBAction)editVoiceBtnPressed:(id)sender {
     NSLog(@"editVoiceBtnPressed");
+    
+    self.actionTextField = [[HirActionTextField alloc]initWithFrame:CGRectMake(10, 10, 200, 30)];
+    self.actionTextField.delegate = self;
+    
+    HirAlertView *hirAlertView = [[HirAlertView alloc]initWithTitle:NSLocalizedString(@"changeName", nil) contenView:self.actionTextField clickBlock:^(NSInteger index){
+        self.currentDeviceRecord.title = self.actionTextField.text;
+        [HirDataManageCenter saveDeviceRecordByModel:self.currentDeviceRecord];
+        [self.tableView reloadData];
+    }cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) otherButtonTitles:NSLocalizedString(@"CONFIRM", nil), nil];
+    [hirAlertView showWithAnimation:YES];
 }
 
 - (IBAction)trashBtnPressed:(id)sender {
     NSLog(@"trashBtnPressed");
+
 }
 
-- (IBAction)transhpondBtnPressed:(id)sender {
-    NSLog(@"transhpondBtnPressed");
-}
+//- (IBAction)transhpondBtnPressed:(id)sender {
+//    NSLog(@"transhpondBtnPressed");
+//}
 
 /*
 #pragma mark - Navigation

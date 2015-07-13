@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="DBDeviceRecord" representedClassName="DBDeviceRecord" syncable="YES">
+        <attribute name="peripheraUUID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recoderTimestamp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="voicePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="voiceTime" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
     <entity name="DBPeriphera" representedClassName="DBPeriphera" syncable="YES">
         <attribute name="avatarPath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="battery" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
@@ -19,5 +26,6 @@
     <elements>
         <element name="DBPeriphera" positionX="18" positionY="180" width="128" height="120"/>
         <element name="DBPeripheraLocationInfo" positionX="-18" positionY="99" width="128" height="150"/>
+        <element name="DBDeviceRecord" positionX="0" positionY="180" width="128" height="120"/>
     </elements>
 </model>

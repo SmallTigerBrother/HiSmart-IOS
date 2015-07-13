@@ -16,5 +16,6 @@
 @property (nonatomic, retain) NSNumber * recoderTimestamp;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * voiceTime;
+@property (nonatomic, retain) NSString * peripheraUUID;
 
 @end

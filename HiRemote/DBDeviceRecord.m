@@ -15,5 +15,6 @@
 @dynamic recoderTimestamp;
 @dynamic title;
 @dynamic voiceTime;
+@dynamic peripheraUUID;
 
 @end
