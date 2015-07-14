@@ -86,7 +86,7 @@ UITextFieldDelegate>
     
     [self getDataAndRefreshTable];
     
-    self.playVoiceRecordPanel.hidden = YES;
+//    self.playVoiceRecordPanel.hidden = YES;
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getDataAndRefreshTable) name:DEVICE_RECORD_UPDATA_NOTIFICATION object:nil];
     
@@ -313,9 +313,11 @@ UITextFieldDelegate>
 
     if (isPlaying) {
         [self playRecording];
+        [self.voicePlayBtn setImage:[UIImage imageNamed:@"voicePause"] forState:UIControlStateNormal];
     }
     else{
         [self stopPlaying];
+        [self.voicePlayBtn setImage:[UIImage imageNamed:@"voicePlay"] forState:UIControlStateNormal];
     }
     
 }
