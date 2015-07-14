@@ -324,6 +324,7 @@ UITextFieldDelegate>
     self.data = [HirDataManageCenter findAllRecord];
     
     [self.tableView reloadData];
+    [self refreshPlayVoiceRecordPannelViewWithModel:self.currentDeviceRecord];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -409,7 +410,7 @@ UITextFieldDelegate>
 //    }
 //}
 
--(void)playVoiceModel:(DBDeviceRecord *)deviceRecord{
+-(void)refreshPlayVoiceRecordPannelViewWithModel:(DBDeviceRecord *)deviceRecord{
     self.recordingLabel.text = deviceRecord.title;
     self.voiceEndTimeLabel.text = [NSString stringWithFormat:@"%@",deviceRecord.voiceTime];
     self.currentDeviceRecord = deviceRecord;
@@ -421,7 +422,10 @@ UITextFieldDelegate>
     
     [dateFormatter setDateFormat:@"HH:mm:ss"];
     self.recordTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.recoderTimestamp.doubleValue]];//@"15/10/15:10:50";
-    
+}
+
+-(void)playVoiceModel:(DBDeviceRecord *)deviceRecord{
+    [self refreshPlayVoiceRecordPannelViewWithModel:deviceRecord];
     [self.playVoiceRecordPanel setHidden:NO];
     
     [self.view bringSubviewToFront:self.playVoiceRecordPanel];
@@ -447,7 +451,6 @@ UITextFieldDelegate>
 
 - (IBAction)trashBtnPressed:(id)sender {
     NSLog(@"trashBtnPressed");
-
 }
 
 //- (IBAction)transhpondBtnPressed:(id)sender {
