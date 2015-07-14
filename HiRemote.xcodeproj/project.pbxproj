@@ -12,6 +12,11 @@
 		043772251B4C19380089051C /* CLLocation+Sino.m in Sources */ = {isa = PBXBuildFile; fileRef = 043772241B4C19380089051C /* CLLocation+Sino.m */; };
 		0450BCB21B52786900B3BF93 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0450BCB11B52786900B3BF93 /* AudioToolbox.framework */; };
 		0450BCB51B5279BC00B3BF93 /* HirMsgPlaySound.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */; };
+<<<<<<< HEAD
+=======
+		0450BCB81B53E8DA00B3BF93 /* DBDeviceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB71B53E8DA00B3BF93 /* DBDeviceRecord.m */; };
+		0450BCBB1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */; };
+>>>>>>> 043bd33c9977c7da7d83e9621bcb05b3a406d6d2
 		04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AE11B4199CF009567BF /* SoundTool.m */; };
 		04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AEB1B43CFC1009567BF /* SWTableViewCell.m */; };
 		04BB4AF11B43DF87009567BF /* HirVerticalLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AF01B43DF87009567BF /* HirVerticalLabel.m */; };
@@ -160,6 +165,10 @@
 		0450BCB11B52786900B3BF93 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0450BCB31B5279BC00B3BF93 /* HirMsgPlaySound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirMsgPlaySound.h; sourceTree = "<group>"; };
 		0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirMsgPlaySound.m; sourceTree = "<group>"; };
+		0450BCB61B53E8DA00B3BF93 /* DBDeviceRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBDeviceRecord.h; sourceTree = "<group>"; };
+		0450BCB71B53E8DA00B3BF93 /* DBDeviceRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBDeviceRecord.m; sourceTree = "<group>"; };
+		0450BCB91B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HirDataManageCenter+DeviceRecord.h"; sourceTree = "<group>"; };
+		0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HirDataManageCenter+DeviceRecord.m"; sourceTree = "<group>"; };
 		04976BB78AFBE5AFBEEC05BA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		04BB4ADF1B4199CF009567BF /* SoundNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundNames.h; sourceTree = "<group>"; };
 		04BB4AE01B4199CF009567BF /* SoundTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundTool.h; sourceTree = "<group>"; };
@@ -681,6 +690,10 @@
 				04F375C11B49314D00E3FCD3 /* HirDataManageCenter+Location.m */,
 				04F375C31B49319F00E3FCD3 /* HirDataManageCenter+Perphera.h */,
 				04F375C41B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m */,
+				0450BCB91B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.h */,
+				0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */,
+				0450BCB61B53E8DA00B3BF93 /* DBDeviceRecord.h */,
+				0450BCB71B53E8DA00B3BF93 /* DBDeviceRecord.m */,
 				04F375BD1B49310000E3FCD3 /* DBPeriphera.h */,
 				04F375BE1B49310000E3FCD3 /* DBPeriphera.m */,
 				04F375A81B48FC3800E3FCD3 /* DBPeripheraLocationInfo.h */,
@@ -927,7 +940,7 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = QM92F84HN5;
+						DevelopmentTeam = 4H44DAN2YD;
 					};
 				};
 			};
@@ -1065,10 +1078,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C18AB3C1B3C121E00CE6588 /* NSLayoutConstraint+PureLayout.m in Sources */,
+				0450BCB81B53E8DA00B3BF93 /* DBDeviceRecord.m in Sources */,
 				04BB4B071B459D24009567BF /* UIControl+AddLine.m in Sources */,
 				04F375BC1B49167800E3FCD3 /* HirUserInfo.m in Sources */,
 				B84CD4AA1B441E58008FAA53 /* HIRFindViewController.m in Sources */,
 				04D7A8AF1B48006600579EC2 /* SGInfoAlert.m in Sources */,
+				0450BCBB1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m in Sources */,
 				2C18AAF81B3BECDE00CE6588 /* HIRRootViewController.m in Sources */,
 				04BB4AF11B43DF87009567BF /* HirVerticalLabel.m in Sources */,
 				04D7A89C1B47EF9700579EC2 /* SCCaptureSessionManager.m in Sources */,
