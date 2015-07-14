@@ -12,7 +12,6 @@
 		043772251B4C19380089051C /* CLLocation+Sino.m in Sources */ = {isa = PBXBuildFile; fileRef = 043772241B4C19380089051C /* CLLocation+Sino.m */; };
 		0450BCB21B52786900B3BF93 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0450BCB11B52786900B3BF93 /* AudioToolbox.framework */; };
 		0450BCB51B5279BC00B3BF93 /* HirMsgPlaySound.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */; };
-		04BB4AE31B4199CF009567BF /* sound.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04BB4ADE1B4199CF009567BF /* sound.bundle */; };
 		04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AE11B4199CF009567BF /* SoundTool.m */; };
 		04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AEB1B43CFC1009567BF /* SWTableViewCell.m */; };
 		04BB4AF11B43DF87009567BF /* HirVerticalLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AF01B43DF87009567BF /* HirVerticalLabel.m */; };
@@ -162,7 +161,6 @@
 		0450BCB31B5279BC00B3BF93 /* HirMsgPlaySound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirMsgPlaySound.h; sourceTree = "<group>"; };
 		0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirMsgPlaySound.m; sourceTree = "<group>"; };
 		04976BB78AFBE5AFBEEC05BA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		04BB4ADE1B4199CF009567BF /* sound.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = sound.bundle; sourceTree = "<group>"; };
 		04BB4ADF1B4199CF009567BF /* SoundNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundNames.h; sourceTree = "<group>"; };
 		04BB4AE01B4199CF009567BF /* SoundTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundTool.h; sourceTree = "<group>"; };
 		04BB4AE11B4199CF009567BF /* SoundTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundTool.m; sourceTree = "<group>"; };
@@ -418,7 +416,6 @@
 		04BB4AE51B4199DA009567BF /* playSound */ = {
 			isa = PBXGroup;
 			children = (
-				04BB4ADE1B4199CF009567BF /* sound.bundle */,
 				04BB4ADF1B4199CF009567BF /* SoundNames.h */,
 				04BB4AE01B4199CF009567BF /* SoundTool.h */,
 				04BB4AE11B4199CF009567BF /* SoundTool.m */,
@@ -799,18 +796,18 @@
 				B84CD4C31B441EA2008FAA53 /* photo.png */,
 				B84CD4C41B441EA2008FAA53 /* pinImage.png */,
 				B84CD4C51B441EA2008FAA53 /* pinnedm.png */,
-				B84CD4C61B441EA2008FAA53 /* voice.png */,
-				B84CD4C71B441EA2008FAA53 /* voicem.png */,
 				B8DF7DC61B3EA910000BD43E /* Default@2x.png */,
 				B8DF7DC31B3E97F5000BD43E /* nextBtn.png */,
-				2C18AB731B3D985A00CE6588 /* camera.jpg */,
 				2C18AB741B3D985A00CE6588 /* find.jpg */,
 				2C18AB751B3D985A00CE6588 /* location.jpg */,
 				2C18AB761B3D985A00CE6588 /* voice.jpg */,
 				2C18AB5D1B3D48D700CE6588 /* deviceImage.jpg */,
 				2C18AB611B3D60A100CE6588 /* Default-568.png */,
 				2C18AB5F1B3D4F5F00CE6588 /* preBtn.png */,
+				2C18AB731B3D985A00CE6588 /* camera.jpg */,
+				B84CD4C61B441EA2008FAA53 /* voice.png */,
 				2C18AB531B3D3B1C00CE6588 /* userAvatar.png */,
+				B84CD4C71B441EA2008FAA53 /* voicem.png */,
 				2C18AB551B3D3F1700CE6588 /* addDevice.png */,
 			);
 			path = Images;
@@ -866,12 +863,12 @@
 				B8DF7DAA1B3E7AE7000BD43E /* HIRBatteryPercentView.m */,
 				B8DF7DAB1B3E7AE7000BD43E /* HIRDeviceShowView.h */,
 				B8DF7DAC1B3E7AE7000BD43E /* HIRDeviceShowView.m */,
+				B8DF7DB21B3E7AE7000BD43E /* HIRSegmentView.m */,
 				B8DF7DAD1B3E7AE7000BD43E /* HIRMainMenuView.h */,
 				B8DF7DAE1B3E7AE7000BD43E /* HIRMainMenuView.m */,
 				B8DF7DAF1B3E7AE7000BD43E /* HIRScanningViewController.h */,
 				B8DF7DB01B3E7AE7000BD43E /* HIRScanningViewController.m */,
 				B8DF7DB11B3E7AE7000BD43E /* HIRSegmentView.h */,
-				B8DF7DB21B3E7AE7000BD43E /* HIRSegmentView.m */,
 				B8DF7DB31B3E7AE7000BD43E /* HIRUserInfoTableViewController.h */,
 				B8DF7DB41B3E7AE7000BD43E /* HIRUserInfoTableViewController.m */,
 				B8DF7DB51B3E7AE7000BD43E /* HIRWelcomeViewController.h */,
@@ -1015,7 +1012,6 @@
 				2C18AB601B3D4F5F00CE6588 /* preBtn.png in Resources */,
 				04D7A8811B47EF9700579EC2 /* camera_line.png in Resources */,
 				2C18AAFD1B3BECDE00CE6588 /* Images.xcassets in Resources */,
-				04BB4AE31B4199CF009567BF /* sound.bundle in Resources */,
 				B88706201B4939CE00A87300 /* darkConnYes.png in Resources */,
 				04D7A8861B47EF9700579EC2 /* close_cha@2x.png in Resources */,
 				04D7A8951B47EF9700579EC2 /* switch_camera_h.png in Resources */,
