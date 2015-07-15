@@ -18,7 +18,8 @@
 }
 
 +(NSMutableArray *)findAllRecord{
-    NSArray *list = [DBDeviceRecord MR_findAll];
+    NSArray *list = [DBDeviceRecord MR_findAllSortedBy:@"recoderTimestamp" ascending:NO];
+    
     if ([list count] == 0) {
         return [NSMutableArray arrayWithCapacity:3];
     }
