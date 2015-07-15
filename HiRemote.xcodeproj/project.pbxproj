@@ -12,8 +12,11 @@
 		043772251B4C19380089051C /* CLLocation+Sino.m in Sources */ = {isa = PBXBuildFile; fileRef = 043772241B4C19380089051C /* CLLocation+Sino.m */; };
 		0450BCB21B52786900B3BF93 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0450BCB11B52786900B3BF93 /* AudioToolbox.framework */; };
 		0450BCB51B5279BC00B3BF93 /* HirMsgPlaySound.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */; };
+<<<<<<< HEAD
+=======
 		0450BCB81B53E8DA00B3BF93 /* DBDeviceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB71B53E8DA00B3BF93 /* DBDeviceRecord.m */; };
 		0450BCBB1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */; };
+>>>>>>> 043bd33c9977c7da7d83e9621bcb05b3a406d6d2
 		04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AE11B4199CF009567BF /* SoundTool.m */; };
 		04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AEB1B43CFC1009567BF /* SWTableViewCell.m */; };
 		04BB4AF11B43DF87009567BF /* HirVerticalLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AF01B43DF87009567BF /* HirVerticalLabel.m */; };
@@ -806,18 +809,18 @@
 				B84CD4C31B441EA2008FAA53 /* photo.png */,
 				B84CD4C41B441EA2008FAA53 /* pinImage.png */,
 				B84CD4C51B441EA2008FAA53 /* pinnedm.png */,
-				B84CD4C61B441EA2008FAA53 /* voice.png */,
-				B84CD4C71B441EA2008FAA53 /* voicem.png */,
 				B8DF7DC61B3EA910000BD43E /* Default@2x.png */,
 				B8DF7DC31B3E97F5000BD43E /* nextBtn.png */,
-				2C18AB731B3D985A00CE6588 /* camera.jpg */,
 				2C18AB741B3D985A00CE6588 /* find.jpg */,
 				2C18AB751B3D985A00CE6588 /* location.jpg */,
 				2C18AB761B3D985A00CE6588 /* voice.jpg */,
 				2C18AB5D1B3D48D700CE6588 /* deviceImage.jpg */,
 				2C18AB611B3D60A100CE6588 /* Default-568.png */,
 				2C18AB5F1B3D4F5F00CE6588 /* preBtn.png */,
+				2C18AB731B3D985A00CE6588 /* camera.jpg */,
+				B84CD4C61B441EA2008FAA53 /* voice.png */,
 				2C18AB531B3D3B1C00CE6588 /* userAvatar.png */,
+				B84CD4C71B441EA2008FAA53 /* voicem.png */,
 				2C18AB551B3D3F1700CE6588 /* addDevice.png */,
 			);
 			path = Images;
@@ -873,12 +876,12 @@
 				B8DF7DAA1B3E7AE7000BD43E /* HIRBatteryPercentView.m */,
 				B8DF7DAB1B3E7AE7000BD43E /* HIRDeviceShowView.h */,
 				B8DF7DAC1B3E7AE7000BD43E /* HIRDeviceShowView.m */,
+				B8DF7DB21B3E7AE7000BD43E /* HIRSegmentView.m */,
 				B8DF7DAD1B3E7AE7000BD43E /* HIRMainMenuView.h */,
 				B8DF7DAE1B3E7AE7000BD43E /* HIRMainMenuView.m */,
 				B8DF7DAF1B3E7AE7000BD43E /* HIRScanningViewController.h */,
 				B8DF7DB01B3E7AE7000BD43E /* HIRScanningViewController.m */,
 				B8DF7DB11B3E7AE7000BD43E /* HIRSegmentView.h */,
-				B8DF7DB21B3E7AE7000BD43E /* HIRSegmentView.m */,
 				B8DF7DB31B3E7AE7000BD43E /* HIRUserInfoTableViewController.h */,
 				B8DF7DB41B3E7AE7000BD43E /* HIRUserInfoTableViewController.m */,
 				B8DF7DB51B3E7AE7000BD43E /* HIRWelcomeViewController.h */,
