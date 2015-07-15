@@ -55,11 +55,14 @@ UITextFieldDelegate>
 
 @property (nonatomic, strong)DBDeviceRecord *currentDeviceRecord;
 @property (nonatomic, strong)HirActionTextField *actionTextField;
-
+@property (nonatomic, assign)BOOL isPlaying;
+@property (nonatomic, strong)NSTimer *timer;
+@property (nonatomic, assign)CGFloat playingTime;
 @end
 
 @implementation HirVoiceMemosViewController
 @synthesize searchDisplayController;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -86,7 +89,7 @@ UITextFieldDelegate>
     
     [self getDataAndRefreshTable];
     
-//    self.playVoiceRecordPanel.hidden = YES;
+    self.playVoiceRecordPanel.hidden = YES;
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getDataAndRefreshTable) name:DEVICE_RECORD_UPDATA_NOTIFICATION object:nil];
     
@@ -128,6 +131,7 @@ UITextFieldDelegate>
 {
     // kSeconds = 150.0;
     NSLog(@"startRecording");
+    [SGInfoAlert showInfo:NSLocalizedString(@"startRecording", nil)];
     audioRecorder = nil;
     NSError *erro;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -206,12 +210,12 @@ UITextFieldDelegate>
 
 - (void)levelTimerCallback:(NSTimer *)timer {
     [audioRecorder updateMeters];
-    NSLog(@"Average input: %f Peak input: %f", [audioRecorder averagePowerForChannel:0], [audioRecorder peakPowerForChannel:0]);
+//    NSLog(@"Average input: %f Peak input: %f", [audioRecorder averagePowerForChannel:0], [audioRecorder peakPowerForChannel:0]);
     
     float linear = pow (10, [audioRecorder peakPowerForChannel:0] / 20);
-    NSLog(@"linear===%f",linear);
+//    NSLog(@"linear===%f",linear);
     float linear1 = pow (10, [audioRecorder averagePowerForChannel:0] / 20);
-    NSLog(@"linear1===%f",linear1);
+//    NSLog(@"linear1===%f",linear1);
     if (linear1>0.03) {
         
         Pitch = linear1+.20;//pow (10, [audioRecorder averagePowerForChannel:0] / 20);//[audioRecorder peakPowerForChannel:0];
@@ -221,7 +225,7 @@ UITextFieldDelegate>
         Pitch = 0.0;
     }
     //Pitch =linear1;
-    NSLog(@"Pitch==%f",Pitch);
+//    NSLog(@"Pitch==%f",Pitch);
 //    _customRangeBar.value = Pitch;//linear1+.30;
     [_voiceProgressView setProgress:Pitch];
     float minutes = floor(audioRecorder.currentTime/60);
@@ -229,13 +233,14 @@ UITextFieldDelegate>
     
     NSString *time = [NSString stringWithFormat:@"%0.0f.%0.0f",minutes, seconds];
     [self.recordTimeLabel setText:[NSString stringWithFormat:@"%@ sec", time]];
-    NSLog(@"recording");
+//    NSLog(@"recording");
     
 }
 
 -(IBAction) stopRecording
 {
     NSLog(@"stopRecording");
+    [SGInfoAlert showInfo:NSLocalizedString(@"stopRecording", nil)];
     // kSeconds = 0.0;
     [audioRecorder stop];
     NSLog(@"stopped");
@@ -256,7 +261,7 @@ UITextFieldDelegate>
     
     double beginRecordTime = recoderTimestamp.doubleValue;
     
-    double voiceTime = [[NSDate date]timeIntervalSinceReferenceDate] - beginRecordTime;
+    double voiceTime = [[NSDate date]timeIntervalSince1970] - beginRecordTime;
     
     [HirDataManageCenter insertVoicePath:mediaPath peripheraUUID:[HirUserInfo shareUserInfo].currentPeriphera.uuid recoderTimestamp:[NSNumber numberWithDouble:beginRecordTime] title:NSLocalizedString(@"newRecording", nil) voiceTime:[NSNumber numberWithDouble:voiceTime]];
 }
@@ -267,8 +272,8 @@ UITextFieldDelegate>
     // Init audio with playback capability
     NSError *erro;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
-//    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionDefaultToSpeaker error:&erro];
+//    [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionDefaultToSpeaker error:&erro];
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
                                                             NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docsDir = [dirPaths objectAtIndex:0];
@@ -308,18 +313,54 @@ UITextFieldDelegate>
 }
 
 - (IBAction)playBtnPressed:(id)sender {
-    static BOOL isPlaying = NO;
-    isPlaying = !isPlaying;
+    [self setBtnIsPlaying:!_isPlaying];
+}
 
-    if (isPlaying) {
+-(void)setBtnIsPlaying:(BOOL)playing{
+    _isPlaying = playing;
+    if (playing) {
         [self playRecording];
         [self.voicePlayBtn setImage:[UIImage imageNamed:@"voicePause"] forState:UIControlStateNormal];
+        
+        [self.timer invalidate];
+        self.playingTime = 0;
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1f
+         
+                                         target:self
+         
+                                       selector:@selector(updateVoiceBeginLabelAndProgressView) userInfo:nil
+         
+                                        repeats:YES];
     }
     else{
         [self stopPlaying];
+        [self.timer invalidate];
         [self.voicePlayBtn setImage:[UIImage imageNamed:@"voicePlay"] forState:UIControlStateNormal];
+        [self setStopPlayUpdataView];
     }
+}
+
+-(void)updateVoiceBeginLabelAndProgressView{
+    self.playingTime+=0.1;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设定时间格式,这里可以设置成自己需要的格式
+    [dateFormatter setDateFormat:@"mm:ss"];
+    //用[NSDate date]可以获取系统当前时间
+    self.voiceBeginTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:self.playingTime]];//@"15/10/15:10:50";
     
+    CGFloat progress = (CGFloat)self.playingTime / self.currentDeviceRecord.voiceTime.floatValue;
+    self.voiceProgressView.progress = progress;
+    
+    if (progress>=1) {
+        [self.timer invalidate];
+        [self setStopPlayUpdataView];
+    }
+}
+
+-(void)setStopPlayUpdataView{
+    self.voiceBeginTimeLabel.text = @"00:00";
+    self.voiceProgressView.progress = 0;
+    [self.voicePlayBtn setImage:[UIImage imageNamed:@"voicePlay"] forState:UIControlStateNormal];
 }
 
 -(void)getDataAndRefreshTable{
@@ -342,11 +383,12 @@ UITextFieldDelegate>
 {
     if (tableView == self.tableView) {
         return self.data.count;
-    }else{
-        // 谓词搜索
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains [cd] %@",self.searchDisplayController.searchBar.text];
-        self.filterData =  [[NSArray alloc] initWithArray:[self.data filteredArrayUsingPredicate:predicate]];
-        return self.filterData.count;
+    }
+    else{
+            // 谓词搜索
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title contains [cd] %@",self.searchDisplayController.searchBar.text];
+            self.filterData =  [[NSArray alloc] initWithArray:[self.data filteredArrayUsingPredicate:predicate]];
+            return self.filterData.count;
     }
 }
 
@@ -414,7 +456,6 @@ UITextFieldDelegate>
 
 -(void)refreshPlayVoiceRecordPannelViewWithModel:(DBDeviceRecord *)deviceRecord{
     self.recordingLabel.text = deviceRecord.title;
-    self.voiceEndTimeLabel.text = [NSString stringWithFormat:@"%@",deviceRecord.voiceTime];
     self.currentDeviceRecord = deviceRecord;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //设定时间格式,这里可以设置成自己需要的格式
@@ -424,6 +465,10 @@ UITextFieldDelegate>
     
     [dateFormatter setDateFormat:@"HH:mm:ss"];
     self.recordTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.recoderTimestamp.doubleValue]];//@"15/10/15:10:50";
+
+    [dateFormatter setDateFormat:@"mm:ss"];
+    self.voiceEndTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.voiceTime.doubleValue]];
+
 }
 
 -(void)playVoiceModel:(DBDeviceRecord *)deviceRecord{
@@ -435,6 +480,8 @@ UITextFieldDelegate>
 
 - (IBAction)hidePlayVoceRecordPanel:(id)sender {
     [self.playVoiceRecordPanel setHidden:YES];
+    
+    [self setBtnIsPlaying:NO];
 }
 
 - (IBAction)editVoiceBtnPressed:(id)sender {
@@ -442,7 +489,7 @@ UITextFieldDelegate>
     
     self.actionTextField = [[HirActionTextField alloc]initWithFrame:CGRectMake(10, 10, 200, 30)];
     self.actionTextField.delegate = self;
-    
+    self.actionTextField.placeholder = self.currentDeviceRecord.title;
     HirAlertView *hirAlertView = [[HirAlertView alloc]initWithTitle:NSLocalizedString(@"changeName", nil) contenView:self.actionTextField clickBlock:^(NSInteger index){
         self.currentDeviceRecord.title = self.actionTextField.text;
         [HirDataManageCenter saveDeviceRecordByModel:self.currentDeviceRecord];
@@ -453,6 +500,17 @@ UITextFieldDelegate>
 
 - (IBAction)trashBtnPressed:(id)sender {
     NSLog(@"trashBtnPressed");
+    
+    HirAlertView *alertView = [[HirAlertView alloc]initWithTitle:NSLocalizedString(@"warning", nil) message:NSLocalizedString(@"doYouWantToDelThisRecord", nil) clickBlock:^(NSInteger index){
+        if (index == 1) {
+            [HirDataManageCenter delDeviceRecordByModel:self.currentDeviceRecord];
+            [self.data removeObject:self.currentDeviceRecord];
+            [self.tableView reloadData];
+            [self hidePlayVoceRecordPanel:nil];
+        }
+    }cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) otherButtonTitles:NSLocalizedString(@"CONFIRM", nil), nil];
+    [alertView showWithAnimation:YES];
+
 }
 
 //- (IBAction)transhpondBtnPressed:(id)sender {

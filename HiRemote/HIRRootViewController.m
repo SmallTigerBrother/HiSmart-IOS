@@ -216,6 +216,13 @@ HPCoreLocationMangerDelegate>
     [appDelegate.locManger startUpdatingUserLocation];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        HirMsgPlaySound *msgPlaySound = [[HirMsgPlaySound alloc]initSystemSoundWithName:@"Tock.caf" SoundType:@"caf"];
+        [msgPlaySound play];
+    });
+}
+
 - (void)batteryLevelChange:(NSNotification *)notify {
     NSDictionary *info = notify.userInfo;
     float level = [[info valueForKey:@"level"] floatValue];
