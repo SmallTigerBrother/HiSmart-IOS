@@ -80,12 +80,8 @@
 "isNotConnected" = "Device is not connected";
 "warning" = "WARNING";
 "doYouWantToDelThisRecord" = "do you want to deleter this record?";
-<<<<<<< HEAD
+
 "youDeviceIsAwayFromYou" = "Warning your HiSmart bag is 90 feet away from you!";
-"newRecording" = "New Recording";
-=======
-"youDeviceIsAwayFromYou" = "Your HiSmart bag is 90 feet away from you!";
 "newRecording" = "New Recording";
 "stopRecording" = "stop recording";
 "startRecording" = "start recording";
->>>>>>> 7ac5a0be6ea596b888532c19de5fb111e3140e7b
