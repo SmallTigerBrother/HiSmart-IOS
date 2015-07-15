@@ -253,6 +253,9 @@
             if([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_ALERT_LOSS_CHARACTER]]) {
                 [peripheral readValueForCharacteristic:characteristic];
                 self.alertLossCharacter = characteristic;
+                uint8_t val = 1;
+                NSData* data = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
+                [peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
                 NSLog(@"alert loss charct%@",characteristic.value);
             }
         }

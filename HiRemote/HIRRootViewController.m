@@ -153,6 +153,7 @@ HPCoreLocationMangerDelegate>
     double delayInSeconds = 0.3;
     dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
+        [HirUserInfo shareUserInfo].currentPeripheraIndex = 0;
         for (int i = 0; i < [self.deviceInfoArray count]; i++) {
             if ([self.deviceShowArray count] > i) {
                 DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:i];
@@ -497,6 +498,7 @@ HPCoreLocationMangerDelegate>
 
 - (void)addNewDevice:(id)sender {
     ////添加新设备时，防止为上次的设备
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
     [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
     AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -605,6 +607,7 @@ HPCoreLocationMangerDelegate>
 - (void)hirCBStateChange:(NSNotification *)notif {
     [self.outTimer invalidate];
     self.outTimer = nil;
+   
     [self.changeIndicator stopAnimating];
     [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
     NSDictionary *info = notif.userInfo;
@@ -624,13 +627,16 @@ HPCoreLocationMangerDelegate>
             DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
             HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
             DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
-            if ([remoteData.remarkName length] > 0) {
-                device.deviceNameLabel.text = remoteData.remarkName;
-            }else {
-                device.deviceNameLabel.text = remoteData.name;
+            NSString *discoverUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+            if ([discoverUuid isEqualToString:remoteData.uuid]) {
+                if ([remoteData.remarkName length] > 0) {
+                    device.deviceNameLabel.text = remoteData.remarkName;
+                }else {
+                    device.deviceNameLabel.text = remoteData.name;
+                }
+                device.deviceLocationLabel.text = locationInfo.location;
+                device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
             }
-            device.deviceLocationLabel.text = locationInfo.location;
-            device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
         }
     }
 }
@@ -739,7 +745,7 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)dealloc {
-    NSLog(@"rooot view dealloc");
+    NSLog(@"rooot view dealloc:%@",[NSThread currentThread]);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.outTimer invalidate];
     self.outTimer = nil;
@@ -755,6 +761,7 @@ HPCoreLocationMangerDelegate>
     self.mainMenuTableView = nil;
     self.deviceShowArray = nil;
     self.deviceInfoArray = nil;
+    NSLog(@"rooott ddddalloc222");
 }
 
 @end

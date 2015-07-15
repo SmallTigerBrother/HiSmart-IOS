@@ -295,14 +295,8 @@ UIImagePickerControllerDelegate>
                action:@selector(takePictureBtnPressed:)
            parentView:_bottomContainerView];
     
-    CGFloat sizeOfImageBtn = 50;
-    CGFloat offsetY_H = 0;
-    if (DEVICE_IS_IPHONE5) {
-        offsetY_H = 70;
-    }else if(!DEVICE_IS_IPHONE4) {
-        offsetY_H = 100;
-    }
-    self.imagePickBtn = [self buildButton:CGRectMake(SC_APP_SIZE.width - sizeOfImageBtn - 20, _bottomContainerView.frame.size.height - sizeOfImageBtn - 60, sizeOfImageBtn, sizeOfImageBtn)
+    CGFloat sizeOfImageBtn = 60;
+    self.imagePickBtn = [self buildButton:CGRectMake(SC_APP_SIZE.width - 90, (_bottomContainerView.frame.size.height - sizeOfImageBtn) / 2, sizeOfImageBtn, sizeOfImageBtn)
          normalImgStr:@""
       highlightImgStr:@""
        selectedImgStr:@""
