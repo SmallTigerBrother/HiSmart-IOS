@@ -61,7 +61,22 @@
 //删除一条记录
 +(void)delDeviceRecordByModel:(DBDeviceRecord *)deviceRecord{
     //删除文件
-//    deviceRecord.voicePath
+//
+
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
+                                                            NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = [dirPaths objectAtIndex:0];
+    
+    NSString *soundFilePath = [docsDir
+                               stringByAppendingPathComponent:deviceRecord.voicePath];
+    
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    BOOL bRet = [fileMgr fileExistsAtPath:soundFilePath];
+    if (bRet) {
+        //
+        NSError *err;
+        [fileMgr removeItemAtPath:soundFilePath error:&err];
+    }
     
     [deviceRecord MR_deleteEntity];
     [[NSManagedObjectContext MR_context]MR_saveOnlySelfAndWait];

@@ -96,6 +96,8 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect,
     }];
 }
 
-
++(void)showInfo:(NSString *)info{
+    [SGInfoAlert showInfo:info bgColor:[UIColor darkGrayColor].CGColor inView:[UIApplication sharedApplication].delegate.window vertical:.3];
+}
 
 @end

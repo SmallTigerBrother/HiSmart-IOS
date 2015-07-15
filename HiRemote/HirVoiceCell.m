@@ -7,7 +7,7 @@
 //
 
 #import "HirVoiceCell.h"
-#define HeightOfCell (44)
+#define HeightOfCell (55)
 
 @implementation HirVoiceCell
 
@@ -44,9 +44,9 @@
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    self.titleLabel.frame = CGRectMake(Cell_LeftMargin, Cell_Pand_V, 195, 15);
-    self.dateLabel.frame = CGRectMake(Cell_LeftMargin, CGRectGetMaxY(self.titleLabel.frame)+Cell_Pand_V, 80, 15);
-    self.voiceRecodeTimeLabel.frame = CGRectMake(CGRectGetMaxX(self.dateLabel.frame) + Cell_Pand_H, CGRectGetMaxY(self.titleLabel.frame)+Cell_Pand_V, 100, 15);
+    self.titleLabel.frame = CGRectMake(Cell_LeftMargin, Cell_Pand_V, 195, 20);
+    self.dateLabel.frame = CGRectMake(Cell_LeftMargin, HeightOfCell - Cell_Pand_V - 15, 80, 15);
+    self.voiceRecodeTimeLabel.frame = CGRectMake(CGRectGetMaxX(self.dateLabel.frame) + Cell_Pand_H, HeightOfCell - Cell_Pand_V - 15, 100, 15);
 }
 
 @end

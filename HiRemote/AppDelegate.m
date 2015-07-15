@@ -16,6 +16,7 @@
 #import "WXApi.h"
 #import "WeiboSDK.h"
 #import "HirDataManageCenter+Perphera.h"
+#import "HirMsgPlaySound.h"
 
 @interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate>{
     UIBackgroundTaskIdentifier bgTask;
@@ -144,8 +145,10 @@
     // Start the long-running task
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if ([[UIApplication sharedApplication] backgroundTimeRemaining] < 61.0) {
-            
-            [[SoundTool sharedSoundTool]playSound:kBirdSound];
+            HirMsgPlaySound *msgPlaySound = [[HirMsgPlaySound alloc]initSystemSoundWithName:@"sms-received4" SoundType:@"caf"];
+            [msgPlaySound play];
+
+//            [[SoundTool sharedSoundTool]playSound:kBirdSound];
             bgTask = [app beginBackgroundTaskWithExpirationHandler:nil];
         }
         

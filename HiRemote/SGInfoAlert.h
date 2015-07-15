@@ -24,4 +24,6 @@
           inView:(UIView*)view 
         vertical:(CGFloat)height;
 
++(void)showInfo:(NSString *)info;
+
 @end

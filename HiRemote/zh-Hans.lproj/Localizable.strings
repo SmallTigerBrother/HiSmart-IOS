@@ -82,3 +82,5 @@
 "doYouWantToDelThisRecord" = "do you want to deleter this record?";
 "youDeviceIsAwayFromYou" = "Your HiSmart bag is 90 feet away from you!";
 "newRecording" = "New Recording";
+"stopRecording" = "stop recording";
+"startRecording" = "start recording";
