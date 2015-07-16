@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "CLLocation+Sino.h"
 #import "HIRFindViewController.h"
+
 @interface HirLocationHistoryViewController ()
 <UISearchDisplayDelegate,
 UITableViewDataSource,
