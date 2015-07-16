@@ -12,11 +12,8 @@
 		043772251B4C19380089051C /* CLLocation+Sino.m in Sources */ = {isa = PBXBuildFile; fileRef = 043772241B4C19380089051C /* CLLocation+Sino.m */; };
 		0450BCB21B52786900B3BF93 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0450BCB11B52786900B3BF93 /* AudioToolbox.framework */; };
 		0450BCB51B5279BC00B3BF93 /* HirMsgPlaySound.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */; };
-<<<<<<< HEAD
-=======
 		0450BCB81B53E8DA00B3BF93 /* DBDeviceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB71B53E8DA00B3BF93 /* DBDeviceRecord.m */; };
 		0450BCBB1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */; };
->>>>>>> 043bd33c9977c7da7d83e9621bcb05b3a406d6d2
 		04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AE11B4199CF009567BF /* SoundTool.m */; };
 		04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AEB1B43CFC1009567BF /* SWTableViewCell.m */; };
 		04BB4AF11B43DF87009567BF /* HirVerticalLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AF01B43DF87009567BF /* HirVerticalLabel.m */; };
@@ -369,6 +366,10 @@
 		B84CD4C51B441EA2008FAA53 /* pinnedm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinnedm.png; sourceTree = "<group>"; };
 		B84CD4C61B441EA2008FAA53 /* voice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voice.png; sourceTree = "<group>"; };
 		B84CD4C71B441EA2008FAA53 /* voicem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voicem.png; sourceTree = "<group>"; };
+		B85811DE1B56AF99009FA41C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B85811DF1B56B030009FA41C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		B85811E01B56B030009FA41C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		B85811E11B56B030009FA41C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B887060F1B48FC9700A87300 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		B88706151B48FD8400A87300 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = HiRemote/libWeChatSDK.a; sourceTree = "<group>"; };
 		B88706161B48FD8400A87300 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = HiRemote/libWeiboSDK.a; sourceTree = "<group>"; };
@@ -940,7 +941,7 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 4H44DAN2YD;
+						DevelopmentTeam = FZCVBHN4V3;
 					};
 				};
 			};
@@ -952,6 +953,7 @@
 				en,
 				Base,
 				"zh-Hans",
+				ko,
 			);
 			mainGroup = 2C18AAE31B3BECDE00CE6588;
 			productRefGroup = 2C18AAED1B3BECDE00CE6588 /* Products */;
@@ -1156,6 +1158,7 @@
 			children = (
 				2C18AAFA1B3BECDE00CE6588 /* Base */,
 				2C18AB4B1B3C281300CE6588 /* zh-Hans */,
+				B85811DF1B56B030009FA41C /* ko */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1165,6 +1168,7 @@
 			children = (
 				2C18AAFF1B3BECDE00CE6588 /* Base */,
 				2C18AB4C1B3C281300CE6588 /* zh-Hans */,
+				B85811E01B56B030009FA41C /* ko */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -1174,6 +1178,8 @@
 			children = (
 				2C18AB491B3C27A700CE6588 /* en */,
 				2C18AB4D1B3C281300CE6588 /* zh-Hans */,
+				B85811DE1B56AF99009FA41C /* Base */,
+				B85811E11B56B030009FA41C /* ko */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1198,8 +1204,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: guang wu (9BABY7Y4D7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: guang wu (9BABY7Y4D7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: tracy cao (FZCVBHN4V3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tracy cao (FZCVBHN4V3)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1219,6 +1225,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "2188d397-2d64-4d02-a765-7b8293349986";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1241,8 +1248,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: guang wu (9BABY7Y4D7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: guang wu (9BABY7Y4D7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: tracy cao (FZCVBHN4V3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tracy cao (FZCVBHN4V3)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1255,6 +1262,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "2188d397-2d64-4d02-a765-7b8293349986";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
