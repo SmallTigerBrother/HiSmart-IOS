@@ -29,6 +29,7 @@
 		04D38D1C1B3EB1410012D65A /* HirBaseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D1A1B3EB1410012D65A /* HirBaseTableCell.m */; };
 		04D38D1D1B3EB1410012D65A /* HirBaseTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D38D1B1B3EB1410012D65A /* HirBaseTableCell.xib */; };
 		04D38D241B3EB6770012D65A /* HirLocationHistoryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */; };
+		04D6511C1B59EDC900B5BB13 /* bg_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04D6511B1B59EDC900B5BB13 /* bg_music.mp3 */; };
 		04D7A82C1B477C1100579EC2 /* HirVoiceMemosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7A82A1B477C1100579EC2 /* HirVoiceMemosViewController.m */; };
 		04D7A82D1B477C1100579EC2 /* HirVoiceMemosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D7A82B1B477C1100579EC2 /* HirVoiceMemosViewController.xib */; };
 		04D7A8311B47847D00579EC2 /* HirVoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7A8301B47847D00579EC2 /* HirVoiceCell.m */; };
@@ -203,6 +204,7 @@
 		04D38D1B1B3EB1410012D65A /* HirBaseTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HirBaseTableCell.xib; sourceTree = "<group>"; };
 		04D38D211B3EB6770012D65A /* HirLocationHistoryTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirLocationHistoryTableCell.h; sourceTree = "<group>"; };
 		04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirLocationHistoryTableCell.m; sourceTree = "<group>"; };
+		04D6511B1B59EDC900B5BB13 /* bg_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_music.mp3; sourceTree = "<group>"; };
 		04D7A8291B477C1100579EC2 /* HirVoiceMemosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirVoiceMemosViewController.h; sourceTree = "<group>"; };
 		04D7A82A1B477C1100579EC2 /* HirVoiceMemosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirVoiceMemosViewController.m; sourceTree = "<group>"; };
 		04D7A82B1B477C1100579EC2 /* HirVoiceMemosViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HirVoiceMemosViewController.xib; sourceTree = "<group>"; };
@@ -765,6 +767,7 @@
 		2C18AAEF1B3BECDE00CE6588 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				04D6511B1B59EDC900B5BB13 /* bg_music.mp3 */,
 				2C18AAF01B3BECDE00CE6588 /* Info.plist */,
 				2C18AAF11B3BECDE00CE6588 /* main.m */,
 				2C18AB4A1B3C27A700CE6588 /* Localizable.strings */,
@@ -941,7 +944,7 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = FZCVBHN4V3;
+						DevelopmentTeam = 4H44DAN2YD;
 					};
 				};
 			};
@@ -999,6 +1002,7 @@
 				B84CD4C81B441EA2008FAA53 /* avatar_circle.png in Resources */,
 				04D7A8931B47EF9700579EC2 /* switch_camera.png in Resources */,
 				04D7A89A1B47EF9700579EC2 /* touch_focus_x@2x.png in Resources */,
+				04D6511C1B59EDC900B5BB13 /* bg_music.mp3 in Resources */,
 				B8DF7DC41B3E97F5000BD43E /* nextBtn.png in Resources */,
 				B84CD4CC1B441EA2008FAA53 /* connectedSuccess.png in Resources */,
 				B8DF7DC71B3EA910000BD43E /* Default-568h@2x.png in Resources */,

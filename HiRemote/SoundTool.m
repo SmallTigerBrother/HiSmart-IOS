@@ -13,9 +13,6 @@
 {
     AVAudioPlayer *_bgMusicPlayer;
     NSMutableDictionary *_soundIDs; // 所有的音频文件ID
-    
-    
-    
 }
 
 @end
@@ -37,8 +34,8 @@ singleton_implementation(SoundTool)
         /*
          加载资源
          */
-        // 1.加载丢失音乐
-        [self loadLostMusic];
+
+        [self loadBgMusic];
         
         // 2.加载音效
         //[self loadSounds];
@@ -87,6 +84,9 @@ singleton_implementation(SoundTool)
     // 1.获得背景音乐的URL
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"bg_music.mp3" withExtension:nil];
     
+    if (!url) {
+        return;
+    }
     // 2.加载播放器
     _bgMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     // 缓冲
@@ -102,7 +102,9 @@ singleton_implementation(SoundTool)
     NSBundle *soundBundle = [NSBundle bundleWithURL:bundleURL];
     // 1.获得背景音乐的URL
     NSURL *url = [soundBundle URLForResource:@"alarm_trumpet.mp3" withExtension:nil];
-    
+    if (!url) {
+        return;
+    }
     // 2.加载播放器
     _bgMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     // 缓冲

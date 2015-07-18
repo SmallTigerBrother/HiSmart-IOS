@@ -84,13 +84,13 @@
     [HirUserInfo shareUserInfo].deviceInfoArray = [HirDataManageCenter findAllPerphera];
     
 #if DEBUG
-//    [NSTimer scheduledTimerWithTimeInterval:1.0f
-//     
-//                                     target:self
-//     
-//                                   selector:@selector(task) userInfo:nil
-//     
-//                                    repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:1.0f
+     
+                                     target:self
+     
+                                   selector:@selector(task) userInfo:nil
+     
+                                    repeats:YES];
 #endif
     
     return YES;
@@ -145,10 +145,10 @@
     // Start the long-running task
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if ([[UIApplication sharedApplication] backgroundTimeRemaining] < 61.0) {
-            HirMsgPlaySound *msgPlaySound = [[HirMsgPlaySound alloc]initSystemSoundWithName:@"sms-received4" SoundType:@"caf"];
-            [msgPlaySound play];
+//            HirMsgPlaySound *msgPlaySound = [[HirMsgPlaySound alloc]initSystemSoundWithName:@"sms-received4" SoundType:@"caf"];
+//            [msgPlaySound play];
 
-//            [[SoundTool sharedSoundTool]playSound:kBirdSound];
+            [[SoundTool sharedSoundTool]playBgMusic];
             bgTask = [app beginBackgroundTaskWithExpirationHandler:nil];
         }
         
