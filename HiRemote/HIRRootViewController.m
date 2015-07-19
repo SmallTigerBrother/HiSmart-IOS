@@ -25,7 +25,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "HirDataManageCenter+DeviceRecord.h"
 
-#define SCROLLVIEW_HEIGHT 140
 
 @interface HIRRootViewController () <UIScrollViewDelegate,
 UITableViewDataSource,
@@ -50,6 +49,9 @@ HPCoreLocationMangerDelegate>
     float Pitch;
 }
 
+@property (nonatomic, strong) UIButton *headLeftBtn;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIButton *headRightBtn;
 @property (nonatomic, strong) UIScrollView *showDeviceScrollView;
 @property (nonatomic, strong) UIActivityIndicatorView *changeIndicator;
 @property (nonatomic, strong) UIButton *preButton;
@@ -64,7 +66,11 @@ HPCoreLocationMangerDelegate>
 @property (nonatomic, assign) BOOL didSetupConstraints;
 @property (nonatomic, assign) BOOL isLocationing;
 @property (nonatomic, assign) BOOL isDisconnectLocation;
+<<<<<<< HEAD
 @property (nonatomic, assign) BOOL isRecording;
+=======
+@property (nonatomic, assign) float showDeviceFrameHeight;
+>>>>>>> d4155e97ca0bc0a1b97d126b12c2f96dc76a8c10
 @property (nonatomic, strong) NSMutableArray *deviceInfoArray;
 @property (nonatomic, strong) SCNavigationController *cameraNavigationController;
 
@@ -74,6 +80,9 @@ HPCoreLocationMangerDelegate>
 @end
 
 @implementation HIRRootViewController
+@synthesize headLeftBtn;
+@synthesize titleLabel;
+@synthesize headRightBtn;
 @synthesize showDeviceScrollView;
 @synthesize changeIndicator;
 @synthesize preButton;
@@ -95,23 +104,44 @@ HPCoreLocationMangerDelegate>
     }else {
         self.switchStatus = [NSMutableArray arrayWithArray:statusArray];
     }
-    
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    ///导航界面
-    self.view.backgroundColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.97 alpha:1];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:0.38 green:0.74 blue:0.59 alpha:1],NSForegroundColorAttributeName,nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
-    self.title = NSLocalizedString(@"hiRemote", @"");
+    NSString *bgPath = [[NSBundle mainBundle] pathForResource:@"mainviewbg" ofType:@"jpg"];
+    UIImage *bgImage = [UIImage imageWithContentsOfFile:bgPath];
+    self.view.layer.contents = (id)bgImage.CGImage;
+   
+    if (DEVICE_IS_IPHONE6p) {
+        _showDeviceFrameHeight = 185;
+    }else if (DEVICE_IS_IPHONE6) {
+        _showDeviceFrameHeight = 170;
+    }else {
+        _showDeviceFrameHeight = 150;
+    }
     
     self.deviceShowArray = [NSMutableArray arrayWithCapacity:5];
     self.deviceInfoArray = [HirUserInfo shareUserInfo].deviceInfoArray;
     
     //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addDevice"] style:UIBarButtonItemStylePlain target:self action:@selector(showUserInfoVC:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addDevice"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(addNewDevice:)];
+    self.headLeftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.headLeftBtn setImage:[UIImage imageNamed:@"addDevice"] forState:UIControlStateNormal];
+    [self.headLeftBtn addTarget:self action:@selector(showUserInfoVC:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.titleLabel = [[UILabel alloc] init];
+    self.titleLabel.backgroundColor = [UIColor clearColor];
+    self.titleLabel.text = NSLocalizedString(@"hiRemote", @"");
+    self.titleLabel.textColor = [UIColor whiteColor];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:19];
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    self.headRightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //self.headRightBtn.backgroundColor = [UIColor darkGrayColor];
+    [self.headRightBtn setImage:[UIImage imageNamed:@"addDevice"] forState:UIControlStateNormal];
+    [self.headRightBtn addTarget:self action:@selector(addNewDevice:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addDevice"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(addNewDevice:)];
     
     ////主界面
     self.showDeviceScrollView = [[UIScrollView alloc] init];
+    self.showDeviceScrollView.backgroundColor = [UIColor clearColor];
     self.showDeviceScrollView.pagingEnabled = YES;
     self.showDeviceScrollView.showsHorizontalScrollIndicator = NO;
     self.showDeviceScrollView.showsVerticalScrollIndicator = NO;
@@ -120,7 +150,7 @@ HPCoreLocationMangerDelegate>
     
     self.changeIndicator = [[UIActivityIndicatorView alloc] init];
     self.changeIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    
+   // [self.changeIndicator startAnimating];
     self.preButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.preButton.hidden = YES;
     [self.preButton setImage:[UIImage imageNamed:@"preBtn"] forState:UIControlStateNormal];
@@ -139,8 +169,8 @@ HPCoreLocationMangerDelegate>
     }
     
     self.pageControl.currentPage = 0;
-    self.segControl = [[HIRSegmentView alloc] initWithFrame:CGRectMake(60, SCROLLVIEW_HEIGHT + 15, self.view.frame.size.width - 120, 35) items:[NSArray arrayWithObjects:NSLocalizedString(@"myBag", @""),NSLocalizedString(@"edit", @""), nil]];
-    self.segControl.tintColor = [UIColor colorWithRed:0.38 green:0.74 blue:0.56 alpha:1];
+    self.segControl = [[HIRSegmentView alloc] initWithFrame:CGRectMake(20, _showDeviceFrameHeight + 80, self.view.frame.size.width - 40, 40) items:[NSArray arrayWithObjects:NSLocalizedString(@"myBag", @""),NSLocalizedString(@"edit", @""), nil]];
+    self.segControl.tintColor = [UIColor colorWithRed:0.31 green:0.65 blue:0.53 alpha:1];
     self.segControl.delegate = self;
     
     self.mainMenuScrollView = [[UIScrollView alloc] init];
@@ -155,6 +185,8 @@ HPCoreLocationMangerDelegate>
     self.mainMenuTableView.delegate = self;
     self.mainMenuTableView.tableFooterView = [[UIView alloc] init];
     
+    [self.view addSubview:self.titleLabel];
+    [self.view addSubview:self.headRightBtn];
     [self.view addSubview:self.showDeviceScrollView];
     
     [self.view addSubview:self.preButton];
@@ -171,10 +203,14 @@ HPCoreLocationMangerDelegate>
     
     [self.view setNeedsUpdateConstraints];
     
-    double delayInSeconds = 0.3;
+    double delayInSeconds = 0.2;
     dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
         [HirUserInfo shareUserInfo].currentPeripheraIndex = 0;
+        for (HIRDeviceShowView *showView in self.deviceShowArray) {
+            [showView.avatarImageView setImage:[UIImage imageNamed:@"defaultDevice"]];
+        }
+        
         for (int i = 0; i < [self.deviceInfoArray count]; i++) {
             if ([self.deviceShowArray count] > i) {
                 DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:i];
@@ -185,14 +221,15 @@ HPCoreLocationMangerDelegate>
                 if (![[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
                     [[NSFileManager defaultManager] createDirectoryAtPath:documentsDirectory withIntermediateDirectories:TRUE attributes:nil error:nil];
                 }
-                if (documentsDirectory) {
-                    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:remoteData.avatarPath];
-                    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
-                    UIImage *image = [UIImage imageWithData:imageData];
-                    if (image) {
-                        [device.avatarImageView setImage:image];
-                    }
-                }
+                //[device.avatarImageView setImage:[UIImage imageNamed:@"defaultDevice"]];
+//                if (documentsDirectory) {
+//                    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:remoteData.avatarPath];
+//                    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+//                    UIImage *image = [UIImage imageWithData:imageData];
+//                    if (image) {
+//                        [device.avatarImageView setImage:image];
+//                    }
+//                }
                 if ([remoteData.remarkName length] > 0) {
                     device.deviceNameLabel.text = remoteData.remarkName;
                 }else {
@@ -488,6 +525,12 @@ HPCoreLocationMangerDelegate>
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 -(void)locationNotification{
@@ -513,27 +556,31 @@ HPCoreLocationMangerDelegate>
 - (void)updateViewConstraints
 {
     if (!self.didSetupConstraints) {
-        [self.showDeviceScrollView autoSetDimension:ALDimensionHeight toSize:SCROLLVIEW_HEIGHT];
-        [self.showDeviceScrollView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
+        [self.titleLabel autoSetDimensionsToSize:CGSizeMake(100, 35)];
+        [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:25];
+        [self.titleLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
+        
+        [self.headRightBtn autoSetDimensionsToSize:CGSizeMake(45, 45)];
+        [self.headRightBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:20];
+        [self.headRightBtn autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:10];
+        
+        [self.showDeviceScrollView autoSetDimension:ALDimensionHeight toSize:_showDeviceFrameHeight];
+        [self.showDeviceScrollView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.titleLabel withOffset:10];
         [self.showDeviceScrollView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
         [self.showDeviceScrollView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
         
-        [self.changeIndicator autoSetDimensionsToSize:CGSizeMake(100, 100)];
-        [self.changeIndicator autoAlignAxisToSuperviewAxis:ALAxisVertical];
-        [self.changeIndicator autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.showDeviceScrollView withOffset:-70];
-        
         [self.preButton autoSetDimensionsToSize:CGSizeMake(40, 40)];
         [self.preButton autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];;
-        [self.preButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.showDeviceScrollView withOffset:SCROLLVIEW_HEIGHT/2 - 20];
+        [self.preButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.showDeviceScrollView withOffset:_showDeviceFrameHeight/2 - 20];
         
         [self.nextButton autoSetDimensionsToSize:CGSizeMake(40, 40)];
         [self.nextButton autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
-        [self.nextButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.showDeviceScrollView withOffset:SCROLLVIEW_HEIGHT/2 - 20];
+        [self.nextButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.showDeviceScrollView withOffset:_showDeviceFrameHeight/2 - 20];
         
         [self.pageControl autoSetDimension:ALDimensionHeight toSize:18];
         [self.pageControl autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:40];
         [self.pageControl autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:40];
-        [self.pageControl autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.showDeviceScrollView withOffset:-2];
+        [self.pageControl autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.showDeviceScrollView withOffset:-5];
         
         [self.mainMenuScrollView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
         [self.mainMenuScrollView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
@@ -544,6 +591,11 @@ HPCoreLocationMangerDelegate>
         [self.mainMenuTableView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
         [self.mainMenuTableView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
         [self.mainMenuTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.segControl withOffset:15.0];
+        
+        [self.changeIndicator autoSetDimensionsToSize:CGSizeMake(100, 100)];
+        [self.changeIndicator autoAlignAxisToSuperviewAxis:ALAxisVertical];
+        [self.changeIndicator autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.mainMenuScrollView withOffset:-35];
+        
         self.didSetupConstraints = YES;
     }
     
@@ -552,13 +604,13 @@ HPCoreLocationMangerDelegate>
 
 - (void)setupShowDeviceScrollViewContentView {
     if ([self.deviceInfoArray count] > 0) {
-        self.showDeviceScrollView.contentSize = CGSizeMake(self.view.frame.size.width * [self.deviceInfoArray count], SCROLLVIEW_HEIGHT);
+        self.showDeviceScrollView.contentSize = CGSizeMake(self.view.frame.size.width * [self.deviceInfoArray count], _showDeviceFrameHeight);
     }else {
-        self.showDeviceScrollView.contentSize = CGSizeMake(self.view.frame.size.width, SCROLLVIEW_HEIGHT);
+        self.showDeviceScrollView.contentSize = CGSizeMake(self.view.frame.size.width, _showDeviceFrameHeight);
     }
     if ([self.deviceInfoArray count] == 0) {
         HIRDeviceShowView *showView = [[HIRDeviceShowView alloc] init];
-        CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, SCROLLVIEW_HEIGHT);
+        CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, _showDeviceFrameHeight);
         frame.origin.x = 0;
         frame.origin.y = 0;
         showView.frame = frame;
@@ -568,7 +620,7 @@ HPCoreLocationMangerDelegate>
     }else {
         for (int i= 0; i < [self.deviceInfoArray count]; i++) {
             HIRDeviceShowView *showView = [[HIRDeviceShowView alloc] init];
-            CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, SCROLLVIEW_HEIGHT);
+            CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, _showDeviceFrameHeight);
             frame.origin.x = frame.size.width * i;
             frame.origin.y = 0;
             showView.frame = frame;
@@ -602,6 +654,8 @@ HPCoreLocationMangerDelegate>
     UILabel *locLabel = [[UILabel alloc] init];
     locLabel.frame = CGRectMake(eightPercent*0.5, locBtn.frame.origin.y + locBtn.frame.size.height + 2, fourPercent*2-eightPercent*0.5,30);
     locLabel.textAlignment = NSTextAlignmentCenter;
+    locLabel.textColor = [UIColor whiteColor];
+    locLabel.backgroundColor = [UIColor clearColor];
     locLabel.font = [UIFont boldSystemFontOfSize:16];
     locLabel.text = NSLocalizedString(@"pinnedLocations", @"");
     
@@ -614,6 +668,8 @@ HPCoreLocationMangerDelegate>
     cameraLabel.frame = CGRectMake(fourPercent*2, cameraBtn.frame.origin.y + cameraBtn.frame.size.height + 2, fourPercent*2-eightPercent*0.5,30);
     cameraLabel.textAlignment = NSTextAlignmentCenter;
     cameraLabel.font = [UIFont boldSystemFontOfSize:16];
+    cameraLabel.textColor = [UIColor whiteColor];
+    cameraLabel.backgroundColor = [UIColor clearColor];
     cameraLabel.text = NSLocalizedString(@"cameraShutte", @"");
     
     UIButton *findBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -625,6 +681,8 @@ HPCoreLocationMangerDelegate>
     findLabel.frame = CGRectMake(eightPercent*0.5, findBtn.frame.origin.y + findBtn.frame.size.height + 2, fourPercent*2-eightPercent*0.5,30);
     findLabel.textAlignment = NSTextAlignmentCenter;
     findLabel.font = [UIFont boldSystemFontOfSize:16];
+    findLabel.textColor = [UIColor whiteColor];
+    findLabel.backgroundColor = [UIColor clearColor];
     findLabel.text = NSLocalizedString(@"findMyItem", @"");
     
     UIButton *voiceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -636,6 +694,8 @@ HPCoreLocationMangerDelegate>
     voiceLabel.frame = CGRectMake(fourPercent*2, voiceBtn.frame.origin.y+voiceBtn.frame.size.height+2, fourPercent*2-eightPercent*0.5,30);
     voiceLabel.textAlignment = NSTextAlignmentCenter;
     voiceLabel.font = [UIFont boldSystemFontOfSize:16];
+    voiceLabel.textColor = [UIColor whiteColor];
+    voiceLabel.backgroundColor = [UIColor clearColor];
     voiceLabel.text = NSLocalizedString(@"voiceMemos", @"");
     
     [self.mainMenuScrollView addSubview:locBtn];

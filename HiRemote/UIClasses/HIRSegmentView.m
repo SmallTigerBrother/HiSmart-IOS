@@ -13,7 +13,7 @@
 #define kDefaultTintColor   RGB_Color(3, 116, 255)
 #define kLeftMargin         15
 #define kItemHeight         30
-#define kBorderLineWidth    0.5
+#define kBorderLineWidth    1
 @class RFSegmentItem;
 @protocol RFSegmentItemDelegate
 - (void)ItemStateChanged:(RFSegmentItem *)item index:(NSInteger)index isSelected:(BOOL)isSelected;
@@ -120,11 +120,11 @@
         
         //
         self.bgView = [[UIView alloc] initWithFrame:CGRectMake(kLeftMargin, (viewHeight - kItemHeight)/2, viewWidth -2*kLeftMargin, kItemHeight)];
-        self.bgView.backgroundColor    = [UIColor whiteColor];
+        self.bgView.backgroundColor    = [UIColor colorWithRed:0.62 green:0.82 blue:0.74 alpha:1];
         self.bgView.clipsToBounds      = YES;
-        self.bgView.layer.cornerRadius = 5;
+        self.bgView.layer.cornerRadius = 0;
         self.bgView.layer.borderWidth  = kBorderLineWidth;
-        self.bgView.layer.borderColor  = kDefaultTintColor.CGColor;
+        self.bgView.layer.borderColor  = [UIColor whiteColor].CGColor;// kDefaultTintColor.CGColor;
         [self addSubview:self.bgView];
         
         init_x = 0;
@@ -136,7 +136,7 @@
                 RFSegmentItem *item = [[RFSegmentItem alloc] initWithFrame:CGRectMake(init_x, init_y, itemWidth, itemHeight)
                                                                      index:i title:items[i]
                                                                   norColor:[UIColor whiteColor]
-                                                                  selColor:kDefaultTintColor
+                                                                  selColor:[UIColor colorWithRed:0.38 green:0.74 blue:0.56 alpha:1]
                                                                 isSelected:(i == 0)? YES: NO];
                 init_x += itemWidth;
                 [self.bgView addSubview:item];
@@ -154,7 +154,7 @@
             for (NSInteger i = 0; i<items.count-1; i++) {
                 init_x += itemWidth;
                 UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(init_x, 0, kBorderLineWidth, itemHeight)];
-                lineView.backgroundColor = kDefaultTintColor;
+                lineView.backgroundColor = [UIColor colorWithRed:0.38 green:0.74 blue:0.56 alpha:1];//kDefaultTintColor;
                 [self.bgView addSubview:lineView];
                 
                 //save all lines

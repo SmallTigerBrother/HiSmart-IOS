@@ -43,7 +43,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
     self.locManger = [[HPCoreLocationManger alloc] init];
 
     

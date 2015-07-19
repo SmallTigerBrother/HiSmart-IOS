@@ -12,7 +12,10 @@
 #define HiRemote_HiRDevice_h
 
 
+
 //DEVICE-------------------------------------------------------
+#define DEVICE_IS_IPHONE6p ([[UIScreen mainScreen] bounds].size.height == 736)
+#define DEVICE_IS_IPHONE6 ([[UIScreen mainScreen] bounds].size.height == 667)
 #define DEVICE_IS_IPHONE5 ([[UIScreen mainScreen] bounds].size.height == 568)
 #define DEVICE_IS_IPHONE4 ([[UIScreen mainScreen] bounds].size.height == 480)
 #define is_iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)

@@ -44,9 +44,7 @@
 "cannotFind" = "It looks like we can't find it, Let's try again!";
 "haveProblem" = "Have a problem";
 "pinnedLocation" = "Pinned Location";
-"findMyItem" = "Find My Item";
 "cameraShutter" = "Camera Shutter";
-"voiceMemos" = "Voice Memos";
 "hiremoteControl" = "HiRemote Control";
 "pinedTips" = "You can easily find the history of all the locations you have been to.";
 "findTips" = "Search for the item attached to the HiRemote.";
