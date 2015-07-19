@@ -84,7 +84,7 @@
     
     [HirUserInfo shareUserInfo].deviceInfoArray = [HirDataManageCenter findAllPerphera];
     
-#if DEBUG
+//#if DEBUG
 //    [NSTimer scheduledTimerWithTimeInterval:1.0f
 //     
 //                                     target:self
@@ -92,9 +92,9 @@
 //                                   selector:@selector(task) userInfo:nil
 //     
 //                                    repeats:YES];
-#endif
+//#endif
     [MobClick setEncryptEnabled:YES];
-    [MobClick startWithAppkey:@"55ab623067e58ea3c8009438" reportPolicy:BATCH   channelId:@""];
+    [MobClick startWithAppkey:UMENG_APPKEY reportPolicy:BATCH   channelId:@""];
     
     return YES;
 }
@@ -155,59 +155,95 @@
     [HirUserInfo shareUserInfo].appIsEnterBackgroud = YES;
     
     NSLog(@"%f",CGFLOAT_MAX);
-    BOOL backgroundAccepted = [[UIApplication sharedApplication] setKeepAliveTimeout:600 handler:^{ [self backgroundHandler]; }];
-    
-    if (backgroundAccepted)
-        
-    {
-        
-        NSLog(@"backgrounding accepted");
-        
-    }
-    
-    [self backgroundHandler];
+//    BOOL backgroundAccepted = [[UIApplication sharedApplication] setKeepAliveTimeout:600 handler:^{ [self backgroundHandler]; }];
+//    
+//    if (backgroundAccepted)
+//        
+//    {
+//        
+//        NSLog(@"backgrounding accepted");
+//        
+//    }
+//    
+//    [self backgroundHandler];
 
+//    　　bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
+//        　　// 10分钟后执行这里，应该进行一些清理工作，如断开和服务器的连接等
+//        　　// ...
+//        　　// stopped or ending the task outright.
+//        　　[application endBackgroundTask:bgTask];
+//        　　bgTask = UIBackgroundTaskInvalid;
+//        　　}];
+//    　　if (bgTask == UIBackgroundTaskInvalid) {
+//        　　NSLog(@"failed to start background task!");
+//        　　}
+//    　　// Start the long-running task and return immediately.
+//    　　dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        　　// Do the work associated with the task, preferably in chunks.
+//        　　NSTimeInterval timeRemain = 0;
+//        　　do{
+//            　　[NSThread sleepForTimeInterval:5];
+//            　　if (bgTask!= UIBackgroundTaskInvalid) {
+//                　　timeRemain = [application backgroundTimeRemaining];
+//                　　NSLog(@"Time remaining: %f",timeRemain);
+//                　　}
+//            　　}while(bgTask!= UIBackgroundTaskInvalid && timeRemain > 0); // 如果改为timeRemain > 5*60,表示后台运行5分钟
+//        　　// done!
+//        　　// 如果没到10分钟，也可以主动关闭后台任务，但这需要在主线程中执行，否则会出错
+//        　　dispatch_async(dispatch_get_main_queue(), ^{
+//            　　if (bgTask != UIBackgroundTaskInvalid)
+//                　　{
+//                    　　// 和上面10分钟后执行的代码一样
+//                    　　// ...
+//                    　　// if you don't call endBackgroundTask, the OS will exit your app.
+//                    　　[application endBackgroundTask:bgTask];
+//                    　　bgTask = UIBackgroundTaskInvalid;
+//                    　　}
+//            　　});
+//        　　});
+
+    
 }
 
-- (void)backgroundHandler {
-    
-    NSLog(@"### -->backgroundinghandler");
-    
-    UIApplication* app = [UIApplication sharedApplication];
-    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
-        
-        [app endBackgroundTask:bgTask];
-        
-        bgTask = UIBackgroundTaskInvalid;
-        
-    }];
-    
-    // Start the long-running task
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if ([[UIApplication sharedApplication] backgroundTimeRemaining] < 61.0) {
-//            HirMsgPlaySound *msgPlaySound = [[HirMsgPlaySound alloc]initSystemSoundWithName:@"sms-received4" SoundType:@"caf"];
-//            [msgPlaySound play];
-
-            [[SoundTool sharedSoundTool]playBgMusic];
-            bgTask = [app beginBackgroundTaskWithExpirationHandler:nil];
-        }
-        
-        //        while (1) {
-        //            [self task];
-        //        }
-    });
-    
-}
+//- (void)backgroundHandler {
+//    
+//    NSLog(@"### -->backgroundinghandler");
+//    
+//    UIApplication* app = [UIApplication sharedApplication];
+//    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+//        
+//        [app endBackgroundTask:bgTask];
+//        
+//        bgTask = UIBackgroundTaskInvalid;
+//        
+//    }];
+//    
+//    // Start the long-running task
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        if ([[UIApplication sharedApplication] backgroundTimeRemaining] < 61.0) {
+////            HirMsgPlaySound *msgPlaySound = [[HirMsgPlaySound alloc]initSystemSoundWithName:@"sms-received4" SoundType:@"caf"];
+////            [msgPlaySound play];
+//
+//            [[SoundTool sharedSoundTool]playBgMusic];
+//            bgTask = [app beginBackgroundTaskWithExpirationHandler:nil];
+//        }
+//        
+//        //        while (1) {
+//        //            [self task];
+//        //        }
+//    });
+//    
+//}
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     
     [HirUserInfo shareUserInfo].appIsEnterBackgroud = NO;
     
-    if (bgTask != UIBackgroundTaskInvalid){
-        [[UIApplication sharedApplication] endBackgroundTask:bgTask];
-        
-        bgTask = UIBackgroundTaskInvalid;
-    }
+//    if (bgTask != UIBackgroundTaskInvalid){
+//        [[UIApplication sharedApplication] endBackgroundTask:bgTask];
+//        
+//        bgTask = UIBackgroundTaskInvalid;
+//    }
 
 }
 

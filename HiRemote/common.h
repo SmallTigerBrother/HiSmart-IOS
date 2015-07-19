@@ -87,9 +87,11 @@ return _instance; \
 #define ShareSdkAPIKey @"625d488c3cb1"//625d488c3cb1
 #define ShareAppTitle  NSLocalizedString(@"localShareVCCompanyTitle", nil)
 
-#define UMENG_APPKEY   @"54d335d3fd98c5376100074c"//@"551a0d53fd98c557d200055e"
+#define UMENG_APPKEY   @"55ab623067e58ea3c8009438"
 #define ShareAppUrl @"http://www.i-spk.com"
 
 #define UpdateAppUrlString @""
 
 #define ShowTestAlert   @"ShowTestAlert"
+
+#define NotificationVoiceOpen @"NotificationVoiceOpen"

@@ -51,6 +51,7 @@ static HirUserInfo *hirUserDefault;
 
 -(void)setIsNotificationForVoiceMemo:(BOOL)isNotificationForVoiceMemo{
     [self.stateUserDef setObject:[NSNumber numberWithBool:isNotificationForVoiceMemo] forKey:@"isNotificationForVoiceMemo"];
+    [[NSNotificationCenter defaultCenter]postNotificationName:NotificationVoiceOpen object:nil];
     [self.stateUserDef synchronize];
 }
 

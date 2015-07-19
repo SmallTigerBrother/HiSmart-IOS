@@ -47,6 +47,7 @@ HPCoreLocationMangerDelegate>
     int recordEncoding;
     NSTimer *timerForPitch;
     float Pitch;
+    BOOL hadOpenVoicePath;
 }
 
 @property (nonatomic, strong) UIButton *headLeftBtn;
@@ -74,6 +75,7 @@ HPCoreLocationMangerDelegate>
 @property (nonatomic, assign) NSInteger needSavePeripheralLocationCount;    //需要记录历史的次数
 @property (nonatomic, assign) NSInteger peripheralDisconnectCount;          //需要记录到断开连接表的次数
 @property (nonatomic, assign) BOOL isVoiceRecordNotification;
+
 @end
 
 @implementation HIRRootViewController
@@ -266,6 +268,7 @@ HPCoreLocationMangerDelegate>
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(batteryLevelChange:) name:BATTERY_LEVEL_CHANGE_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needSavePeripheralLocationOrVoice:) name:NEED_SAVE_PERIPHERAL_LOCATION_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peripheralDisconnect:) name:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openVoicePath) name:NotificationVoiceOpen object:nil];
     
     appDelegate.locManger.delegate = self;
     [appDelegate.locManger startUpdatingUserLocation];
@@ -275,6 +278,20 @@ HPCoreLocationMangerDelegate>
 #ifdef ShowTestAlert
     [SGInfoAlert showInfo:@"this version is for test"];
 #endif
+    [self openVoicePath];
+}
+
+-(void)openVoicePath{
+    if ([HirUserInfo shareUserInfo].isNotificationForVoiceMemo) {
+        static dispatch_once_t pred = 0;
+        dispatch_once(&pred, ^{
+            [self startRecording];
+            dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC));
+            dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
+                [self stopRecording];
+            });
+        });
+    }
 }
 
 -(BOOL)isVoiceRecordNotification{
@@ -327,7 +344,7 @@ HPCoreLocationMangerDelegate>
 {
     // kSeconds = 150.0;
     NSLog(@"startRecording");
-    [SGInfoAlert showInfo:NSLocalizedString(@"startRecording", nil)];
+    //    [SGInfoAlert showInfo:NSLocalizedString(@"startRecording", nil)];
     audioRecorder = nil;
     NSError *erro;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -403,13 +420,13 @@ HPCoreLocationMangerDelegate>
         NSLog(@"Error: %@ [%4.4s])" , [error localizedDescription], (char*)&errorCode);
         
     }
-    
 }
 
 -(void) stopRecording
 {
     NSLog(@"stopRecording");
-    [SGInfoAlert showInfo:NSLocalizedString(@"stopRecording", nil)];
+    
+    //    [SGInfoAlert showInfo:NSLocalizedString(@"stopRecording", nil)];
     // kSeconds = 0.0;
     [audioRecorder stop];
     NSLog(@"stopped");
@@ -434,7 +451,10 @@ HPCoreLocationMangerDelegate>
     
     double voiceTime = [[NSDate date]timeIntervalSince1970] - beginRecordTime;
     
-    [HirDataManageCenter insertVoicePath:mediaPath peripheraUUID:[HirUserInfo shareUserInfo].currentPeriphera.uuid recoderTimestamp:[NSNumber numberWithDouble:beginRecordTime] title:NSLocalizedString(@"newRecording", nil) voiceTime:[NSNumber numberWithDouble:voiceTime]];
+    if (hadOpenVoicePath) {
+        [HirDataManageCenter insertVoicePath:mediaPath peripheraUUID:[HirUserInfo shareUserInfo].currentPeriphera.uuid recoderTimestamp:[NSNumber numberWithDouble:beginRecordTime] title:NSLocalizedString(@"newRecording", nil) voiceTime:[NSNumber numberWithDouble:voiceTime]];
+    }
+    hadOpenVoicePath = YES;
 }
 
 - (void)levelTimerCallback:(NSTimer *)timer {
