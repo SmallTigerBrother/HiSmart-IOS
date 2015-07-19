@@ -22,6 +22,10 @@ UITableViewDataSource,
 UITableViewDelegate,
 SWTableViewCellDelegate,
 UITextFieldDelegate>
+{
+    BOOL _tableViewHadAddLongPressGestureRec;
+    BOOL _searchTableViewHadAddLongPressGestureRec;
+}
 
 @property (nonatomic, assign)HirLocationDataType locationDataType;
 
@@ -30,6 +34,8 @@ UITextFieldDelegate>
 @property (nonatomic, strong)UISearchDisplayController *searchDisplayController;
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)HirActionTextField *actionTextField;
+@property (nonatomic, strong)UITableView *currentTableView;
+@property (nonatomic, assign)NSUInteger copyRow;
 @end
 
 @implementation HirLocationHistoryViewController
@@ -40,6 +46,7 @@ UITextFieldDelegate>
 -(instancetype)initWithDataType:(HirLocationDataType)dataType{
     if (self = [super init]) {
         self.locationDataType = dataType;
+        _tableViewHadAddLongPressGestureRec = NO;
     }
     return self;
 }
@@ -74,6 +81,101 @@ UITextFieldDelegate>
     else if (self.locationDataType == HirLocationDataType_lost){
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(peripheralDicconnectLocationNeedRefresh:) name:PERIPHERAL_DISCONNECT_LOCATION_UPDATA_NOTIFICATION object:nil];
     }
+    
+}
+
+-(void)longPressToDo:(UILongPressGestureRecognizer *)longPress
+{
+    if(longPress.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder])
+        return;
+    CGPoint point = [longPress locationInView:self.currentTableView];
+    NSIndexPath * indexPath = [self.currentTableView indexPathForRowAtPoint:point];
+
+    if(indexPath == nil) return ;
+    
+    UITableViewCell *cell = [self.currentTableView cellForRowAtIndexPath:indexPath];
+    
+    self.copyRow = (NSUInteger)indexPath.row;
+    
+    UIMenuController *menu = [UIMenuController sharedMenuController];
+    UIMenuItem *copyItem = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"copy",nil) action:@selector(menuCopy:)];
+    [menu setMenuItems:[NSArray arrayWithObjects:copyItem, nil]];
+    
+    CGRect targetRect = cell.frame;
+    [menu setTargetRect:targetRect inView:self.currentTableView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleMenuWillShowNotification:)
+                                                 name:UIMenuControllerWillShowMenuNotification
+                                               object:nil];
+    [menu setMenuVisible:YES animated:YES];
+    
+    [menu update];
+
+
+        //add your code here
+}
+
+-(void)menuCopy:(id)sender
+{
+    DBPeripheraLocationInfo *locationInfo;
+    if (self.currentTableView == self.tableView) {
+        locationInfo = [self.data objectAtIndex:self.copyRow];
+    }else{
+        locationInfo = [self.filterData objectAtIndex:self.copyRow];
+    }
+    
+    NSString *title = NSLocalizedString(@"Location history", nil);
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设定时间格式,这里可以设置成自己需要的格式
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    //用[NSDate date]可以获取系统当前时间
+    
+    NSString *dateStr = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.recordTime.longLongValue]];
+    
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    NSString *hourStr = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.recordTime.longLongValue]];
+
+    NSString *contentLabel;
+    if (locationInfo.remark) {
+        contentLabel = locationInfo.remark;
+    }
+    else{
+        contentLabel = locationInfo.location;
+    }
+    
+    NSString *copyStr = [NSString stringWithFormat:@"%@,%@ %@\n%@",title,dateStr,hourStr,contentLabel];
+    
+    [UIPasteboard generalPasteboard].string = copyStr;
+    [self.currentTableView resignFirstResponder];
+}
+
+#pragma mark - Notification
+- (void)handleMenuWillHideNotification:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIMenuControllerWillHideMenuNotification
+                                                  object:nil];
+    
+}
+
+- (void)handleMenuWillShowNotification:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIMenuControllerWillShowMenuNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleMenuWillHideNotification:)
+                                                 name:UIMenuControllerWillHideMenuNotification
+                                               object:nil];
+}
+
+#pragma mark - MenuDelegate
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
 }
 
 -(void)dealloc{
@@ -86,6 +188,22 @@ UITextFieldDelegate>
  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if(!_tableViewHadAddLongPressGestureRec && self.tableView == tableView){
+        UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressToDo:)];
+        longPressGr.minimumPressDuration = 1.0;
+        [tableView addGestureRecognizer:longPressGr];
+        _tableViewHadAddLongPressGestureRec = YES;
+    }
+    
+    if (!_searchTableViewHadAddLongPressGestureRec && self.tableView != tableView) {
+        UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressToDo:)];
+        longPressGr.minimumPressDuration = 1.0;
+        [tableView addGestureRecognizer:longPressGr];
+        _searchTableViewHadAddLongPressGestureRec = YES;
+    }
+    
+    self.currentTableView = tableView;
+    
     if (tableView == self.tableView) {
         return self.data.count;
     }else{
@@ -95,6 +213,7 @@ UITextFieldDelegate>
         self.filterData =  [[NSArray alloc] initWithArray:[self.data filteredArrayUsingPredicate:predicate]];
         return self.filterData.count;
     }
+    
 }
 
 #pragma mark - notification
@@ -176,7 +295,6 @@ UITextFieldDelegate>
     cell.indexPath = indexPath;
     return cell;
 }
-
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return [HirLocationHistoryTableCell heightOfCellWithData:nil];

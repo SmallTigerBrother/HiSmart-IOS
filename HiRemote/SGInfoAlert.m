@@ -92,7 +92,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect,
     [UIView animateWithDuration:.3 animations:^{
         alert.alpha = 1.0;
     } completion:^(BOOL finished) {
-        [alert performSelector:@selector(fadeAway) withObject:nil afterDelay:1.0];
+        [alert performSelector:@selector(fadeAway) withObject:nil afterDelay:2.0];
     }];
 }
 

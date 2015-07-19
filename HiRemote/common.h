@@ -91,3 +91,5 @@ return _instance; \
 #define ShareAppUrl @"http://www.i-spk.com"
 
 #define UpdateAppUrlString @""
+
+#define ShowTestAlert   @"ShowTestAlert"
