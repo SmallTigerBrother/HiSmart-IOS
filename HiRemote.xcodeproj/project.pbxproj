@@ -96,16 +96,9 @@
 		2C18AB3B1B3C121E00CE6588 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AB341B3C121E00CE6588 /* NSArray+PureLayout.m */; };
 		2C18AB3C1B3C121E00CE6588 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AB361B3C121E00CE6588 /* NSLayoutConstraint+PureLayout.m */; };
 		2C18AB481B3C27A700CE6588 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB4A1B3C27A700CE6588 /* Localizable.strings */; };
-		2C18AB521B3C2E4200CE6588 /* scanningbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB511B3C2E4200CE6588 /* scanningbg.png */; };
 		2C18AB541B3D3B1C00CE6588 /* userAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB531B3D3B1C00CE6588 /* userAvatar.png */; };
 		2C18AB561B3D3F1700CE6588 /* addDevice.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB551B3D3F1700CE6588 /* addDevice.png */; };
-		2C18AB5E1B3D48D700CE6588 /* deviceImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB5D1B3D48D700CE6588 /* deviceImage.jpg */; };
 		2C18AB601B3D4F5F00CE6588 /* preBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB5F1B3D4F5F00CE6588 /* preBtn.png */; };
-		2C18AB621B3D60A100CE6588 /* Default-568.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB611B3D60A100CE6588 /* Default-568.png */; };
-		2C18AB771B3D985A00CE6588 /* camera.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB731B3D985A00CE6588 /* camera.jpg */; };
-		2C18AB781B3D985A00CE6588 /* find.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB741B3D985A00CE6588 /* find.jpg */; };
-		2C18AB791B3D985A00CE6588 /* location.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB751B3D985A00CE6588 /* location.jpg */; };
-		2C18AB7A1B3D985A00CE6588 /* voice.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB761B3D985A00CE6588 /* voice.jpg */; };
 		B84CD4A71B441E58008FAA53 /* CallOutAnnotationVifew.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */; };
 		B84CD4A81B441E58008FAA53 /* HIRConnFailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49C1B441E58008FAA53 /* HIRConnFailViewController.m */; };
 		B84CD4A91B441E58008FAA53 /* HIRConnSuccViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49E1B441E58008FAA53 /* HIRConnSuccViewController.m */; };
@@ -133,6 +126,8 @@
 		B84CD4D61B441EA2008FAA53 /* pinnedm.png in Resources */ = {isa = PBXBuildFile; fileRef = B84CD4C51B441EA2008FAA53 /* pinnedm.png */; };
 		B84CD4D71B441EA2008FAA53 /* voice.png in Resources */ = {isa = PBXBuildFile; fileRef = B84CD4C61B441EA2008FAA53 /* voice.png */; };
 		B84CD4D81B441EA2008FAA53 /* voicem.png in Resources */ = {isa = PBXBuildFile; fileRef = B84CD4C71B441EA2008FAA53 /* voicem.png */; };
+		B856CE8A1B5B6EBD00800195 /* mainviewbg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B856CE891B5B6EBD00800195 /* mainviewbg.jpg */; };
+		B856CE901B5B93D500800195 /* defaultDevice.png in Resources */ = {isa = PBXBuildFile; fileRef = B856CE8F1B5B93D500800195 /* defaultDevice.png */; };
 		B88706101B48FC9700A87300 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B887060F1B48FC9700A87300 /* libc++.dylib */; };
 		B88706171B48FD8400A87300 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B88706151B48FD8400A87300 /* libWeChatSDK.a */; };
 		B88706181B48FD8400A87300 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B88706161B48FD8400A87300 /* libWeiboSDK.a */; };
@@ -320,16 +315,9 @@
 		2C18AB4B1B3C281300CE6588 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		2C18AB4C1B3C281300CE6588 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		2C18AB4D1B3C281300CE6588 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		2C18AB511B3C2E4200CE6588 /* scanningbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scanningbg.png; sourceTree = "<group>"; };
 		2C18AB531B3D3B1C00CE6588 /* userAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userAvatar.png; sourceTree = "<group>"; };
 		2C18AB551B3D3F1700CE6588 /* addDevice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addDevice.png; sourceTree = "<group>"; };
-		2C18AB5D1B3D48D700CE6588 /* deviceImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = deviceImage.jpg; sourceTree = "<group>"; };
 		2C18AB5F1B3D4F5F00CE6588 /* preBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preBtn.png; sourceTree = "<group>"; };
-		2C18AB611B3D60A100CE6588 /* Default-568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568.png"; sourceTree = "<group>"; };
-		2C18AB731B3D985A00CE6588 /* camera.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = camera.jpg; sourceTree = "<group>"; };
-		2C18AB741B3D985A00CE6588 /* find.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = find.jpg; sourceTree = "<group>"; };
-		2C18AB751B3D985A00CE6588 /* location.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = location.jpg; sourceTree = "<group>"; };
-		2C18AB761B3D985A00CE6588 /* voice.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = voice.jpg; sourceTree = "<group>"; };
 		A3EEC68A1FCE3A9ABA965D36 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B84CD4991B441E58008FAA53 /* CallOutAnnotationVifew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallOutAnnotationVifew.h; sourceTree = "<group>"; };
 		B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallOutAnnotationVifew.m; sourceTree = "<group>"; };
@@ -368,6 +356,8 @@
 		B84CD4C51B441EA2008FAA53 /* pinnedm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinnedm.png; sourceTree = "<group>"; };
 		B84CD4C61B441EA2008FAA53 /* voice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voice.png; sourceTree = "<group>"; };
 		B84CD4C71B441EA2008FAA53 /* voicem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voicem.png; sourceTree = "<group>"; };
+		B856CE891B5B6EBD00800195 /* mainviewbg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mainviewbg.jpg; sourceTree = "<group>"; };
+		B856CE8F1B5B93D500800195 /* defaultDevice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultDevice.png; sourceTree = "<group>"; };
 		B85811DE1B56AF99009FA41C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B85811DF1B56B030009FA41C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		B85811E01B56B030009FA41C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -796,11 +786,11 @@
 			isa = PBXGroup;
 			children = (
 				B887061F1B4939CE00A87300 /* darkConnYes.png */,
-				2C18AB511B3C2E4200CE6588 /* scanningbg.png */,
-				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
-				B84CD4B71B441EA2008FAA53 /* avatar_circle.png */,
 				B84CD4B81B441EA2008FAA53 /* avatar_circle@2x.png */,
+				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
 				B84CD4B91B441EA2008FAA53 /* camera.png */,
+				B856CE891B5B6EBD00800195 /* mainviewbg.jpg */,
+				B84CD4B71B441EA2008FAA53 /* avatar_circle.png */,
 				B84CD4BA1B441EA2008FAA53 /* cameram.png */,
 				B84CD4BB1B441EA2008FAA53 /* connectedSuccess.png */,
 				B84CD4BC1B441EA2008FAA53 /* controlm.png */,
@@ -809,19 +799,14 @@
 				B84CD4BF1B441EA2008FAA53 /* find.png */,
 				B84CD4C01B441EA2008FAA53 /* findm.png */,
 				B84CD4C11B441EA2008FAA53 /* greenConn.png */,
+				B856CE8F1B5B93D500800195 /* defaultDevice.png */,
 				B84CD4C21B441EA2008FAA53 /* location.png */,
 				B84CD4C31B441EA2008FAA53 /* photo.png */,
 				B84CD4C41B441EA2008FAA53 /* pinImage.png */,
 				B84CD4C51B441EA2008FAA53 /* pinnedm.png */,
 				B8DF7DC61B3EA910000BD43E /* Default@2x.png */,
 				B8DF7DC31B3E97F5000BD43E /* nextBtn.png */,
-				2C18AB741B3D985A00CE6588 /* find.jpg */,
-				2C18AB751B3D985A00CE6588 /* location.jpg */,
-				2C18AB761B3D985A00CE6588 /* voice.jpg */,
-				2C18AB5D1B3D48D700CE6588 /* deviceImage.jpg */,
-				2C18AB611B3D60A100CE6588 /* Default-568.png */,
 				2C18AB5F1B3D4F5F00CE6588 /* preBtn.png */,
-				2C18AB731B3D985A00CE6588 /* camera.jpg */,
 				B84CD4C61B441EA2008FAA53 /* voice.png */,
 				2C18AB531B3D3B1C00CE6588 /* userAvatar.png */,
 				B84CD4C71B441EA2008FAA53 /* voicem.png */,
@@ -867,7 +852,6 @@
 				B84CD49C1B441E58008FAA53 /* HIRConnFailViewController.m */,
 				B84CD49D1B441E58008FAA53 /* HIRConnSuccViewController.h */,
 				B84CD49E1B441E58008FAA53 /* HIRConnSuccViewController.m */,
-				B84CD49F1B441E58008FAA53 /* HIRFindViewController.h */,
 				B84CD4A01B441E58008FAA53 /* HIRFindViewController.m */,
 				B84CD4A11B441E58008FAA53 /* HIRMapViewController.h */,
 				B84CD4A21B441E58008FAA53 /* HIRMapViewController.m */,
@@ -883,6 +867,7 @@
 				B8DF7DB21B3E7AE7000BD43E /* HIRSegmentView.m */,
 				B8DF7DAD1B3E7AE7000BD43E /* HIRMainMenuView.h */,
 				B8DF7DAE1B3E7AE7000BD43E /* HIRMainMenuView.m */,
+				B84CD49F1B441E58008FAA53 /* HIRFindViewController.h */,
 				B8DF7DAF1B3E7AE7000BD43E /* HIRScanningViewController.h */,
 				B8DF7DB01B3E7AE7000BD43E /* HIRScanningViewController.m */,
 				B8DF7DB11B3E7AE7000BD43E /* HIRSegmentView.h */,
@@ -944,7 +929,7 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 4H44DAN2YD;
+						DevelopmentTeam = FZCVBHN4V3;
 					};
 				};
 			};
@@ -975,11 +960,8 @@
 			files = (
 				2C18AAFB1B3BECDE00CE6588 /* Main.storyboard in Resources */,
 				04D7A8831B47EF9700579EC2 /* camera_line_h.png in Resources */,
-				2C18AB521B3C2E4200CE6588 /* scanningbg.png in Resources */,
-				2C18AB771B3D985A00CE6588 /* camera.jpg in Resources */,
 				04D7A8971B47EF9700579EC2 /* touch_focus.png in Resources */,
 				04D7A8821B47EF9700579EC2 /* camera_line@2x.png in Resources */,
-				2C18AB781B3D985A00CE6588 /* find.jpg in Resources */,
 				04D7A88D1B47EF9700579EC2 /* flashing_on.png in Resources */,
 				B84CD4CB1B441EA2008FAA53 /* cameram.png in Resources */,
 				B84CD4CD1B441EA2008FAA53 /* controlm.png in Resources */,
@@ -989,13 +971,11 @@
 				B84CD4D71B441EA2008FAA53 /* voice.png in Resources */,
 				04D7A8941B47EF9700579EC2 /* switch_camera@2x.png in Resources */,
 				B84CD4CA1B441EA2008FAA53 /* camera.png in Resources */,
-				2C18AB621B3D60A100CE6588 /* Default-568.png in Resources */,
 				2C18AB481B3C27A700CE6588 /* Localizable.strings in Resources */,
 				B84CD4D51B441EA2008FAA53 /* pinImage.png in Resources */,
 				2C18AB561B3D3F1700CE6588 /* addDevice.png in Resources */,
 				04D7A8801B47EF9700579EC2 /* meizi.jpg in Resources */,
 				04D7A88A1B47EF9700579EC2 /* flashing_auto@2x.png in Resources */,
-				2C18AB791B3D985A00CE6588 /* location.jpg in Resources */,
 				B8DF7DC81B3EA910000BD43E /* Default@2x.png in Resources */,
 				04D7A88E1B47EF9700579EC2 /* flashing_on@2x.png in Resources */,
 				04D7A8921B47EF9700579EC2 /* shot_h@2x.png in Resources */,
@@ -1012,9 +992,9 @@
 				B84CD4CF1B441EA2008FAA53 /* facebook.png in Resources */,
 				04D7A88F1B47EF9700579EC2 /* shot.png in Resources */,
 				04D7A82D1B477C1100579EC2 /* HirVoiceMemosViewController.xib in Resources */,
+				B856CE901B5B93D500800195 /* defaultDevice.png in Resources */,
 				B84CD4D11B441EA2008FAA53 /* findm.png in Resources */,
 				04D7A8981B47EF9700579EC2 /* touch_focus@2x.png in Resources */,
-				2C18AB5E1B3D48D700CE6588 /* deviceImage.jpg in Resources */,
 				B84CD4D81B441EA2008FAA53 /* voicem.png in Resources */,
 				04D38D1D1B3EB1410012D65A /* HirBaseTableCell.xib in Resources */,
 				04D7A8A71B47EF9700579EC2 /* SVProgressHUD.bundle in Resources */,
@@ -1027,6 +1007,7 @@
 				B84CD4D61B441EA2008FAA53 /* pinnedm.png in Resources */,
 				04D7A8871B47EF9700579EC2 /* close_cha_h.png in Resources */,
 				04D7A8841B47EF9700579EC2 /* camera_line_h@2x.png in Resources */,
+				B856CE8A1B5B6EBD00800195 /* mainviewbg.jpg in Resources */,
 				B84CD4D01B441EA2008FAA53 /* find.png in Resources */,
 				2C18AB601B3D4F5F00CE6588 /* preBtn.png in Resources */,
 				04D7A8811B47EF9700579EC2 /* camera_line.png in Resources */,
@@ -1038,7 +1019,6 @@
 				04D7A8851B47EF9700579EC2 /* close_cha.png in Resources */,
 				04F375B91B4904D900E3FCD3 /* WeiboSDK.bundle in Resources */,
 				04D7A8991B47EF9700579EC2 /* touch_focus_x.png in Resources */,
-				2C18AB7A1B3D985A00CE6588 /* voice.jpg in Resources */,
 				B84CD4D41B441EA2008FAA53 /* photo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
