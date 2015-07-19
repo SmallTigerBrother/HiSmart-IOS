@@ -66,11 +66,8 @@ HPCoreLocationMangerDelegate>
 @property (nonatomic, assign) BOOL didSetupConstraints;
 @property (nonatomic, assign) BOOL isLocationing;
 @property (nonatomic, assign) BOOL isDisconnectLocation;
-<<<<<<< HEAD
 @property (nonatomic, assign) BOOL isRecording;
-=======
 @property (nonatomic, assign) float showDeviceFrameHeight;
->>>>>>> d4155e97ca0bc0a1b97d126b12c2f96dc76a8c10
 @property (nonatomic, strong) NSMutableArray *deviceInfoArray;
 @property (nonatomic, strong) SCNavigationController *cameraNavigationController;
 
