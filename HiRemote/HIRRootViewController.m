@@ -147,7 +147,7 @@ HPCoreLocationMangerDelegate>
     
     self.changeIndicator = [[UIActivityIndicatorView alloc] init];
     self.changeIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-   // [self.changeIndicator startAnimating];
+    ////[self.changeIndicator startAnimating];
     self.preButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.preButton.hidden = YES;
     [self.preButton setImage:[UIImage imageNamed:@"preBtn"] forState:UIControlStateNormal];
@@ -566,6 +566,10 @@ HPCoreLocationMangerDelegate>
         [self.showDeviceScrollView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
         [self.showDeviceScrollView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
         
+        [self.changeIndicator autoSetDimensionsToSize:CGSizeMake(100, 100)];
+        [self.changeIndicator autoAlignAxisToSuperviewAxis:ALAxisVertical];
+        [self.changeIndicator autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.showDeviceScrollView withOffset:-70];
+        
         [self.preButton autoSetDimensionsToSize:CGSizeMake(40, 40)];
         [self.preButton autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];;
         [self.preButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.showDeviceScrollView withOffset:_showDeviceFrameHeight/2 - 20];
@@ -589,9 +593,7 @@ HPCoreLocationMangerDelegate>
         [self.mainMenuTableView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
         [self.mainMenuTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.segControl withOffset:15.0];
         
-        [self.changeIndicator autoSetDimensionsToSize:CGSizeMake(100, 100)];
-        [self.changeIndicator autoAlignAxisToSuperviewAxis:ALAxisVertical];
-        [self.changeIndicator autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.mainMenuScrollView withOffset:-35];
+        
         
         self.didSetupConstraints = YES;
     }
@@ -642,11 +644,22 @@ HPCoreLocationMangerDelegate>
     float eightPercent = size.width/8;
     float fourPercent = size.width/4;
     
+    long seletedTag = -1;
+    NSNumber *lastTag = [[NSUserDefaults standardUserDefaults] valueForKey:@"lastSeletedButtonTag"];
+    if (lastTag) {
+        seletedTag = [lastTag longValue];
+    }
+    
+    
     UIButton *locBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     locBtn.frame = CGRectMake(eightPercent, 5, eightPercent*2.5,eightPercent*2.5);
     locBtn.tag = 0;
+    if (seletedTag == 0) {
+        [locBtn setSelected:YES];
+    }
     locBtn.contentMode = UIViewContentModeScaleToFill;
-    [locBtn setBackgroundImage:[UIImage imageNamed:@"location"] forState:UIControlStateNormal];
+    [locBtn setImage:[UIImage imageNamed:@"location"] forState:UIControlStateNormal];
+    [locBtn setImage:[UIImage imageNamed:@"locationSelecetd"] forState:UIControlStateSelected];
     [locBtn addTarget:self action:@selector(menuButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     UILabel *locLabel = [[UILabel alloc] init];
     locLabel.frame = CGRectMake(eightPercent*0.5, locBtn.frame.origin.y + locBtn.frame.size.height + 2, fourPercent*2-eightPercent*0.5,30);
@@ -659,7 +672,11 @@ HPCoreLocationMangerDelegate>
     UIButton *cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cameraBtn.frame = CGRectMake(size.width-eightPercent*2.5-eightPercent, 5, eightPercent*2.5,eightPercent*2.5);
     cameraBtn.tag = 1;
+    if (seletedTag == 1) {
+        [cameraBtn setSelected:YES];
+    }
     [cameraBtn setImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
+    [cameraBtn setImage:[UIImage imageNamed:@"cameraSelected"] forState:UIControlStateSelected];
     [cameraBtn addTarget:self action:@selector(menuButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     UILabel *cameraLabel = [[UILabel alloc] init];
     cameraLabel.frame = CGRectMake(fourPercent*2, cameraBtn.frame.origin.y + cameraBtn.frame.size.height + 2, fourPercent*2-eightPercent*0.5,30);
@@ -672,7 +689,11 @@ HPCoreLocationMangerDelegate>
     UIButton *findBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     findBtn.frame = CGRectMake(eightPercent, locLabel.frame.origin.y + locLabel.frame.size.height + 20, eightPercent*2.5,eightPercent*2.5);
     findBtn.tag = 2;
+    if (seletedTag == 2) {
+        [findBtn setSelected:YES];
+    }
     [findBtn setImage:[UIImage imageNamed:@"find"] forState:UIControlStateNormal];
+    [findBtn setImage:[UIImage imageNamed:@"findSelected"] forState:UIControlStateSelected];
     [findBtn addTarget:self action:@selector(menuButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     UILabel *findLabel = [[UILabel alloc] init];
     findLabel.frame = CGRectMake(eightPercent*0.5, findBtn.frame.origin.y + findBtn.frame.size.height + 2, fourPercent*2-eightPercent*0.5,30);
@@ -685,7 +706,11 @@ HPCoreLocationMangerDelegate>
     UIButton *voiceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     voiceBtn.frame = CGRectMake(size.width-eightPercent*2.5-eightPercent, cameraLabel.frame.origin.y+cameraLabel.frame.size.height + 20, eightPercent*2.5,eightPercent*2.5);
     voiceBtn.tag = 3;
+    if (seletedTag == 3) {
+        [voiceBtn setSelected:YES];
+    }
     [voiceBtn setImage:[UIImage imageNamed:@"voice"] forState:UIControlStateNormal];
+    [voiceBtn setImage:[UIImage imageNamed:@"voiceSelected"] forState:UIControlStateSelected];
     [voiceBtn addTarget:self action:@selector(menuButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     UILabel *voiceLabel = [[UILabel alloc] init];
     voiceLabel.frame = CGRectMake(fourPercent*2, voiceBtn.frame.origin.y+voiceBtn.frame.size.height+2, fourPercent*2-eightPercent*0.5,30);
@@ -703,10 +728,24 @@ HPCoreLocationMangerDelegate>
     [self.mainMenuScrollView addSubview:findLabel];
     [self.mainMenuScrollView addSubview:voiceBtn];
     [self.mainMenuScrollView addSubview:voiceLabel];
+    
 }
 
 -(void)menuButtonClick:(id)sender {
+    NSNumber *lastTag = [[NSUserDefaults standardUserDefaults] valueForKey:@"lastSeletedButtonTag"];
+    long seletedTag = [lastTag longValue];
+    for (UIView *subV in [self.mainMenuScrollView subviews]) {
+        if (subV.tag == seletedTag && [subV isKindOfClass:[UIButton class]]) {
+            [(UIButton *)subV setSelected:NO];
+            break;
+        }
+    }
+    
     UIButton *btn = (UIButton *)sender;
+    btn.selected = YES;
+    long currentBtn = btn.tag;
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithLong:currentBtn] forKey:@"lastSeletedButtonTag"];
+
     if (btn.tag == 0) {
         HirLocationHistoryViewController *locationHistoryViewController = [[HirLocationHistoryViewController alloc]initWithDataType:HirLocationDataType_history];
         [self.navigationController pushViewController:locationHistoryViewController animated:YES];
@@ -786,6 +825,7 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)segmentViewSelectIndex:(NSInteger)index {
+    
     if (index == 0) {
         self.mainMenuTableView.hidden = YES;
         self.mainMenuScrollView.hidden = NO;
@@ -869,7 +909,8 @@ HPCoreLocationMangerDelegate>
             device.deviceLocationLabel.text = NSLocalizedString(@"isNotConnected", @"");
         }
         
-        [SGInfoAlert showInfo:NSLocalizedString(@"deviceConnectionFailed", @"") bgColor:[UIColor darkGrayColor].CGColor inView:[UIApplication sharedApplication].delegate.window vertical:.8];
+        [SGInfoAlert showInfo:NSLocalizedString(@"deviceConnectionFailed", @"")];
+        //[SGInfoAlert showInfo:NSLocalizedString(@"deviceConnectionFailed", @"") bgColor:[UIColor darkGrayColor].CGColor inView:[UIApplication sharedApplication].delegate.window vertical:.8];
         
     }else if ([state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_SUCCESS]) {
         ////蓝牙链接外设成功
