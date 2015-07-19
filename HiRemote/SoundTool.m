@@ -80,7 +80,6 @@ singleton_implementation(SoundTool)
 #pragma mark 加载背景音乐
 - (void)loadBgMusic
 {
-  
     // 1.获得背景音乐的URL
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"bg_music.mp3" withExtension:nil];
     

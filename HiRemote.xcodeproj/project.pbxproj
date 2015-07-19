@@ -30,6 +30,9 @@
 		04D38D1D1B3EB1410012D65A /* HirBaseTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D38D1B1B3EB1410012D65A /* HirBaseTableCell.xib */; };
 		04D38D241B3EB6770012D65A /* HirLocationHistoryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */; };
 		04D6511C1B59EDC900B5BB13 /* bg_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04D6511B1B59EDC900B5BB13 /* bg_music.mp3 */; };
+		04D651281B5BA8A900B5BB13 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D651251B5BA8A900B5BB13 /* libMobClickLibrary.a */; };
+		04D6512B1B5BBD8B00B5BB13 /* defaultDevice.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D651291B5BBD8B00B5BB13 /* defaultDevice.png */; };
+		04D6512C1B5BBD8B00B5BB13 /* mainviewbg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04D6512A1B5BBD8B00B5BB13 /* mainviewbg.jpg */; };
 		04D7A82C1B477C1100579EC2 /* HirVoiceMemosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7A82A1B477C1100579EC2 /* HirVoiceMemosViewController.m */; };
 		04D7A82D1B477C1100579EC2 /* HirVoiceMemosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D7A82B1B477C1100579EC2 /* HirVoiceMemosViewController.xib */; };
 		04D7A8311B47847D00579EC2 /* HirVoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7A8301B47847D00579EC2 /* HirVoiceCell.m */; };
@@ -200,6 +203,11 @@
 		04D38D211B3EB6770012D65A /* HirLocationHistoryTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirLocationHistoryTableCell.h; sourceTree = "<group>"; };
 		04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirLocationHistoryTableCell.m; sourceTree = "<group>"; };
 		04D6511B1B59EDC900B5BB13 /* bg_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_music.mp3; sourceTree = "<group>"; };
+		04D651251B5BA8A900B5BB13 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		04D651261B5BA8A900B5BB13 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		04D651271B5BA8A900B5BB13 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
+		04D651291B5BBD8B00B5BB13 /* defaultDevice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultDevice.png; sourceTree = "<group>"; };
+		04D6512A1B5BBD8B00B5BB13 /* mainviewbg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mainviewbg.jpg; sourceTree = "<group>"; };
 		04D7A8291B477C1100579EC2 /* HirVoiceMemosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirVoiceMemosViewController.h; sourceTree = "<group>"; };
 		04D7A82A1B477C1100579EC2 /* HirVoiceMemosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirVoiceMemosViewController.m; sourceTree = "<group>"; };
 		04D7A82B1B477C1100579EC2 /* HirVoiceMemosViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HirVoiceMemosViewController.xib; sourceTree = "<group>"; };
@@ -398,11 +406,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B887061C1B48FE6800A87300 /* libz.dylib in Frameworks */,
 				0450BCB21B52786900B3BF93 /* AudioToolbox.framework in Frameworks */,
 				043772221B4BF81D0089051C /* CoreAudio.framework in Frameworks */,
+				04D651281B5BA8A900B5BB13 /* libMobClickLibrary.a in Frameworks */,
 				043772201B4BF8130089051C /* AVFoundation.framework in Frameworks */,
 				B887061E1B48FE6F00A87300 /* libsqlite3.0.dylib in Frameworks */,
-				B887061C1B48FE6800A87300 /* libz.dylib in Frameworks */,
 				B887061A1B48FE0700A87300 /* SystemConfiguration.framework in Frameworks */,
 				B88706171B48FD8400A87300 /* libWeChatSDK.a in Frameworks */,
 				B88706181B48FD8400A87300 /* libWeiboSDK.a in Frameworks */,
@@ -456,6 +465,7 @@
 		04BB4AEE1B43DF66009567BF /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				04D651241B5BA8A900B5BB13 /* uMen */,
 				04F375AC1B4904D900E3FCD3 /* WeChat */,
 				04BB4AE51B4199DA009567BF /* playSound */,
 			);
@@ -520,6 +530,16 @@
 				04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		04D651241B5BA8A900B5BB13 /* uMen */ = {
+			isa = PBXGroup;
+			children = (
+				04D651251B5BA8A900B5BB13 /* libMobClickLibrary.a */,
+				04D651261B5BA8A900B5BB13 /* MobClick.h */,
+				04D651271B5BA8A900B5BB13 /* MobClickSocialAnalytics.h */,
+			);
+			path = uMen;
 			sourceTree = "<group>";
 		};
 		04D7A8281B477B9B00579EC2 /* Voice */ = {
@@ -785,7 +805,14 @@
 		2C18AB3D1B3C221E00CE6588 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				04D651291B5BBD8B00B5BB13 /* defaultDevice.png */,
+				04D6512A1B5BBD8B00B5BB13 /* mainviewbg.jpg */,
 				B887061F1B4939CE00A87300 /* darkConnYes.png */,
+<<<<<<< HEAD
+=======
+				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
+				B84CD4B71B441EA2008FAA53 /* avatar_circle.png */,
+>>>>>>> 3c19a2d3332e68ebd7b5425a839478e8ea18db9a
 				B84CD4B81B441EA2008FAA53 /* avatar_circle@2x.png */,
 				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
 				B84CD4B91B441EA2008FAA53 /* camera.png */,
@@ -970,8 +997,10 @@
 				04D7A8901B47EF9700579EC2 /* shot@2x.png in Resources */,
 				B84CD4D71B441EA2008FAA53 /* voice.png in Resources */,
 				04D7A8941B47EF9700579EC2 /* switch_camera@2x.png in Resources */,
+				04D6512C1B5BBD8B00B5BB13 /* mainviewbg.jpg in Resources */,
 				B84CD4CA1B441EA2008FAA53 /* camera.png in Resources */,
 				2C18AB481B3C27A700CE6588 /* Localizable.strings in Resources */,
+				04D6512B1B5BBD8B00B5BB13 /* defaultDevice.png in Resources */,
 				B84CD4D51B441EA2008FAA53 /* pinImage.png in Resources */,
 				2C18AB561B3D3F1700CE6588 /* addDevice.png in Resources */,
 				04D7A8801B47EF9700579EC2 /* meizi.jpg in Resources */,
@@ -1271,6 +1300,7 @@
 					"/Users/peng/Desktop/成方圆",
 					"2/HiSmart-IOS/HiRemote",
 					"$(PROJECT_DIR)/HiRemote",
+					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1295,6 +1325,7 @@
 					"/Users/peng/Desktop/成方圆",
 					"2/HiSmart-IOS/HiRemote",
 					"$(PROJECT_DIR)/HiRemote",
+					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

@@ -12,7 +12,6 @@
 typedef NS_ENUM(NSInteger, CurrentViewControllerType) {
     CurrentViewControllerType_other,
     CurrentViewControllerType_phone,
-    CurrentViewControllerType_voice,
 };
 
 @class DBPeriphera;

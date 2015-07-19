@@ -56,6 +56,7 @@ UITextFieldDelegate>
 @property (nonatomic, strong)DBDeviceRecord *currentDeviceRecord;
 @property (nonatomic, strong)HirActionTextField *actionTextField;
 @property (nonatomic, assign)BOOL isPlaying;
+@property (nonatomic, assign)BOOL isRecord;
 @property (nonatomic, strong)NSTimer *timer;
 @property (nonatomic, assign)CGFloat playingTime;
 @end
@@ -104,109 +105,12 @@ UITextFieldDelegate>
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    [HirUserInfo shareUserInfo].currentViewControllerType = CurrentViewControllerType_voice;
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recordVoiceNotification:) name:NEED_RECORD_VOICE object:nil];
 }
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
--(void)recordVoiceNotification:(NSNotification *)notification{
-    static BOOL isRecord = NO;
-    isRecord = !isRecord;
-    
-    if (isRecord) {
-        [self startRecording];
-        NSLog(@"收到录音信号");
-    }
-    else{
-        [self stopRecording];
-        NSLog(@"收到停止录音信号");
-    }
-}
-
--(IBAction) startRecording
-{
-    // kSeconds = 150.0;
-    NSLog(@"startRecording");
-    [SGInfoAlert showInfo:NSLocalizedString(@"startRecording", nil)];
-    audioRecorder = nil;
-    NSError *erro;
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-//    [audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
-    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionDefaultToSpeaker error:&erro];
-    
-    NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] initWithCapacity:10];
-    if(recordEncoding == ENC_PCM)
-    {
-        [recordSettings setObject:[NSNumber numberWithInt: kAudioFormatLinearPCM] forKey: AVFormatIDKey];
-        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
-        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-        [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
-        [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
-    }
-    else
-    {
-        NSNumber *formatObject;
-        
-        switch (recordEncoding) {
-            case (ENC_AAC):
-                formatObject = [NSNumber numberWithInt: kAudioFormatMPEG4AAC];
-                break;
-            case (ENC_ALAC):
-                formatObject = [NSNumber numberWithInt: kAudioFormatAppleLossless];
-                break;
-            case (ENC_IMA4):
-                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
-                break;
-            case (ENC_ILBC):
-                formatObject = [NSNumber numberWithInt: kAudioFormatiLBC];
-                break;
-            case (ENC_ULAW):
-                formatObject = [NSNumber numberWithInt: kAudioFormatULaw];
-                break;
-            default:
-                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
-        }
-        
-        [recordSettings setObject:formatObject forKey: AVFormatIDKey];
-        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
-        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-        [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
-        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-        [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
-    }
-    
-    //    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/recordTest.caf", [[NSBundle mainBundle] resourcePath]]];
-    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
-                                                            NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *docsDir = [dirPaths objectAtIndex:0];
-    
-    NSString *mediaPath = [NSString stringWithFormat:@"%lld.caf",(long long)[[NSDate date] timeIntervalSince1970]];
-   // NSString *mediaPath = [NSString stringWithFormat:@"%lld.caf",(long long)[[NSDate date]timeIntervalSinceReferenceDate]*1000000];
-    NSString *soundFilePath = [docsDir
-                               stringByAppendingPathComponent:mediaPath];
-    
-    NSURL *url = [NSURL fileURLWithPath:soundFilePath];
-    
-    NSError *error = nil;
-    audioRecorder = [[ AVAudioRecorder alloc] initWithURL:url settings:recordSettings error:&error];
-    audioRecorder.meteringEnabled = YES;
-    if ([audioRecorder prepareToRecord] == YES){
-        audioRecorder.meteringEnabled = YES;
-        [audioRecorder record];
-        timerForPitch =[NSTimer scheduledTimerWithTimeInterval: 0.01 target: self selector: @selector(levelTimerCallback:) userInfo: nil repeats: YES];
-    }else {
-        
-        int errorCode = CFSwapInt32HostToBig ([error code]);
-        NSLog(@"Error: %@ [%4.4s])" , [error localizedDescription], (char*)&errorCode);
-        
-    }
-    
-}
 
 - (void)levelTimerCallback:(NSTimer *)timer {
     [audioRecorder updateMeters];
@@ -237,34 +141,6 @@ UITextFieldDelegate>
     
 }
 
--(IBAction) stopRecording
-{
-    NSLog(@"stopRecording");
-    [SGInfoAlert showInfo:NSLocalizedString(@"stopRecording", nil)];
-    // kSeconds = 0.0;
-    [audioRecorder stop];
-    NSLog(@"stopped");
-    [timerForPitch invalidate];
-    timerForPitch = nil;
-    
-    NSLog(@"url=%@",audioRecorder.url);
-    
-    NSString *mediaPath = [audioRecorder.url.path lastPathComponent];
-    
-    NSLog(@"mmmm:%@",mediaPath);
-    NSRange range = [mediaPath rangeOfString:@"."];
-    NSString *recoderTimestamp;
-    if (range.location != NSNotFound) {
-        recoderTimestamp = [mediaPath substringToIndex:range.location];
-        NSLog(@"tttt:%@",recoderTimestamp);
-    }
-    
-    double beginRecordTime = recoderTimestamp.doubleValue;
-    
-    double voiceTime = [[NSDate date]timeIntervalSince1970] - beginRecordTime;
-    
-    [HirDataManageCenter insertVoicePath:mediaPath peripheraUUID:[HirUserInfo shareUserInfo].currentPeriphera.uuid recoderTimestamp:[NSNumber numberWithDouble:beginRecordTime] title:NSLocalizedString(@"newRecording", nil) voiceTime:[NSNumber numberWithDouble:voiceTime]];
-}
 
 -(IBAction) playRecording
 {
@@ -492,6 +368,7 @@ UITextFieldDelegate>
     self.actionTextField.placeholder = self.currentDeviceRecord.title;
     HirAlertView *hirAlertView = [[HirAlertView alloc]initWithTitle:NSLocalizedString(@"changeName", nil) contenView:self.actionTextField clickBlock:^(NSInteger index){
         self.currentDeviceRecord.title = self.actionTextField.text;
+        self.recordingLabel.text = self.actionTextField.text;
         [HirDataManageCenter saveDeviceRecordByModel:self.currentDeviceRecord];
         [self.tableView reloadData];
     }cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) otherButtonTitles:NSLocalizedString(@"CONFIRM", nil), nil];

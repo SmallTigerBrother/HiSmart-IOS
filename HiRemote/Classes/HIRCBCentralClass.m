@@ -359,13 +359,6 @@
                 
             }
                 break;
-            case CurrentViewControllerType_voice:
-            {
-                //开始录音通知
-                NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-                [notificationCenter postNotificationName:NEED_RECORD_VOICE object:nil userInfo:nil];
-            }
-                break;
             default:
                 break;
         }

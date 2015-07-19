@@ -10,7 +10,7 @@
 
 typedef NS_ENUM(NSInteger, HirRootSetSwith) {
   //  HirRootSetSwith_Connect,
-    HirRootSetSwith_FindMyItem,
+//    HirRootSetSwith_FindMyItem,
     HirRootSetSwith_Notification,
     HirRootSetSwith_VoiceMemo,
 };
