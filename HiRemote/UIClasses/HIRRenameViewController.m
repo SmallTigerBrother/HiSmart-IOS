@@ -44,8 +44,8 @@
     self.deviceInfoArray = [HirUserInfo shareUserInfo].deviceInfoArray;
     self.photoView = [[HIRArcImageView alloc] init];
     self.photoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.photoButton setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
-    [self.photoButton addTarget:self action:@selector(photoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    //[self.photoButton setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
+    //[self.photoButton addTarget:self action:@selector(photoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.tipsLabel = [[UILabel alloc] init];
     self.tipsLabel.text = NSLocalizedString(@"photoTips", @"");
     self.tipsLabel.textColor = [UIColor whiteColor];
@@ -80,28 +80,36 @@
     double delayInSeconds = 0.1;
     dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
-        if ([self.hiRemoteData.avatarPath length] > 0) {
-            NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-            documentsDirectory = [documentsDirectory stringByAppendingPathComponent:@"HiRemoteData"];
-            if (![[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
-                [[NSFileManager defaultManager] createDirectoryAtPath:documentsDirectory withIntermediateDirectories:TRUE attributes:nil error:nil];
-            }
-            if (documentsDirectory) {
-                 NSString *filePath = [documentsDirectory stringByAppendingPathComponent:self.hiRemoteData.avatarPath];
-                NSData *imageData = [NSData dataWithContentsOfFile:filePath];
-                UIImage *image = [UIImage imageWithData:imageData];
-                if (image) {
-                    [self.photoView setImage:image];
-                    [self.photoButton setImage:nil forState:UIControlStateNormal];
-                    
-                }
-            }
-            if ([self.hiRemoteData.remarkName length] > 0) {
-                [self.renameButton setTitle:self.hiRemoteData.remarkName forState:UIControlStateNormal];
-            }else {
-                [self.renameButton setTitle:self.hiRemoteData.name forState:UIControlStateNormal];
-            }
+        
+        if ([self.hiRemoteData.remarkName length] > 0) {
+            [self.renameButton setTitle:self.hiRemoteData.remarkName forState:UIControlStateNormal];
+        }else {
+            [self.renameButton setTitle:self.hiRemoteData.name forState:UIControlStateNormal];
         }
+        [self.photoView setImage:[UIImage imageNamed:@"defaultDevice"]];
+        
+//        if ([self.hiRemoteData.avatarPath length] > 0) {
+//            NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+//            documentsDirectory = [documentsDirectory stringByAppendingPathComponent:@"HiRemoteData"];
+//            if (![[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
+//                [[NSFileManager defaultManager] createDirectoryAtPath:documentsDirectory withIntermediateDirectories:TRUE attributes:nil error:nil];
+//            }
+//            if (documentsDirectory) {
+//                 NSString *filePath = [documentsDirectory stringByAppendingPathComponent:self.hiRemoteData.avatarPath];
+//                NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+//                UIImage *image = [UIImage imageWithData:imageData];
+//                if (image) {
+//                    [self.photoView setImage:image];
+//                    [self.photoButton setImage:nil forState:UIControlStateNormal];
+//                    
+//                }
+//            }
+//            if ([self.hiRemoteData.remarkName length] > 0) {
+//                [self.renameButton setTitle:self.hiRemoteData.remarkName forState:UIControlStateNormal];
+//            }else {
+//                [self.renameButton setTitle:self.hiRemoteData.name forState:UIControlStateNormal];
+//            }
+//        }
     });
 }
 

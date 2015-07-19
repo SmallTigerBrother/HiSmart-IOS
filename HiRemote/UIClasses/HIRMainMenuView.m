@@ -32,7 +32,7 @@
         self.locBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.locBtn.tag = 1;
        // self.locBtn.frame = CGRectMake(0, 0, self.frame.size.width/2, 100);
-        [self.locBtn setImage:[UIImage imageNamed:@"location.jpg"] forState:UIControlStateNormal];
+        [self.locBtn setImage:[UIImage imageNamed:@"location"] forState:UIControlStateNormal];
         [self.locBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.locLabel = [[UILabel alloc] init];
         self.locLabel.textAlignment = NSTextAlignmentCenter;
@@ -41,7 +41,7 @@
         
         self.cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.cameraBtn.tag = 2;
-        [self.cameraBtn setImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
+        [self.cameraBtn setImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
         [self.cameraBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.cameraLabel = [[UILabel alloc] init];
         self.cameraLabel.textAlignment = NSTextAlignmentCenter;
@@ -50,7 +50,7 @@
         
         self.findBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.findBtn.tag = 3;
-        [self.findBtn setImage:[UIImage imageNamed:@"find.jpg"] forState:UIControlStateNormal];
+        [self.findBtn setImage:[UIImage imageNamed:@"find"] forState:UIControlStateNormal];
         [self.findBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.findLabel = [[UILabel alloc] init];
         self.findLabel.textAlignment = NSTextAlignmentCenter;
@@ -59,7 +59,7 @@
         
         self.voiceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.voiceBtn.tag = 4;
-        [self.voiceBtn setImage:[UIImage imageNamed:@"voice.jpg"] forState:UIControlStateNormal];
+        [self.voiceBtn setImage:[UIImage imageNamed:@"voice"] forState:UIControlStateNormal];
         [self.voiceBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         self.voiceLabel = [[UILabel alloc] init];
         self.voiceLabel.textAlignment = NSTextAlignmentCenter;

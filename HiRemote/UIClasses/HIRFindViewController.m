@@ -69,6 +69,7 @@
     [self.stopBtn setTitleColor:[UIColor colorWithRed:0.25 green:0.73 blue:0.81 alpha:1] forState:UIControlStateNormal];
     [self.stopBtn addTarget:self action:@selector(stopButton:) forControlEvents:UIControlEventTouchUpInside];
     self.avtarImgV = [[UIImageView alloc] init];
+    self.avtarImgV.image = [UIImage imageNamed:@"defaultDevice"];
     self.bgImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"avatar_circle"]];
     self.nameLab = [[UILabel alloc] init];
    // self.nameLab.backgroundColor = [UIColor orangeColor];
@@ -102,14 +103,17 @@
         if (![[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
             [[NSFileManager defaultManager] createDirectoryAtPath:documentsDirectory withIntermediateDirectories:TRUE attributes:nil error:nil];
         }
-        if (documentsDirectory) {
-            NSString *filePath = [documentsDirectory stringByAppendingPathComponent:self.hiremoteData.avatarPath];
-            NSData *imageData = [NSData dataWithContentsOfFile:filePath];
-            UIImage *image = [UIImage imageWithData:imageData];
-            if (image) {
-                self.avtarImgV.image = image;
-            }
-        }
+        
+        
+        
+//        if (documentsDirectory) {
+//            NSString *filePath = [documentsDirectory stringByAppendingPathComponent:self.hiremoteData.avatarPath];
+//            NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+//            UIImage *image = [UIImage imageWithData:imageData];
+//            if (image) {
+//                self.avtarImgV.image = image;
+//            }
+//        }
         
         if ([self.hiremoteData.remarkName length] > 0) {
             self.nameLab.text = self.hiremoteData.remarkName;
