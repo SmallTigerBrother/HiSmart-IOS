@@ -808,11 +808,8 @@
 				04D651291B5BBD8B00B5BB13 /* defaultDevice.png */,
 				04D6512A1B5BBD8B00B5BB13 /* mainviewbg.jpg */,
 				B887061F1B4939CE00A87300 /* darkConnYes.png */,
-<<<<<<< HEAD
-=======
 				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
 				B84CD4B71B441EA2008FAA53 /* avatar_circle.png */,
->>>>>>> 3c19a2d3332e68ebd7b5425a839478e8ea18db9a
 				B84CD4B81B441EA2008FAA53 /* avatar_circle@2x.png */,
 				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
 				B84CD4B91B441EA2008FAA53 /* camera.png */,
