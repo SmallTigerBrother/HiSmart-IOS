@@ -29,7 +29,6 @@
 		04D38D1C1B3EB1410012D65A /* HirBaseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D1A1B3EB1410012D65A /* HirBaseTableCell.m */; };
 		04D38D1D1B3EB1410012D65A /* HirBaseTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D38D1B1B3EB1410012D65A /* HirBaseTableCell.xib */; };
 		04D38D241B3EB6770012D65A /* HirLocationHistoryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */; };
-		04D6511C1B59EDC900B5BB13 /* bg_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04D6511B1B59EDC900B5BB13 /* bg_music.mp3 */; };
 		04D651281B5BA8A900B5BB13 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D651251B5BA8A900B5BB13 /* libMobClickLibrary.a */; };
 		04D6512B1B5BBD8B00B5BB13 /* defaultDevice.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D651291B5BBD8B00B5BB13 /* defaultDevice.png */; };
 		04D6512C1B5BBD8B00B5BB13 /* mainviewbg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04D6512A1B5BBD8B00B5BB13 /* mainviewbg.jpg */; };
@@ -202,7 +201,6 @@
 		04D38D1B1B3EB1410012D65A /* HirBaseTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HirBaseTableCell.xib; sourceTree = "<group>"; };
 		04D38D211B3EB6770012D65A /* HirLocationHistoryTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirLocationHistoryTableCell.h; sourceTree = "<group>"; };
 		04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirLocationHistoryTableCell.m; sourceTree = "<group>"; };
-		04D6511B1B59EDC900B5BB13 /* bg_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_music.mp3; sourceTree = "<group>"; };
 		04D651251B5BA8A900B5BB13 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		04D651261B5BA8A900B5BB13 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		04D651271B5BA8A900B5BB13 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
@@ -777,7 +775,6 @@
 		2C18AAEF1B3BECDE00CE6588 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				04D6511B1B59EDC900B5BB13 /* bg_music.mp3 */,
 				2C18AAF01B3BECDE00CE6588 /* Info.plist */,
 				2C18AAF11B3BECDE00CE6588 /* main.m */,
 				2C18AB4A1B3C27A700CE6588 /* Localizable.strings */,
@@ -808,8 +805,6 @@
 				04D651291B5BBD8B00B5BB13 /* defaultDevice.png */,
 				04D6512A1B5BBD8B00B5BB13 /* mainviewbg.jpg */,
 				B887061F1B4939CE00A87300 /* darkConnYes.png */,
-				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
-				B84CD4B71B441EA2008FAA53 /* avatar_circle.png */,
 				B84CD4B81B441EA2008FAA53 /* avatar_circle@2x.png */,
 				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
 				B84CD4B91B441EA2008FAA53 /* camera.png */,
@@ -953,7 +948,7 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = FZCVBHN4V3;
+						DevelopmentTeam = 4H44DAN2YD;
 					};
 				};
 			};
@@ -1008,7 +1003,6 @@
 				B84CD4C81B441EA2008FAA53 /* avatar_circle.png in Resources */,
 				04D7A8931B47EF9700579EC2 /* switch_camera.png in Resources */,
 				04D7A89A1B47EF9700579EC2 /* touch_focus_x@2x.png in Resources */,
-				04D6511C1B59EDC900B5BB13 /* bg_music.mp3 in Resources */,
 				B8DF7DC41B3E97F5000BD43E /* nextBtn.png in Resources */,
 				B84CD4CC1B441EA2008FAA53 /* connectedSuccess.png in Resources */,
 				B8DF7DC71B3EA910000BD43E /* Default-568h@2x.png in Resources */,
