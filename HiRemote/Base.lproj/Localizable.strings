@@ -49,7 +49,7 @@
 "pinedTips" = "You can easily find the history of all the locations you have been to.";
 "findTips" = "Search for the item attached to the HiRemote.";
 "cameraTips" = "Use the shutter button on your HiRemote to snap pics.";
-"voiceTips" = "You easily can store, rename, or delete your audio file.";
+"voiceTips" = "You easily can store, rename, or delete your audio files.";
 "edit10" = "Connect to HiRemote";
 "edit11" = "Turn on the Alarm to activate the function; otherwise, turn on the Voice Recording. Only one or the other can be activated.";
 "edit20" = "Find My Item";
@@ -68,7 +68,7 @@
 "rateus22" = "Privacy";
 "addAHiRemote" = "Add a HiRemote";
 "addTipsOne" = "ⅰ: Make sure your smartphone's Bluetooth is turned on.";
-"addTipsTwo" = "ⅱ: Hold the center button of the HiRemote to activate it.";
+"addTipsTwo" = "ⅱ: Hold the play button of the HiRemote to activate it.";
 "changeName" = "Change a name";
 "CANCEL" = "CANCEL";
 "CONFIRM" = "CONFIRM";
@@ -80,3 +80,11 @@
 "doYouWantToDelThisRecord" = "do you want to deleter this record?";
 "youDeviceIsAwayFromYou" = "Warning your HiSmart bag is 90 feet away from you!";
 "newRecording" = "New Recording";
+
+"lgUsername" = "Username:";
+"lgEmail" = "E-mail:";
+"lgPassword" = "Password:";
+"lgComfirmPassword" = "Comfirm password:";
+"lgIagree" = "I agree to......";
+"lgSignup" = "Sign Up with Facebook";
+"lgForgotPassword" = "An email with instructions on how to change your password has been sent to soya@sina.com.";
