@@ -30,6 +30,9 @@
 		04D38D1D1B3EB1410012D65A /* HirBaseTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D38D1B1B3EB1410012D65A /* HirBaseTableCell.xib */; };
 		04D38D241B3EB6770012D65A /* HirLocationHistoryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */; };
 		04D6511C1B59EDC900B5BB13 /* bg_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04D6511B1B59EDC900B5BB13 /* bg_music.mp3 */; };
+		04D651281B5BA8A900B5BB13 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D651251B5BA8A900B5BB13 /* libMobClickLibrary.a */; };
+		04D6512B1B5BBD8B00B5BB13 /* defaultDevice.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D651291B5BBD8B00B5BB13 /* defaultDevice.png */; };
+		04D6512C1B5BBD8B00B5BB13 /* mainviewbg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04D6512A1B5BBD8B00B5BB13 /* mainviewbg.jpg */; };
 		04D7A82C1B477C1100579EC2 /* HirVoiceMemosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7A82A1B477C1100579EC2 /* HirVoiceMemosViewController.m */; };
 		04D7A82D1B477C1100579EC2 /* HirVoiceMemosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D7A82B1B477C1100579EC2 /* HirVoiceMemosViewController.xib */; };
 		04D7A8311B47847D00579EC2 /* HirVoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7A8301B47847D00579EC2 /* HirVoiceCell.m */; };
@@ -96,16 +99,9 @@
 		2C18AB3B1B3C121E00CE6588 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AB341B3C121E00CE6588 /* NSArray+PureLayout.m */; };
 		2C18AB3C1B3C121E00CE6588 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18AB361B3C121E00CE6588 /* NSLayoutConstraint+PureLayout.m */; };
 		2C18AB481B3C27A700CE6588 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB4A1B3C27A700CE6588 /* Localizable.strings */; };
-		2C18AB521B3C2E4200CE6588 /* scanningbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB511B3C2E4200CE6588 /* scanningbg.png */; };
 		2C18AB541B3D3B1C00CE6588 /* userAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB531B3D3B1C00CE6588 /* userAvatar.png */; };
 		2C18AB561B3D3F1700CE6588 /* addDevice.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB551B3D3F1700CE6588 /* addDevice.png */; };
-		2C18AB5E1B3D48D700CE6588 /* deviceImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB5D1B3D48D700CE6588 /* deviceImage.jpg */; };
 		2C18AB601B3D4F5F00CE6588 /* preBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB5F1B3D4F5F00CE6588 /* preBtn.png */; };
-		2C18AB621B3D60A100CE6588 /* Default-568.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB611B3D60A100CE6588 /* Default-568.png */; };
-		2C18AB771B3D985A00CE6588 /* camera.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB731B3D985A00CE6588 /* camera.jpg */; };
-		2C18AB781B3D985A00CE6588 /* find.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB741B3D985A00CE6588 /* find.jpg */; };
-		2C18AB791B3D985A00CE6588 /* location.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB751B3D985A00CE6588 /* location.jpg */; };
-		2C18AB7A1B3D985A00CE6588 /* voice.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB761B3D985A00CE6588 /* voice.jpg */; };
 		B84CD4A71B441E58008FAA53 /* CallOutAnnotationVifew.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */; };
 		B84CD4A81B441E58008FAA53 /* HIRConnFailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49C1B441E58008FAA53 /* HIRConnFailViewController.m */; };
 		B84CD4A91B441E58008FAA53 /* HIRConnSuccViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49E1B441E58008FAA53 /* HIRConnSuccViewController.m */; };
@@ -205,6 +201,11 @@
 		04D38D211B3EB6770012D65A /* HirLocationHistoryTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirLocationHistoryTableCell.h; sourceTree = "<group>"; };
 		04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirLocationHistoryTableCell.m; sourceTree = "<group>"; };
 		04D6511B1B59EDC900B5BB13 /* bg_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_music.mp3; sourceTree = "<group>"; };
+		04D651251B5BA8A900B5BB13 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		04D651261B5BA8A900B5BB13 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		04D651271B5BA8A900B5BB13 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
+		04D651291B5BBD8B00B5BB13 /* defaultDevice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultDevice.png; sourceTree = "<group>"; };
+		04D6512A1B5BBD8B00B5BB13 /* mainviewbg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mainviewbg.jpg; sourceTree = "<group>"; };
 		04D7A8291B477C1100579EC2 /* HirVoiceMemosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirVoiceMemosViewController.h; sourceTree = "<group>"; };
 		04D7A82A1B477C1100579EC2 /* HirVoiceMemosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirVoiceMemosViewController.m; sourceTree = "<group>"; };
 		04D7A82B1B477C1100579EC2 /* HirVoiceMemosViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HirVoiceMemosViewController.xib; sourceTree = "<group>"; };
@@ -320,16 +321,9 @@
 		2C18AB4B1B3C281300CE6588 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		2C18AB4C1B3C281300CE6588 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		2C18AB4D1B3C281300CE6588 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		2C18AB511B3C2E4200CE6588 /* scanningbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scanningbg.png; sourceTree = "<group>"; };
 		2C18AB531B3D3B1C00CE6588 /* userAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userAvatar.png; sourceTree = "<group>"; };
 		2C18AB551B3D3F1700CE6588 /* addDevice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addDevice.png; sourceTree = "<group>"; };
-		2C18AB5D1B3D48D700CE6588 /* deviceImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = deviceImage.jpg; sourceTree = "<group>"; };
 		2C18AB5F1B3D4F5F00CE6588 /* preBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preBtn.png; sourceTree = "<group>"; };
-		2C18AB611B3D60A100CE6588 /* Default-568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568.png"; sourceTree = "<group>"; };
-		2C18AB731B3D985A00CE6588 /* camera.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = camera.jpg; sourceTree = "<group>"; };
-		2C18AB741B3D985A00CE6588 /* find.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = find.jpg; sourceTree = "<group>"; };
-		2C18AB751B3D985A00CE6588 /* location.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = location.jpg; sourceTree = "<group>"; };
-		2C18AB761B3D985A00CE6588 /* voice.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = voice.jpg; sourceTree = "<group>"; };
 		A3EEC68A1FCE3A9ABA965D36 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B84CD4991B441E58008FAA53 /* CallOutAnnotationVifew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallOutAnnotationVifew.h; sourceTree = "<group>"; };
 		B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallOutAnnotationVifew.m; sourceTree = "<group>"; };
@@ -408,11 +402,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B887061C1B48FE6800A87300 /* libz.dylib in Frameworks */,
 				0450BCB21B52786900B3BF93 /* AudioToolbox.framework in Frameworks */,
 				043772221B4BF81D0089051C /* CoreAudio.framework in Frameworks */,
+				04D651281B5BA8A900B5BB13 /* libMobClickLibrary.a in Frameworks */,
 				043772201B4BF8130089051C /* AVFoundation.framework in Frameworks */,
 				B887061E1B48FE6F00A87300 /* libsqlite3.0.dylib in Frameworks */,
-				B887061C1B48FE6800A87300 /* libz.dylib in Frameworks */,
 				B887061A1B48FE0700A87300 /* SystemConfiguration.framework in Frameworks */,
 				B88706171B48FD8400A87300 /* libWeChatSDK.a in Frameworks */,
 				B88706181B48FD8400A87300 /* libWeiboSDK.a in Frameworks */,
@@ -466,6 +461,7 @@
 		04BB4AEE1B43DF66009567BF /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				04D651241B5BA8A900B5BB13 /* uMen */,
 				04F375AC1B4904D900E3FCD3 /* WeChat */,
 				04BB4AE51B4199DA009567BF /* playSound */,
 			);
@@ -530,6 +526,16 @@
 				04D38D221B3EB6770012D65A /* HirLocationHistoryTableCell.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		04D651241B5BA8A900B5BB13 /* uMen */ = {
+			isa = PBXGroup;
+			children = (
+				04D651251B5BA8A900B5BB13 /* libMobClickLibrary.a */,
+				04D651261B5BA8A900B5BB13 /* MobClick.h */,
+				04D651271B5BA8A900B5BB13 /* MobClickSocialAnalytics.h */,
+			);
+			path = uMen;
 			sourceTree = "<group>";
 		};
 		04D7A8281B477B9B00579EC2 /* Voice */ = {
@@ -795,8 +801,9 @@
 		2C18AB3D1B3C221E00CE6588 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				04D651291B5BBD8B00B5BB13 /* defaultDevice.png */,
+				04D6512A1B5BBD8B00B5BB13 /* mainviewbg.jpg */,
 				B887061F1B4939CE00A87300 /* darkConnYes.png */,
-				2C18AB511B3C2E4200CE6588 /* scanningbg.png */,
 				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
 				B84CD4B71B441EA2008FAA53 /* avatar_circle.png */,
 				B84CD4B81B441EA2008FAA53 /* avatar_circle@2x.png */,
@@ -815,13 +822,7 @@
 				B84CD4C51B441EA2008FAA53 /* pinnedm.png */,
 				B8DF7DC61B3EA910000BD43E /* Default@2x.png */,
 				B8DF7DC31B3E97F5000BD43E /* nextBtn.png */,
-				2C18AB741B3D985A00CE6588 /* find.jpg */,
-				2C18AB751B3D985A00CE6588 /* location.jpg */,
-				2C18AB761B3D985A00CE6588 /* voice.jpg */,
-				2C18AB5D1B3D48D700CE6588 /* deviceImage.jpg */,
-				2C18AB611B3D60A100CE6588 /* Default-568.png */,
 				2C18AB5F1B3D4F5F00CE6588 /* preBtn.png */,
-				2C18AB731B3D985A00CE6588 /* camera.jpg */,
 				B84CD4C61B441EA2008FAA53 /* voice.png */,
 				2C18AB531B3D3B1C00CE6588 /* userAvatar.png */,
 				B84CD4C71B441EA2008FAA53 /* voicem.png */,
@@ -975,11 +976,8 @@
 			files = (
 				2C18AAFB1B3BECDE00CE6588 /* Main.storyboard in Resources */,
 				04D7A8831B47EF9700579EC2 /* camera_line_h.png in Resources */,
-				2C18AB521B3C2E4200CE6588 /* scanningbg.png in Resources */,
-				2C18AB771B3D985A00CE6588 /* camera.jpg in Resources */,
 				04D7A8971B47EF9700579EC2 /* touch_focus.png in Resources */,
 				04D7A8821B47EF9700579EC2 /* camera_line@2x.png in Resources */,
-				2C18AB781B3D985A00CE6588 /* find.jpg in Resources */,
 				04D7A88D1B47EF9700579EC2 /* flashing_on.png in Resources */,
 				B84CD4CB1B441EA2008FAA53 /* cameram.png in Resources */,
 				B84CD4CD1B441EA2008FAA53 /* controlm.png in Resources */,
@@ -988,14 +986,14 @@
 				04D7A8901B47EF9700579EC2 /* shot@2x.png in Resources */,
 				B84CD4D71B441EA2008FAA53 /* voice.png in Resources */,
 				04D7A8941B47EF9700579EC2 /* switch_camera@2x.png in Resources */,
+				04D6512C1B5BBD8B00B5BB13 /* mainviewbg.jpg in Resources */,
 				B84CD4CA1B441EA2008FAA53 /* camera.png in Resources */,
-				2C18AB621B3D60A100CE6588 /* Default-568.png in Resources */,
 				2C18AB481B3C27A700CE6588 /* Localizable.strings in Resources */,
+				04D6512B1B5BBD8B00B5BB13 /* defaultDevice.png in Resources */,
 				B84CD4D51B441EA2008FAA53 /* pinImage.png in Resources */,
 				2C18AB561B3D3F1700CE6588 /* addDevice.png in Resources */,
 				04D7A8801B47EF9700579EC2 /* meizi.jpg in Resources */,
 				04D7A88A1B47EF9700579EC2 /* flashing_auto@2x.png in Resources */,
-				2C18AB791B3D985A00CE6588 /* location.jpg in Resources */,
 				B8DF7DC81B3EA910000BD43E /* Default@2x.png in Resources */,
 				04D7A88E1B47EF9700579EC2 /* flashing_on@2x.png in Resources */,
 				04D7A8921B47EF9700579EC2 /* shot_h@2x.png in Resources */,
@@ -1014,7 +1012,6 @@
 				04D7A82D1B477C1100579EC2 /* HirVoiceMemosViewController.xib in Resources */,
 				B84CD4D11B441EA2008FAA53 /* findm.png in Resources */,
 				04D7A8981B47EF9700579EC2 /* touch_focus@2x.png in Resources */,
-				2C18AB5E1B3D48D700CE6588 /* deviceImage.jpg in Resources */,
 				B84CD4D81B441EA2008FAA53 /* voicem.png in Resources */,
 				04D38D1D1B3EB1410012D65A /* HirBaseTableCell.xib in Resources */,
 				04D7A8A71B47EF9700579EC2 /* SVProgressHUD.bundle in Resources */,
@@ -1038,7 +1035,6 @@
 				04D7A8851B47EF9700579EC2 /* close_cha.png in Resources */,
 				04F375B91B4904D900E3FCD3 /* WeiboSDK.bundle in Resources */,
 				04D7A8991B47EF9700579EC2 /* touch_focus_x.png in Resources */,
-				2C18AB7A1B3D985A00CE6588 /* voice.jpg in Resources */,
 				B84CD4D41B441EA2008FAA53 /* photo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1291,6 +1287,7 @@
 					"/Users/peng/Desktop/成方圆",
 					"2/HiSmart-IOS/HiRemote",
 					"$(PROJECT_DIR)/HiRemote",
+					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1315,6 +1312,7 @@
 					"/Users/peng/Desktop/成方圆",
 					"2/HiSmart-IOS/HiRemote",
 					"$(PROJECT_DIR)/HiRemote",
+					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
