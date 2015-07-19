@@ -131,6 +131,10 @@
 		B84CD4D81B441EA2008FAA53 /* voicem.png in Resources */ = {isa = PBXBuildFile; fileRef = B84CD4C71B441EA2008FAA53 /* voicem.png */; };
 		B856CE8A1B5B6EBD00800195 /* mainviewbg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B856CE891B5B6EBD00800195 /* mainviewbg.jpg */; };
 		B856CE901B5B93D500800195 /* defaultDevice.png in Resources */ = {isa = PBXBuildFile; fileRef = B856CE8F1B5B93D500800195 /* defaultDevice.png */; };
+		B856CE921B5BCAA200800195 /* voiceSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = B856CE911B5BCAA200800195 /* voiceSelected.png */; };
+		B856CE961B5BCD1A00800195 /* cameraSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = B856CE931B5BCD1A00800195 /* cameraSelected.png */; };
+		B856CE971B5BCD1A00800195 /* findSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = B856CE941B5BCD1A00800195 /* findSelected.png */; };
+		B856CE981B5BCD1A00800195 /* locationSelecetd.png in Resources */ = {isa = PBXBuildFile; fileRef = B856CE951B5BCD1A00800195 /* locationSelecetd.png */; };
 		B88706101B48FC9700A87300 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B887060F1B48FC9700A87300 /* libc++.dylib */; };
 		B88706171B48FD8400A87300 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B88706151B48FD8400A87300 /* libWeChatSDK.a */; };
 		B88706181B48FD8400A87300 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B88706161B48FD8400A87300 /* libWeiboSDK.a */; };
@@ -366,6 +370,10 @@
 		B84CD4C71B441EA2008FAA53 /* voicem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voicem.png; sourceTree = "<group>"; };
 		B856CE891B5B6EBD00800195 /* mainviewbg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mainviewbg.jpg; sourceTree = "<group>"; };
 		B856CE8F1B5B93D500800195 /* defaultDevice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultDevice.png; sourceTree = "<group>"; };
+		B856CE911B5BCAA200800195 /* voiceSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voiceSelected.png; sourceTree = "<group>"; };
+		B856CE931B5BCD1A00800195 /* cameraSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cameraSelected.png; sourceTree = "<group>"; };
+		B856CE941B5BCD1A00800195 /* findSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = findSelected.png; sourceTree = "<group>"; };
+		B856CE951B5BCD1A00800195 /* locationSelecetd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locationSelecetd.png; sourceTree = "<group>"; };
 		B85811DE1B56AF99009FA41C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B85811DF1B56B030009FA41C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		B85811E01B56B030009FA41C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -808,11 +816,10 @@
 				04D651291B5BBD8B00B5BB13 /* defaultDevice.png */,
 				04D6512A1B5BBD8B00B5BB13 /* mainviewbg.jpg */,
 				B887061F1B4939CE00A87300 /* darkConnYes.png */,
-				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
-				B84CD4B71B441EA2008FAA53 /* avatar_circle.png */,
 				B84CD4B81B441EA2008FAA53 /* avatar_circle@2x.png */,
 				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
 				B84CD4B91B441EA2008FAA53 /* camera.png */,
+				B856CE911B5BCAA200800195 /* voiceSelected.png */,
 				B856CE891B5B6EBD00800195 /* mainviewbg.jpg */,
 				B84CD4B71B441EA2008FAA53 /* avatar_circle.png */,
 				B84CD4BA1B441EA2008FAA53 /* cameram.png */,
@@ -821,6 +828,9 @@
 				B84CD4BD1B441EA2008FAA53 /* darkConn.png */,
 				B84CD4BE1B441EA2008FAA53 /* facebook.png */,
 				B84CD4BF1B441EA2008FAA53 /* find.png */,
+				B856CE931B5BCD1A00800195 /* cameraSelected.png */,
+				B856CE941B5BCD1A00800195 /* findSelected.png */,
+				B856CE951B5BCD1A00800195 /* locationSelecetd.png */,
 				B84CD4C01B441EA2008FAA53 /* findm.png */,
 				B84CD4C11B441EA2008FAA53 /* greenConn.png */,
 				B856CE8F1B5B93D500800195 /* defaultDevice.png */,
@@ -1015,6 +1025,7 @@
 				04D7A88C1B47EF9700579EC2 /* flashing_off@2x.png in Resources */,
 				2C18AB541B3D3B1C00CE6588 /* userAvatar.png in Resources */,
 				B84CD4D21B441EA2008FAA53 /* greenConn.png in Resources */,
+				B856CE981B5BCD1A00800195 /* locationSelecetd.png in Resources */,
 				B84CD4CF1B441EA2008FAA53 /* facebook.png in Resources */,
 				04D7A88F1B47EF9700579EC2 /* shot.png in Resources */,
 				04D7A82D1B477C1100579EC2 /* HirVoiceMemosViewController.xib in Resources */,
@@ -1030,8 +1041,11 @@
 				04D7A88B1B47EF9700579EC2 /* flashing_off.png in Resources */,
 				B84CD4C91B441EA2008FAA53 /* avatar_circle@2x.png in Resources */,
 				04D7A8911B47EF9700579EC2 /* shot_h.png in Resources */,
+				B856CE921B5BCAA200800195 /* voiceSelected.png in Resources */,
 				B84CD4D61B441EA2008FAA53 /* pinnedm.png in Resources */,
 				04D7A8871B47EF9700579EC2 /* close_cha_h.png in Resources */,
+				B856CE961B5BCD1A00800195 /* cameraSelected.png in Resources */,
+				B856CE971B5BCD1A00800195 /* findSelected.png in Resources */,
 				04D7A8841B47EF9700579EC2 /* camera_line_h@2x.png in Resources */,
 				B856CE8A1B5B6EBD00800195 /* mainviewbg.jpg in Resources */,
 				B84CD4D01B441EA2008FAA53 /* find.png in Resources */,
