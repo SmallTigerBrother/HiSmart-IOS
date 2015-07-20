@@ -898,7 +898,7 @@ HPCoreLocationMangerDelegate>
         if ([self.deviceInfoArray count] > page) {
             DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:page];
             [self.changeIndicator startAnimating];
-            self.outTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
+            self.outTimer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
             
             [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil; 
             [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:remoteData.uuid];
