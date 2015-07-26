@@ -45,7 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:0.35 green:0.75 blue:0.58 alpha:1];
-    self.titleArray = [NSArray arrayWithObjects:NSLocalizedString(@"pinnedLocation", @""), NSLocalizedString(@"findMyItem", @""),NSLocalizedString(@"cameraShutter", @""),NSLocalizedString(@"voiceMemos", @""),NSLocalizedString(@"hiremoteControl", @""),nil];
+    self.titleArray = [NSArray arrayWithObjects:NSLocalizedString(@"pinnedLocation", @""), NSLocalizedString(@"findMyItem", @""),NSLocalizedString(@"cameraShutte", @""),NSLocalizedString(@"voiceMemos", @""),NSLocalizedString(@"hiremoteControl", @""),nil];
     self.imageArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"pinnedm"],[UIImage imageNamed:@"findm"],[UIImage imageNamed:@"cameram"],[UIImage imageNamed:@"voicem"],[UIImage imageNamed:@"controlm"], nil];
     self.notesArray = [NSArray arrayWithObjects:NSLocalizedString(@"pinedTips", @""), NSLocalizedString(@"findTips", @""),NSLocalizedString(@"cameraTips", @""),NSLocalizedString(@"voiceTips", @""),@"",nil];
     self.welcomeScrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];

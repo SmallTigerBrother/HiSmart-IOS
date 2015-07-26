@@ -8,6 +8,8 @@
 
 #import "HIRCBCentralClass.h"
 //#import "HIRRemoteData.h"
+#import "HirMsgPlaySound.h"
+#import <AVFoundation/AVFoundation.h>
 #import "AppDelegate.h"
 #import "HirDataManageCenter+Perphera.h"
 
@@ -363,6 +365,12 @@
                 break;
         }
         
+        ///让手机叫
+        if ([[self hexadecimalString:characteristic.value] isEqualToString:@"3"]) {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+            [notificationCenter postNotificationName:NEED_IPHONE_ALERT_NOTIFICATION object:nil userInfo:nil];
+        }
         NSLog(@"查找手机：%@",[self hexadecimalString:characteristic.value]);
     }else {
         NSLog(@"update value fialue==%@",[self hexadecimalString:characteristic.value]);

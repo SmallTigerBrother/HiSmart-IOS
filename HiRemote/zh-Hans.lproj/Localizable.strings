@@ -1,9 +1,9 @@
 /*
  Localizable.strings
- HiRemote
+ HiSmart
  
  Created by parker on 6/25/15.
- Copyright (c) 2015 hiremote. All rights reserved.
+ Copyright (c) 2015 HiSmart. All rights reserved.
  */
 "getStarted" = "开始体验";
 "scanning" = "扫描中...";
@@ -12,9 +12,17 @@
 "myAccount" = "我的账号";
 "close" = "关闭";
 "pinnedLocations" = "定位记录";
+"mpinnedLocations" = "定位记录";
+
 "cameraShutte" = "相机快门";
+"mcameraShutte" = "相机快门";
+
 "findMyItem" = "寻找设备";
+"mfindMyItem" = "寻找设备";
+
 "voiceMemos" = "录音记录";
+"mvoiceMemos" = "录音记录";
+
 "Location history" = "定位历史";
 "ok" = "确定";
 "tips" = "提示";
@@ -33,7 +41,7 @@
 "signUp" = "登录";
 "haveAccount" = "已拥有账号";
 "addedSuccess" = "HiSmart 已经成功添加";
-"photoTips" = "第一步：给连接在您的HiSmart上的设备拍一张照";
+"photoTips" = "请重命名您的HiSmart";
 "rename" = "重命名HiSmart为";
 "next" = "下一步";
 "retry" = "重试";
@@ -44,7 +52,6 @@
 "cannotFind" = "看来我们没能找到它，让我们再试一次";
 "haveProblem" = "有一个问题";
 "pinnedLocation" = "定位";
-"cameraShutter" = "相机快门";
 "hiremoteControl" = "HiSmart 控制";
 "pinedTips" = "您能够轻松地找到您所到之处的历史记录.";
 "findTips" = "寻找和HiSmart连接的手机.";
@@ -83,3 +90,5 @@
 "stopRecording" = "停止录音";
 "startRecording" = "开始录音";
 "copy" = "复制";
+
+"deviceCallIphone" = "您的HiSmart正在向您发起呼叫!";
