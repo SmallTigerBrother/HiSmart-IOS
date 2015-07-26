@@ -10,7 +10,7 @@
 #import "HIRWelcomeViewController.h"
 #import "HIRRegisterViewController.h"
 #import "HIRScanningViewController.h"
-
+#import <AVFoundation/AVFoundation.h>
 //#import "HIRRemoteData.h"
 #import "SoundTool.h"
 #import "WXApi.h"
@@ -19,16 +19,18 @@
 #import "HirMsgPlaySound.h"
 #import "MobClick.h"
 
-@interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate>{
+@interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate,AVAudioPlayerDelegate,UIAlertViewDelegate>{
     UIBackgroundTaskIdentifier bgTask;
     
     NSUInteger counter;
+    SystemSoundID _sound;
 }
 @property(nonatomic) HIRWelcomeViewController *welcomeVC;
 @property(nonatomic) HIRRegisterViewController *registerVC;
 @property(nonatomic) HIRScanningViewController *scanVC;
 @property(nonatomic, strong)NSString *versionPath;
-
+@property(nonatomic, strong)AVAudioPlayer *audioPlayer;
+@property(nonatomic, strong)UIAlertView *phoneSoundAlert;
 
 @property (nonatomic, strong)NSTimer *myTimer;
 @end
@@ -95,6 +97,9 @@
 //#endif
     [MobClick setEncryptEnabled:YES];
     [MobClick startWithAppkey:UMENG_APPKEY reportPolicy:BATCH   channelId:@""];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needIphoneAlertNotify:) name:NEED_IPHONE_ALERT_NOTIFICATION object:nil];
     
     return YES;
 }
@@ -239,6 +244,10 @@
     
     [HirUserInfo shareUserInfo].appIsEnterBackgroud = NO;
     
+    
+    if (_isPhoneAlertPlaying) {
+       
+    }
 //    if (bgTask != UIBackgroundTaskInvalid){
 //        [[UIApplication sharedApplication] endBackgroundTask:bgTask];
 //        
@@ -246,6 +255,7 @@
 //    }
 
 }
+
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
@@ -459,4 +469,62 @@
 }
 
 
+
+#pragma mark uialertView delegater
+-(void)needIphoneAlertNotify:(NSNotification *)notification{
+    [self playPhoneAlertAudio];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+{
+    if (buttonIndex == 0) {
+        _isPhoneAlertPlaying = NO;
+        [self stopPhoneAlertAudio];
+    }
+}
+
+
+static bool _isPhoneAlertPlaying;
+
+-(void)playPhoneAlertAudio{
+    if (_isPhoneAlertPlaying) {
+        return;
+    }
+
+    NSURL *url = [[NSBundle mainBundle]URLForResource:@"fkjb" withExtension:@"mp3"];
+    
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url,&_sound);
+    AudioServicesPlaySystemSound(_sound);
+    _isPhoneAlertPlaying = YES;
+    AudioServicesAddSystemSoundCompletion (_sound, NULL, NULL,
+                                           completionCallback,
+                                           NULL);
+    if(!self.phoneSoundAlert.visible){
+        self.phoneSoundAlert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"deviceCallIphone", @"") delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""),nil];
+        [self.phoneSoundAlert show];
+    }
+    NSLog(@"playing");
+}
+
+void completionCallback (SystemSoundID  mySSID, void* data) {
+    NSLog(@"completion Callback");
+    AudioServicesRemoveSystemSoundCompletion (mySSID);
+    _isPhoneAlertPlaying = NO;
+    //the below line is not working
+    //label.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+}
+
+
+-(void) stopPhoneAlertAudio
+{
+    _isPhoneAlertPlaying = NO;
+    
+    AudioServicesDisposeSystemSoundID(_sound);
+    NSLog(@"stopPlaying");
+//    [self.audioPlayer stop];
+}
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag;
+{
+    _isPhoneAlertPlaying = NO;
+}
 @end

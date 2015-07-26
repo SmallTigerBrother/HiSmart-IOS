@@ -272,6 +272,8 @@ HPCoreLocationMangerDelegate>
     
     appDelegate.locManger.delegate = self;
     [appDelegate.locManger startUpdatingUserLocation];
+    
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -687,7 +689,7 @@ HPCoreLocationMangerDelegate>
     locLabel.textColor = [UIColor whiteColor];
     locLabel.backgroundColor = [UIColor clearColor];
     locLabel.font = [UIFont boldSystemFontOfSize:16];
-    locLabel.text = NSLocalizedString(@"pinnedLocations", @"");
+    locLabel.text = NSLocalizedString(@"mpinnedLocations", @"");
     
     UIButton *cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cameraBtn.frame = CGRectMake(size.width-eightPercent*2.5-eightPercent, 5, eightPercent*2.5,eightPercent*2.5);
@@ -704,7 +706,7 @@ HPCoreLocationMangerDelegate>
     cameraLabel.font = [UIFont boldSystemFontOfSize:16];
     cameraLabel.textColor = [UIColor whiteColor];
     cameraLabel.backgroundColor = [UIColor clearColor];
-    cameraLabel.text = NSLocalizedString(@"cameraShutte", @"");
+    cameraLabel.text = NSLocalizedString(@"mcameraShutte", @"");
     
     UIButton *findBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     findBtn.frame = CGRectMake(eightPercent, locLabel.frame.origin.y + locLabel.frame.size.height + 20, eightPercent*2.5,eightPercent*2.5);
@@ -721,7 +723,7 @@ HPCoreLocationMangerDelegate>
     findLabel.font = [UIFont boldSystemFontOfSize:16];
     findLabel.textColor = [UIColor whiteColor];
     findLabel.backgroundColor = [UIColor clearColor];
-    findLabel.text = NSLocalizedString(@"findMyItem", @"");
+    findLabel.text = NSLocalizedString(@"mfindMyItem", @"");
     
     UIButton *voiceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     voiceBtn.frame = CGRectMake(size.width-eightPercent*2.5-eightPercent, cameraLabel.frame.origin.y+cameraLabel.frame.size.height + 20, eightPercent*2.5,eightPercent*2.5);
@@ -738,7 +740,7 @@ HPCoreLocationMangerDelegate>
     voiceLabel.font = [UIFont boldSystemFontOfSize:16];
     voiceLabel.textColor = [UIColor whiteColor];
     voiceLabel.backgroundColor = [UIColor clearColor];
-    voiceLabel.text = NSLocalizedString(@"voiceMemos", @"");
+    voiceLabel.text = NSLocalizedString(@"mvoiceMemos", @"");
     
     [self.mainMenuScrollView addSubview:locBtn];
     [self.mainMenuScrollView addSubview:locLabel];
@@ -898,7 +900,7 @@ HPCoreLocationMangerDelegate>
         if ([self.deviceInfoArray count] > page) {
             DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:page];
             [self.changeIndicator startAnimating];
-            self.outTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
+            self.outTimer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
             
             [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil; 
             [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:remoteData.uuid];

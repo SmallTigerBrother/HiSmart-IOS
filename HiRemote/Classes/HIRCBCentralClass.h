@@ -39,7 +39,7 @@ typedef enum
 #define      SPARK_BLE_DATA_ALERT_LOSS_CHARACTER   @"2A06" ///特征：立即报警服务和断开服务使用 0无，1低，2高
 #define      SPARK_BLE_DATA_POWER_CHARACTER        @"2A07" ///特征：发射功率服务使用 -100--20
 #define      SPARK_BLE_DATA_BATTERY_CHARACTER      @"2A19" ///特征：电池服务使用 -100--20
-#define      SPARK_BLE_DATA_SEARCHPHONE_CHARACTER  @"FFE1" ///特征：查找手机服务使用 1
+#define      SPARK_BLE_DATA_SEARCHPHONE_CHARACTER  @"FFE1" ///特征：查找手机服务使用 1  让手机叫3
 
 
 ////通知名称
@@ -48,6 +48,8 @@ typedef enum
 #define NEED_DISCONNECT_LOCATION_NOTIFICATION @"needDisconnectLocationNotification" ////断开时需要记录位置的通知
 #define NEED_AUTO_PHONE_NOTIFICATION @"needAutoPhoneNotification" /////需要自动拍摄通知
 #define BATTERY_LEVEL_CHANGE_NOTIFICATION @"batteryLevelChangeNotification" ////电池发生变化通知
+#define NEED_IPHONE_ALERT_NOTIFICATION @"needIphoneAlertNotification" ////电池发生变化通知
+
 
 #define CBCENTERAL_STATE_NOT_SUPPORT @"notSupport"   ////蓝牙不支持 （通知值）
 #define CBCENTERAL_CONNECT_PERIPHERAL_FAIL @"connectPeripheralFail" ///外设链接失败 (通知值）

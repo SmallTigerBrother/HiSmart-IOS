@@ -135,6 +135,7 @@
 		B856CE961B5BCD1A00800195 /* cameraSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = B856CE931B5BCD1A00800195 /* cameraSelected.png */; };
 		B856CE971B5BCD1A00800195 /* findSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = B856CE941B5BCD1A00800195 /* findSelected.png */; };
 		B856CE981B5BCD1A00800195 /* locationSelecetd.png in Resources */ = {isa = PBXBuildFile; fileRef = B856CE951B5BCD1A00800195 /* locationSelecetd.png */; };
+		B88469931B64C468008358C1 /* fkjb.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B88469921B64C468008358C1 /* fkjb.mp3 */; };
 		B88706101B48FC9700A87300 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B887060F1B48FC9700A87300 /* libc++.dylib */; };
 		B88706171B48FD8400A87300 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B88706151B48FD8400A87300 /* libWeChatSDK.a */; };
 		B88706181B48FD8400A87300 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B88706161B48FD8400A87300 /* libWeiboSDK.a */; };
@@ -379,6 +380,7 @@
 		B85811DF1B56B030009FA41C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		B85811E01B56B030009FA41C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		B85811E11B56B030009FA41C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B88469921B64C468008358C1 /* fkjb.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fkjb.mp3; sourceTree = "<group>"; };
 		B887060F1B48FC9700A87300 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		B88706151B48FD8400A87300 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = HiRemote/libWeChatSDK.a; sourceTree = "<group>"; };
 		B88706161B48FD8400A87300 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = HiRemote/libWeiboSDK.a; sourceTree = "<group>"; };
@@ -822,6 +824,7 @@
 				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
 				B84CD4B91B441EA2008FAA53 /* camera.png */,
 				B856CE911B5BCAA200800195 /* voiceSelected.png */,
+				B88469921B64C468008358C1 /* fkjb.mp3 */,
 				B856CE891B5B6EBD00800195 /* mainviewbg.jpg */,
 				B84CD4B71B441EA2008FAA53 /* avatar_circle.png */,
 				B84CD4BA1B441EA2008FAA53 /* cameram.png */,
@@ -965,7 +968,7 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 4H44DAN2YD;
+						DevelopmentTeam = FZCVBHN4V3;
 					};
 				};
 			};
@@ -1061,6 +1064,7 @@
 				04F375B91B4904D900E3FCD3 /* WeiboSDK.bundle in Resources */,
 				04D7A8991B47EF9700579EC2 /* touch_focus_x.png in Resources */,
 				B84CD4D41B441EA2008FAA53 /* photo.png in Resources */,
+				B88469931B64C468008358C1 /* fkjb.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,18 +1,22 @@
 /* 
   Localizable.strings
-  HiRemote
+  HiSmart
 
   Created by parker on 6/25/15.
-  Copyright (c) 2015 hiremote. All rights reserved.
+  Copyright (c) 2015 HiSmart. All rights reserved.
 */
 "getStarted" = "Get Started";
 "scanning" = "Scanning...";
 "myBag" = "My Bag";
-"edit" = "Edit";
+"edit" = "Options";
 "myAccount" = "My Account";
 "close" = "Close";
-"pinnedLocations" = "Pinned Locations";
-"cameraShutte" = "Camera Shutte";
+"pinnedLocations" = "Pin Locations";
+"mpinnedLocations" = "Location";
+
+"cameraShutte" = "Take Photos";
+"mcameraShutte" = "Camera";
+
 "Location history" = "Location history";
 "ok" = "OK";
 "tips" = "Tips";
@@ -31,8 +35,8 @@
 "signUp" = "Sign Up";
 "haveAccount" = "I already have an account";
 "addedSuccess" = "HiSmart was added successfully!";
-"photoTips" = "First step:Take a picture of the item linked to you HiSmart.";
-"rename" = "Rename the HiSmart as";
+"photoTips" = "Please rename your HiSmart.";
+"rename" = "Rename";
 "next" = "Next";
 "retry" = "Retry";
 "renameTips" = "Rename your HiSmart";
@@ -41,10 +45,13 @@
 "oops" = "Oops";
 "cannotFind" = "It looks like we can't find it, Let's try again!";
 "haveProblem" = "Have a problem";
-"pinnedLocation" = "Pinned Location";
-"findMyItem" = "Find My Item";
-"cameraShutter" = "Camera Shutter";
-"voiceMemos" = "Voice Memos";
+"pinnedLocation" = "Pin Locations";
+"findMyItem" = "Track Devices";
+"mfindMyItem" = "Tracking";
+
+"voiceMemos" = "Record Memos";
+"mvoiceMemos" = "Recording";
+
 "hiremoteControl" = "HiSmart Control";
 "pinedTips" = "You can easily find the history of all the locations you have been to.";
 "findTips" = "Search for the item attached to the HiSmart.";
@@ -72,7 +79,6 @@
 "changeName" = "Change a name";
 "CANCEL" = "CANCEL";
 "CONFIRM" = "CONFIRM";
-"VoiceMemos" = "Voice Memos";
 "search" = "search";
 "history" = "History";
 "isNotConnected" = "Device is not connected";
@@ -94,3 +100,5 @@
 "lgIagree" = "I agree to......";
 "lgSignup" = "Sign Up with Facebook";
 "lgForgotPassword" = "An email with instructions on how to change your password has been sent to soya@sina.com.";
+
+"deviceCallIphone" = "The HiSmart is calling you!";

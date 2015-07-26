@@ -67,7 +67,7 @@ UITextFieldDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedString(@"VoiceMemos", nil);
+    self.title = NSLocalizedString(@"voiceMemos", nil);
     
     self.tableView.tableFooterView = [[UIView alloc]init];
     
