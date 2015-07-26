@@ -520,7 +520,7 @@ HPCoreLocationMangerDelegate>
     NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;
     NSString *latitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.latitude];
     NSString *longitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.longitude];
-    NSString *locationStr = appDelegate.locManger.currentStreet;
+    NSString *locationStr = appDelegate.locManger.fullLocation;
 
     if (_isDisconnectLocation) {
         [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:locationStr dataType:@(HirLocationDataType_lost) remark:nil];

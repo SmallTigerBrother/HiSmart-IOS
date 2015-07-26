@@ -95,3 +95,8 @@ return _instance; \
 #define ShowTestAlert   @"ShowTestAlert"
 
 #define NotificationVoiceOpen @"NotificationVoiceOpen"
+
+#define HirFAQUrl @"http://hismart.us/faq"
+#define HirContactUs @"http://hismart.us/constact"
+#define HirTeamsAndConditions @"http://hismart.us/help/privacy"
+#define HirPrivacyPolicy @"http://hirsmart.us/help/privacy"

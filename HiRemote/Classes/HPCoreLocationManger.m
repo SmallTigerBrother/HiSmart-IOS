@@ -9,6 +9,7 @@
 #import "HPCoreLocationManger.h"
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CLLocationManagerDelegate.h>
+#import "CLLocation+Sino.h"
 
 @interface HPCoreLocationManger() <CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locManager;
@@ -94,6 +95,17 @@
         [self.delegate performSelector:@selector(locationFinished:withFlag:) withObject:self.location withObject:[NSNumber numberWithBool:YES]];
         NSLog(@"state:%@  city:%@  street:%@",self.currentState,self.currentCity,self.currentStreet);
     }
+}
+
+-(NSString *)fullLocation{
+    NSString *fullLocation;
+    if([CLLocation isLocationOutOfChina:self.location.coordinate]){
+        fullLocation = [NSString stringWithFormat:@"%@%@%@",self.currentStreet,self.currentCity,self.currentState];
+    }
+    else{
+        fullLocation = [NSString stringWithFormat:@"%@%@%@",self.currentState,self.currentCity,self.currentStreet];
+    }
+    return fullLocation;
 }
 
 #pragma mark Core Location
