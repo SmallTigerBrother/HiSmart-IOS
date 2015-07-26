@@ -24,6 +24,8 @@
 @property (nonatomic, strong) NSString *currentCity;
 @property (nonatomic, strong) NSString *currentStreet;
 
+@property (nonatomic, strong) NSString *fullLocation;
+
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, weak) id <HPCoreLocationMangerDelegate> delegate;
 

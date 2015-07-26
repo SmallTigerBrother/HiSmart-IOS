@@ -9,6 +9,7 @@
 #import "HIRConnFailViewController.h"
 #import "AppDelegate.h"
 #import "PureLayout.h"
+#import "HirBaseWebViewCtl.h"
 
 @interface HIRConnFailViewController ()
 
@@ -17,7 +18,7 @@
 @property (nonatomic, strong) UIButton *retryButton;
 @property (nonatomic, strong) UIButton *cancelButton;
 @property (nonatomic, strong) UIView *leftLine;
-@property (nonatomic, strong) UILabel *tipsLabel3;
+@property (nonatomic, strong) UIButton *haveProplemBtn;
 @property (nonatomic, strong) UIView *rightLine;
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
@@ -30,7 +31,7 @@
 @synthesize retryButton;
 @synthesize cancelButton;
 @synthesize leftLine;
-@synthesize tipsLabel3;
+@synthesize haveProplemBtn;
 @synthesize rightLine;
 
 
@@ -69,10 +70,10 @@
     self.cancelButton.backgroundColor = [UIColor colorWithRed:0.44 green:0.76 blue:0.63 alpha:1];
     self.leftLine = [[UIView alloc] init];
     self.leftLine.backgroundColor = [UIColor whiteColor];
-    self.tipsLabel3 = [[UILabel alloc] init];
-    self.tipsLabel3.textColor = [UIColor whiteColor];
-    self.tipsLabel3.textAlignment = NSTextAlignmentCenter;
-    self.tipsLabel3.text = NSLocalizedString(@"haveProblem", @"");
+    self.haveProplemBtn = [[UIButton alloc] init];
+    self.haveProplemBtn.titleLabel.textColor = [UIColor whiteColor];
+    [self.haveProplemBtn setTitle:NSLocalizedString(@"haveProblem", @"") forState:UIControlStateNormal];
+    [self.haveProplemBtn addTarget:self action:@selector(haveProplemBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.rightLine = [[UIView alloc] init];
     self.rightLine.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tipsLabel1];
@@ -80,7 +81,7 @@
     [self.view addSubview:self.retryButton];
     [self.view addSubview:self.cancelButton];
     [self.view addSubview:self.leftLine];
-    [self.view addSubview:self.tipsLabel3];
+    [self.view addSubview:self.haveProplemBtn];
     [self.view addSubview:self.rightLine];
     [self.view setNeedsUpdateConstraints];
 }
@@ -119,14 +120,21 @@
         [self.rightLine autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:20];
         [self.rightLine autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.cancelButton withOffset:23];
 
-        [self.tipsLabel3 autoSetDimension:ALDimensionHeight toSize:30];
-        [self.tipsLabel3 autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.leftLine withOffset:5];
-        [self.tipsLabel3 autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.rightLine withOffset:-5];
-        [self.tipsLabel3 autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.cancelButton withOffset:10];
+        [self.haveProplemBtn autoSetDimension:ALDimensionHeight toSize:30];
+        [self.haveProplemBtn autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.leftLine withOffset:5];
+        [self.haveProplemBtn autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.rightLine withOffset:-5];
+        [self.haveProplemBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.cancelButton withOffset:10];
         
         self.didSetupConstraints = YES;
     }
     [super updateViewConstraints];
+}
+
+-(void)haveProplemBtnPressed:(UIButton *)sender{
+    HirBaseWebViewCtl *baseWebViewCtl = [[HirBaseWebViewCtl alloc]init];
+    baseWebViewCtl.theUrl = [NSURL URLWithString:HirFAQUrl];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:baseWebViewCtl];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)retryButtonClick:(id)sender {
@@ -144,7 +152,7 @@
     NSLog(@"fail connect DELLOC");
     self.tipsLabel1 = nil;
     self.tipsLabel2 = nil;
-    self.tipsLabel3 = nil;
+    self.haveProplemBtn = nil;
     self.retryButton = nil;
     self.cancelButton = nil;
 }

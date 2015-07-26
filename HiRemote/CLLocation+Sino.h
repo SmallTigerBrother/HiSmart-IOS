@@ -17,4 +17,8 @@
 - (CLLocation*)locationBearPawFromMars;
 - (CLLocation*)locationMarsFromBearPaw;
 //- (CLLocation *)locationEarthFromBearPaw;
+
+//判断是不是在国外
++(BOOL)isLocationOutOfChina:(CLLocationCoordinate2D)location;
+
 @end

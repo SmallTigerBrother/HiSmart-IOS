@@ -14,6 +14,7 @@
 		0450BCB51B5279BC00B3BF93 /* HirMsgPlaySound.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */; };
 		0450BCB81B53E8DA00B3BF93 /* DBDeviceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB71B53E8DA00B3BF93 /* DBDeviceRecord.m */; };
 		0450BCBB1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */; };
+		04A3702B1B64F28900C8F6EB /* HirBaseWebViewCtl.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A3702A1B64F28900C8F6EB /* HirBaseWebViewCtl.m */; };
 		04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AE11B4199CF009567BF /* SoundTool.m */; };
 		04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AEB1B43CFC1009567BF /* SWTableViewCell.m */; };
 		04BB4AF11B43DF87009567BF /* HirVerticalLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AF01B43DF87009567BF /* HirVerticalLabel.m */; };
@@ -169,6 +170,8 @@
 		0450BCB91B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HirDataManageCenter+DeviceRecord.h"; sourceTree = "<group>"; };
 		0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HirDataManageCenter+DeviceRecord.m"; sourceTree = "<group>"; };
 		04976BB78AFBE5AFBEEC05BA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		04A370291B64F28900C8F6EB /* HirBaseWebViewCtl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirBaseWebViewCtl.h; sourceTree = "<group>"; };
+		04A3702A1B64F28900C8F6EB /* HirBaseWebViewCtl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirBaseWebViewCtl.m; sourceTree = "<group>"; };
 		04BB4ADF1B4199CF009567BF /* SoundNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundNames.h; sourceTree = "<group>"; };
 		04BB4AE01B4199CF009567BF /* SoundTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundTool.h; sourceTree = "<group>"; };
 		04BB4AE11B4199CF009567BF /* SoundTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundTool.m; sourceTree = "<group>"; };
@@ -492,6 +495,8 @@
 		04D38D041B3E84FC0012D65A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				04A370291B64F28900C8F6EB /* HirBaseWebViewCtl.h */,
+				04A3702A1B64F28900C8F6EB /* HirBaseWebViewCtl.m */,
 				04D38D101B3E94980012D65A /* HirBaseViewController.h */,
 				04D38D111B3E94990012D65A /* HirBaseViewController.m */,
 				04D7A8391B47CEBB00579EC2 /* Camera */,
@@ -1111,6 +1116,7 @@
 				04D7A89C1B47EF9700579EC2 /* SCCaptureSessionManager.m in Sources */,
 				04D7A89D1B47EF9700579EC2 /* SCNavigationController.m in Sources */,
 				B8DF7DBD1B3E7AE7000BD43E /* HIRUserInfoTableViewController.m in Sources */,
+				04A3702B1B64F28900C8F6EB /* HirBaseWebViewCtl.m in Sources */,
 				04BB4AFD1B45814F009567BF /* HirActionTextField.m in Sources */,
 				04BB4B001B458512009567BF /* HirButton.m in Sources */,
 				04D7A8A51B47EF9700579EC2 /* DCTextView.m in Sources */,
