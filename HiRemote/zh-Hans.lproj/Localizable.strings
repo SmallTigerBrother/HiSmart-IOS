@@ -41,7 +41,7 @@
 "signUp" = "登录";
 "haveAccount" = "已拥有账号";
 "addedSuccess" = "HiSmart 已经成功添加";
-"photoTips" = "请重命名您的HiSmart";
+"photoTips" = "给您的HiSmart设备起个名字吧";
 "rename" = "重命名HiSmart为";
 "next" = "下一步";
 "retry" = "重试";

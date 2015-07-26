@@ -879,7 +879,6 @@
 		B8DF7DA61B3E7AE7000BD43E /* UIClasses */ = {
 			isa = PBXGroup;
 			children = (
-				B8DF7DA71B3E7AE7000BD43E /* HIRArcImageView.h */,
 				B84CD4991B441E58008FAA53 /* CallOutAnnotationVifew.h */,
 				B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */,
 				B84CD49B1B441E58008FAA53 /* HIRConnFailViewController.h */,
@@ -893,6 +892,7 @@
 				B84CD4A41B441E58008FAA53 /* HIRRegisterViewController.m */,
 				B84CD4A51B441E58008FAA53 /* HIRRenameViewController.h */,
 				B84CD4A61B441E58008FAA53 /* HIRRenameViewController.m */,
+				B8DF7DA71B3E7AE7000BD43E /* HIRArcImageView.h */,
 				B8DF7DA81B3E7AE7000BD43E /* HIRArcImageView.m */,
 				B8DF7DA91B3E7AE7000BD43E /* HIRBatteryPercentView.h */,
 				B8DF7DAA1B3E7AE7000BD43E /* HIRBatteryPercentView.m */,

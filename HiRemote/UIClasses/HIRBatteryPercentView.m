@@ -7,6 +7,7 @@
 //
 
 #import "HIRBatteryPercentView.h"
+#define ToRadian(radian)            (radian*(M_PI/180.0))
 
 @interface HIRBatteryPercentView()
 @end
@@ -33,9 +34,9 @@
 
 - (void)drawRect:(CGRect)rect{
     [self addArcBackColor];
-    [self drawArc];
     [self addCenterBack];
-   // [self addCenterLabel];
+    [self drawArc];
+    //[self addCenterLabel];
 }
 
 
@@ -55,7 +56,7 @@
 
 
 - (void)drawArc{
-    if (_percent == 0) {
+    if (_percent <= 0) {
         CGColorRef color = (_arcFinishColor == nil) ? [UIColor greenColor].CGColor : _arcFinishColor.CGColor;
         CGContextRef contextRef = UIGraphicsGetCurrentContext();
         CGSize viewSize = self.bounds.size;
@@ -67,7 +68,8 @@
         CGContextSetFillColorWithColor(contextRef, color);
         CGContextFillPath(contextRef);
     }else{
-        float endAngle = 2*M_PI*_percent;
+        double angleDegree = _percent * 360.0f;
+        double endAngle = ToRadian(angleDegree);
         CGColorRef color = (_arcUnfinishColor == nil) ? [UIColor blueColor].CGColor : _arcUnfinishColor.CGColor;
         CGContextRef contextRef = UIGraphicsGetCurrentContext();
         CGSize viewSize = self.bounds.size;
@@ -76,7 +78,7 @@
         CGFloat radius = viewSize.width / 2;
         CGContextBeginPath(contextRef);
         CGContextMoveToPoint(contextRef, center.x, center.y);
-        CGContextAddArc(contextRef, center.x, center.y, radius, 0,endAngle, 0);
+        CGContextAddArc(contextRef, center.x, center.y, radius, -M_PI*0.5,(1.5 - _percent * 2)*M_PI, 1);
         CGContextSetFillColorWithColor(contextRef, color);
         CGContextFillPath(contextRef);
     }

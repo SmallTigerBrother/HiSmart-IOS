@@ -32,6 +32,7 @@
         self.batteryPercent = [[HIRBatteryPercentView alloc] init];
         self.batteryPercent.arcFinishColor = [UIColor colorWithRed:0.92 green:0.92 blue:0.93 alpha:1];
         self.batteryPercent.arcUnfinishColor = [UIColor colorWithRed:0.38 green:0.74 blue:0.56 alpha:1];
+        ///这个是背景颜色,不随百分比变化
         self.batteryPercent.arcBackColor = [UIColor colorWithRed:0.92 green:0.92 blue:0.93 alpha:1];
         //self.batteryPercent.percent = 1;
         self.deviceNameLabel = [[UILabel alloc] init];
