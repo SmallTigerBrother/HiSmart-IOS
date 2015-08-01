@@ -37,7 +37,6 @@
 		04D7A82D1B477C1100579EC2 /* HirVoiceMemosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D7A82B1B477C1100579EC2 /* HirVoiceMemosViewController.xib */; };
 		04D7A8311B47847D00579EC2 /* HirVoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7A8301B47847D00579EC2 /* HirVoiceCell.m */; };
 		04D7A8381B47C91900579EC2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D7A8371B47C91900579EC2 /* CoreData.framework */; };
-		04D7A8801B47EF9700579EC2 /* meizi.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04D7A8421B47EF9700579EC2 /* meizi.jpg */; };
 		04D7A8811B47EF9700579EC2 /* camera_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D7A8441B47EF9700579EC2 /* camera_line.png */; };
 		04D7A8821B47EF9700579EC2 /* camera_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D7A8451B47EF9700579EC2 /* camera_line@2x.png */; };
 		04D7A8831B47EF9700579EC2 /* camera_line_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D7A8461B47EF9700579EC2 /* camera_line_h.png */; };
@@ -155,6 +154,8 @@
 		B8DF7DC41B3E97F5000BD43E /* nextBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DF7DC31B3E97F5000BD43E /* nextBtn.png */; };
 		B8DF7DC71B3EA910000BD43E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */; };
 		B8DF7DC81B3EA910000BD43E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DF7DC61B3EA910000BD43E /* Default@2x.png */; };
+		B8EBA5DD1B6CBF12009CD9C8 /* HirLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8EBA5DB1B6CBF12009CD9C8 /* HirLoginViewController.m */; };
+		B8EBA5E41B6CC823009CD9C8 /* UIView+HirStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B8EBA5E31B6CC823009CD9C8 /* UIView+HirStyle.m */; };
 		DBC8E0BD7AE7791DAB760C88 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EEC68A1FCE3A9ABA965D36 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -220,7 +221,6 @@
 		04D7A82F1B47847D00579EC2 /* HirVoiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirVoiceCell.h; sourceTree = "<group>"; };
 		04D7A8301B47847D00579EC2 /* HirVoiceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirVoiceCell.m; sourceTree = "<group>"; };
 		04D7A8371B47C91900579EC2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		04D7A8421B47EF9700579EC2 /* meizi.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = meizi.jpg; sourceTree = "<group>"; };
 		04D7A8441B47EF9700579EC2 /* camera_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_line.png; sourceTree = "<group>"; };
 		04D7A8451B47EF9700579EC2 /* camera_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera_line@2x.png"; sourceTree = "<group>"; };
 		04D7A8461B47EF9700579EC2 /* camera_line_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_line_h.png; sourceTree = "<group>"; };
@@ -409,6 +409,10 @@
 		B8DF7DC31B3E97F5000BD43E /* nextBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextBtn.png; sourceTree = "<group>"; };
 		B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B8DF7DC61B3EA910000BD43E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		B8EBA5DA1B6CBF12009CD9C8 /* HirLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HirLoginViewController.h; path = Login/HirLoginViewController.h; sourceTree = "<group>"; };
+		B8EBA5DB1B6CBF12009CD9C8 /* HirLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HirLoginViewController.m; path = Login/HirLoginViewController.m; sourceTree = "<group>"; };
+		B8EBA5E21B6CC823009CD9C8 /* UIView+HirStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HirStyle.h"; sourceTree = "<group>"; };
+		B8EBA5E31B6CC823009CD9C8 /* UIView+HirStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HirStyle.m"; sourceTree = "<group>"; };
 		E36CA8EE71365DA8477ACA8D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -490,6 +494,8 @@
 				04BB4B031B459C40009567BF /* UIView+AddLine.m */,
 				04BB4B051B459D24009567BF /* UIControl+AddLine.h */,
 				04BB4B061B459D24009567BF /* UIControl+AddLine.m */,
+				B8EBA5E21B6CC823009CD9C8 /* UIView+HirStyle.h */,
+				B8EBA5E31B6CC823009CD9C8 /* UIView+HirStyle.m */,
 			);
 			name = category;
 			sourceTree = "<group>";
@@ -501,6 +507,7 @@
 				04A3702A1B64F28900C8F6EB /* HirBaseWebViewCtl.m */,
 				04D38D101B3E94980012D65A /* HirBaseViewController.h */,
 				04D38D111B3E94990012D65A /* HirBaseViewController.m */,
+				B8EBA5D91B6CBE3F009CD9C8 /* Login */,
 				04D7A8391B47CEBB00579EC2 /* Camera */,
 				04D7A8281B477B9B00579EC2 /* Voice */,
 				04D38D171B3EB0DA0012D65A /* Location */,
@@ -607,7 +614,6 @@
 		04D7A8411B47EF9700579EC2 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				04D7A8421B47EF9700579EC2 /* meizi.jpg */,
 				04D7A8431B47EF9700579EC2 /* SCCamera */,
 			);
 			path = images;
@@ -934,6 +940,15 @@
 			path = HiRemote/Classes;
 			sourceTree = "<group>";
 		};
+		B8EBA5D91B6CBE3F009CD9C8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				B8EBA5DA1B6CBF12009CD9C8 /* HirLoginViewController.h */,
+				B8EBA5DB1B6CBF12009CD9C8 /* HirLoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1015,7 +1030,6 @@
 				04D6512B1B5BBD8B00B5BB13 /* defaultDevice.png in Resources */,
 				B84CD4D51B441EA2008FAA53 /* pinImage.png in Resources */,
 				2C18AB561B3D3F1700CE6588 /* addDevice.png in Resources */,
-				04D7A8801B47EF9700579EC2 /* meizi.jpg in Resources */,
 				04D7A88A1B47EF9700579EC2 /* flashing_auto@2x.png in Resources */,
 				B8DF7DC81B3EA910000BD43E /* Default@2x.png in Resources */,
 				04D7A88E1B47EF9700579EC2 /* flashing_on@2x.png in Resources */,
@@ -1144,8 +1158,10 @@
 				B8DF7DBC1B3E7AE7000BD43E /* HIRSegmentView.m in Sources */,
 				B84CD4AB1B441E58008FAA53 /* HIRMapViewController.m in Sources */,
 				04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */,
+				B8EBA5E41B6CC823009CD9C8 /* UIView+HirStyle.m in Sources */,
 				0450BCB51B5279BC00B3BF93 /* HirMsgPlaySound.m in Sources */,
 				04D7A8A11B47EF9700579EC2 /* DCCrossHairView.m in Sources */,
+				B8EBA5DD1B6CBF12009CD9C8 /* HirLoginViewController.m in Sources */,
 				B8DF7DB81B3E7AE7000BD43E /* HIRBatteryPercentView.m in Sources */,
 				04F375C51B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m in Sources */,
 				04D38D241B3EB6770012D65A /* HirLocationHistoryTableCell.m in Sources */,
