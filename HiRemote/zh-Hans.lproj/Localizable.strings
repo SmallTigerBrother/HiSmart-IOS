@@ -92,3 +92,5 @@
 "copy" = "复制";
 
 "deviceCallIphone" = "您的HiSmart正在向您发起呼叫!";
+
+"deviceUnsportCamera" = "设备不支持拍照功能";

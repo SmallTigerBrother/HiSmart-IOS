@@ -24,6 +24,7 @@
 #pragma mark --category
 #import "UIView+AddLine.h"
 #import "UIControl+AddLine.h"
+#import "UIView+HirStyle.h"
 
 #import "HirEnum.h"
 

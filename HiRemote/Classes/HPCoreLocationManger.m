@@ -62,8 +62,6 @@
     }
 }
 
-
-
 - (void) startLocateToGeo {
     self.geocoder = [[CLGeocoder alloc]init];
     __weak typeof(self) weakSelf = self;

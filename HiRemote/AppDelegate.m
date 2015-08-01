@@ -18,6 +18,7 @@
 #import "HirDataManageCenter+Perphera.h"
 #import "HirMsgPlaySound.h"
 #import "MobClick.h"
+#import "HirLoginViewController.h"
 
 @interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate,AVAudioPlayerDelegate,UIAlertViewDelegate>{
     UIBackgroundTaskIdentifier bgTask;
@@ -269,8 +270,15 @@
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
+-(void)pushLoginViewCtl{
+    HirLoginViewController *loginViewCtl = [[HirLoginViewController alloc]init];
+    
+}
+
 - (void)welcomViewControllerNeedDisapear {
     [[self.window subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    
     self.welcomeVC = nil;
     
     self.scanVC = [[HIRScanningViewController alloc] init];

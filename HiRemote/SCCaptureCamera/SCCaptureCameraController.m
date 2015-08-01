@@ -145,19 +145,8 @@ UIImagePickerControllerDelegate>
     
 #if SWITCH_SHOW_DEFAULT_IMAGE_FOR_NONE_CAMERA
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [SVProgressHUD showErrorWithStatus:@"设备不支持拍照功能，给个妹纸给你喵喵T_T"];
-        CGFloat offsetY_H = 0;
-        if (DEVICE_IS_IPHONE5) {
-            offsetY_H = 70;
-        }else if(!DEVICE_IS_IPHONE4) {
-            offsetY_H = 100;
-        }
-        
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, CAMERA_TOPVIEW_HEIGHT, self.view.frame.size.width, self.view.frame.size.width+offsetY_H)];
-        imgView.clipsToBounds = YES;
-        imgView.contentMode = UIViewContentModeScaleAspectFill;
-        imgView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"meizi" ofType:@"jpg"]];
-        [self.view addSubview:imgView];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"deviceUnsportCamera", @"")];
+        self.view.backgroundColor = [UIColor blackColor];
     }
 #endif
     
@@ -510,11 +499,18 @@ void c_slideAlpha() {
     
     //    [super touchesBegan:touches withEvent:event];
     
-    alphaTimes = -1;
     
     UITouch *touch = [touches anyObject];
-    currTouchPoint = [touch locationInView:self.view];
+    CGPoint point = [touch locationInView:self.view];
     
+    [self cameraFocusInPoin:point];
+}
+
+-(void)cameraFocusInPoin:(CGPoint)point{
+    alphaTimes = -1;
+    
+    currTouchPoint = point;
+
     if (CGRectContainsPoint(_captureManager.previewLayer.bounds, currTouchPoint) == NO) {
         return;
     }
@@ -542,11 +538,14 @@ void c_slideAlpha() {
         } completion:nil];
     }];
 #endif
+
 }
 
-
 -(void)controllerTakePictureBtnPressed{
-    [self takePictureBtnPressed:nil];
+    [self cameraFocusInPoin:CGPointMake(self.view.center.x,(_previewRect.size.height - 100)/2 +44)];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self takePictureBtnPressed:nil];
+    });
 }
 
 #pragma mark -------------button actions---------------
@@ -554,7 +553,7 @@ void c_slideAlpha() {
 - (void)takePictureBtnPressed:(UIButton*)sender {
 #if SWITCH_SHOW_DEFAULT_IMAGE_FOR_NONE_CAMERA
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [SVProgressHUD showErrorWithStatus:@"设备不支持拍照功能T_T"];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"deviceUnsportCamera", @"")];
         return;
     }
 #endif

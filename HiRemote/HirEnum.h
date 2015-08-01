@@ -22,4 +22,5 @@ typedef NS_ENUM(NSInteger, HirLocationDataType){
     HirLocationDataType_lost,           //丢失记录的位置
 };
 
+
 #endif

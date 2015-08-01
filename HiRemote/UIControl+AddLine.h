@@ -12,5 +12,6 @@
 //0x1111  上左下右
 -(void)addLine:(NSInteger)addLineType;
 
+@property (nonatomic, strong)UIColor *lineColor;
 
 @end

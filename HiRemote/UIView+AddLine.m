@@ -7,6 +7,7 @@
 //
 
 #import "UIView+AddLine.h"
+#import <objc/runtime.h>
 
 @implementation UIView (AddLine)
 -(void)addLine:(NSInteger)addLineType{
@@ -36,4 +37,13 @@
         [self addSubview:rightLine];
     }
 }
+
+- (void) setLineColor:(UIColor *)lineColor{
+    objc_setAssociatedObject(self, "lineColor", lineColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (UIColor *) lineColor{
+    return objc_getAssociatedObject(self, "lineColor");
+}
+
 @end
