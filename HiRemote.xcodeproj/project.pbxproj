@@ -103,6 +103,8 @@
 		2C18AB541B3D3B1C00CE6588 /* userAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB531B3D3B1C00CE6588 /* userAvatar.png */; };
 		2C18AB561B3D3F1700CE6588 /* addDevice.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB551B3D3F1700CE6588 /* addDevice.png */; };
 		2C18AB601B3D4F5F00CE6588 /* preBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB5F1B3D4F5F00CE6588 /* preBtn.png */; };
+		2CCB4EC91B6E01E300783616 /* HIRHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB4EC81B6E01E300783616 /* HIRHttpRequest.m */; };
+		2CCB4ECC1B6E067500783616 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB4ECB1B6E067500783616 /* Reachability.m */; };
 		B84CD4A71B441E58008FAA53 /* CallOutAnnotationVifew.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */; };
 		B84CD4A81B441E58008FAA53 /* HIRConnFailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49C1B441E58008FAA53 /* HIRConnFailViewController.m */; };
 		B84CD4A91B441E58008FAA53 /* HIRConnSuccViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49E1B441E58008FAA53 /* HIRConnSuccViewController.m */; };
@@ -336,6 +338,10 @@
 		2C18AB531B3D3B1C00CE6588 /* userAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userAvatar.png; sourceTree = "<group>"; };
 		2C18AB551B3D3F1700CE6588 /* addDevice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addDevice.png; sourceTree = "<group>"; };
 		2C18AB5F1B3D4F5F00CE6588 /* preBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preBtn.png; sourceTree = "<group>"; };
+		2CCB4EC71B6E01E300783616 /* HIRHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRHttpRequest.h; sourceTree = "<group>"; };
+		2CCB4EC81B6E01E300783616 /* HIRHttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRHttpRequest.m; sourceTree = "<group>"; };
+		2CCB4ECA1B6E067500783616 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		2CCB4ECB1B6E067500783616 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		A3EEC68A1FCE3A9ABA965D36 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B84CD4991B441E58008FAA53 /* CallOutAnnotationVifew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallOutAnnotationVifew.h; sourceTree = "<group>"; };
 		B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallOutAnnotationVifew.m; sourceTree = "<group>"; };
@@ -947,7 +953,11 @@
 				B8DF7DC01B3E7B16000BD43E /* HPCoreLocationManger.h */,
 				B84CD4AE1B441E70008FAA53 /* HIRAnnotations.h */,
 				B84CD4AF1B441E70008FAA53 /* HIRAnnotations.m */,
+				2CCB4ECA1B6E067500783616 /* Reachability.h */,
+				2CCB4ECB1B6E067500783616 /* Reachability.m */,
 				B84CD4B01B441E70008FAA53 /* HIRCBCentralClass.h */,
+				2CCB4EC71B6E01E300783616 /* HIRHttpRequest.h */,
+				2CCB4EC81B6E01E300783616 /* HIRHttpRequest.m */,
 				B84CD4B11B441E70008FAA53 /* HIRCBCentralClass.m */,
 				B84CD4B21B441E70008FAA53 /* HIRRemoteData.h */,
 				B84CD4B31B441E70008FAA53 /* HIRRemoteData.m */,
@@ -1134,6 +1144,7 @@
 				0450BCB81B53E8DA00B3BF93 /* DBDeviceRecord.m in Sources */,
 				04BB4B071B459D24009567BF /* UIControl+AddLine.m in Sources */,
 				04F375BC1B49167800E3FCD3 /* HirUserInfo.m in Sources */,
+				2CCB4ECC1B6E067500783616 /* Reachability.m in Sources */,
 				B84CD4AA1B441E58008FAA53 /* HIRFindViewController.m in Sources */,
 				04D7A8AF1B48006600579EC2 /* SGInfoAlert.m in Sources */,
 				0450BCBB1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m in Sources */,
@@ -1145,6 +1156,7 @@
 				04A3702B1B64F28900C8F6EB /* HirBaseWebViewCtl.m in Sources */,
 				04BB4AFD1B45814F009567BF /* HirActionTextField.m in Sources */,
 				04BB4B001B458512009567BF /* HirButton.m in Sources */,
+				2CCB4EC91B6E01E300783616 /* HIRHttpRequest.m in Sources */,
 				04D7A8A51B47EF9700579EC2 /* DCTextView.m in Sources */,
 				B84CD4A71B441E58008FAA53 /* CallOutAnnotationVifew.m in Sources */,
 				2C18AAF51B3BECDE00CE6588 /* AppDelegate.m in Sources */,
