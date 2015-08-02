@@ -25,7 +25,6 @@
     return self;
 }
 
-
 -(void)loadWebView
 {
     _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -34,10 +33,28 @@
     [self.view addSubview:_webView];
 }
 
+- (void)webViewDidStartLoad:(UIWebView *)webView;
+{
+    
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView;
 {
-    NSString *theTitle=[_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    self.title = theTitle;
+    [self finishLoadWebViewAndSetTitle:self.title];
+}
+
+-(void)finishLoadWebViewAndSetTitle:(NSString *)title{
+    NSLog(@"设置title = %@",title);
+    
+    if (title.length) {
+        self.title = title;
+    }
+    else{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSString *theTitle=[_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+            [self finishLoadWebViewAndSetTitle:theTitle];
+        });
+    }
 }
 
 - (void)viewDidLoad

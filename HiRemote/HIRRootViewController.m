@@ -24,6 +24,7 @@
 #import "HirMsgPlaySound.h"
 #import <AVFoundation/AVFoundation.h>
 #import "HirDataManageCenter+DeviceRecord.h"
+#import "HirSettingTableViewController.h"
 
 @interface HIRRootViewController () <UIScrollViewDelegate,
 UITableViewDataSource,
@@ -433,7 +434,7 @@ HPCoreLocationMangerDelegate>
     [timerForPitch invalidate];
     timerForPitch = nil;
     
-    NSLog(@"url=%@",audioRecorder.url);
+    NSLog(@"url=%@",_audioRecorder.url);
     
     NSString *mediaPath = [_audioRecorder.url.path lastPathComponent];
     
@@ -806,7 +807,8 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)addNewDevice:(id)sender {
-    
+    HirSettingTableViewController *settingTableViewController = [[HirSettingTableViewController alloc]init];
+    [self.navigationController pushViewController:settingTableViewController animated:YES];
     
     return;
     ////添加新设备时，防止为上次的设备
@@ -815,10 +817,6 @@ HPCoreLocationMangerDelegate>
     [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
     AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDeleg addNewDevice];
-}
-
--(void)pushSettingViewController{
-    
 }
 
 - (void)preButtonClick:(id)sender {

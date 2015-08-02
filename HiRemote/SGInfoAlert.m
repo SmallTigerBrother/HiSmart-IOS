@@ -87,6 +87,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect,
     SGInfoAlert *alert = [[SGInfoAlert alloc] initWithFrame:frame bgColor:color info:info];
     alert.center = CGPointMake(view.center.x, view.frame.size.height*height);
     alert.alpha = 0;
+    alert.userInteractionEnabled = NO;
     [view addSubview:alert];
     
     [UIView animateWithDuration:.3 animations:^{

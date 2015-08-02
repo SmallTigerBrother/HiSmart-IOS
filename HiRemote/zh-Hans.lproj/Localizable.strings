@@ -92,3 +92,17 @@
 "copy" = "复制";
 
 "deviceCallIphone" = "您的HiSmart正在向您发起呼叫!";
+"deviceUnsportCamera" = "设备不支持拍照功能";
+
+//setting
+"Setting" = "设置";
+"addANewDevice" = "添加一个新设备";
+"supportAndFaqs" = "帮助与建议";
+"contactUs" = "联系我们";
+"TermsAndConditions" = "服务条款";
+"PrivacyPolicy" = "隐私策略";
+"Include another HiSmart device by adding it here." = "可以添加另外一台设备.";
+"NeedAnyHelpWeCanHelpYou." = "需要帮助？请找我们.";
+"DidNoFindYourAnswerInFAQs." = "在常见问题中找不到答案?直接与我们联系.";
+"FindTheInformationHere." = "查看其他信息.";
+"Find the privacy policy here." = "查看隐私策略.";

@@ -102,3 +102,17 @@
 "lgForgotPassword" = "An email with instructions on how to change your password has been sent to soya@sina.com.";
 
 "deviceCallIphone" = "The HiSmart is calling you!";
+"deviceUnsportCamera" = "This device doesn't support camera";
+
+//setting
+"Setting" = "Setting";
+"addANewDevice" = "Add a New Device";
+"supportAndFaqs" = "Support and FAQs";
+"contactUs" = "Contact Us";
+"TermsAndConditions" = "Terms and conditions";
+"PrivacyPolicy" = "Privacy Policy";
+"Include another HiSmart device by adding it here." = "Include another HiSmart device by adding it here.";
+"Need any help? We can help you." = "Need any help? We can help you.";
+"Did't find your answer in FAQs." = "Did't find your answer in FAQs.";
+"Find the information here." = "Find the information here.";
+"Find the privacy policy here." = "Find the privacy policy here.";

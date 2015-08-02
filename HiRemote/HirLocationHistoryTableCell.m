@@ -34,6 +34,7 @@
     
     self.contentLabel = [[HirVerticalLabel alloc]init];
     self.contentLabel.verticalAlignment = VerticalAlignmentTop;
+    self.contentLabel.numberOfLines = 0;
     [self.contentView addSubview:self.contentLabel];
     
     self.timeLabel = [[UILabel alloc]init];

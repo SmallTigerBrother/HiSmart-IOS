@@ -103,7 +103,7 @@ UIImagePickerControllerDelegate>
         self.navigationController.navigationBarHidden = YES;
     }
     
-
+    self.view.backgroundColor = [UIColor blackColor];
     
     //status bar
     if (!self.navigationController) {
@@ -146,18 +146,18 @@ UIImagePickerControllerDelegate>
 #if SWITCH_SHOW_DEFAULT_IMAGE_FOR_NONE_CAMERA
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         [SVProgressHUD showErrorWithStatus:@"设备不支持拍照功能，给个妹纸给你喵喵T_T"];
-        CGFloat offsetY_H = 0;
-        if (DEVICE_IS_IPHONE5) {
-            offsetY_H = 70;
-        }else if(!DEVICE_IS_IPHONE4) {
-            offsetY_H = 100;
-        }
+//        CGFloat offsetY_H = 0;
+//        if (DEVICE_IS_IPHONE5) {
+//            offsetY_H = 70;
+//        }else if(!DEVICE_IS_IPHONE4) {
+//            offsetY_H = 100;
+//        }
         
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, CAMERA_TOPVIEW_HEIGHT, self.view.frame.size.width, self.view.frame.size.width+offsetY_H)];
-        imgView.clipsToBounds = YES;
-        imgView.contentMode = UIViewContentModeScaleAspectFill;
-        imgView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"meizi" ofType:@"jpg"]];
-        [self.view addSubview:imgView];
+//        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, CAMERA_TOPVIEW_HEIGHT, self.view.frame.size.width, self.view.frame.size.width+offsetY_H)];
+//        imgView.clipsToBounds = YES;
+//        imgView.contentMode = UIViewContentModeScaleAspectFill;
+//        imgView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"meizi" ofType:@"jpg"]];
+//        [self.view addSubview:imgView];
     }
 #endif
     
@@ -554,7 +554,7 @@ void c_slideAlpha() {
 - (void)takePictureBtnPressed:(UIButton*)sender {
 #if SWITCH_SHOW_DEFAULT_IMAGE_FOR_NONE_CAMERA
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [SVProgressHUD showErrorWithStatus:@"设备不支持拍照功能T_T"];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"deviceUnsportCamera", @"")];
         return;
     }
 #endif
