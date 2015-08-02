@@ -18,12 +18,16 @@
 #import "HirDataManageCenter+Perphera.h"
 #import "HirMsgPlaySound.h"
 #import "MobClick.h"
+#import "HIRHttpRequest.h"
+
 
 @interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate,AVAudioPlayerDelegate,UIAlertViewDelegate>{
     UIBackgroundTaskIdentifier bgTask;
     
     NSUInteger counter;
     SystemSoundID _sound;
+    
+    NSString *updateAppUrl;
 }
 @property(nonatomic) HIRWelcomeViewController *welcomeVC;
 @property(nonatomic) HIRRegisterViewController *registerVC;
@@ -33,6 +37,9 @@
 @property(nonatomic, strong)UIAlertView *phoneSoundAlert;
 
 @property (nonatomic, strong)NSTimer *myTimer;
+
+@property(nonatomic, strong) NSString *updateAppUrl;
+
 @end
 
 @implementation AppDelegate
@@ -98,6 +105,8 @@
     [MobClick setEncryptEnabled:YES];
     [MobClick startWithAppkey:UMENG_APPKEY reportPolicy:BATCH   channelId:@""];
     
+    ///检测是否有新版本
+    [self checkTheNewApp];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needIphoneAlertNotify:) name:NEED_IPHONE_ALERT_NOTIFICATION object:nil];
     
@@ -475,9 +484,26 @@
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 {
-    if (buttonIndex == 0) {
-        _isPhoneAlertPlaying = NO;
-        [self stopPhoneAlertAudio];
+    if (alertView.tag == 1) {
+        if (buttonIndex == 0) {
+            _isPhoneAlertPlaying = NO;
+            [self stopPhoneAlertAudio];
+        }
+    }else if(alertView.tag == 2) {///需要更新
+        if (buttonIndex == 0) {
+            NSString *downUrl = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",self.updateAppUrl];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downUrl]];
+        }
+    }else if (alertView.tag == 3) { ///强制更新
+        NSString *downUrl = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",self.updateAppUrl];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downUrl]];
+    }else if (alertView.tag == 4) { ///失效
+        [UIView animateWithDuration:.4f animations:^{
+            window.alpha = 0;
+            window.frame = CGRectMake(0, window.bounds.size.width, 0, 0);
+        } completion:^(BOOL finished) {
+            exit(0);
+        }];
     }
 }
 
@@ -499,6 +525,8 @@ static bool _isPhoneAlertPlaying;
                                            NULL);
     if(!self.phoneSoundAlert.visible){
         self.phoneSoundAlert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"deviceCallIphone", @"") delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""),nil];
+        self.phoneSoundAlert.tag = 1;
+        
         [self.phoneSoundAlert show];
     }
     NSLog(@"playing");
@@ -526,4 +554,74 @@ void completionCallback (SystemSoundID  mySSID, void* data) {
 {
     _isPhoneAlertPlaying = NO;
 }
+
+
+- (void)checkTheNewApp {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.31.210:8090/lepow/api/apps"]
+                                                           cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                       timeoutInterval:60.0];
+    NSMutableDictionary *paraDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"ios",@"system", nil];
+    NSString *bunldeId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    if ([bunldeId length] > 0) {
+        [paraDic setObject:bunldeId forKey:@"appId"];
+    }
+    if ([appVersion length] > 0) {
+        [paraDic setObject:appVersion forKey:@"appVersion"];
+    }
+    
+    NSString *currentLanguage = nil;
+    NSArray *languages = [NSLocale preferredLanguages];
+    if ([languages count] > 0) {
+        currentLanguage = [languages objectAtIndex:0];
+    }else {
+        currentLanguage = @"en";
+    }
+    [request addValue:currentLanguage forHTTPHeaderField:@"Accept-Language"];
+    [request setHTTPMethod:@"POST"];
+    
+    NSMutableString *dataStr = [NSMutableString string];
+    NSArray *keys = [paraDic allKeys];
+    for (int i = 0; i< [keys count]; i++) {
+        NSString *key = [keys objectAtIndex:i];
+        [dataStr appendFormat:@"%@=%@",key,[paraDic valueForKey:key]];
+        if (i+1 < [keys count]) {
+            [dataStr appendString:@"&"];
+        }
+    }
+    
+    [request setHTTPBody:[dataStr dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    
+    [HIRHttpRequest sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if (!connectionError) {
+            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            if ([result count] > 0) {
+                int code = [[result valueForKey:@"code"] integerValue];
+                if (code == 0) {//成功
+                    NSDictionary *infoDic = [result valueForKey:@"data"];
+                    if (infoDic) {
+                        int status = [[infoDic valueForKey:@"status"] integerValue];
+                        NSString *des = [infoDic valueForKey:@"description"];
+                        self.updateAppUrl = [infoDic valueForKey:@"plistUrl"];
+                        if (status == 2) { //有效需要升级
+                            UIAlertView *updateAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:des delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""),NSLocalizedString(@"cancel", @""), nil];
+                            updateAlert.tag = 2;
+                            [updateAlert show];
+                        }else if (status == 3){//失效需要强制升级
+                            UIAlertView *updateAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:des delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil];
+                            updateAlert.tag = 3;
+                            [updateAlert show];
+                        }else if (status == 4) {//失效了，不能用了
+                        }
+                    }
+                }else {
+                   
+                }
+            }
+        }
+    }];
+}
+
+
 @end
