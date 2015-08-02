@@ -105,6 +105,7 @@
 
 -(void)pushWebViewCtl:(NSString *)url title:(NSString *)title{
     HirBaseWebViewCtl *baseWebViewCtl = [[HirBaseWebViewCtl alloc]init];
+    baseWebViewCtl.title = title;
     baseWebViewCtl.theUrl = [NSURL URLWithString:url];
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:baseWebViewCtl];
     [self.navigationController presentViewController:nav animated:YES completion:nil];

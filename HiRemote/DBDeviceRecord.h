@@ -17,5 +17,8 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * voiceTime;
 @property (nonatomic, retain) NSString * peripheraUUID;
+@property (nonatomic, retain) NSString * timeZome;
+@property (nonatomic, retain) NSString * userId;
+@property (nonatomic, retain) NSNumber * sync;
 
 @end

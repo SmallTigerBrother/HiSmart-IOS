@@ -16,5 +16,6 @@
 @dynamic avatarPath;
 @dynamic uuid;
 @dynamic battery;
+@dynamic userId;
 
 @end

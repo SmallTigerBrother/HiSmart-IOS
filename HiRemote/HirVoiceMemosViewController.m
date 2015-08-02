@@ -240,7 +240,9 @@ UITextFieldDelegate>
 }
 
 -(void)getDataAndRefreshTable{
-    self.data = [HirDataManageCenter findAllRecord];
+    DBPeriphera *currentPeriphera = [HirUserInfo shareUserInfo].currentPeriphera;
+    
+    self.data = [HirDataManageCenter findAllRecordByPeripheraUUID:currentPeriphera.uuid];
     
     [self.tableView reloadData];
     [self refreshPlayVoiceRecordPannelViewWithModel:self.currentDeviceRecord];

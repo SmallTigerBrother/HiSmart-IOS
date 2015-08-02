@@ -14,7 +14,11 @@
     if (!uuid) {
         return nil;
     }
-    DBPeriphera *periphera = [[DBPeriphera MR_findByAttribute:@"uuid" withValue:uuid]firstObject];
+    NSString *userId = [HirUserInfo shareUserInfo].userId;
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uuid == %@ AND userId = %@",uuid,userId];
+    
+    DBPeriphera *periphera = [DBPeriphera MR_findFirstWithPredicate:predicate];
     return periphera;
 }
 
@@ -26,7 +30,11 @@
 }
 
 +(NSMutableArray *)findAllPerphera{
-    NSArray *list = [DBPeriphera MR_findAll];
+    NSString *userId = [HirUserInfo shareUserInfo].userId;
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@",userId];
+    
+    NSArray *list = [DBPeriphera MR_findAllWithPredicate:predicate];
     if ([list count] == 0) {
         return [NSMutableArray arrayWithCapacity:3];
     }
@@ -61,6 +69,9 @@
         periphera.avatarPath = avatarPath;
         periphera.battery = battery;
     }
+    NSString *userId = [HirUserInfo shareUserInfo].userId;
+
+    periphera.userId = userId;
     
     [HirUserInfo shareUserInfo].deviceInfoArray = [HirDataManageCenter findAllPerphera];
     [[NSManagedObjectContext MR_context]MR_saveOnlySelfAndWait];    

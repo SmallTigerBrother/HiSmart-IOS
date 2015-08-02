@@ -17,5 +17,6 @@
 @property (nonatomic, retain) NSString * avatarPath;
 @property (nonatomic, retain) NSString * uuid;
 @property (nonatomic, retain) NSNumber * battery;
+@property (nonatomic, retain) NSString * userId;
 
 @end

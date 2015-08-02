@@ -19,5 +19,8 @@
 @property (nonatomic, retain) NSNumber * recordTime;
 @property (nonatomic, retain) NSNumber * dataType;
 @property (nonatomic, retain) NSString * remark;
+@property (nonatomic, retain) NSString * userId;
+@property (nonatomic, retain) NSNumber * sync;
+@property (nonatomic, retain) NSString * timeZome;
 
 @end

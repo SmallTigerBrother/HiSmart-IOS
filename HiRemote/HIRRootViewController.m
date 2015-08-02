@@ -134,7 +134,7 @@ HPCoreLocationMangerDelegate>
     
     self.headRightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     //self.headRightBtn.backgroundColor = [UIColor darkGrayColor];
-    [self.headRightBtn setImage:[UIImage imageNamed:@"addDevice"] forState:UIControlStateNormal];
+    [self.headRightBtn setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
     [self.headRightBtn addTarget:self action:@selector(addNewDevice:) forControlEvents:UIControlEventTouchUpInside];
     
     //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addDevice"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(addNewDevice:)];

@@ -31,6 +31,21 @@ static HirUserInfo *hirUserDefault;
     return self;
 }
 
+-(NSString *)userId{
+    NSString *userId = [self.stateUserDef objectForKey:@"userId"];
+    if (!userId) {
+        userId = @"";
+    }
+    return userId;
+}
+
+-(void)setUserId:(NSString *)userId{
+    if (![userId isEqualToString:self.userId]) {
+        [self.stateUserDef setObject:userId forKey:@""];
+        [self.stateUserDef synchronize];
+    }
+}
+
 -(void)setCurrentViewControllerType:(CurrentViewControllerType)currentViewControllerType{
     [self.stateUserDef setObject:@(currentViewControllerType) forKey:@"currentViewController"];
     [self.stateUserDef synchronize];

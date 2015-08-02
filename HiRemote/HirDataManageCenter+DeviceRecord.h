@@ -15,7 +15,7 @@
 
 +(DBDeviceRecord *)findDeviceRecordByPeripheraUUID:(NSString *)peripheraUUID;
 
-+(NSMutableArray *)findAllRecord;
++(NSMutableArray *)findAllRecordByPeripheraUUID:(NSString *)peripheraUUID;
 
 //插入一条记录
 +(void)insertVoicePath:(NSString *)voicePath peripheraUUID:(NSString *)peripheraUUID recoderTimestamp:(NSNumber *)recoderTimestamp title:(NSString *)title voiceTime:(NSNumber *)voiceTime;

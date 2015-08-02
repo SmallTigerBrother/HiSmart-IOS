@@ -16,5 +16,8 @@
 @dynamic title;
 @dynamic voiceTime;
 @dynamic peripheraUUID;
+@dynamic timeZome;
+@dynamic userId;
+@dynamic sync;
 
 @end

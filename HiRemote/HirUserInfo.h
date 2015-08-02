@@ -18,6 +18,8 @@ typedef NS_ENUM(NSInteger, CurrentViewControllerType) {
 @interface HirUserInfo : NSObject
 +(HirUserInfo *)shareUserInfo;
 
+@property (nonatomic, strong)NSString *userId;
+
 //0:未定义 1:相机 2:录音(第一下开始,第二下结束)
 @property (nonatomic, assign)CurrentViewControllerType currentViewControllerType;
 

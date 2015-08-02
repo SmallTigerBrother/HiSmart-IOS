@@ -13,12 +13,19 @@
     if (!peripheraUUID) {
         return nil;
     }
-    DBDeviceRecord *deviceRecord = [[DBDeviceRecord MR_findByAttribute:@"peripheraUUID" withValue:peripheraUUID]firstObject];
+    NSString *userId = [HirUserInfo shareUserInfo].userId;
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheraUUID == %@ AND userId == %@",peripheraUUID,userId];
+    DBDeviceRecord *deviceRecord = [DBDeviceRecord MR_findFirstWithPredicate:predicate];
     return deviceRecord;
 }
 
-+(NSMutableArray *)findAllRecord{
-    NSArray *list = [DBDeviceRecord MR_findAllSortedBy:@"recoderTimestamp" ascending:NO];
++(NSMutableArray *)findAllRecordByPeripheraUUID:(NSString *)peripheraUUID{
+    NSString *userId = [HirUserInfo shareUserInfo].userId;
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheraUUID == %@ AND userId == %@",peripheraUUID,userId];
+    
+    NSArray *list = [DBDeviceRecord MR_findAllSortedBy:@"recoderTimestamp" ascending:NO withPredicate:predicate];
     
     if ([list count] == 0) {
         return [NSMutableArray arrayWithCapacity:3];
@@ -53,6 +60,8 @@
         deviceRecord.title = title;
         deviceRecord.voiceTime = voiceTime;
     }
+    deviceRecord.sync = [NSNumber numberWithBool:NO];
+    deviceRecord.timeZome = [NSTimeZone localTimeZone].name;
     
     [[NSManagedObjectContext MR_context]MR_saveOnlySelfAndWait];
     dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.7 * NSEC_PER_SEC));
