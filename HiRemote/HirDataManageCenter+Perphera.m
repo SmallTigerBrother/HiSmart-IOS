@@ -10,7 +10,7 @@
 
 @implementation HirDataManageCenter (Perphera)
 //查找设备ID为:peripheraUUID的定位记录信息
-+(DBPeriphera *)findPerpheraByPeripheraUUID:(NSString *)uuid{
++(DBPeripheral *)findPerpheraByPeripheraUUID:(NSString *)uuid{
     if (!uuid) {
         return nil;
     }
@@ -18,11 +18,11 @@
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uuid == %@ AND userId = %@",uuid,userId];
     
-    DBPeriphera *periphera = [DBPeriphera MR_findFirstWithPredicate:predicate];
+    DBPeripheral *periphera = [DBPeripheral MR_findFirstWithPredicate:predicate];
     return periphera;
 }
 
-+(NSString *)getNameWithPerphera:(DBPeriphera *)periphera{
++(NSString *)getNameWithPerphera:(DBPeripheral *)periphera{
     if (periphera.remarkName) {
         return periphera.remarkName;
     }
@@ -34,7 +34,7 @@
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@",userId];
     
-    NSArray *list = [DBPeriphera MR_findAllWithPredicate:predicate];
+    NSArray *list = [DBPeripheral MR_findAllWithPredicate:predicate];
     if ([list count] == 0) {
         return [NSMutableArray arrayWithCapacity:3];
     }
@@ -46,7 +46,7 @@
     
 //    NSAssert(uuid, @"no find uuid");
 
-    DBPeriphera *periphera = [HirDataManageCenter findPerpheraByPeripheraUUID:uuid];
+    DBPeripheral *periphera = [HirDataManageCenter findPerpheraByPeripheraUUID:uuid];
     if (periphera) {
         if (name) {
             periphera.name = name;
@@ -62,7 +62,7 @@
         }
     }
     else{
-        DBPeriphera *periphera = [DBPeriphera MR_createEntity];
+        DBPeripheral *periphera = [DBPeripheral MR_createEntity];
         periphera.uuid = uuid;
         periphera.name = name;
         periphera.remarkName = remarkName;
@@ -78,13 +78,13 @@
 }
 
 //删除一条记录
-+(void)delPerpheraByModel:(DBPeriphera *)periphera{
++(void)delPerpheraByModel:(DBPeripheral *)periphera{
     [periphera MR_deleteEntity];
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
 //保存修改后的记录
-+(void)savePerpheraByModel:(DBPeriphera *)periphera{
++(void)savePerpheraByModel:(DBPeripheral *)periphera{
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 

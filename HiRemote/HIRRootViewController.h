@@ -13,6 +13,7 @@ typedef NS_ENUM(NSInteger, HirRootSetSwith) {
 //    HirRootSetSwith_FindMyItem,
     HirRootSetSwith_Notification,
     HirRootSetSwith_VoiceMemo,
+    HirRootSetSwith_PlaySounds,
 };
 
 @interface HIRRootViewController : UIViewController

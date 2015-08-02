@@ -29,7 +29,7 @@
 @property (nonatomic, strong) UILabel *loclLab;
 @property (nonatomic, strong) UIImageView *connnectImgV;
 @property (nonatomic, strong) MKMapView *mapView;
-@property (nonatomic, strong) DBPeriphera *hiremoteData;
+@property (nonatomic, strong) DBPeripheral *hiremoteData;
 
 @end
 
@@ -121,13 +121,13 @@
             self.nameLab.text = self.hiremoteData.name;
         }
         
-        DBPeripheraLocationInfo *lastLocationInf = [HirDataManageCenter findLastLocationByPeriperaUUID:self.hiremoteData.uuid];
+        DBPeripheralLocationInfo *lastLocationInf = [HirDataManageCenter findLastLocationByPeriperaUUID:self.hiremoteData.uuid];
         if (lastLocationInf) {
-            self.locationStr = lastLocationInf.location;
+            self.locationStr = lastLocationInf.address;
             
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];
-            self.loclLab.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:lastLocationInf.recordTime.longLongValue]];
+            self.loclLab.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:lastLocationInf.timestamp.longLongValue]];
         }
     
         NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
@@ -213,14 +213,14 @@
 }
 
 
-- (void)resetTheLocation:(CLLocation *)cllocation peripheraLocationInfo:(DBPeripheraLocationInfo *)perInfo {
+- (void)resetTheLocation:(CLLocation *)cllocation peripheraLocationInfo:(DBPeripheralLocationInfo *)perInfo {
     NSArray *annos = self.mapView.annotations;
     [self.mapView removeAnnotations:annos];
     self.location = cllocation;
-    self.locationStr = perInfo.location;
+    self.locationStr = perInfo.address;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];
-    self.loclLab.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:perInfo.recordTime.longLongValue]];
+    self.loclLab.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:perInfo.timestamp.longLongValue]];
     [self setAnnotation];
 }
 

@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface DBPeriphera : NSManagedObject
+@interface DBPeripheral : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * remarkName;

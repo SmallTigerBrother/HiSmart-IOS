@@ -12,7 +12,7 @@
 		043772251B4C19380089051C /* CLLocation+Sino.m in Sources */ = {isa = PBXBuildFile; fileRef = 043772241B4C19380089051C /* CLLocation+Sino.m */; };
 		0450BCB21B52786900B3BF93 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0450BCB11B52786900B3BF93 /* AudioToolbox.framework */; };
 		0450BCB51B5279BC00B3BF93 /* HirMsgPlaySound.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */; };
-		0450BCB81B53E8DA00B3BF93 /* DBDeviceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB71B53E8DA00B3BF93 /* DBDeviceRecord.m */; };
+		0450BCB81B53E8DA00B3BF93 /* DBPeripheralRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB71B53E8DA00B3BF93 /* DBPeripheralRecord.m */; };
 		0450BCBB1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */; };
 		04A3702B1B64F28900C8F6EB /* HirBaseWebViewCtl.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A3702A1B64F28900C8F6EB /* HirBaseWebViewCtl.m */; };
 		04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AE11B4199CF009567BF /* SoundTool.m */; };
@@ -83,10 +83,10 @@
 		04DBCA661B6DD50000498AB0 /* HirBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DBCA651B6DD50000498AB0 /* HirBaseTableViewController.m */; };
 		04F3759E1B48EDD000E3FCD3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04F3759C1B48EDD000E3FCD3 /* Model.xcdatamodeld */; };
 		04F375A61B48F29100E3FCD3 /* HirDataManageCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375A51B48F29100E3FCD3 /* HirDataManageCenter.m */; };
-		04F375AA1B48FC3800E3FCD3 /* DBPeripheraLocationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375A91B48FC3800E3FCD3 /* DBPeripheraLocationInfo.m */; };
+		04F375AA1B48FC3800E3FCD3 /* DBPeripheralLocationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375A91B48FC3800E3FCD3 /* DBPeripheralLocationInfo.m */; };
 		04F375B91B4904D900E3FCD3 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04F375B41B4904D900E3FCD3 /* WeiboSDK.bundle */; };
 		04F375BC1B49167800E3FCD3 /* HirUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375BB1B49167800E3FCD3 /* HirUserInfo.m */; };
-		04F375BF1B49310000E3FCD3 /* DBPeriphera.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375BE1B49310000E3FCD3 /* DBPeriphera.m */; };
+		04F375BF1B49310000E3FCD3 /* DBPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375BE1B49310000E3FCD3 /* DBPeripheral.m */; };
 		04F375C21B49314D00E3FCD3 /* HirDataManageCenter+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375C11B49314D00E3FCD3 /* HirDataManageCenter+Location.m */; };
 		04F375C51B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375C41B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m */; };
 		04F375C71B4974E300E3FCD3 /* HirLocationHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375C61B4974E300E3FCD3 /* HirLocationHistoryViewController.m */; };
@@ -169,8 +169,8 @@
 		0450BCB11B52786900B3BF93 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0450BCB31B5279BC00B3BF93 /* HirMsgPlaySound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirMsgPlaySound.h; sourceTree = "<group>"; };
 		0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirMsgPlaySound.m; sourceTree = "<group>"; };
-		0450BCB61B53E8DA00B3BF93 /* DBDeviceRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBDeviceRecord.h; sourceTree = "<group>"; };
-		0450BCB71B53E8DA00B3BF93 /* DBDeviceRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBDeviceRecord.m; sourceTree = "<group>"; };
+		0450BCB61B53E8DA00B3BF93 /* DBPeripheralRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPeripheralRecord.h; sourceTree = "<group>"; };
+		0450BCB71B53E8DA00B3BF93 /* DBPeripheralRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPeripheralRecord.m; sourceTree = "<group>"; };
 		0450BCB91B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HirDataManageCenter+DeviceRecord.h"; sourceTree = "<group>"; };
 		0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HirDataManageCenter+DeviceRecord.m"; sourceTree = "<group>"; };
 		04976BB78AFBE5AFBEEC05BA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -289,8 +289,8 @@
 		04F3759D1B48EDD000E3FCD3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		04F375A41B48F29100E3FCD3 /* HirDataManageCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirDataManageCenter.h; sourceTree = "<group>"; };
 		04F375A51B48F29100E3FCD3 /* HirDataManageCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirDataManageCenter.m; sourceTree = "<group>"; };
-		04F375A81B48FC3800E3FCD3 /* DBPeripheraLocationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPeripheraLocationInfo.h; sourceTree = "<group>"; };
-		04F375A91B48FC3800E3FCD3 /* DBPeripheraLocationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPeripheraLocationInfo.m; sourceTree = "<group>"; };
+		04F375A81B48FC3800E3FCD3 /* DBPeripheralLocationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPeripheralLocationInfo.h; sourceTree = "<group>"; };
+		04F375A91B48FC3800E3FCD3 /* DBPeripheralLocationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPeripheralLocationInfo.m; sourceTree = "<group>"; };
 		04F375AD1B4904D900E3FCD3 /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
 		04F375AE1B4904D900E3FCD3 /* WBHttpRequest+WeiboToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboToken.h"; sourceTree = "<group>"; };
 		04F375AF1B4904D900E3FCD3 /* WBHttpRequest+WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboUser.h"; sourceTree = "<group>"; };
@@ -305,8 +305,8 @@
 		04F375B81B4904D900E3FCD3 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		04F375BA1B49167800E3FCD3 /* HirUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirUserInfo.h; sourceTree = "<group>"; };
 		04F375BB1B49167800E3FCD3 /* HirUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirUserInfo.m; sourceTree = "<group>"; };
-		04F375BD1B49310000E3FCD3 /* DBPeriphera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPeriphera.h; sourceTree = "<group>"; };
-		04F375BE1B49310000E3FCD3 /* DBPeriphera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPeriphera.m; sourceTree = "<group>"; };
+		04F375BD1B49310000E3FCD3 /* DBPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPeripheral.h; sourceTree = "<group>"; };
+		04F375BE1B49310000E3FCD3 /* DBPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPeripheral.m; sourceTree = "<group>"; };
 		04F375C01B49314D00E3FCD3 /* HirDataManageCenter+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HirDataManageCenter+Location.h"; sourceTree = "<group>"; };
 		04F375C11B49314D00E3FCD3 /* HirDataManageCenter+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HirDataManageCenter+Location.m"; sourceTree = "<group>"; };
 		04F375C31B49319F00E3FCD3 /* HirDataManageCenter+Perphera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HirDataManageCenter+Perphera.h"; sourceTree = "<group>"; };
@@ -747,12 +747,12 @@
 				04F375C41B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m */,
 				0450BCB91B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.h */,
 				0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */,
-				0450BCB61B53E8DA00B3BF93 /* DBDeviceRecord.h */,
-				0450BCB71B53E8DA00B3BF93 /* DBDeviceRecord.m */,
-				04F375BD1B49310000E3FCD3 /* DBPeriphera.h */,
-				04F375BE1B49310000E3FCD3 /* DBPeriphera.m */,
-				04F375A81B48FC3800E3FCD3 /* DBPeripheraLocationInfo.h */,
-				04F375A91B48FC3800E3FCD3 /* DBPeripheraLocationInfo.m */,
+				0450BCB61B53E8DA00B3BF93 /* DBPeripheralRecord.h */,
+				0450BCB71B53E8DA00B3BF93 /* DBPeripheralRecord.m */,
+				04F375BD1B49310000E3FCD3 /* DBPeripheral.h */,
+				04F375BE1B49310000E3FCD3 /* DBPeripheral.m */,
+				04F375A81B48FC3800E3FCD3 /* DBPeripheralLocationInfo.h */,
+				04F375A91B48FC3800E3FCD3 /* DBPeripheralLocationInfo.m */,
 			);
 			name = DBManageCenter;
 			sourceTree = "<group>";
@@ -1141,7 +1141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C18AB3C1B3C121E00CE6588 /* NSLayoutConstraint+PureLayout.m in Sources */,
-				0450BCB81B53E8DA00B3BF93 /* DBDeviceRecord.m in Sources */,
+				0450BCB81B53E8DA00B3BF93 /* DBPeripheralRecord.m in Sources */,
 				04BB4B071B459D24009567BF /* UIControl+AddLine.m in Sources */,
 				04F375BC1B49167800E3FCD3 /* HirUserInfo.m in Sources */,
 				2CCB4ECC1B6E067500783616 /* Reachability.m in Sources */,
@@ -1194,7 +1194,7 @@
 				04D7A8A41B47EF9700579EC2 /* DCStatusBarOverlay.m in Sources */,
 				04D7A8A21B47EF9700579EC2 /* DCFrameView.m in Sources */,
 				04BB4AF41B457544009567BF /* HirNavBackBtn.m in Sources */,
-				04F375BF1B49310000E3FCD3 /* DBPeriphera.m in Sources */,
+				04F375BF1B49310000E3FCD3 /* DBPeripheral.m in Sources */,
 				04D7A8A61B47EF9700579EC2 /* UIView+DCAdditions.m in Sources */,
 				04D7A8A31B47EF9700579EC2 /* DCIntrospect.m in Sources */,
 				B8DF7DBB1B3E7AE7000BD43E /* HIRScanningViewController.m in Sources */,
@@ -1212,7 +1212,7 @@
 				B84CD4A81B441E58008FAA53 /* HIRConnFailViewController.m in Sources */,
 				B8DF7DC21B3E7B16000BD43E /* HPCoreLocationManger.m in Sources */,
 				04F3759E1B48EDD000E3FCD3 /* Model.xcdatamodeld in Sources */,
-				04F375AA1B48FC3800E3FCD3 /* DBPeripheraLocationInfo.m in Sources */,
+				04F375AA1B48FC3800E3FCD3 /* DBPeripheralLocationInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

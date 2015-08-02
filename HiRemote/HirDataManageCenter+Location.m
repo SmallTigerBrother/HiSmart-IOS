@@ -13,18 +13,18 @@
 +(NSArray *)findAllLocationRecordByPeripheraUUID:(NSString *)peripheraUUID  dataType:(NSNumber *)dataType{
     NSString *userId = [HirUserInfo shareUserInfo].userId;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheraUUID == %@ AND dataType == %@ AND userId = %@",peripheraUUID,dataType,userId];
-    NSArray *results = [DBPeripheraLocationInfo MR_findAllSortedBy:@"recordTime" ascending:NO withPredicate:predicate];
+    NSArray *results = [DBPeripheralLocationInfo MR_findAllSortedBy:@"recordTime" ascending:NO withPredicate:predicate];
     
     return results;
 }
 
-+(DBPeripheraLocationInfo *)findLastLocationByPeriperaUUID:(NSString *)peripheraUUID{
++(DBPeripheralLocationInfo *)findLastLocationByPeriperaUUID:(NSString *)peripheraUUID{
     
     NSString *userId = [HirUserInfo shareUserInfo].userId;
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheraUUID == %@ AND userId = %@",peripheraUUID,userId];
     
-    DBPeripheraLocationInfo *peripheraLocationInfo = [DBPeripheraLocationInfo MR_findFirstWithPredicate:predicate sortedBy:@"recordTime" ascending:NO];
+    DBPeripheralLocationInfo *peripheraLocationInfo = [DBPeripheralLocationInfo MR_findFirstWithPredicate:predicate sortedBy:@"recordTime" ascending:NO];
     
     return peripheraLocationInfo;
 }
@@ -34,17 +34,17 @@
         
     NSString *userId = [HirUserInfo shareUserInfo].userId;
     
-    DBPeripheraLocationInfo *peripheraLocationInfo = [DBPeripheraLocationInfo MR_createEntity];
-    peripheraLocationInfo.peripheraUUID = peripheraUUID;
+    DBPeripheralLocationInfo *peripheraLocationInfo = [DBPeripheralLocationInfo MR_createEntity];
+    peripheraLocationInfo.peripheralUUID = peripheraUUID;
     peripheraLocationInfo.userId = userId;
     peripheraLocationInfo.latitude = latitude;
     peripheraLocationInfo.longitude = longitude;
-    peripheraLocationInfo.location = location;
-    peripheraLocationInfo.recordTime = @([NSDate date].timeIntervalSinceReferenceDate);
+    peripheraLocationInfo.address = location;
+    peripheraLocationInfo.timestamp = @([NSDate date].timeIntervalSinceReferenceDate);
     peripheraLocationInfo.dataType = dataType;
     peripheraLocationInfo.remark = remark;
-    peripheraLocationInfo.sync = [NSNumber numberWithBool:NO];
-    peripheraLocationInfo.timeZome = [NSTimeZone localTimeZone].name;
+    peripheraLocationInfo.sync = @0;
+    peripheraLocationInfo.timeZone = [NSTimeZone localTimeZone].name;
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     
     if (dataType.integerValue == HirLocationDataType_history) {
@@ -56,13 +56,13 @@
 }
 
 //删除一条记录
-+(void)delLocationRecordByModel:(DBPeripheraLocationInfo *)peripheraLocationInfo{
++(void)delLocationRecordByModel:(DBPeripheralLocationInfo *)peripheraLocationInfo{
     [peripheraLocationInfo MR_deleteEntity];
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
 //保存修改后的记录
-+(void)saveLocationRecordByModel:(DBPeripheraLocationInfo *)peripheraLocationInfo{
++(void)saveLocationRecordByModel:(DBPeripheralLocationInfo *)peripheraLocationInfo{
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 @end

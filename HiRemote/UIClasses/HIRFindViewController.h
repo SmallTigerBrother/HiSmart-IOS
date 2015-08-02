@@ -15,5 +15,5 @@
 @property (nonatomic, strong) NSString *remarkName;
 @property (nonatomic, strong) NSString *locationStr;
 
-- (void)resetTheLocation:(CLLocation *)cllocation peripheraLocationInfo:(DBPeripheraLocationInfo *)perInfo;
+- (void)resetTheLocation:(CLLocation *)cllocation peripheraLocationInfo:(DBPeripheralLocationInfo *)perInfo;
 @end

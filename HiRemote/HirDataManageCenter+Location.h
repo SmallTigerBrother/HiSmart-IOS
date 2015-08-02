@@ -7,7 +7,7 @@
 //
 
 #import "HirDataManageCenter.h"
-#import "DBPeripheraLocationInfo.h"
+#import "DBPeripheralLocationInfo.h"
 
 #define PERIPHERAL_HISTORY_LOCATION_UPDATA_NOTIFICATION @"PERIPHERAL_HISTORY_LOCATION_UPDATA_NOTIFICATION"
 #define PERIPHERAL_DISCONNECT_LOCATION_UPDATA_NOTIFICATION @"PERIPHERAL_DISCONNECT_LOCATION_UPDATA_NOTIFICATION"
@@ -16,15 +16,15 @@
 //查找设备ID为:peripheraUUID的定位记录信息
 +(NSArray *)findAllLocationRecordByPeripheraUUID:(NSString *)peripheraUUID dataType:(NSNumber *)dataType;
 
-+(DBPeripheraLocationInfo *)findLastLocationByPeriperaUUID:(NSString *)peripheraUUID;
++(DBPeripheralLocationInfo *)findLastLocationByPeriperaUUID:(NSString *)peripheraUUID;
 
 //插入一条记录
 +(void)insertLocationRecordByPeripheraUUID:(NSString *)peripheraUUID latitude:(NSString *)latitude longitude:(NSString *)longitude location:(NSString *)location dataType:(NSNumber *)dataType remark:(NSString *)remark;
 
 //删除一条记录
-+(void)delLocationRecordByModel:(DBPeripheraLocationInfo *)peripheraLocationInfo;
++(void)delLocationRecordByModel:(DBPeripheralLocationInfo *)peripheraLocationInfo;
 
 //保存修改后的记录
-+(void)saveLocationRecordByModel:(DBPeripheraLocationInfo *)peripheraLocationInfo;
++(void)saveLocationRecordByModel:(DBPeripheralLocationInfo *)peripheraLocationInfo;
 
 @end

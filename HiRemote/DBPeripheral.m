@@ -6,10 +6,10 @@
 //
 //
 
-#import "DBPeriphera.h"
+#import "DBPeripheral.h"
 
 
-@implementation DBPeriphera
+@implementation DBPeripheral
 
 @dynamic name;
 @dynamic remarkName;
