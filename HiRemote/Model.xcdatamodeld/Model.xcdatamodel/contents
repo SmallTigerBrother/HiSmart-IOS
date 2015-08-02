@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="DBDeviceRecord" representedClassName="DBDeviceRecord" syncable="YES">
-        <attribute name="peripheraUUID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="recoderTimestamp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="sync" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="timeZome" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="voicePath" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="voiceTime" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-    </entity>
-    <entity name="DBPeriphera" representedClassName="DBPeriphera" syncable="YES">
+    <entity name="DBPeripheral" representedClassName="DBPeripheral" syncable="YES">
         <attribute name="avatarPath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="battery" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -18,21 +8,33 @@
         <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="DBPeripheraLocationInfo" representedClassName="DBPeripheraLocationInfo" syncable="YES">
+    <entity name="DBPeripheralLocationInfo" representedClassName="DBPeripheralLocationInfo" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dataType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="peripheraUUID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="recordTime" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="peripheralUUID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remark" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sync" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="timeZome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sync" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="timeZone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="DBPeripheralRecord" representedClassName="DBPeripheralRecord" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="md5Code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="peripheralUUID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recordFileUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sync" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="timeZone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DBDeviceRecord" positionX="0" positionY="180" width="128" height="165"/>
-        <element name="DBPeriphera" positionX="18" positionY="180" width="128" height="135"/>
-        <element name="DBPeripheraLocationInfo" positionX="-18" positionY="99" width="128" height="195"/>
+        <element name="DBPeripheral" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="DBPeripheralLocationInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="DBPeripheralRecord" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

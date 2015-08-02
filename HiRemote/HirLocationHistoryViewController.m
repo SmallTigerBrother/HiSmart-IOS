@@ -118,7 +118,7 @@ UITextFieldDelegate>
 
 -(void)menuCopy:(id)sender
 {
-    DBPeripheraLocationInfo *locationInfo;
+    DBPeripheralLocationInfo *locationInfo;
     if (self.currentTableView == self.tableView) {
         locationInfo = [self.data objectAtIndex:self.copyRow];
     }else{
@@ -132,17 +132,17 @@ UITextFieldDelegate>
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     //用[NSDate date]可以获取系统当前时间
     
-    NSString *dateStr = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.recordTime.longLongValue]];
+    NSString *dateStr = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.timestamp.longLongValue]];
     
     [dateFormatter setDateFormat:@"HH:mm:ss"];
-    NSString *hourStr = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.recordTime.longLongValue]];
+    NSString *hourStr = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.timestamp.longLongValue]];
 
     NSString *contentLabel;
     if (locationInfo.remark) {
         contentLabel = locationInfo.remark;
     }
     else{
-        contentLabel = locationInfo.location;
+        contentLabel = locationInfo.address;
     }
     
     NSString *copyStr = [NSString stringWithFormat:@"%@,%@ %@\n%@",title,dateStr,hourStr,contentLabel];
@@ -226,7 +226,7 @@ UITextFieldDelegate>
 }
 
 -(void)getDataAndRefreshTable{
-    DBPeriphera *currentPeriphera = [HirUserInfo shareUserInfo].currentPeriphera;
+    DBPeripheral *currentPeriphera = [HirUserInfo shareUserInfo].currentPeriphera;
     
     self.data = [NSMutableArray arrayWithArray:[HirDataManageCenter findAllLocationRecordByPeripheraUUID:currentPeriphera.uuid dataType:@(self.locationDataType)]];
 
@@ -268,7 +268,7 @@ UITextFieldDelegate>
         cell.timeLabel.font = FONT_TABLE_CELL_RIGHT_TIME;
     }
     
-    DBPeripheraLocationInfo *locationInfo;
+    DBPeripheralLocationInfo *locationInfo;
     if (tableView == self.tableView) {
         locationInfo = [self.data objectAtIndex:indexPath.row];
     }else{
@@ -278,7 +278,7 @@ UITextFieldDelegate>
         cell.contentLabel.text = locationInfo.remark;
     }
     else{
-        cell.contentLabel.text = locationInfo.location;
+        cell.contentLabel.text = locationInfo.address;
     }
 //    cell.timeLabel.text = @"15/10/15:10:50";
     
@@ -287,10 +287,10 @@ UITextFieldDelegate>
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     //用[NSDate date]可以获取系统当前时间
     
-    cell.titleLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.recordTime.longLongValue]];
+    cell.titleLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.timestamp.longLongValue]];
 
     [dateFormatter setDateFormat:@"HH:mm:ss"];
-    cell.timeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.recordTime.longLongValue]];
+    cell.timeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.timestamp.longLongValue]];
     
     cell.indexPath = indexPath;
     return cell;
@@ -303,7 +303,7 @@ UITextFieldDelegate>
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    DBPeripheraLocationInfo *locationInfo;
+    DBPeripheralLocationInfo *locationInfo;
     if (tableView == self.tableView) {
         locationInfo = [self.data objectAtIndex:indexPath.row];
     }
@@ -313,14 +313,14 @@ UITextFieldDelegate>
     
     if (self.locationDataType == HirLocationDataType_history) {
         HIRMapViewController *mapVC = [[HIRMapViewController alloc] init];
-        DBPeriphera *remoteData = nil;
+        DBPeripheral *remoteData = nil;
         if ([[HirUserInfo shareUserInfo].deviceInfoArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
             remoteData = [[HirUserInfo shareUserInfo].deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
             mapVC.hiRemoteName = remoteData.name;
             mapVC.remarkName = remoteData.remarkName;
         }
-        DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
-        mapVC.locationStr = locationInfo.location;
+        DBPeripheralLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
+        mapVC.locationStr = locationInfo.address;
         mapVC.location = [[[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue]locationMarsFromEarth];
         [self.navigationController pushViewController:mapVC animated:YES];
     }
@@ -344,14 +344,14 @@ UITextFieldDelegate>
     switch (index) {
         case 0:
         {
-            DBPeripheraLocationInfo *peripheraLocationInfo = [self.data objectAtIndex:cell.indexPath.row];
+            DBPeripheralLocationInfo *peripheraLocationInfo = [self.data objectAtIndex:cell.indexPath.row];
             
             self.actionTextField = [[HirActionTextField alloc]initWithFrame:CGRectMake(10, 10, 200, 30)];
             if (peripheraLocationInfo.remark) {
                 self.actionTextField.placeholder = peripheraLocationInfo.remark;
             }
             else{
-                self.actionTextField.placeholder = peripheraLocationInfo.location;
+                self.actionTextField.placeholder = peripheraLocationInfo.address;
             }
             self.actionTextField.delegate = self;
             
@@ -368,7 +368,7 @@ UITextFieldDelegate>
             HirAlertView *alertView = [[HirAlertView alloc]initWithTitle:NSLocalizedString(@"warning", nil) message:NSLocalizedString(@"doYouWantToDelThisRecord", nil) clickBlock:^(NSInteger index){
                 if (index == 1) {
                     [self.tableView beginUpdates];
-                    DBPeripheraLocationInfo *peripheraLocationInfo = [self.data objectAtIndex:cell.indexPath.row];
+                    DBPeripheralLocationInfo *peripheraLocationInfo = [self.data objectAtIndex:cell.indexPath.row];
                     [HirDataManageCenter delLocationRecordByModel:peripheraLocationInfo];
                     [self.data removeObjectAtIndex:cell.indexPath.row];
                     [self.tableView deleteRowsAtIndexPaths: [NSArray arrayWithObjects:cell.indexPath, nil] withRowAnimation:UITableViewRowAnimationAutomatic];

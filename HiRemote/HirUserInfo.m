@@ -74,6 +74,15 @@ static HirUserInfo *hirUserDefault;
     return [[self.stateUserDef objectForKey:@"isNotificationForVoiceMemo"]boolValue];
 }
 
+-(void)setIsNotificationPlaySounds:(BOOL)isNotificationPlaySounds{
+    [self.stateUserDef setObject:[NSNumber numberWithBool:isNotificationPlaySounds] forKey:@"isNotificationPlaySounds"];
+    [self.stateUserDef synchronize];
+}
+
+-(BOOL)isNotificationPlaySounds{
+    return [[self.stateUserDef objectForKey:@"isNotificationPlaySounds"]boolValue];
+}
+
 -(void)setIsNotificationMyWhenDeviceNoWithin:(BOOL)isNotificationMyWhenDeviceNoWithin{
     [self.stateUserDef setObject:[NSNumber numberWithBool:isNotificationMyWhenDeviceNoWithin] forKey:@"isNotificationMyWhenDeviceNoWithin"];
     [self.stateUserDef synchronize];
@@ -83,7 +92,7 @@ static HirUserInfo *hirUserDefault;
     return [[self.stateUserDef objectForKey:@"isNotificationMyWhenDeviceNoWithin"]boolValue];
 }
 
--(DBPeriphera *)currentPeriphera{
+-(DBPeripheral *)currentPeriphera{
     if ([self.deviceInfoArray count] > self.currentPeripheraIndex) {
         _currentPeriphera = [self.deviceInfoArray objectAtIndex:self.currentPeripheraIndex];
         return _currentPeriphera;

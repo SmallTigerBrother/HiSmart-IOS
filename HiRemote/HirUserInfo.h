@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DBPeriphera.h"
+#import "DBPeripheral.h"
 
 typedef NS_ENUM(NSInteger, CurrentViewControllerType) {
     CurrentViewControllerType_other,
     CurrentViewControllerType_phone,
 };
 
-@class DBPeriphera;
+@class DBPeripheral;
 @interface HirUserInfo : NSObject
 +(HirUserInfo *)shareUserInfo;
 
@@ -28,9 +28,10 @@ typedef NS_ENUM(NSInteger, CurrentViewControllerType) {
 
 @property (nonatomic, strong)NSMutableArray *deviceInfoArray; ///临时保存设备信息（可能有多个设备）
 
-@property (nonatomic, strong)DBPeriphera *currentPeriphera;
+@property (nonatomic, strong)DBPeripheral *currentPeriphera;
 
 @property (nonatomic, assign)BOOL appIsEnterBackgroud;  //系统是否已进入后台
 @property (nonatomic, assign)BOOL isNotificationMyWhenDeviceNoWithin;   //当设备断开连接是否提示我
 @property (nonatomic, assign)BOOL isNotificationForVoiceMemo;   //设置了语音追踪开关
+@property (nonatomic, assign)BOOL isNotificationPlaySounds; //是否播放声音
 @end

@@ -9,14 +9,14 @@
 #import "HirDataManageCenter+DeviceRecord.h"
 
 @implementation HirDataManageCenter (DeviceRecord)
-+(DBDeviceRecord *)findDeviceRecordByPeripheraUUID:(NSString *)peripheraUUID{
++(DBPeripheralRecord *)findDeviceRecordByPeripheraUUID:(NSString *)peripheraUUID{
     if (!peripheraUUID) {
         return nil;
     }
     NSString *userId = [HirUserInfo shareUserInfo].userId;
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheraUUID == %@ AND userId == %@",peripheraUUID,userId];
-    DBDeviceRecord *deviceRecord = [DBDeviceRecord MR_findFirstWithPredicate:predicate];
+    DBPeripheralRecord *deviceRecord = [DBPeripheralRecord MR_findFirstWithPredicate:predicate];
     return deviceRecord;
 }
 
@@ -25,7 +25,7 @@
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheraUUID == %@ AND userId == %@",peripheraUUID,userId];
     
-    NSArray *list = [DBDeviceRecord MR_findAllSortedBy:@"recoderTimestamp" ascending:NO withPredicate:predicate];
+    NSArray *list = [DBPeripheralRecord MR_findAllSortedBy:@"recoderTimestamp" ascending:NO withPredicate:predicate];
     
     if ([list count] == 0) {
         return [NSMutableArray arrayWithCapacity:3];
@@ -35,33 +35,33 @@
 
 //插入一条记录
 +(void)insertVoicePath:(NSString *)voicePath peripheraUUID:(NSString *)peripheraUUID recoderTimestamp:(NSNumber *)recoderTimestamp title:(NSString *)title voiceTime:(NSNumber *)voiceTime{
-    DBDeviceRecord *deviceRecord = [HirDataManageCenter findDeviceRecordByPeripheraUUID:peripheraUUID];
+    DBPeripheralRecord *deviceRecord = [HirDataManageCenter findDeviceRecordByPeripheraUUID:peripheraUUID];
     if (deviceRecord) {
         if (voicePath) {
-            deviceRecord.voicePath = voicePath;
+            deviceRecord.fileName = voicePath;
         }
         if (peripheraUUID) {
-            deviceRecord.peripheraUUID = peripheraUUID;
+            deviceRecord.peripheralUUID = peripheraUUID;
         }
         if (recoderTimestamp) {
-            deviceRecord.recoderTimestamp = recoderTimestamp;
+            deviceRecord.timestamp = recoderTimestamp;
         }
         if (title) {
             deviceRecord.title = title;
         }
         if (voiceTime) {
-            deviceRecord.voiceTime = voiceTime;
+            deviceRecord.duration = voiceTime;
         }
     }
     else{
-        DBDeviceRecord *deviceRecord = [DBDeviceRecord MR_createEntity];
-        deviceRecord.voicePath = voicePath;
-        deviceRecord.recoderTimestamp = recoderTimestamp;
+        DBPeripheralRecord *deviceRecord = [DBPeripheralRecord MR_createEntity];
+        deviceRecord.fileName = voicePath;
+        deviceRecord.timestamp = recoderTimestamp;
         deviceRecord.title = title;
-        deviceRecord.voiceTime = voiceTime;
+        deviceRecord.duration = voiceTime;
     }
-    deviceRecord.sync = [NSNumber numberWithBool:NO];
-    deviceRecord.timeZome = [NSTimeZone localTimeZone].name;
+    deviceRecord.sync = @0;
+    deviceRecord.timeZone = [NSTimeZone localTimeZone].name;
     
     [[NSManagedObjectContext MR_context]MR_saveOnlySelfAndWait];
     dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.7 * NSEC_PER_SEC));
@@ -71,7 +71,7 @@
 }
 
 //删除一条记录
-+(void)delDeviceRecordByModel:(DBDeviceRecord *)deviceRecord{
++(void)delDeviceRecordByModel:(DBPeripheralRecord *)deviceRecord{
     //删除文件
 //
 
@@ -80,7 +80,7 @@
     NSString *docsDir = [dirPaths objectAtIndex:0];
     
     NSString *soundFilePath = [docsDir
-                               stringByAppendingPathComponent:deviceRecord.voicePath];
+                               stringByAppendingPathComponent:deviceRecord.fileName];
     
     NSFileManager *fileMgr = [NSFileManager defaultManager];
     BOOL bRet = [fileMgr fileExistsAtPath:soundFilePath];
@@ -95,7 +95,7 @@
 }
 
 //保存修改后的记录
-+(void)saveDeviceRecordByModel:(DBDeviceRecord *)deviceRecord{
++(void)saveDeviceRecordByModel:(DBPeripheralRecord *)deviceRecord{
     [[NSManagedObjectContext MR_context]MR_saveOnlySelfAndWait];
 }
 @end

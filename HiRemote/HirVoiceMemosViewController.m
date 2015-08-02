@@ -53,7 +53,7 @@ UITextFieldDelegate>
 
 @property (nonatomic, strong)UISearchDisplayController *searchDisplayController;
 
-@property (nonatomic, strong)DBDeviceRecord *currentDeviceRecord;
+@property (nonatomic, strong)DBPeripheralRecord *currentDeviceRecord;
 @property (nonatomic, strong)HirActionTextField *actionTextField;
 @property (nonatomic, assign)BOOL isPlaying;
 @property (nonatomic, assign)BOOL isRecord;
@@ -155,7 +155,7 @@ UITextFieldDelegate>
     NSString *docsDir = [dirPaths objectAtIndex:0];
     
     NSString *soundFilePath = [docsDir
-                               stringByAppendingPathComponent:self.currentDeviceRecord.voicePath];
+                               stringByAppendingPathComponent:self.currentDeviceRecord.fileName];
     
     NSURL *url = [NSURL fileURLWithPath:soundFilePath];
     
@@ -224,7 +224,7 @@ UITextFieldDelegate>
     //用[NSDate date]可以获取系统当前时间
     self.voiceBeginTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:self.playingTime]];//@"15/10/15:10:50";
     
-    CGFloat progress = (CGFloat)self.playingTime / self.currentDeviceRecord.voiceTime.floatValue;
+    CGFloat progress = (CGFloat)self.playingTime / self.currentDeviceRecord.duration.floatValue;
     self.voiceProgressView.progress = progress;
     
     if (progress>=1) {
@@ -240,7 +240,7 @@ UITextFieldDelegate>
 }
 
 -(void)getDataAndRefreshTable{
-    DBPeriphera *currentPeriphera = [HirUserInfo shareUserInfo].currentPeriphera;
+    DBPeripheral *currentPeriphera = [HirUserInfo shareUserInfo].currentPeriphera;
     
     self.data = [HirDataManageCenter findAllRecordByPeripheraUUID:currentPeriphera.uuid];
     
@@ -282,7 +282,7 @@ UITextFieldDelegate>
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    DBDeviceRecord *deviceRecord;
+    DBPeripheralRecord *deviceRecord;
     if (tableView == self.tableView) {
         deviceRecord = self.data[indexPath.row];
     }else{
@@ -294,10 +294,10 @@ UITextFieldDelegate>
     //设定时间格式,这里可以设置成自己需要的格式
     [dateFormatter setDateFormat:@"MM/dd/yy"];
     //用[NSDate date]可以获取系统当前时间
-    cell.dateLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.recoderTimestamp.doubleValue]];//@"15/10/15:10:50";
+    cell.dateLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.timestamp.doubleValue]];//@"15/10/15:10:50";
     
     [dateFormatter setDateFormat:@"HH:mm:ss"];
-    cell.voiceRecodeTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.recoderTimestamp.doubleValue]];//@"15/10/15:10:50";
+    cell.voiceRecodeTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.timestamp.doubleValue]];//@"15/10/15:10:50";
     cell.titleLabel.font = FONT_TABLE_CELL_TITLE;
     cell.dateLabel.font = FONT_TABLE_CELL_CONTENT;
     cell.voiceRecodeTimeLabel.font = FONT_TABLE_CELL_CONTENT;
@@ -332,24 +332,24 @@ UITextFieldDelegate>
 //    }
 //}
 
--(void)refreshPlayVoiceRecordPannelViewWithModel:(DBDeviceRecord *)deviceRecord{
+-(void)refreshPlayVoiceRecordPannelViewWithModel:(DBPeripheralRecord *)deviceRecord{
     self.recordingLabel.text = deviceRecord.title;
     self.currentDeviceRecord = deviceRecord;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //设定时间格式,这里可以设置成自己需要的格式
     [dateFormatter setDateFormat:@"MM/dd/yy"];
     //用[NSDate date]可以获取系统当前时间
-    self.recordDateLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.recoderTimestamp.doubleValue]];//@"15/10/15:10:50";
+    self.recordDateLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.timestamp.doubleValue]];//@"15/10/15:10:50";
     
     [dateFormatter setDateFormat:@"HH:mm:ss"];
-    self.recordTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.recoderTimestamp.doubleValue]];//@"15/10/15:10:50";
+    self.recordTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.timestamp.doubleValue]];//@"15/10/15:10:50";
 
     [dateFormatter setDateFormat:@"mm:ss"];
-    self.voiceEndTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.voiceTime.doubleValue]];
+    self.voiceEndTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.duration.doubleValue]];
 
 }
 
--(void)playVoiceModel:(DBDeviceRecord *)deviceRecord{
+-(void)playVoiceModel:(DBPeripheralRecord *)deviceRecord{
     [self refreshPlayVoiceRecordPannelViewWithModel:deviceRecord];
     [self.playVoiceRecordPanel setHidden:NO];
     

@@ -6,19 +6,19 @@
 //
 //
 
-#import "DBPeripheraLocationInfo.h"
+#import "DBPeripheralLocationInfo.h"
 
 
-@implementation DBPeripheraLocationInfo
+@implementation DBPeripheralLocationInfo
 
 @dynamic latitude;
-@dynamic location;
+@dynamic address;
 @dynamic longitude;
-@dynamic recordTime;
-@dynamic peripheraUUID;
+@dynamic timestamp;
+@dynamic peripheralUUID;
 @dynamic dataType;
 @dynamic remark;
-@dynamic timeZome;
+@dynamic timeZone;
 @dynamic userId;
 @dynamic sync;
 

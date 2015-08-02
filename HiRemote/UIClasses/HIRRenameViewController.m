@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSMutableArray *deviceInfoArray;
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
-@property (nonatomic, strong)DBPeriphera *hiRemoteData; ///保存更新后的名字
+@property (nonatomic, strong)DBPeripheral *hiRemoteData; ///保存更新后的名字
 @end
 
 @implementation HIRRenameViewController
@@ -63,7 +63,7 @@
     [self.nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     
-    for (DBPeriphera *data in self.deviceInfoArray) {
+    for (DBPeripheral *data in self.deviceInfoArray) {
         if ([[[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString] isEqualToString:data.uuid]) {
             self.hiRemoteData = data;
             break;

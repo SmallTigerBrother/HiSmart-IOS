@@ -10,17 +10,17 @@
 #import <CoreData/CoreData.h>
 
 
-@interface DBPeripheraLocationInfo : NSManagedObject
+@interface DBPeripheralLocationInfo : NSManagedObject
 
 @property (nonatomic, retain) NSString * latitude;
-@property (nonatomic, retain) NSString * location;
+@property (nonatomic, retain) NSString * address;
 @property (nonatomic, retain) NSString * longitude;
-@property (nonatomic, retain) NSString * peripheraUUID;
-@property (nonatomic, retain) NSNumber * recordTime;
+@property (nonatomic, retain) NSString * peripheralUUID;
+@property (nonatomic, retain) NSNumber * timestamp;
 @property (nonatomic, retain) NSNumber * dataType;
 @property (nonatomic, retain) NSString * remark;
 @property (nonatomic, retain) NSString * userId;
 @property (nonatomic, retain) NSNumber * sync;
-@property (nonatomic, retain) NSString * timeZome;
+@property (nonatomic, retain) NSString * timeZone;
 
 @end

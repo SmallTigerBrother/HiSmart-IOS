@@ -213,7 +213,7 @@ HPCoreLocationMangerDelegate>
         
         for (int i = 0; i < [self.deviceInfoArray count]; i++) {
             if ([self.deviceShowArray count] > i) {
-                DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:i];
+                DBPeripheral *remoteData = [self.deviceInfoArray objectAtIndex:i];
                 HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:i];
                 
                 NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
@@ -236,10 +236,10 @@ HPCoreLocationMangerDelegate>
                     device.deviceNameLabel.text = remoteData.name;
                 }
 
-                DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
+                DBPeripheralLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
                 NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
                 if ([remoteData.uuid isEqualToString:currentUuid]) {
-                    device.deviceLocationLabel.text = locationInfo.location;
+                    device.deviceLocationLabel.text = locationInfo.address;
                     device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
 
                     self.pageControl.currentPage = i;
@@ -530,7 +530,7 @@ HPCoreLocationMangerDelegate>
     
     for (int i = 0; i < [self.deviceInfoArray count]; i++) {
         if ([self.deviceShowArray count] > i) {
-            DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:i];
+            DBPeripheral *remoteData = [self.deviceInfoArray objectAtIndex:i];
             HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:i];
             NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
             if ([remoteData.uuid isEqualToString:currentUuid]) {
@@ -777,15 +777,15 @@ HPCoreLocationMangerDelegate>
     }
     else if(btn.tag == 2) {
         HIRFindViewController *findViewController = [[HIRFindViewController alloc] init];
-        DBPeriphera *remoteData = nil;
+        DBPeripheral *remoteData = nil;
         if ([self.deviceInfoArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
             remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
             findViewController.hiRemoteName = remoteData.name;
             findViewController.remarkName = remoteData.remarkName;
         }
-        DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
+        DBPeripheralLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
    
-        findViewController.locationStr = locationInfo.location;
+        findViewController.locationStr = locationInfo.address;
         findViewController.location = [[[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue]locationMarsFromEarth];
         [self.navigationController pushViewController:findViewController animated:YES];
     }
@@ -901,7 +901,7 @@ HPCoreLocationMangerDelegate>
         [HirUserInfo shareUserInfo].currentPeripheraIndex = page;
         [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
         if ([self.deviceInfoArray count] > page) {
-            DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:page];
+            DBPeripheral *remoteData = [self.deviceInfoArray objectAtIndex:page];
             [self.changeIndicator startAnimating];
             self.outTimer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
             
@@ -940,9 +940,9 @@ HPCoreLocationMangerDelegate>
     }else if ([state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_SUCCESS]) {
         ////蓝牙链接外设成功
         if ([self.deviceInfoArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex && [self.deviceShowArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
-            DBPeriphera *remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+            DBPeripheral *remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
             HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
-            DBPeripheraLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
+            DBPeripheralLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
             NSString *discoverUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
             if ([discoverUuid isEqualToString:remoteData.uuid]) {
                 if ([remoteData.remarkName length] > 0) {
@@ -950,7 +950,7 @@ HPCoreLocationMangerDelegate>
                 }else {
                     device.deviceNameLabel.text = remoteData.name;
                 }
-                device.deviceLocationLabel.text = locationInfo.location;
+                device.deviceLocationLabel.text = locationInfo.address;
                 device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
             }
         }
@@ -967,7 +967,7 @@ HPCoreLocationMangerDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1013,6 +1013,10 @@ HPCoreLocationMangerDelegate>
     }else if ([indexPath row] == 1) {
         title = @"edit40";
         info = @"edit41";
+    }
+    else if ([indexPath row] == 2){
+        title = @"playSounds";
+        info = @"";
     }
     UILabel *lab1 = (UILabel *)[cell.contentView viewWithTag:10];
     lab1.text = NSLocalizedString(title, @"");
