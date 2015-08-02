@@ -25,7 +25,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "HirDataManageCenter+DeviceRecord.h"
 
-
 @interface HIRRootViewController () <UIScrollViewDelegate,
 UITableViewDataSource,
 UITableViewDelegate,
@@ -33,8 +32,6 @@ HIRSegmentViewDelegate,
 HPCoreLocationMangerDelegate>
 {
     BOOL toggle;
-    AVAudioPlayer *audioPlayer;
-    AVAudioRecorder *audioRecorder;
     enum
     {
         ENC_AAC = 1,
@@ -75,6 +72,9 @@ HPCoreLocationMangerDelegate>
 @property (nonatomic, assign) NSInteger needSavePeripheralLocationCount;    //需要记录历史的次数
 @property (nonatomic, assign) NSInteger peripheralDisconnectCount;          //需要记录到断开连接表的次数
 @property (nonatomic, assign) BOOL isVoiceRecordNotification;
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+@property (nonatomic, strong) AVAudioRecorder *audioRecorder;
+
 
 @end
 
@@ -120,9 +120,9 @@ HPCoreLocationMangerDelegate>
     self.deviceInfoArray = [HirUserInfo shareUserInfo].deviceInfoArray;
     
     //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addDevice"] style:UIBarButtonItemStylePlain target:self action:@selector(showUserInfoVC:)];
-    self.headLeftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.headLeftBtn setImage:[UIImage imageNamed:@"addDevice"] forState:UIControlStateNormal];
-    [self.headLeftBtn addTarget:self action:@selector(showUserInfoVC:) forControlEvents:UIControlEventTouchUpInside];
+//    self.headLeftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [self.headLeftBtn setImage:[UIImage imageNamed:@"addDevice"] forState:UIControlStateNormal];
+//    [self.headLeftBtn addTarget:self action:@selector(showUserInfoVC:) forControlEvents:UIControlEventTouchUpInside];
     
     self.titleLabel = [[UILabel alloc] init];
     self.titleLabel.backgroundColor = [UIColor clearColor];
@@ -272,8 +272,6 @@ HPCoreLocationMangerDelegate>
     
     appDelegate.locManger.delegate = self;
     [appDelegate.locManger startUpdatingUserLocation];
-    
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -347,7 +345,7 @@ HPCoreLocationMangerDelegate>
     // kSeconds = 150.0;
     NSLog(@"startRecording");
     //    [SGInfoAlert showInfo:NSLocalizedString(@"startRecording", nil)];
-    audioRecorder = nil;
+    self.audioRecorder = nil;
     NSError *erro;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     //    [audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
@@ -410,11 +408,11 @@ HPCoreLocationMangerDelegate>
     NSURL *url = [NSURL fileURLWithPath:soundFilePath];
     
     NSError *error = nil;
-    audioRecorder = [[ AVAudioRecorder alloc] initWithURL:url settings:recordSettings error:&error];
-    audioRecorder.meteringEnabled = YES;
-    if ([audioRecorder prepareToRecord] == YES){
-        audioRecorder.meteringEnabled = YES;
-        [audioRecorder record];
+    self.audioRecorder = [[ AVAudioRecorder alloc] initWithURL:url settings:recordSettings error:&error];
+    _audioRecorder.meteringEnabled = YES;
+    if ([_audioRecorder prepareToRecord] == YES){
+        _audioRecorder.meteringEnabled = YES;
+        [_audioRecorder record];
         timerForPitch =[NSTimer scheduledTimerWithTimeInterval: 0.01 target: self selector: @selector(levelTimerCallback:) userInfo: nil repeats: YES];
     }else {
         
@@ -430,14 +428,14 @@ HPCoreLocationMangerDelegate>
     
     //    [SGInfoAlert showInfo:NSLocalizedString(@"stopRecording", nil)];
     // kSeconds = 0.0;
-    [audioRecorder stop];
+    [_audioRecorder stop];
     NSLog(@"stopped");
     [timerForPitch invalidate];
     timerForPitch = nil;
     
     NSLog(@"url=%@",audioRecorder.url);
     
-    NSString *mediaPath = [audioRecorder.url.path lastPathComponent];
+    NSString *mediaPath = [_audioRecorder.url.path lastPathComponent];
     
     NSLog(@"mmmm:%@",mediaPath);
     NSRange range = [mediaPath rangeOfString:@"."];
@@ -460,7 +458,7 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)levelTimerCallback:(NSTimer *)timer {
-    [audioRecorder updateMeters];
+    [_audioRecorder updateMeters];
     //    NSLog(@"Average input: %f Peak input: %f", [audioRecorder averagePowerForChannel:0], [audioRecorder peakPowerForChannel:0]);
     
 //    float linear = pow (10, [audioRecorder peakPowerForChannel:0] / 20);
@@ -808,12 +806,19 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)addNewDevice:(id)sender {
+    
+    
+    return;
     ////添加新设备时，防止为上次的设备
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
     [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
     AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDeleg addNewDevice];
+}
+
+-(void)pushSettingViewController{
+    
 }
 
 - (void)preButtonClick:(id)sender {

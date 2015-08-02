@@ -129,12 +129,8 @@
     [self.delegate performSelector:@selector(locationFinished:withFlag:) withObject:nil withObject:[NSNumber numberWithBool:NO]];
 }
 
-
-
 - (void)dealloc {
     NSLog(@"geo delloc");
     self.locManager = nil;
 }
-
-
 @end

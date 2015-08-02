@@ -100,3 +100,10 @@ return _instance; \
 #define HirContactUs @"http://hismart.us/constact"
 #define HirTeamsAndConditions @"http://hismart.us/help/privacy"
 #define HirPrivacyPolicy @"http://hirsmart.us/help/privacy"
+
+#if DEBUG
+// 日志输出
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#define NSLog(...)
+#endif
