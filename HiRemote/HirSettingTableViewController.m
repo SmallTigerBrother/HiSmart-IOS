@@ -84,6 +84,11 @@
     
     if ([title isEqualToString:addANewDevice]) {
         NSLog(@"addANewDevice");
+        ////添加新设备时，防止为上次的设备
+        [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+        [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
+        AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDeleg addNewDevice];
     }
     else if ([title isEqualToString:supportAndFaqs]) {
         NSString *url = HirFAQUrl;
