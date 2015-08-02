@@ -37,7 +37,6 @@
 		04D7A82D1B477C1100579EC2 /* HirVoiceMemosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D7A82B1B477C1100579EC2 /* HirVoiceMemosViewController.xib */; };
 		04D7A8311B47847D00579EC2 /* HirVoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7A8301B47847D00579EC2 /* HirVoiceCell.m */; };
 		04D7A8381B47C91900579EC2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D7A8371B47C91900579EC2 /* CoreData.framework */; };
-		04D7A8801B47EF9700579EC2 /* meizi.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04D7A8421B47EF9700579EC2 /* meizi.jpg */; };
 		04D7A8811B47EF9700579EC2 /* camera_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D7A8441B47EF9700579EC2 /* camera_line.png */; };
 		04D7A8821B47EF9700579EC2 /* camera_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D7A8451B47EF9700579EC2 /* camera_line@2x.png */; };
 		04D7A8831B47EF9700579EC2 /* camera_line_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D7A8461B47EF9700579EC2 /* camera_line_h.png */; };
@@ -80,6 +79,8 @@
 		04D7A8A81B47EF9700579EC2 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7A87E1B47EF9700579EC2 /* SVProgressHUD.m */; };
 		04D7A8AC1B47F1BF00579EC2 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7A8AB1B47F1BF00579EC2 /* PostViewController.m */; };
 		04D7A8AF1B48006600579EC2 /* SGInfoAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7A8AE1B48006600579EC2 /* SGInfoAlert.m */; };
+		04DBCA631B6DC9B300498AB0 /* HirSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DBCA621B6DC9B300498AB0 /* HirSettingTableViewController.m */; };
+		04DBCA661B6DD50000498AB0 /* HirBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DBCA651B6DD50000498AB0 /* HirBaseTableViewController.m */; };
 		04F3759E1B48EDD000E3FCD3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04F3759C1B48EDD000E3FCD3 /* Model.xcdatamodeld */; };
 		04F375A61B48F29100E3FCD3 /* HirDataManageCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375A51B48F29100E3FCD3 /* HirDataManageCenter.m */; };
 		04F375AA1B48FC3800E3FCD3 /* DBPeripheraLocationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375A91B48FC3800E3FCD3 /* DBPeripheraLocationInfo.m */; };
@@ -220,7 +221,6 @@
 		04D7A82F1B47847D00579EC2 /* HirVoiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirVoiceCell.h; sourceTree = "<group>"; };
 		04D7A8301B47847D00579EC2 /* HirVoiceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirVoiceCell.m; sourceTree = "<group>"; };
 		04D7A8371B47C91900579EC2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		04D7A8421B47EF9700579EC2 /* meizi.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = meizi.jpg; sourceTree = "<group>"; };
 		04D7A8441B47EF9700579EC2 /* camera_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_line.png; sourceTree = "<group>"; };
 		04D7A8451B47EF9700579EC2 /* camera_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera_line@2x.png"; sourceTree = "<group>"; };
 		04D7A8461B47EF9700579EC2 /* camera_line_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_line_h.png; sourceTree = "<group>"; };
@@ -280,6 +280,10 @@
 		04D7A8AB1B47F1BF00579EC2 /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
 		04D7A8AD1B48006600579EC2 /* SGInfoAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGInfoAlert.h; sourceTree = "<group>"; };
 		04D7A8AE1B48006600579EC2 /* SGInfoAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGInfoAlert.m; sourceTree = "<group>"; };
+		04DBCA611B6DC9B300498AB0 /* HirSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirSettingTableViewController.h; sourceTree = "<group>"; };
+		04DBCA621B6DC9B300498AB0 /* HirSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirSettingTableViewController.m; sourceTree = "<group>"; };
+		04DBCA641B6DD50000498AB0 /* HirBaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirBaseTableViewController.h; sourceTree = "<group>"; };
+		04DBCA651B6DD50000498AB0 /* HirBaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirBaseTableViewController.m; sourceTree = "<group>"; };
 		04F3759D1B48EDD000E3FCD3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		04F375A41B48F29100E3FCD3 /* HirDataManageCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirDataManageCenter.h; sourceTree = "<group>"; };
 		04F375A51B48F29100E3FCD3 /* HirDataManageCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirDataManageCenter.m; sourceTree = "<group>"; };
@@ -497,10 +501,8 @@
 		04D38D041B3E84FC0012D65A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				04A370291B64F28900C8F6EB /* HirBaseWebViewCtl.h */,
-				04A3702A1B64F28900C8F6EB /* HirBaseWebViewCtl.m */,
-				04D38D101B3E94980012D65A /* HirBaseViewController.h */,
-				04D38D111B3E94990012D65A /* HirBaseViewController.m */,
+				04DBCA671B6DD57400498AB0 /* BaseViewController */,
+				04DBCA601B6DC7A500498AB0 /* Setting */,
 				04D7A8391B47CEBB00579EC2 /* Camera */,
 				04D7A8281B477B9B00579EC2 /* Voice */,
 				04D38D171B3EB0DA0012D65A /* Location */,
@@ -607,7 +609,6 @@
 		04D7A8411B47EF9700579EC2 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				04D7A8421B47EF9700579EC2 /* meizi.jpg */,
 				04D7A8431B47EF9700579EC2 /* SCCamera */,
 			);
 			path = images;
@@ -704,6 +705,28 @@
 			path = Post;
 			sourceTree = "<group>";
 		};
+		04DBCA601B6DC7A500498AB0 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				04DBCA611B6DC9B300498AB0 /* HirSettingTableViewController.h */,
+				04DBCA621B6DC9B300498AB0 /* HirSettingTableViewController.m */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
+		04DBCA671B6DD57400498AB0 /* BaseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				04A370291B64F28900C8F6EB /* HirBaseWebViewCtl.h */,
+				04A3702A1B64F28900C8F6EB /* HirBaseWebViewCtl.m */,
+				04D38D101B3E94980012D65A /* HirBaseViewController.h */,
+				04D38D111B3E94990012D65A /* HirBaseViewController.m */,
+				04DBCA641B6DD50000498AB0 /* HirBaseTableViewController.h */,
+				04DBCA651B6DD50000498AB0 /* HirBaseTableViewController.m */,
+			);
+			name = BaseViewController;
+			sourceTree = "<group>";
+		};
 		04F375AB1B48FC5800E3FCD3 /* DBManageCenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -773,8 +796,8 @@
 			children = (
 				04F375AB1B48FC5800E3FCD3 /* DBManageCenter */,
 				04D38D081B3E85BC0012D65A /* Commond */,
-				04D38D041B3E84FC0012D65A /* ViewController */,
 				B8DF7DA61B3E7AE7000BD43E /* UIClasses */,
+				04D38D041B3E84FC0012D65A /* ViewController */,
 				2C18AB3D1B3C221E00CE6588 /* Images */,
 				2C18AB301B3C121E00CE6588 /* PureLayout */,
 				2C18AAF61B3BECDE00CE6588 /* HIRRootViewController.h */,
@@ -1015,7 +1038,6 @@
 				04D6512B1B5BBD8B00B5BB13 /* defaultDevice.png in Resources */,
 				B84CD4D51B441EA2008FAA53 /* pinImage.png in Resources */,
 				2C18AB561B3D3F1700CE6588 /* addDevice.png in Resources */,
-				04D7A8801B47EF9700579EC2 /* meizi.jpg in Resources */,
 				04D7A88A1B47EF9700579EC2 /* flashing_auto@2x.png in Resources */,
 				B8DF7DC81B3EA910000BD43E /* Default@2x.png in Resources */,
 				04D7A88E1B47EF9700579EC2 /* flashing_on@2x.png in Resources */,
@@ -1131,6 +1153,7 @@
 				04D38D1C1B3EB1410012D65A /* HirBaseTableCell.m in Sources */,
 				2C18AAF21B3BECDE00CE6588 /* main.m in Sources */,
 				04D38D161B3E96A50012D65A /* HirTableView.m in Sources */,
+				04DBCA661B6DD50000498AB0 /* HirBaseTableViewController.m in Sources */,
 				04F375A61B48F29100E3FCD3 /* HirDataManageCenter.m in Sources */,
 				B84CD4B51B441E70008FAA53 /* HIRCBCentralClass.m in Sources */,
 				04D7A82C1B477C1100579EC2 /* HirVoiceMemosViewController.m in Sources */,
@@ -1146,6 +1169,7 @@
 				04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */,
 				0450BCB51B5279BC00B3BF93 /* HirMsgPlaySound.m in Sources */,
 				04D7A8A11B47EF9700579EC2 /* DCCrossHairView.m in Sources */,
+				04DBCA631B6DC9B300498AB0 /* HirSettingTableViewController.m in Sources */,
 				B8DF7DB81B3E7AE7000BD43E /* HIRBatteryPercentView.m in Sources */,
 				04F375C51B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m in Sources */,
 				04D38D241B3EB6770012D65A /* HirLocationHistoryTableCell.m in Sources */,
