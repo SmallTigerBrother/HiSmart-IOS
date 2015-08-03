@@ -99,11 +99,23 @@ HPCoreLocationMangerDelegate>
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSArray *statusArray = [userDefaults valueForKey:@"theHiremoteSettingStatus"];
-    if (!statusArray || [statusArray count] < 2) {
+    if (!statusArray || [statusArray count] < 3) {
         self.switchStatus = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],nil];
     }else {
         self.switchStatus = [NSMutableArray arrayWithArray:statusArray];
     }
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    NSNumber *lossNumber = [defaults valueForKey:@"tempLostAlertValue"];
+    if (lossNumber) {
+        if ([lossNumber floatValue] > 0.01) {
+            [self.switchStatus replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:YES]];
+        }else {
+            [self.switchStatus replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:NO]];
+        }
+        [defaults removeObjectForKey:@"tempLostAlertValue"];
+        [defaults synchronize];
+    }
+    
     self.edgesForExtendedLayout = UIRectEdgeNone;
     NSString *bgPath = [[NSBundle mainBundle] pathForResource:@"mainviewbg" ofType:@"jpg"];
     UIImage *bgImage = [UIImage imageWithContentsOfFile:bgPath];
@@ -270,7 +282,8 @@ HPCoreLocationMangerDelegate>
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needSavePeripheralLocationOrVoice:) name:NEED_SAVE_PERIPHERAL_LOCATION_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peripheralDisconnect:) name:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openVoicePath) name:NotificationVoiceOpen object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getLossAlertValue:) name:LOSS_ALERT_NEED_UPDATEUI_NOTIFICATION object:nil];
+
     appDelegate.locManger.delegate = self;
     [appDelegate.locManger startUpdatingUserLocation];
 }
@@ -485,6 +498,23 @@ HPCoreLocationMangerDelegate>
 //    [self.recordTimeLabel setText:[NSString stringWithFormat:@"%@ sec", time]];
     //    NSLog(@"recording");
     
+}
+
+- (void)getLossAlertValue:(NSNotification *)notify {
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:@"tempLostAlertValue"];
+    [defaults synchronize];
+    
+    NSDictionary *info = notify.userInfo;
+    float level = [[info valueForKey:@"value"] floatValue];
+    if (level > 0.01) {
+        [self.switchStatus replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:YES]];
+    }else {
+        [self.switchStatus replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:NO]];
+    }
+    if (!(self.mainMenuTableView.hidden)) {
+        [self.mainMenuTableView reloadData];
+    }
 }
 
 
@@ -1038,6 +1068,19 @@ HPCoreLocationMangerDelegate>
     
     [self.switchStatus replaceObjectAtIndex:tag withObject:[NSNumber numberWithBool:theSw.on]];
     [self.mainMenuTableView reloadData];
+    
+    ///设置是否响铃
+    if (theSw.tag == 2) {
+        if (theSw.on) {
+            uint8_t val = 1;
+            NSData* data = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
+            [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral writeValue:data forCharacteristic:[HIRCBCentralClass shareHIRCBcentralClass].alertLossCharacter type:CBCharacteristicWriteWithResponse];
+        }else {
+            uint8_t val = 0;
+            NSData* data = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
+            [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral writeValue:data forCharacteristic:[HIRCBCentralClass shareHIRCBcentralClass].alertLossCharacter type:CBCharacteristicWriteWithResponse];
+        }
+    }
     
     [HirUserInfo shareUserInfo].isNotificationMyWhenDeviceNoWithin = [[self.switchStatus objectAtIndex:HirRootSetSwith_Notification]boolValue];
     [HirUserInfo shareUserInfo].isNotificationForVoiceMemo = [[self.switchStatus objectAtIndex:HirRootSetSwith_VoiceMemo]boolValue];

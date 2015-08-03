@@ -159,7 +159,11 @@
         [self.tipsLabel2 autoAlignAxisToSuperviewAxis:ALAxisVertical];
         [self.tipsLabel2 autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.tipsLabel1 withOffset:5];
         
-        [self.controlImageV autoSetDimensionsToSize:CGSizeMake(160, 160)];
+        if (DEVICE_IS_IPHONE4 || DEVICE_IS_IPHONE5) {
+            [self.controlImageV autoSetDimensionsToSize:CGSizeMake(200, 200)];
+        }else {
+            [self.controlImageV autoSetDimensionsToSize:CGSizeMake(260, 260)];
+        }
         [self.controlImageV autoAlignAxisToSuperviewAxis:ALAxisVertical];
         [self.controlImageV autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.tipsLabel2 withOffset:5];
         

@@ -49,7 +49,7 @@ typedef enum
 #define NEED_AUTO_PHONE_NOTIFICATION @"needAutoPhoneNotification" /////需要自动拍摄通知
 #define BATTERY_LEVEL_CHANGE_NOTIFICATION @"batteryLevelChangeNotification" ////电池发生变化通知
 #define NEED_IPHONE_ALERT_NOTIFICATION @"needIphoneAlertNotification" ////电池发生变化通知
-
+#define LOSS_ALERT_NEED_UPDATEUI_NOTIFICATION @"lossAlertNeedUpdateUINotification" ///该通知用来设置丢失报警开关
 
 #define CBCENTERAL_STATE_NOT_SUPPORT @"notSupport"   ////蓝牙不支持 （通知值）
 #define CBCENTERAL_CONNECT_PERIPHERAL_FAIL @"connectPeripheralFail" ///外设链接失败 (通知值）

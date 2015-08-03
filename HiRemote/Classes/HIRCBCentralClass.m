@@ -255,9 +255,6 @@
             if([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_ALERT_LOSS_CHARACTER]]) {
                 [peripheral readValueForCharacteristic:characteristic];
                 self.alertLossCharacter = characteristic;
-                uint8_t val = 1;
-                NSData* data = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
-                [peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
                 NSLog(@"alert loss charct%@",characteristic.value);
             }
         }
@@ -330,8 +327,20 @@
     NSLog(@"cha:%@---%ld",characteristic.UUID,strtol([strr UTF8String], 0, 16));
     
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_ALERT_LOSS_CHARACTER]]) {
+        ///表示是断开提醒
         NSString *value = [[NSString alloc]initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-        float batteryValue = [value floatValue];
+        if ([characteristic.service.UUID isEqual:[CBUUID UUIDWithString:SPARK_ANTILOST_BLE_UUID_LOSS_ALERT_SERVICE]]) {
+            float lostValue = [value floatValue];
+            ///写临时数据目的是，当主界面没生成时，通知接收不到。该临时数据读取完毕后要删除
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:[NSNumber numberWithFloat:lostValue] forKey:@"tempLostAlertValue"];
+            [userDefaults synchronize];
+            
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:lostValue],@"value", nil];
+            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+            [notificationCenter postNotificationName:LOSS_ALERT_NEED_UPDATEUI_NOTIFICATION object:nil userInfo:userInfo];
+        }
+
         NSLog(@"断开报警当前设备值：%@",[self hexadecimalString:characteristic.value]);
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_BATTERY_CHARACTER]]) {
         NSString *strr = [self hexadecimalString:characteristic.value];

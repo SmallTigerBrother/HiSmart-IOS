@@ -130,7 +130,11 @@
     label.frame = CGRectMake(frame.size.width * page + 50, 70, frame.size.width - 100, 40);
     
     UIImageView *imageV = [[UIImageView alloc] initWithImage:[self.imageArray objectAtIndex:page]];
-    imageV.frame = CGRectMake(frame.size.width * page + 80, 110, frame.size.width - 160, frame.size.width - 160);
+    if (page == 4) {
+        imageV.frame = CGRectMake(frame.size.width * page + 60, 100, frame.size.width - 120, frame.size.width - 120);
+    }else {
+        imageV.frame = CGRectMake(frame.size.width * page + 80, 110, frame.size.width - 160, frame.size.width - 160);
+    }
     NSLog(@"x:%f,y:%f,w:%f,h:%f",imageV.frame.origin.x,imageV.frame.origin.y,imageV.frame.size.width,imageV.frame.size.height);
     UILabel *label2 = [[UILabel alloc] init];
     label2.textColor = [UIColor whiteColor];
