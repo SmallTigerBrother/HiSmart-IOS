@@ -131,7 +131,7 @@
     
     UIImageView *imageV = [[UIImageView alloc] initWithImage:[self.imageArray objectAtIndex:page]];
     if (page == 4) {
-        imageV.frame = CGRectMake(frame.size.width * page + 60, 100, frame.size.width - 120, frame.size.width - 120);
+        imageV.frame = CGRectMake(frame.size.width * page + 25, 90, frame.size.width - 50, frame.size.width - 50);
     }else {
         imageV.frame = CGRectMake(frame.size.width * page + 80, 110, frame.size.width - 160, frame.size.width - 160);
     }
