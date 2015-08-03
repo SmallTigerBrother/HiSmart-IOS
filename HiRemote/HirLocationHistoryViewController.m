@@ -208,7 +208,7 @@ UITextFieldDelegate>
         return self.data.count;
     }else{
         // 谓词搜索
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"location contains [cd] %@ OR remark contains [cd] %@",self.searchDisplayController.searchBar.text,self.searchDisplayController.searchBar.text];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"address contains [cd] %@ OR remark contains [cd] %@",self.searchDisplayController.searchBar.text,self.searchDisplayController.searchBar.text];
         
         self.filterData =  [[NSArray alloc] initWithArray:[self.data filteredArrayUsingPredicate:predicate]];
         return self.filterData.count;
@@ -228,7 +228,7 @@ UITextFieldDelegate>
 -(void)getDataAndRefreshTable{
     DBPeripheral *currentPeriphera = [HirUserInfo shareUserInfo].currentPeriphera;
     
-    self.data = [NSMutableArray arrayWithArray:[HirDataManageCenter findAllLocationRecordByPeripheraUUID:currentPeriphera.uuid dataType:@(self.locationDataType)]];
+    self.data = [NSMutableArray arrayWithArray:[HirDataManageCenter findAllLocationRecordByPeripheralUUID:currentPeriphera.uuid dataType:@(self.locationDataType)]];
 
     [self.tableView reloadData];
 }

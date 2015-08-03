@@ -9,23 +9,23 @@
 #import "HirDataManageCenter+DeviceRecord.h"
 
 @implementation HirDataManageCenter (DeviceRecord)
-+(DBPeripheralRecord *)findDeviceRecordByPeripheraUUID:(NSString *)peripheraUUID{
-    if (!peripheraUUID) {
++(DBPeripheralRecord *)findDeviceRecordByPeripheralUUID:(NSString *)peripheralUUID{
+    if (!peripheralUUID) {
         return nil;
     }
     NSString *userId = [HirUserInfo shareUserInfo].userId;
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheraUUID == %@ AND userId == %@",peripheraUUID,userId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheralUUID == %@ AND userId == %@",peripheralUUID,userId];
     DBPeripheralRecord *deviceRecord = [DBPeripheralRecord MR_findFirstWithPredicate:predicate];
     return deviceRecord;
 }
 
-+(NSMutableArray *)findAllRecordByPeripheraUUID:(NSString *)peripheraUUID{
++(NSMutableArray *)findAllRecordByPeripheralUUID:(NSString *)peripheralUUID{
     NSString *userId = [HirUserInfo shareUserInfo].userId;
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheraUUID == %@ AND userId == %@",peripheraUUID,userId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheralUUID == %@ AND userId == %@",peripheralUUID,userId];
     
-    NSArray *list = [DBPeripheralRecord MR_findAllSortedBy:@"recoderTimestamp" ascending:NO withPredicate:predicate];
+    NSArray *list = [DBPeripheralRecord MR_findAllSortedBy:@"timestamp" ascending:NO withPredicate:predicate];
     
     if ([list count] == 0) {
         return [NSMutableArray arrayWithCapacity:3];
@@ -34,14 +34,14 @@
 }
 
 //插入一条记录
-+(void)insertVoicePath:(NSString *)voicePath peripheraUUID:(NSString *)peripheraUUID recoderTimestamp:(NSNumber *)recoderTimestamp title:(NSString *)title voiceTime:(NSNumber *)voiceTime{
-    DBPeripheralRecord *deviceRecord = [HirDataManageCenter findDeviceRecordByPeripheraUUID:peripheraUUID];
++(void)insertVoicePath:(NSString *)voicePath peripheralUUID:(NSString *)peripheralUUID recoderTimestamp:(NSNumber *)recoderTimestamp title:(NSString *)title voiceTime:(NSNumber *)voiceTime{
+    DBPeripheralRecord *deviceRecord = [HirDataManageCenter findDeviceRecordByPeripheralUUID:peripheralUUID];
     if (deviceRecord) {
         if (voicePath) {
             deviceRecord.fileName = voicePath;
         }
-        if (peripheraUUID) {
-            deviceRecord.peripheralUUID = peripheraUUID;
+        if (peripheralUUID) {
+            deviceRecord.peripheralUUID = peripheralUUID;
         }
         if (recoderTimestamp) {
             deviceRecord.timestamp = recoderTimestamp;
