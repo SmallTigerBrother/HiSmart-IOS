@@ -13,7 +13,7 @@
 
 @interface HirDataManageCenter (DeviceRecord)
 
-+(DBPeripheralRecord *)findDeviceRecordByPeripheralUUID:(NSString *)peripheralUUID;
+//+(DBPeripheralRecord *)findDeviceRecordByPeripheralUUID:(NSString *)peripheralUUID;
 
 +(NSMutableArray *)findAllRecordByPeripheralUUID:(NSString *)peripheralUUID;
 

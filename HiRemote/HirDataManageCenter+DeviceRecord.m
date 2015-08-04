@@ -9,16 +9,16 @@
 #import "HirDataManageCenter+DeviceRecord.h"
 
 @implementation HirDataManageCenter (DeviceRecord)
-+(DBPeripheralRecord *)findDeviceRecordByPeripheralUUID:(NSString *)peripheralUUID{
-    if (!peripheralUUID) {
-        return nil;
-    }
-    NSString *userId = [HirUserInfo shareUserInfo].userId;
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheralUUID == %@ AND userId == %@",peripheralUUID,userId];
-    DBPeripheralRecord *deviceRecord = [DBPeripheralRecord MR_findFirstWithPredicate:predicate];
-    return deviceRecord;
-}
+//+(DBPeripheralRecord *)findDeviceRecordByPeripheralUUID:(NSString *)peripheralUUID{
+//    if (!peripheralUUID) {
+//        return nil;
+//    }
+//    NSString *userId = [HirUserInfo shareUserInfo].userId;
+//    
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheralUUID == %@ AND userId == %@",peripheralUUID,userId];
+//    DBPeripheralRecord *deviceRecord = [DBPeripheralRecord MR_findFirstWithPredicate:predicate];
+//    return deviceRecord;
+//}
 
 +(NSMutableArray *)findAllRecordByPeripheralUUID:(NSString *)peripheralUUID{
     NSString *userId = [HirUserInfo shareUserInfo].userId;
@@ -26,6 +26,10 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheralUUID == %@ AND userId == %@",peripheralUUID,userId];
     
     NSArray *list = [DBPeripheralRecord MR_findAllSortedBy:@"timestamp" ascending:NO withPredicate:predicate];
+    
+    for (DBPeripheralRecord *peripheralRecord in list) {
+        NSLog(@"userId = %@,peripheralRecord = %@",peripheralRecord.userId,peripheralRecord.peripheralUUID);
+    }
     
     if ([list count] == 0) {
         return [NSMutableArray arrayWithCapacity:3];
@@ -36,31 +40,35 @@
 //插入一条记录
 +(void)insertVoicePath:(NSString *)voicePath peripheraUUID:(NSString *)peripheraUUID recoderTimestamp:(NSNumber *)recoderTimestamp title:(NSString *)title voiceTime:(NSNumber *)voiceTime;
 {
-    DBPeripheralRecord *deviceRecord = [HirDataManageCenter findDeviceRecordByPeripheralUUID:peripheraUUID];
-    if (deviceRecord) {
-        if (voicePath) {
-            deviceRecord.fileName = voicePath;
-        }
-        if (peripheraUUID) {
-            deviceRecord.peripheralUUID = peripheraUUID;
-        }
-        if (recoderTimestamp) {
-            deviceRecord.timestamp = recoderTimestamp;
-        }
-        if (title) {
-            deviceRecord.title = title;
-        }
-        if (voiceTime) {
-            deviceRecord.duration = voiceTime;
-        }
-    }
-    else{
-        deviceRecord = [DBPeripheralRecord MR_createEntity];
-        deviceRecord.fileName = voicePath;
-        deviceRecord.timestamp = recoderTimestamp;
-        deviceRecord.title = title;
-        deviceRecord.duration = voiceTime;
-    }
+//    DBPeripheralRecord *deviceRecord = [HirDataManageCenter findDeviceRecordByPeripheralUUID:peripheraUUID];
+//    if (deviceRecord) {
+//        if (voicePath) {
+//            deviceRecord.fileName = voicePath;
+//        }
+//        if (peripheraUUID) {
+//            deviceRecord.peripheralUUID = peripheraUUID;
+//        }
+//        if (recoderTimestamp) {
+//            deviceRecord.timestamp = recoderTimestamp;
+//        }
+//        if (title) {
+//            deviceRecord.title = title;
+//        }
+//        if (voiceTime) {
+//            deviceRecord.duration = voiceTime;
+//        }
+//    }
+//    else{
+    //    }
+
+    DBPeripheralRecord *deviceRecord = [DBPeripheralRecord MR_createEntity];
+    deviceRecord.fileName = voicePath;
+    deviceRecord.timestamp = recoderTimestamp;
+    deviceRecord.title = title;
+    deviceRecord.duration = voiceTime;
+    deviceRecord.peripheralUUID = peripheraUUID;
+    NSString *userId = [HirUserInfo shareUserInfo].userId;
+    deviceRecord.userId = userId;
     deviceRecord.sync = @0;
     deviceRecord.timeZone = [NSTimeZone localTimeZone].name;
     
@@ -75,7 +83,7 @@
 +(void)delDeviceRecordByModel:(DBPeripheralRecord *)deviceRecord{
     //删除文件
 //
-
+    
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
                                                             NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docsDir = [dirPaths objectAtIndex:0];

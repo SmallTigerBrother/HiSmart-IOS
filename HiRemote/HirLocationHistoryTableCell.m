@@ -7,7 +7,7 @@
 //
 
 #import "HirLocationHistoryTableCell.h"
-#define HeightOfCell (15*2 + PVI02_SIZE_M * 3)
+#define HeightOfCell (15*3 + PVI02_SIZE_M * 3)
 @implementation HirLocationHistoryTableCell
 
 +(CGFloat)heightOfCellWithData:(id)data{
@@ -50,8 +50,8 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     self.titleLabel.frame = CGRectMake(Cell_LeftMargin, PVI02_SIZE_M, 195, 15);
-    self.LocationImgView.frame = CGRectMake(Cell_LeftMargin, HeightOfCell - PVI02_SIZE_M -15, self.LocationImgView.image.size.width, self.LocationImgView.image.size.height);
-    self.contentLabel.frame = CGRectMake(CGRectGetMaxX(self.LocationImgView.frame) + Cell_Pand_H, CGRectGetMinY(self.LocationImgView.frame), CGRectGetMinX(self.accessoryView.frame) - CGRectGetMaxX(self.LocationImgView.frame) - 2*Cell_Pand_H, 15);
+    self.LocationImgView.frame = CGRectMake(Cell_LeftMargin, HeightOfCell - PVI02_SIZE_M -30, self.LocationImgView.image.size.width, self.LocationImgView.image.size.height);
+    self.contentLabel.frame = CGRectMake(CGRectGetMaxX(self.LocationImgView.frame) + Cell_Pand_H, CGRectGetMinY(self.LocationImgView.frame), CGRectGetMinX(self.accessoryView.frame) - CGRectGetMaxX(self.LocationImgView.frame) - Cell_Pand_H, 30);
     CGFloat widthOfTimeLabel = 76;
     self.timeLabel.frame = CGRectMake(SCREEN_WIDTH - 33 - widthOfTimeLabel, PVI02_SIZE_M, widthOfTimeLabel, 15);
 }

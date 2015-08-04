@@ -276,6 +276,14 @@ HPCoreLocationMangerDelegate>
     [SGInfoAlert showInfo:@"this version is for test"];
 #endif
     [self openVoicePath];
+    
+//#ifdef DEBUG
+//    [self startRecording];
+//
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self stopRecording];
+//    });
+//#endif
 }
 
 
@@ -380,46 +388,61 @@ HPCoreLocationMangerDelegate>
     [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionDefaultToSpeaker error:&erro];
     
     NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] initWithCapacity:10];
-    if(recordEncoding == ENC_PCM)
-    {
+//    if(recordEncoding == ENC_PCM)
+//    {
         [recordSettings setObject:[NSNumber numberWithInt: kAudioFormatLinearPCM] forKey: AVFormatIDKey];
         [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
         [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
         [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
         [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
         [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
-    }
-    else
-    {
-        NSNumber *formatObject;
-        
-        switch (recordEncoding) {
-            case (ENC_AAC):
-                formatObject = [NSNumber numberWithInt: kAudioFormatMPEG4AAC];
-                break;
-            case (ENC_ALAC):
-                formatObject = [NSNumber numberWithInt: kAudioFormatAppleLossless];
-                break;
-            case (ENC_IMA4):
-                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
-                break;
-            case (ENC_ILBC):
-                formatObject = [NSNumber numberWithInt: kAudioFormatiLBC];
-                break;
-            case (ENC_ULAW):
-                formatObject = [NSNumber numberWithInt: kAudioFormatULaw];
-                break;
-            default:
-                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
-        }
-        
-        [recordSettings setObject:formatObject forKey: AVFormatIDKey];
-        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
-        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-        [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
-        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-        [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
-    }
+//    }
+//    else
+//    {
+//        NSNumber *formatObject;
+    
+//        switch (recordEncoding) {
+//            case (ENC_AAC):
+//                formatObject = [NSNumber numberWithInt: kAudioFormatMPEG4AAC];
+//                break;
+//            case (ENC_ALAC):
+//                formatObject = [NSNumber numberWithInt: kAudioFormatAppleLossless];
+//                break;
+//            case (ENC_IMA4):
+//                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
+//                break;
+//            case (ENC_ILBC):
+//                formatObject = [NSNumber numberWithInt: kAudioFormatiLBC];
+//                break;
+//            case (ENC_ULAW):
+//                formatObject = [NSNumber numberWithInt: kAudioFormatULaw];
+//                break;
+//            default:
+//                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
+//        }
+    
+//    NSNumber *formatObject = [NSNumber numberWithInt: kAudioFormatMPEGLayer3];
+
+//        [recordSettings setObject:formatObject forKey: AVFormatIDKey];
+//        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
+//        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
+//        [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
+//        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
+//        [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
+//    }
+//    NSDictionary *recordSettings; = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                    [NSNumber numberWithInt: kAudioFormatMPEG4AAC], AVFormatIDKey,
+//                                    [NSNumber numberWithFloat:16000.0], AVSampleRateKey,
+//                                    [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,
+//                                    nil];
+    
+//            [recordSettings setObject:[NSNumber numberWithInt: kAudioFormatMPEG4AAC] forKey: AVFormatIDKey];
+//            [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
+//            [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
+//            [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
+//            [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
+//            [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
+
     
     //    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/recordTest.caf", [[NSBundle mainBundle] resourcePath]]];
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
@@ -859,11 +882,11 @@ HPCoreLocationMangerDelegate>
     
     return;
     ////添加新设备时，防止为上次的设备
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
-    [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
-    AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDeleg addNewDevice];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+//    [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
+//    AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    [appDeleg addNewDevice];
 }
 
 - (void)preButtonClick:(id)sender {
