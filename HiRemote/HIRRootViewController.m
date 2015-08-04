@@ -958,7 +958,9 @@ HPCoreLocationMangerDelegate>
             [defaults removeObjectForKey:@"tempLostAlertValue"];
             [defaults synchronize];
             [self resetTheSwitchStatusByUuid:remoteData.uuid forceRefresh:YES];
-            
+            if (!(self.mainMenuTableView.hidden)) {
+                [self.mainMenuTableView reloadData];
+            }
             [self.changeIndicator startAnimating];
             self.outTimer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
             

@@ -68,7 +68,7 @@
     self.geocoder = [[CLGeocoder alloc]init];
     __weak typeof(self) weakSelf = self;
     [self.geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placeMarks, NSError *error) {
-        NSLog(@"mkkk:%@",placeMarks);
+       // NSLog(@"mkkk:%@",placeMarks);
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf geoAddress:placeMarks];
         });
