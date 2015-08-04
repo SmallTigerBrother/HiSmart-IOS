@@ -70,7 +70,7 @@
         periphera.battery = battery;
     }
     NSString *userId = [HirUserInfo shareUserInfo].userId;
-
+    
     periphera.userId = userId;
     
     [HirUserInfo shareUserInfo].deviceInfoArray = [HirDataManageCenter findAllPerphera];
