@@ -62,7 +62,7 @@
         }
     }
     else{
-        DBPeripheral *periphera = [DBPeripheral MR_createEntity];
+        periphera = [DBPeripheral MR_createEntity];
         periphera.uuid = uuid;
         periphera.name = name;
         periphera.remarkName = remarkName;

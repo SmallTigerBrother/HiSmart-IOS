@@ -34,14 +34,15 @@
 }
 
 //插入一条记录
-+(void)insertVoicePath:(NSString *)voicePath peripheralUUID:(NSString *)peripheralUUID recoderTimestamp:(NSNumber *)recoderTimestamp title:(NSString *)title voiceTime:(NSNumber *)voiceTime{
-    DBPeripheralRecord *deviceRecord = [HirDataManageCenter findDeviceRecordByPeripheralUUID:peripheralUUID];
++(void)insertVoicePath:(NSString *)voicePath peripheraUUID:(NSString *)peripheraUUID recoderTimestamp:(NSNumber *)recoderTimestamp title:(NSString *)title voiceTime:(NSNumber *)voiceTime;
+{
+    DBPeripheralRecord *deviceRecord = [HirDataManageCenter findDeviceRecordByPeripheralUUID:peripheraUUID];
     if (deviceRecord) {
         if (voicePath) {
             deviceRecord.fileName = voicePath;
         }
-        if (peripheralUUID) {
-            deviceRecord.peripheralUUID = peripheralUUID;
+        if (peripheraUUID) {
+            deviceRecord.peripheralUUID = peripheraUUID;
         }
         if (recoderTimestamp) {
             deviceRecord.timestamp = recoderTimestamp;
@@ -54,7 +55,7 @@
         }
     }
     else{
-        DBPeripheralRecord *deviceRecord = [DBPeripheralRecord MR_createEntity];
+        deviceRecord = [DBPeripheralRecord MR_createEntity];
         deviceRecord.fileName = voicePath;
         deviceRecord.timestamp = recoderTimestamp;
         deviceRecord.title = title;
