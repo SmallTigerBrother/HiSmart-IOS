@@ -97,25 +97,6 @@ HPCoreLocationMangerDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSArray *statusArray = [userDefaults valueForKey:@"theHiremoteSettingStatus"];
-    if (!statusArray || [statusArray count] < 3) {
-        self.switchStatus = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],nil];
-    }else {
-        self.switchStatus = [NSMutableArray arrayWithArray:statusArray];
-    }
-    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
-    NSNumber *lossNumber = [defaults valueForKey:@"tempLostAlertValue"];
-    if (lossNumber) {
-        if ([lossNumber floatValue] > 0.01) {
-            [self.switchStatus replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:YES]];
-        }else {
-            [self.switchStatus replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:NO]];
-        }
-        [defaults removeObjectForKey:@"tempLostAlertValue"];
-        [defaults synchronize];
-    }
-    
     self.edgesForExtendedLayout = UIRectEdgeNone;
     NSString *bgPath = [[NSBundle mainBundle] pathForResource:@"mainviewbg" ofType:@"jpg"];
     UIImage *bgImage = [UIImage imageWithContentsOfFile:bgPath];
@@ -272,6 +253,8 @@ HPCoreLocationMangerDelegate>
                     if (page <= 0) {
                         self.preButton.hidden = YES;
                     }
+                    [self resetTheSwitchStatusByUuid:remoteData.uuid forceRefresh:NO];
+
                 }
             }
         }
@@ -302,6 +285,37 @@ HPCoreLocationMangerDelegate>
 //    });
 //#endif
 }
+
+
+///考虑到多设备问题，所以设置项也需要考虑多设备
+- (void)resetTheSwitchStatusByUuid:(NSString *)uuid forceRefresh:(BOOL)force{
+    if ([self.switchStatus count] >= 3 && !force) {
+        return;
+    }
+    if ([uuid length] == 0) {
+        self.switchStatus = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],nil];
+    }else {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSArray *statusArray = [userDefaults valueForKey:uuid];
+        if (!statusArray || [statusArray count] < 3) {
+            self.switchStatus = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],nil];
+        }else {
+            self.switchStatus = [NSMutableArray arrayWithArray:statusArray];
+        }
+    }
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    NSNumber *lossNumber = [defaults valueForKey:@"tempLostAlertValue"];
+    if (lossNumber) {
+        if ([lossNumber floatValue] > 0.01) {
+            [self.switchStatus replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:YES]];
+        }else {
+            [self.switchStatus replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:NO]];
+        }
+        [defaults removeObjectForKey:@"tempLostAlertValue"];
+        [defaults synchronize];
+    }
+}
+
 
 -(void)openVoicePath{
     if ([HirUserInfo shareUserInfo].isNotificationForVoiceMemo) {
@@ -524,6 +538,9 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)getLossAlertValue:(NSNotification *)notify {
+    NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+    [self resetTheSwitchStatusByUuid:currentUuid forceRefresh:NO];
+    
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey:@"tempLostAlertValue"];
     [defaults synchronize];
@@ -908,8 +925,13 @@ HPCoreLocationMangerDelegate>
         self.mainMenuTableView.hidden = YES;
         self.mainMenuScrollView.hidden = NO;
     }else {
+        if ([self.switchStatus count] < 3) {
+            NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+            [self resetTheSwitchStatusByUuid:currentUuid forceRefresh:NO];
+        }
         self.mainMenuScrollView.hidden = YES;
         self.mainMenuTableView.hidden = NO;
+        [self.mainMenuTableView reloadData];
     }
 }
 
@@ -955,6 +977,11 @@ HPCoreLocationMangerDelegate>
         [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
         if ([self.deviceInfoArray count] > page) {
             DBPeripheral *remoteData = [self.deviceInfoArray objectAtIndex:page];
+            NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+            [defaults removeObjectForKey:@"tempLostAlertValue"];
+            [defaults synchronize];
+            [self resetTheSwitchStatusByUuid:remoteData.uuid forceRefresh:YES];
+            
             [self.changeIndicator startAnimating];
             self.outTimer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
             
@@ -1041,13 +1068,12 @@ HPCoreLocationMangerDelegate>
         theSwitch.tintColor = COLOR_THEME;
         theSwitch.onTintColor = COLOR_THEME;
         theSwitch.tag = [indexPath row];
-        [theSwitch setOn:[[self.switchStatus objectAtIndex:[indexPath row]] boolValue] animated:NO];
         [theSwitch addTarget:self action:@selector(theSwitchChange:) forControlEvents:UIControlEventValueChanged];
         [cell.contentView addSubview:label];
         [cell.contentView addSubview:label2];
         [cell.contentView addSubview:theSwitch];
     }
-    
+
     for (UIView *tempV in [cell.contentView subviews]) {
         if ([tempV isKindOfClass:[UISwitch class]]) {
             [(UISwitch *)tempV setOn:[[self.switchStatus objectAtIndex:[indexPath row]] boolValue] animated:NO];
@@ -1108,9 +1134,13 @@ HPCoreLocationMangerDelegate>
     [HirUserInfo shareUserInfo].isNotificationMyWhenDeviceNoWithin = [[self.switchStatus objectAtIndex:HirRootSetSwith_Notification]boolValue];
     [HirUserInfo shareUserInfo].isNotificationForVoiceMemo = [[self.switchStatus objectAtIndex:HirRootSetSwith_VoiceMemo]boolValue];
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:self.switchStatus forKey:@"theHiremoteSettingStatus"];
-    [userDefaults synchronize];
+    NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+
+    if ([currentUuid length] > 0) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:self.switchStatus forKey:currentUuid];
+        [userDefaults synchronize];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
