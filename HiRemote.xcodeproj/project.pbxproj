@@ -312,7 +312,7 @@
 		04F375C31B49319F00E3FCD3 /* HirDataManageCenter+Perphera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HirDataManageCenter+Perphera.h"; sourceTree = "<group>"; };
 		04F375C41B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HirDataManageCenter+Perphera.m"; sourceTree = "<group>"; };
 		04F375C61B4974E300E3FCD3 /* HirLocationHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirLocationHistoryViewController.m; sourceTree = "<group>"; };
-		2C18AAEC1B3BECDE00CE6588 /* HiRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HiRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C18AAEC1B3BECDE00CE6588 /* HiSmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HiSmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C18AAF01B3BECDE00CE6588 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C18AAF11B3BECDE00CE6588 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2C18AAF31B3BECDE00CE6588 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HiRemote/AppDelegate.h; sourceTree = "<group>"; };
@@ -792,7 +792,7 @@
 		2C18AAED1B3BECDE00CE6588 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2C18AAEC1B3BECDE00CE6588 /* HiRemote.app */,
+				2C18AAEC1B3BECDE00CE6588 /* HiSmart.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -986,7 +986,7 @@
 			);
 			name = HiRemote;
 			productName = HiRemote;
-			productReference = 2C18AAEC1B3BECDE00CE6588 /* HiRemote.app */;
+			productReference = 2C18AAEC1B3BECDE00CE6588 /* HiSmart.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1001,7 +1001,7 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 4H44DAN2YD;
+						DevelopmentTeam = ZEGW96P32G;
 					};
 				};
 			};
@@ -1340,8 +1340,8 @@
 			baseConfigurationReference = 04976BB78AFBE5AFBEEC05BA /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = HiRemote/HirProject.pch;
@@ -1355,8 +1355,8 @@
 					"$(PROJECT_DIR)/HiRemote",
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = HiSmart;
+				PROVISIONING_PROFILE = "7ece147c-df71-4a30-b53d-edc7e3598c78";
 			};
 			name = Debug;
 		};
@@ -1365,8 +1365,8 @@
 			baseConfigurationReference = E36CA8EE71365DA8477ACA8D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = HiRemote/HirProject.pch;
@@ -1380,8 +1380,8 @@
 					"$(PROJECT_DIR)/HiRemote",
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = HiSmart;
+				PROVISIONING_PROFILE = "7ece147c-df71-4a30-b53d-edc7e3598c78";
 			};
 			name = Release;
 		};
