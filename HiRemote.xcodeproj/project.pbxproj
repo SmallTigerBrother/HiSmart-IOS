@@ -105,6 +105,7 @@
 		2C18AB601B3D4F5F00CE6588 /* preBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C18AB5F1B3D4F5F00CE6588 /* preBtn.png */; };
 		2CCB4EC91B6E01E300783616 /* HIRHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB4EC81B6E01E300783616 /* HIRHttpRequest.m */; };
 		2CCB4ECC1B6E067500783616 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB4ECB1B6E067500783616 /* Reachability.m */; };
+		2CECD4241B723F84008DF798 /* controlmforscan.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CECD4231B723F84008DF798 /* controlmforscan.png */; };
 		B84CD4A71B441E58008FAA53 /* CallOutAnnotationVifew.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */; };
 		B84CD4A81B441E58008FAA53 /* HIRConnFailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49C1B441E58008FAA53 /* HIRConnFailViewController.m */; };
 		B84CD4A91B441E58008FAA53 /* HIRConnSuccViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49E1B441E58008FAA53 /* HIRConnSuccViewController.m */; };
@@ -342,6 +343,7 @@
 		2CCB4EC81B6E01E300783616 /* HIRHttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRHttpRequest.m; sourceTree = "<group>"; };
 		2CCB4ECA1B6E067500783616 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		2CCB4ECB1B6E067500783616 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		2CECD4231B723F84008DF798 /* controlmforscan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controlmforscan.png; sourceTree = "<group>"; };
 		A3EEC68A1FCE3A9ABA965D36 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B84CD4991B441E58008FAA53 /* CallOutAnnotationVifew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallOutAnnotationVifew.h; sourceTree = "<group>"; };
 		B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallOutAnnotationVifew.m; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 				B84CD4B81B441EA2008FAA53 /* avatar_circle@2x.png */,
 				B84CD4B71B441EA2008FAA53 /* avatar_circle.png */,
 				B84CD4BA1B441EA2008FAA53 /* cameram.png */,
+				2CECD4231B723F84008DF798 /* controlmforscan.png */,
 				B84CD4BB1B441EA2008FAA53 /* connectedSuccess.png */,
 				B84CD4BC1B441EA2008FAA53 /* controlm.png */,
 				B84CD4BD1B441EA2008FAA53 /* darkConn.png */,
@@ -1059,6 +1062,7 @@
 				B8DF7DC41B3E97F5000BD43E /* nextBtn.png in Resources */,
 				B84CD4CC1B441EA2008FAA53 /* connectedSuccess.png in Resources */,
 				B8DF7DC71B3EA910000BD43E /* Default-568h@2x.png in Resources */,
+				2CECD4241B723F84008DF798 /* controlmforscan.png in Resources */,
 				04D7A88C1B47EF9700579EC2 /* flashing_off@2x.png in Resources */,
 				2C18AB541B3D3B1C00CE6588 /* userAvatar.png in Resources */,
 				B84CD4D21B441EA2008FAA53 /* greenConn.png in Resources */,

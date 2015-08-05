@@ -61,7 +61,7 @@
     self.tipsLabel2.numberOfLines = 2;
     
     self.controlImageV = [[UIImageView alloc] init];
-    self.controlImageV.image = [UIImage imageNamed:@"controlm"];
+    self.controlImageV.image = [UIImage imageNamed:@"controlmforscan"];
     
     self.scanIndicator = [[UIActivityIndicatorView alloc] init];
     self.scanIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
