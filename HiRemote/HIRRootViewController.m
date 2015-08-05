@@ -97,25 +97,6 @@ HPCoreLocationMangerDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSArray *statusArray = [userDefaults valueForKey:@"theHiremoteSettingStatus"];
-    if (!statusArray || [statusArray count] < 3) {
-        self.switchStatus = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],nil];
-    }else {
-        self.switchStatus = [NSMutableArray arrayWithArray:statusArray];
-    }
-    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
-    NSNumber *lossNumber = [defaults valueForKey:@"tempLostAlertValue"];
-    if (lossNumber) {
-        if ([lossNumber floatValue] > 0.01) {
-            [self.switchStatus replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:YES]];
-        }else {
-            [self.switchStatus replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:NO]];
-        }
-        [defaults removeObjectForKey:@"tempLostAlertValue"];
-        [defaults synchronize];
-    }
-    
     self.edgesForExtendedLayout = UIRectEdgeNone;
     NSString *bgPath = [[NSBundle mainBundle] pathForResource:@"mainviewbg" ofType:@"jpg"];
     UIImage *bgImage = [UIImage imageWithContentsOfFile:bgPath];
@@ -272,6 +253,8 @@ HPCoreLocationMangerDelegate>
                     if (page <= 0) {
                         self.preButton.hidden = YES;
                     }
+                    [self resetTheSwitchStatusByUuid:remoteData.uuid forceRefresh:NO];
+
                 }
             }
         }
@@ -293,7 +276,46 @@ HPCoreLocationMangerDelegate>
     [SGInfoAlert showInfo:@"this version is for test"];
 #endif
     [self openVoicePath];
+    
+//#ifdef DEBUG
+//    [self startRecording];
+//
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self stopRecording];
+//    });
+//#endif
 }
+
+
+///考虑到多设备问题，所以设置项也需要考虑多设备
+- (void)resetTheSwitchStatusByUuid:(NSString *)uuid forceRefresh:(BOOL)force{
+    if ([self.switchStatus count] >= 3 && !force) {
+        return;
+    }
+    if ([uuid length] == 0) {
+        self.switchStatus = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],nil];
+    }else {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSArray *statusArray = [userDefaults valueForKey:uuid];
+        if (!statusArray || [statusArray count] < 3) {
+            self.switchStatus = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],nil];
+        }else {
+            self.switchStatus = [NSMutableArray arrayWithArray:statusArray];
+        }
+    }
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    NSNumber *lossNumber = [defaults valueForKey:@"tempLostAlertValue"];
+    if (lossNumber) {
+        if ([lossNumber floatValue] > 0.01) {
+            [self.switchStatus replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:YES]];
+        }else {
+            [self.switchStatus replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:NO]];
+        }
+        [defaults removeObjectForKey:@"tempLostAlertValue"];
+        [defaults synchronize];
+    }
+}
+
 
 -(void)openVoicePath{
     if ([HirUserInfo shareUserInfo].isNotificationForVoiceMemo) {
@@ -366,46 +388,61 @@ HPCoreLocationMangerDelegate>
     [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionDefaultToSpeaker error:&erro];
     
     NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] initWithCapacity:10];
-    if(recordEncoding == ENC_PCM)
-    {
+//    if(recordEncoding == ENC_PCM)
+//    {
         [recordSettings setObject:[NSNumber numberWithInt: kAudioFormatLinearPCM] forKey: AVFormatIDKey];
         [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
         [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
         [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
         [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
         [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
-    }
-    else
-    {
-        NSNumber *formatObject;
-        
-        switch (recordEncoding) {
-            case (ENC_AAC):
-                formatObject = [NSNumber numberWithInt: kAudioFormatMPEG4AAC];
-                break;
-            case (ENC_ALAC):
-                formatObject = [NSNumber numberWithInt: kAudioFormatAppleLossless];
-                break;
-            case (ENC_IMA4):
-                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
-                break;
-            case (ENC_ILBC):
-                formatObject = [NSNumber numberWithInt: kAudioFormatiLBC];
-                break;
-            case (ENC_ULAW):
-                formatObject = [NSNumber numberWithInt: kAudioFormatULaw];
-                break;
-            default:
-                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
-        }
-        
-        [recordSettings setObject:formatObject forKey: AVFormatIDKey];
-        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
-        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-        [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
-        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-        [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
-    }
+//    }
+//    else
+//    {
+//        NSNumber *formatObject;
+    
+//        switch (recordEncoding) {
+//            case (ENC_AAC):
+//                formatObject = [NSNumber numberWithInt: kAudioFormatMPEG4AAC];
+//                break;
+//            case (ENC_ALAC):
+//                formatObject = [NSNumber numberWithInt: kAudioFormatAppleLossless];
+//                break;
+//            case (ENC_IMA4):
+//                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
+//                break;
+//            case (ENC_ILBC):
+//                formatObject = [NSNumber numberWithInt: kAudioFormatiLBC];
+//                break;
+//            case (ENC_ULAW):
+//                formatObject = [NSNumber numberWithInt: kAudioFormatULaw];
+//                break;
+//            default:
+//                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
+//        }
+    
+//    NSNumber *formatObject = [NSNumber numberWithInt: kAudioFormatMPEGLayer3];
+
+//        [recordSettings setObject:formatObject forKey: AVFormatIDKey];
+//        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
+//        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
+//        [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
+//        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
+//        [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
+//    }
+//    NSDictionary *recordSettings; = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                    [NSNumber numberWithInt: kAudioFormatMPEG4AAC], AVFormatIDKey,
+//                                    [NSNumber numberWithFloat:16000.0], AVSampleRateKey,
+//                                    [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,
+//                                    nil];
+    
+//            [recordSettings setObject:[NSNumber numberWithInt: kAudioFormatMPEG4AAC] forKey: AVFormatIDKey];
+//            [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
+//            [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
+//            [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
+//            [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
+//            [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
+
     
     //    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/recordTest.caf", [[NSBundle mainBundle] resourcePath]]];
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
@@ -501,6 +538,9 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)getLossAlertValue:(NSNotification *)notify {
+    NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+    [self resetTheSwitchStatusByUuid:currentUuid forceRefresh:NO];
+    
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey:@"tempLostAlertValue"];
     [defaults synchronize];
@@ -842,11 +882,11 @@ HPCoreLocationMangerDelegate>
     
     return;
     ////添加新设备时，防止为上次的设备
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
-    [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
-    AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDeleg addNewDevice];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+//    [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
+//    AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    [appDeleg addNewDevice];
 }
 
 - (void)preButtonClick:(id)sender {
@@ -885,8 +925,13 @@ HPCoreLocationMangerDelegate>
         self.mainMenuTableView.hidden = YES;
         self.mainMenuScrollView.hidden = NO;
     }else {
+        if ([self.switchStatus count] < 3) {
+            NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+            [self resetTheSwitchStatusByUuid:currentUuid forceRefresh:NO];
+        }
         self.mainMenuScrollView.hidden = YES;
         self.mainMenuTableView.hidden = NO;
+        [self.mainMenuTableView reloadData];
     }
 }
 
@@ -932,6 +977,13 @@ HPCoreLocationMangerDelegate>
         [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
         if ([self.deviceInfoArray count] > page) {
             DBPeripheral *remoteData = [self.deviceInfoArray objectAtIndex:page];
+            NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+            [defaults removeObjectForKey:@"tempLostAlertValue"];
+            [defaults synchronize];
+            [self resetTheSwitchStatusByUuid:remoteData.uuid forceRefresh:YES];
+            if (!(self.mainMenuTableView.hidden)) {
+                [self.mainMenuTableView reloadData];
+            }
             [self.changeIndicator startAnimating];
             self.outTimer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
             
@@ -1007,8 +1059,8 @@ HPCoreLocationMangerDelegate>
     if (cell == nil) {
         cell =  [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifyCell];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(8, 3, self.view.frame.size.width-100, 20)];
-        label.font = [UIFont boldSystemFontOfSize:16];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 25, self.view.frame.size.width-100, 30)];
+        label.font = [UIFont boldSystemFontOfSize:18];
         label.tag = 10;
         UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(8, 25, self.view.frame.size.width- 70, 44)];
         label2.tag = 20;
@@ -1018,13 +1070,12 @@ HPCoreLocationMangerDelegate>
         theSwitch.tintColor = COLOR_THEME;
         theSwitch.onTintColor = COLOR_THEME;
         theSwitch.tag = [indexPath row];
-        [theSwitch setOn:[[self.switchStatus objectAtIndex:[indexPath row]] boolValue] animated:NO];
         [theSwitch addTarget:self action:@selector(theSwitchChange:) forControlEvents:UIControlEventValueChanged];
         [cell.contentView addSubview:label];
         [cell.contentView addSubview:label2];
         [cell.contentView addSubview:theSwitch];
     }
-    
+
     for (UIView *tempV in [cell.contentView subviews]) {
         if ([tempV isKindOfClass:[UISwitch class]]) {
             [(UISwitch *)tempV setOn:[[self.switchStatus objectAtIndex:[indexPath row]] boolValue] animated:NO];
@@ -1051,7 +1102,7 @@ HPCoreLocationMangerDelegate>
     UILabel *lab1 = (UILabel *)[cell.contentView viewWithTag:10];
     lab1.text = NSLocalizedString(title, @"");
     UILabel *lab2 = (UILabel *)[cell.contentView viewWithTag:20];
-    lab2.text = NSLocalizedString(info, @"");
+   //lab2.text = NSLocalizedString(info, @"");
     
     
     return cell;
@@ -1085,9 +1136,13 @@ HPCoreLocationMangerDelegate>
     [HirUserInfo shareUserInfo].isNotificationMyWhenDeviceNoWithin = [[self.switchStatus objectAtIndex:HirRootSetSwith_Notification]boolValue];
     [HirUserInfo shareUserInfo].isNotificationForVoiceMemo = [[self.switchStatus objectAtIndex:HirRootSetSwith_VoiceMemo]boolValue];
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:self.switchStatus forKey:@"theHiremoteSettingStatus"];
-    [userDefaults synchronize];
+    NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+
+    if ([currentUuid length] > 0) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:self.switchStatus forKey:currentUuid];
+        [userDefaults synchronize];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

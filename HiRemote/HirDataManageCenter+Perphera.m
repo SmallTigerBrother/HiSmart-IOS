@@ -62,7 +62,7 @@
         }
     }
     else{
-        DBPeripheral *periphera = [DBPeripheral MR_createEntity];
+        periphera = [DBPeripheral MR_createEntity];
         periphera.uuid = uuid;
         periphera.name = name;
         periphera.remarkName = remarkName;
@@ -70,7 +70,7 @@
         periphera.battery = battery;
     }
     NSString *userId = [HirUserInfo shareUserInfo].userId;
-
+    
     periphera.userId = userId;
     
     [HirUserInfo shareUserInfo].deviceInfoArray = [HirDataManageCenter findAllPerphera];

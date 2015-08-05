@@ -10,10 +10,10 @@
 #import "CLLocation+Sino.h"
 
 @implementation HirDataManageCenter (Location)
-+(NSArray *)findAllLocationRecordByPeripheraUUID:(NSString *)peripheraUUID  dataType:(NSNumber *)dataType{
++(NSArray *)findAllLocationRecordByPeripheralUUID:(NSString *)peripheralUUID  dataType:(NSNumber *)dataType{
     NSString *userId = [HirUserInfo shareUserInfo].userId;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheraUUID == %@ AND dataType == %@ AND userId = %@",peripheraUUID,dataType,userId];
-    NSArray *results = [DBPeripheralLocationInfo MR_findAllSortedBy:@"recordTime" ascending:NO withPredicate:predicate];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheralUUID == %@ AND dataType == %@ AND userId = %@",peripheralUUID,dataType,userId];
+    NSArray *results = [DBPeripheralLocationInfo MR_findAllSortedBy:@"timestamp" ascending:NO withPredicate:predicate];
     
     return results;
 }
@@ -22,9 +22,9 @@
     
     NSString *userId = [HirUserInfo shareUserInfo].userId;
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheraUUID == %@ AND userId = %@",peripheraUUID,userId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"peripheralUUID == %@ AND userId = %@",peripheraUUID,userId];
     
-    DBPeripheralLocationInfo *peripheraLocationInfo = [DBPeripheralLocationInfo MR_findFirstWithPredicate:predicate sortedBy:@"recordTime" ascending:NO];
+    DBPeripheralLocationInfo *peripheraLocationInfo = [DBPeripheralLocationInfo MR_findFirstWithPredicate:predicate sortedBy:@"timestamp" ascending:NO];
     
     return peripheraLocationInfo;
 }

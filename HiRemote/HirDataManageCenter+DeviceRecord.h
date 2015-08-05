@@ -13,9 +13,9 @@
 
 @interface HirDataManageCenter (DeviceRecord)
 
-+(DBPeripheralRecord *)findDeviceRecordByPeripheraUUID:(NSString *)peripheraUUID;
+//+(DBPeripheralRecord *)findDeviceRecordByPeripheralUUID:(NSString *)peripheralUUID;
 
-+(NSMutableArray *)findAllRecordByPeripheraUUID:(NSString *)peripheraUUID;
++(NSMutableArray *)findAllRecordByPeripheralUUID:(NSString *)peripheralUUID;
 
 //插入一条记录
 +(void)insertVoicePath:(NSString *)voicePath peripheraUUID:(NSString *)peripheraUUID recoderTimestamp:(NSNumber *)recoderTimestamp title:(NSString *)title voiceTime:(NSNumber *)voiceTime;

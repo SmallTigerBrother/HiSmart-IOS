@@ -14,7 +14,7 @@
 
 @interface HirDataManageCenter (Location)
 //查找设备ID为:peripheraUUID的定位记录信息
-+(NSArray *)findAllLocationRecordByPeripheraUUID:(NSString *)peripheraUUID dataType:(NSNumber *)dataType;
++(NSArray *)findAllLocationRecordByPeripheralUUID:(NSString *)peripheralUUID  dataType:(NSNumber *)dataType;
 
 +(DBPeripheralLocationInfo *)findLastLocationByPeriperaUUID:(NSString *)peripheraUUID;
 
