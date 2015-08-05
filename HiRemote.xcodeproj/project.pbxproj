@@ -514,6 +514,7 @@
 				04D38D171B3EB0DA0012D65A /* Location */,
 			);
 			name = ViewController;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		04D38D081B3E85BC0012D65A /* Commond */ = {
@@ -803,7 +804,6 @@
 				04F375AB1B48FC5800E3FCD3 /* DBManageCenter */,
 				04D38D081B3E85BC0012D65A /* Commond */,
 				B8DF7DA61B3E7AE7000BD43E /* UIClasses */,
-				04D38D041B3E84FC0012D65A /* ViewController */,
 				2C18AB3D1B3C221E00CE6588 /* Images */,
 				2C18AB301B3C121E00CE6588 /* PureLayout */,
 				2C18AAF61B3BECDE00CE6588 /* HIRRootViewController.h */,
@@ -849,12 +849,12 @@
 				04D651291B5BBD8B00B5BB13 /* defaultDevice.png */,
 				04D6512A1B5BBD8B00B5BB13 /* mainviewbg.jpg */,
 				B887061F1B4939CE00A87300 /* darkConnYes.png */,
-				B84CD4B81B441EA2008FAA53 /* avatar_circle@2x.png */,
 				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
 				B84CD4B91B441EA2008FAA53 /* camera.png */,
 				B856CE911B5BCAA200800195 /* voiceSelected.png */,
 				B88469921B64C468008358C1 /* fkjb.mp3 */,
 				B856CE891B5B6EBD00800195 /* mainviewbg.jpg */,
+				B84CD4B81B441EA2008FAA53 /* avatar_circle@2x.png */,
 				B84CD4B71B441EA2008FAA53 /* avatar_circle.png */,
 				B84CD4BA1B441EA2008FAA53 /* cameram.png */,
 				B84CD4BB1B441EA2008FAA53 /* connectedSuccess.png */,
@@ -931,14 +931,15 @@
 				B8DF7DA91B3E7AE7000BD43E /* HIRBatteryPercentView.h */,
 				B8DF7DAA1B3E7AE7000BD43E /* HIRBatteryPercentView.m */,
 				B8DF7DAB1B3E7AE7000BD43E /* HIRDeviceShowView.h */,
+				B8DF7DB01B3E7AE7000BD43E /* HIRScanningViewController.m */,
 				B8DF7DAC1B3E7AE7000BD43E /* HIRDeviceShowView.m */,
 				B8DF7DB21B3E7AE7000BD43E /* HIRSegmentView.m */,
 				B8DF7DAD1B3E7AE7000BD43E /* HIRMainMenuView.h */,
 				B8DF7DAE1B3E7AE7000BD43E /* HIRMainMenuView.m */,
 				B84CD49F1B441E58008FAA53 /* HIRFindViewController.h */,
 				B8DF7DAF1B3E7AE7000BD43E /* HIRScanningViewController.h */,
-				B8DF7DB01B3E7AE7000BD43E /* HIRScanningViewController.m */,
 				B8DF7DB11B3E7AE7000BD43E /* HIRSegmentView.h */,
+				04D38D041B3E84FC0012D65A /* ViewController */,
 				B8DF7DB31B3E7AE7000BD43E /* HIRUserInfoTableViewController.h */,
 				B8DF7DB41B3E7AE7000BD43E /* HIRUserInfoTableViewController.m */,
 				B8DF7DB51B3E7AE7000BD43E /* HIRWelcomeViewController.h */,
@@ -1001,7 +1002,6 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 4H44DAN2YD;
 					};
 				};
 			};
