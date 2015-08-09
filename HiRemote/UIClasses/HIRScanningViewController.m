@@ -120,7 +120,13 @@
     self.outTimer = nil;
     _isGetPeripheralStatus = NO;
     ///放在这里进行扫描的原因是，当失败后再扫描时回回到该页面再扫描
-    self.outTimer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
+    
+    NSInteger timeOutInterval = 45;
+#ifdef DEBUG
+    timeOutInterval = 10;
+#endif
+    
+    self.outTimer = [NSTimer scheduledTimerWithTimeInterval:timeOutInterval target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
     [self.scanIndicator startAnimating];
     if ([uuid length] > 0) {
         [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:uuid];

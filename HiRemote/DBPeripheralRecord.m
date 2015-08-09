@@ -16,7 +16,6 @@
 @dynamic title;
 @dynamic duration;
 @dynamic peripheralUUID;
-@dynamic timeZone;
 @dynamic userId;
 @dynamic sync;
 @dynamic recordFileUrl;

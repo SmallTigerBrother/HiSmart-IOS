@@ -21,6 +21,5 @@
 @property (nonatomic, retain) NSString * remark;
 @property (nonatomic, retain) NSString * userId;
 @property (nonatomic, retain) NSNumber * sync;
-@property (nonatomic, retain) NSString * timeZone;
 
 @end

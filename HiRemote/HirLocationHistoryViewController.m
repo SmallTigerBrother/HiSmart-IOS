@@ -132,10 +132,10 @@ UITextFieldDelegate>
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     //用[NSDate date]可以获取系统当前时间
     
-    NSString *dateStr = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.timestamp.longLongValue]];
+    NSString *dateStr = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:locationInfo.timestamp.longLongValue/1000]];
     
     [dateFormatter setDateFormat:@"HH:mm:ss"];
-    NSString *hourStr = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.timestamp.longLongValue]];
+    NSString *hourStr = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:locationInfo.timestamp.longLongValue/1000]];
 
     NSString *contentLabel;
     if (locationInfo.remark) {
@@ -263,9 +263,6 @@ UITextFieldDelegate>
                                   rightUtilityButtons:rightUtilityButtons];
         cell.delegate = self;
         
-        cell.titleLabel.font = FONT_TABLE_CELL_TITLE;
-        cell.contentLabel.font = FONT_TABLE_CELL_CONTENT;
-        cell.timeLabel.font = FONT_TABLE_CELL_RIGHT_TIME;
     }
     
     DBPeripheralLocationInfo *locationInfo;
@@ -287,16 +284,17 @@ UITextFieldDelegate>
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     //用[NSDate date]可以获取系统当前时间
     
-    cell.titleLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.timestamp.longLongValue]];
+    cell.titleLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:locationInfo.timestamp.longLongValue/1000]];
 
     [dateFormatter setDateFormat:@"HH:mm:ss"];
-    cell.timeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:locationInfo.timestamp.longLongValue]];
+    cell.timeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:locationInfo.timestamp.longLongValue/1000]];
     
     cell.indexPath = indexPath;
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     return [HirLocationHistoryTableCell heightOfCellWithData:nil];
 }
 
