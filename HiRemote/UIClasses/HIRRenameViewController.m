@@ -81,11 +81,11 @@
     dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
         
-//        if ([self.hiRemoteData.remarkName length] > 0) {
-//            [self.renameButton setTitle:self.hiRemoteData.remarkName forState:UIControlStateNormal];
-//        }else {
-//            [self.renameButton setTitle:self.hiRemoteData.name forState:UIControlStateNormal];
-//        }
+        if ([self.hiRemoteData.remarkName length] > 0) {
+            [self.renameButton setTitle:self.hiRemoteData.remarkName forState:UIControlStateNormal];
+        }else {
+            [self.renameButton setTitle:NSLocalizedString(@"rename", @"") forState:UIControlStateNormal];
+        }
         [self.photoView setImage:[UIImage imageNamed:@"defaultDevice"]];
         
 //        if ([self.hiRemoteData.avatarPath length] > 0) {
@@ -192,7 +192,7 @@
         UITextField *textField = [alertView textFieldAtIndex:0];
         if (textField.text && [textField.text length] > 0) {
             self.hiRemoteData.remarkName = textField.text;
-            //[self.renameButton setTitle:textField.text forState:UIControlStateNormal];
+            [self.renameButton setTitle:textField.text forState:UIControlStateNormal];
         }
     }
 }
