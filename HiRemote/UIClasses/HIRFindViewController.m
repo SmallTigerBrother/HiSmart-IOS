@@ -127,7 +127,7 @@
             
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];
-            self.loclLab.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:lastLocationInf.timestamp.longLongValue]];
+            self.loclLab.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:lastLocationInf.timestamp.longLongValue /1000]];
         }
     
         NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
@@ -220,7 +220,7 @@
     self.locationStr = perInfo.address;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];
-    self.loclLab.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:perInfo.timestamp.longLongValue]];
+    self.loclLab.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:perInfo.timestamp.longLongValue/1000]];
     [self setAnnotation];
 }
 

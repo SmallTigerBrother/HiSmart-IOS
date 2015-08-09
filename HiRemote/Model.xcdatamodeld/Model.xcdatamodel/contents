@@ -17,7 +17,6 @@
         <attribute name="remark" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sync" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="timeZone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="DBPeripheralRecord" representedClassName="DBPeripheralRecord" syncable="YES">
@@ -28,13 +27,12 @@
         <attribute name="recordFileUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sync" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="timeZone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DBPeripheral" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="DBPeripheralLocationInfo" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="DBPeripheralRecord" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="DBPeripheral" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="DBPeripheralLocationInfo" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="DBPeripheralRecord" positionX="0" positionY="0" width="128" height="180"/>
     </elements>
 </model>

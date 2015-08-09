@@ -40,6 +40,7 @@
     self.voiceRecodeTimeLabel = [[UILabel alloc]init];
     [self.contentView addSubview:self.voiceRecodeTimeLabel];
     
+
 }
 
 -(void)layoutSubviews{

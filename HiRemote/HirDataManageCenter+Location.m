@@ -40,11 +40,10 @@
     peripheraLocationInfo.latitude = latitude;
     peripheraLocationInfo.longitude = longitude;
     peripheraLocationInfo.address = location;
-    peripheraLocationInfo.timestamp = @([NSDate date].timeIntervalSinceReferenceDate);
+    peripheraLocationInfo.timestamp = @([NSDate date].timeIntervalSince1970 *1000);
     peripheraLocationInfo.dataType = dataType;
     peripheraLocationInfo.remark = remark;
     peripheraLocationInfo.sync = @0;
-    peripheraLocationInfo.timeZone = [NSTimeZone localTimeZone].name;
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     
     if (dataType.integerValue == HirLocationDataType_history) {

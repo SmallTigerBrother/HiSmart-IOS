@@ -120,7 +120,13 @@
     self.outTimer = nil;
     _isGetPeripheralStatus = NO;
     ///放在这里进行扫描的原因是，当失败后再扫描时回回到该页面再扫描
-    self.outTimer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
+    
+    NSInteger timeOutInterval = 45;
+#ifdef DEBUG
+    timeOutInterval = 10;
+#endif
+    
+    self.outTimer = [NSTimer scheduledTimerWithTimeInterval:timeOutInterval target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
     [self.scanIndicator startAnimating];
     if ([uuid length] > 0) {
         [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:uuid];
@@ -160,11 +166,11 @@
         [self.tipsLabel2 autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.tipsLabel1 withOffset:5];
         
         if (DEVICE_IS_IPHONE4) {
-            [self.controlImageV autoSetDimensionsToSize:CGSizeMake(260, 260)];
+            [self.controlImageV autoSetDimensionsToSize:CGSizeMake(240, 240)];
         }else if(DEVICE_IS_IPHONE5) {
-            [self.controlImageV autoSetDimensionsToSize:CGSizeMake(280, 280)];
+            [self.controlImageV autoSetDimensionsToSize:CGSizeMake(260, 260)];
         }else {
-            [self.controlImageV autoSetDimensionsToSize:CGSizeMake(320, 320)];
+            [self.controlImageV autoSetDimensionsToSize:CGSizeMake(300, 300)];
         }
         [self.controlImageV autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.tipsLabel2 withOffset:-20];
         [self.controlImageV autoAlignAxisToSuperviewAxis:ALAxisVertical];

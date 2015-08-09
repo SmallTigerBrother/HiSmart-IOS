@@ -101,7 +101,7 @@ HPCoreLocationMangerDelegate>
     NSString *bgPath = [[NSBundle mainBundle] pathForResource:@"mainviewbg" ofType:@"jpg"];
     UIImage *bgImage = [UIImage imageWithContentsOfFile:bgPath];
     self.view.layer.contents = (id)bgImage.CGImage;
-   
+    
     if (DEVICE_IS_IPHONE6p) {
         _showDeviceFrameHeight = 185;
     }else if (DEVICE_IS_IPHONE6) {
@@ -114,9 +114,9 @@ HPCoreLocationMangerDelegate>
     self.deviceInfoArray = [HirUserInfo shareUserInfo].deviceInfoArray;
     
     //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addDevice"] style:UIBarButtonItemStylePlain target:self action:@selector(showUserInfoVC:)];
-//    self.headLeftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.headLeftBtn setImage:[UIImage imageNamed:@"addDevice"] forState:UIControlStateNormal];
-//    [self.headLeftBtn addTarget:self action:@selector(showUserInfoVC:) forControlEvents:UIControlEventTouchUpInside];
+    //    self.headLeftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    [self.headLeftBtn setImage:[UIImage imageNamed:@"addDevice"] forState:UIControlStateNormal];
+    //    [self.headLeftBtn addTarget:self action:@selector(showUserInfoVC:) forControlEvents:UIControlEventTouchUpInside];
     
     self.titleLabel = [[UILabel alloc] init];
     self.titleLabel.backgroundColor = [UIColor clearColor];
@@ -215,26 +215,26 @@ HPCoreLocationMangerDelegate>
                     [[NSFileManager defaultManager] createDirectoryAtPath:documentsDirectory withIntermediateDirectories:TRUE attributes:nil error:nil];
                 }
                 //[device.avatarImageView setImage:[UIImage imageNamed:@"defaultDevice"]];
-//                if (documentsDirectory) {
-//                    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:remoteData.avatarPath];
-//                    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
-//                    UIImage *image = [UIImage imageWithData:imageData];
-//                    if (image) {
-//                        [device.avatarImageView setImage:image];
-//                    }
-//                }
+                //                if (documentsDirectory) {
+                //                    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:remoteData.avatarPath];
+                //                    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+                //                    UIImage *image = [UIImage imageWithData:imageData];
+                //                    if (image) {
+                //                        [device.avatarImageView setImage:image];
+                //                    }
+                //                }
                 if ([remoteData.remarkName length] > 0) {
                     device.deviceNameLabel.text = remoteData.remarkName;
                 }else {
                     device.deviceNameLabel.text = remoteData.name;
                 }
-
+                
                 DBPeripheralLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
                 NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
                 if ([remoteData.uuid isEqualToString:currentUuid]) {
                     device.deviceLocationLabel.text = locationInfo.address;
                     device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
-
+                    
                     self.pageControl.currentPage = i;
                     [HirUserInfo shareUserInfo].currentPeripheraIndex = i;
                     [self.showDeviceScrollView  setContentOffset:CGPointMake(i * self.view.frame.size.width, 0) animated:NO];
@@ -254,7 +254,7 @@ HPCoreLocationMangerDelegate>
                         self.preButton.hidden = YES;
                     }
                     [self resetTheSwitchStatusByUuid:remoteData.uuid forceRefresh:NO];
-
+                    
                 }
             }
         }
@@ -266,7 +266,7 @@ HPCoreLocationMangerDelegate>
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peripheralDisconnect:) name:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openVoicePath) name:NotificationVoiceOpen object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getLossAlertValue:) name:LOSS_ALERT_NEED_UPDATEUI_NOTIFICATION object:nil];
-
+    
     appDelegate.locManger.delegate = self;
     [appDelegate.locManger startUpdatingUserLocation];
 }
@@ -277,13 +277,13 @@ HPCoreLocationMangerDelegate>
 #endif
     [self openVoicePath];
     
-//#ifdef DEBUG
-//    [self startRecording];
-//
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self stopRecording];
-//    });
-//#endif
+    //#ifdef DEBUG
+    //    [self startRecording];
+    //
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //        [self stopRecording];
+    //    });
+    //#endif
 }
 
 
@@ -384,73 +384,20 @@ HPCoreLocationMangerDelegate>
     self.audioRecorder = nil;
     NSError *erro;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    //    [audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
+
     [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionDefaultToSpeaker error:&erro];
     
-    NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] initWithCapacity:10];
-//    if(recordEncoding == ENC_PCM)
-//    {
-        [recordSettings setObject:[NSNumber numberWithInt: kAudioFormatLinearPCM] forKey: AVFormatIDKey];
-        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
-        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-        [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
-        [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
-//    }
-//    else
-//    {
-//        NSNumber *formatObject;
-    
-//        switch (recordEncoding) {
-//            case (ENC_AAC):
-//                formatObject = [NSNumber numberWithInt: kAudioFormatMPEG4AAC];
-//                break;
-//            case (ENC_ALAC):
-//                formatObject = [NSNumber numberWithInt: kAudioFormatAppleLossless];
-//                break;
-//            case (ENC_IMA4):
-//                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
-//                break;
-//            case (ENC_ILBC):
-//                formatObject = [NSNumber numberWithInt: kAudioFormatiLBC];
-//                break;
-//            case (ENC_ULAW):
-//                formatObject = [NSNumber numberWithInt: kAudioFormatULaw];
-//                break;
-//            default:
-//                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
-//        }
-    
-//    NSNumber *formatObject = [NSNumber numberWithInt: kAudioFormatMPEGLayer3];
+    NSDictionary *recordSettings = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSNumber numberWithInt: kAudioFormatMPEG4AAC], AVFormatIDKey,
+                                    [NSNumber numberWithFloat:16000.0], AVSampleRateKey,
+                                    [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,
+                                    nil];
 
-//        [recordSettings setObject:formatObject forKey: AVFormatIDKey];
-//        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
-//        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-//        [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
-//        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-//        [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
-//    }
-//    NSDictionary *recordSettings; = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                    [NSNumber numberWithInt: kAudioFormatMPEG4AAC], AVFormatIDKey,
-//                                    [NSNumber numberWithFloat:16000.0], AVSampleRateKey,
-//                                    [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,
-//                                    nil];
-    
-//            [recordSettings setObject:[NSNumber numberWithInt: kAudioFormatMPEG4AAC] forKey: AVFormatIDKey];
-//            [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
-//            [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-//            [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
-//            [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-//            [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
-
-    
-    //    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/recordTest.caf", [[NSBundle mainBundle] resourcePath]]];
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
                                                             NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docsDir = [dirPaths objectAtIndex:0];
     
-    NSString *mediaPath = [NSString stringWithFormat:@"%lld.caf",(long long)[[NSDate date] timeIntervalSince1970]];
-    // NSString *mediaPath = [NSString stringWithFormat:@"%lld.caf",(long long)[[NSDate date]timeIntervalSinceReferenceDate]*1000000];
+    NSString *mediaPath = [NSString stringWithFormat:@"%lld.aac",(long long)[[NSDate date] timeIntervalSince1970]*1000];
     NSLog(@"recoer mediaPath = %@",mediaPath);
     
     NSString *soundFilePath = [docsDir
@@ -477,8 +424,6 @@ HPCoreLocationMangerDelegate>
 {
     NSLog(@"stopRecording");
     
-    //    [SGInfoAlert showInfo:NSLocalizedString(@"stopRecording", nil)];
-    // kSeconds = 0.0;
     [_audioRecorder stop];
     NSLog(@"stopped");
     [timerForPitch invalidate];
@@ -500,7 +445,7 @@ HPCoreLocationMangerDelegate>
     
     NSLog(@"stop time = %f",[[NSDate date]timeIntervalSince1970]);
     
-    double voiceTime = [[NSDate date]timeIntervalSince1970] - beginRecordTime;
+    double voiceTime = [[NSDate date]timeIntervalSince1970]*1000 - beginRecordTime;
     
     if (hadOpenVoicePath) {
         [HirDataManageCenter insertVoicePath:mediaPath peripheraUUID:[HirUserInfo shareUserInfo].currentPeriphera.uuid recoderTimestamp:[NSNumber numberWithDouble:beginRecordTime] title:NSLocalizedString(@"newRecording", nil) voiceTime:[NSNumber numberWithDouble:voiceTime]];
@@ -512,27 +457,27 @@ HPCoreLocationMangerDelegate>
     [_audioRecorder updateMeters];
     //    NSLog(@"Average input: %f Peak input: %f", [audioRecorder averagePowerForChannel:0], [audioRecorder peakPowerForChannel:0]);
     
-//    float linear = pow (10, [audioRecorder peakPowerForChannel:0] / 20);
+    //    float linear = pow (10, [audioRecorder peakPowerForChannel:0] / 20);
     //    NSLog(@"linear===%f",linear);
-//    float linear1 = pow (10, [audioRecorder averagePowerForChannel:0] / 20);
-//    //    NSLog(@"linear1===%f",linear1);
-//    if (linear1>0.03) {
-//        
-//        Pitch = linear1+.20;//pow (10, [audioRecorder averagePowerForChannel:0] / 20);//[audioRecorder peakPowerForChannel:0];
-//    }
-//    else {
-//        
-//        Pitch = 0.0;
-//    }
+    //    float linear1 = pow (10, [audioRecorder averagePowerForChannel:0] / 20);
+    //    //    NSLog(@"linear1===%f",linear1);
+    //    if (linear1>0.03) {
+    //
+    //        Pitch = linear1+.20;//pow (10, [audioRecorder averagePowerForChannel:0] / 20);//[audioRecorder peakPowerForChannel:0];
+    //    }
+    //    else {
+    //
+    //        Pitch = 0.0;
+    //    }
     //Pitch =linear1;
     //    NSLog(@"Pitch==%f",Pitch);
     //    _customRangeBar.value = Pitch;//linear1+.30;
-//    [_voiceProgressView setProgress:Pitch];
-//    float minutes = floor(audioRecorder.currentTime/60);
-//    float seconds = audioRecorder.currentTime - (minutes * 60);
+    //    [_voiceProgressView setProgress:Pitch];
+    //    float minutes = floor(audioRecorder.currentTime/60);
+    //    float seconds = audioRecorder.currentTime - (minutes * 60);
     
-//    NSString *time = [NSString stringWithFormat:@"%0.0f.%0.0f",minutes, seconds];
-//    [self.recordTimeLabel setText:[NSString stringWithFormat:@"%@ sec", time]];
+    //    NSString *time = [NSString stringWithFormat:@"%0.0f.%0.0f",minutes, seconds];
+    //    [self.recordTimeLabel setText:[NSString stringWithFormat:@"%@ sec", time]];
     //    NSLog(@"recording");
     
 }
@@ -590,7 +535,7 @@ HPCoreLocationMangerDelegate>
     NSString *latitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.latitude];
     NSString *longitude = [NSString stringWithFormat:@"%f",appDelegate.locManger.location.coordinate.longitude];
     NSString *locationStr = appDelegate.locManger.fullLocation;
-
+    
     if (_isDisconnectLocation) {
         [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:locationStr dataType:@(HirLocationDataType_lost) remark:nil];
     }
@@ -823,6 +768,11 @@ HPCoreLocationMangerDelegate>
 }
 
 -(void)menuButtonClick:(id)sender {
+    if (appDelegate.updateStatus == 3) {
+        [appDelegate needUpdateAppForce];
+        return;
+    }
+    
     NSNumber *lastTag = [[NSUserDefaults standardUserDefaults] valueForKey:@"lastSeletedButtonTag"];
     long seletedTag = [lastTag longValue];
     for (UIView *subV in [self.mainMenuScrollView subviews]) {
@@ -836,7 +786,7 @@ HPCoreLocationMangerDelegate>
     btn.selected = YES;
     long currentBtn = btn.tag;
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithLong:currentBtn] forKey:@"lastSeletedButtonTag"];
-
+    
     if (btn.tag == 0) {
         HirLocationHistoryViewController *locationHistoryViewController = [[HirLocationHistoryViewController alloc]initWithDataType:HirLocationDataType_history];
         [self.navigationController pushViewController:locationHistoryViewController animated:YES];
@@ -854,7 +804,7 @@ HPCoreLocationMangerDelegate>
             findViewController.remarkName = remoteData.remarkName;
         }
         DBPeripheralLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
-   
+        
         findViewController.locationStr = locationInfo.address;
         findViewController.location = [[[CLLocation alloc] initWithLatitude:locationInfo.latitude.doubleValue longitude:locationInfo.longitude.doubleValue]locationMarsFromEarth];
         [self.navigationController pushViewController:findViewController animated:YES];
@@ -866,9 +816,9 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)avatarClickAction:(id)sender {
-//    TestViewController *test = [[TestViewController alloc] init];
-//    // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:test];
-//    [self.navigationController pushViewController:test animated:YES];
+    //    TestViewController *test = [[TestViewController alloc] init];
+    //    // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:test];
+    //    [self.navigationController pushViewController:test animated:YES];
     
     //   HIRUserInfoTableViewController *userVC = [[HIRUserInfoTableViewController alloc] init];
     //   UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:userVC];
@@ -877,16 +827,20 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)addNewDevice:(id)sender {
+    if (appDelegate.updateStatus == 3) {
+        [appDelegate needUpdateAppForce];
+        return;
+    }
     HirSettingTableViewController *settingTableViewController = [[HirSettingTableViewController alloc]init];
     [self.navigationController pushViewController:settingTableViewController animated:YES];
     
     return;
     ////添加新设备时，防止为上次的设备
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//    [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
-//    [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
-//    AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//    [appDeleg addNewDevice];
+    //    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //    [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
+    //    [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
+    //    AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    //    [appDeleg addNewDevice];
 }
 
 - (void)preButtonClick:(id)sender {
@@ -920,7 +874,10 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)segmentViewSelectIndex:(NSInteger)index {
-    
+    if (appDelegate.updateStatus == 3) {
+        [appDelegate needUpdateAppForce];
+        return;
+    }
     if (index == 0) {
         self.mainMenuTableView.hidden = YES;
         self.mainMenuScrollView.hidden = NO;
@@ -967,6 +924,11 @@ HPCoreLocationMangerDelegate>
     self.outTimer = nil;
     [self.changeIndicator stopAnimating];
     
+    if (appDelegate.updateStatus == 3) {
+        [appDelegate needUpdateAppForce];
+        return;
+    }
+    
     int page = (int)self.pageControl.currentPage;
     if (page != [HirUserInfo shareUserInfo].currentPeripheraIndex) {
         for (HIRDeviceShowView *tmpDevice in self.deviceShowArray) {
@@ -987,7 +949,7 @@ HPCoreLocationMangerDelegate>
             [self.changeIndicator startAnimating];
             self.outTimer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
             
-            [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil; 
+            [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil;
             [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:remoteData.uuid];
         }
     }
@@ -1004,7 +966,7 @@ HPCoreLocationMangerDelegate>
 - (void)hirCBStateChange:(NSNotification *)notif {
     [self.outTimer invalidate];
     self.outTimer = nil;
-   
+    
     [self.changeIndicator stopAnimating];
     [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
     NSDictionary *info = notif.userInfo;
@@ -1075,19 +1037,19 @@ HPCoreLocationMangerDelegate>
         [cell.contentView addSubview:label2];
         [cell.contentView addSubview:theSwitch];
     }
-
+    
     for (UIView *tempV in [cell.contentView subviews]) {
         if ([tempV isKindOfClass:[UISwitch class]]) {
             [(UISwitch *)tempV setOn:[[self.switchStatus objectAtIndex:[indexPath row]] boolValue] animated:NO];
         }
     }
-
+    
     NSString *title = @"";
     NSString *info = @"";
-//    if ([indexPath row] == 0) {
-//        title = @"edit10";
-//        info = @"edit11";
-//    }else
+    //    if ([indexPath row] == 0) {
+    //        title = @"edit10";
+    //        info = @"edit11";
+    //    }else
     if ([indexPath row] == 0) {
         title = @"edit30";
         info = @"edit31";
@@ -1102,7 +1064,7 @@ HPCoreLocationMangerDelegate>
     UILabel *lab1 = (UILabel *)[cell.contentView viewWithTag:10];
     lab1.text = NSLocalizedString(title, @"");
     UILabel *lab2 = (UILabel *)[cell.contentView viewWithTag:20];
-   //lab2.text = NSLocalizedString(info, @"");
+    //lab2.text = NSLocalizedString(info, @"");
     
     
     return cell;
@@ -1137,7 +1099,7 @@ HPCoreLocationMangerDelegate>
     [HirUserInfo shareUserInfo].isNotificationForVoiceMemo = [[self.switchStatus objectAtIndex:HirRootSetSwith_VoiceMemo]boolValue];
     
     NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
-
+    
     if ([currentUuid length] > 0) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:self.switchStatus forKey:currentUuid];

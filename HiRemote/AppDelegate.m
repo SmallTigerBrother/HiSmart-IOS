@@ -39,6 +39,7 @@
 @property (nonatomic, strong)NSTimer *myTimer;
 
 @property(nonatomic, strong) NSString *updateAppUrl;
+@property(nonatomic, strong) NSString *updateDes;
 
 @end
 
@@ -53,7 +54,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.locManger = [[HPCoreLocationManger alloc] init];
-
+    _updateStatus = 0;
     
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -106,7 +107,9 @@
     [MobClick startWithAppkey:UMENG_APPKEY reportPolicy:BATCH   channelId:@""];
     
     ///检测是否有新版本
-    [self checkTheNewApp];
+    
+    [self performSelector:@selector(checkTheNewApp) withObject:nil afterDelay:2];
+   // [self checkTheNewApp];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needIphoneAlertNotify:) name:NEED_IPHONE_ALERT_NOTIFICATION object:nil];
     
@@ -478,6 +481,16 @@
 
 
 
+    
+- (void)needUpdateAppForce {
+    if ([self.updateDes length] == 0) {
+        self.updateDes = NSLocalizedString(@"updateForce", @"");
+    }
+    UIAlertView *updateAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:self.updateDes delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil];
+    updateAlert.tag = 3;
+    [updateAlert show];
+}
+
 #pragma mark uialertView delegater
 -(void)needIphoneAlertNotify:(NSNotification *)notification{
     [self playPhoneAlertAudio];
@@ -557,7 +570,7 @@ void completionCallback (SystemSoundID  mySSID, void* data) {
 
 
 - (void)checkTheNewApp {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.31.210:8090/lepow/api/apps"]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://app.lepow.net:8080/lepow/api/apps"]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                        timeoutInterval:60.0];
     NSMutableDictionary *paraDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"ios",@"system", nil];
@@ -597,12 +610,14 @@ void completionCallback (SystemSoundID  mySSID, void* data) {
         if (!connectionError) {
             NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
             if ([result count] > 0) {
-                int code = [[result valueForKey:@"code"] integerValue];
+                long code = [[result valueForKey:@"code"] integerValue];
                 if (code == 0) {//成功
                     NSDictionary *infoDic = [result valueForKey:@"data"];
                     if (infoDic) {
-                        int status = [[infoDic valueForKey:@"status"] integerValue];
+                        long status = [[infoDic valueForKey:@"status"] integerValue];
+                        _updateStatus = status;
                         NSString *des = [infoDic valueForKey:@"description"];
+                        self.updateDes = des;
                         self.updateAppUrl = [infoDic valueForKey:@"plistUrl"];
                         if (status == 2) { //有效需要升级
                             UIAlertView *updateAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:des delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""),NSLocalizedString(@"cancel", @""), nil];
@@ -613,6 +628,9 @@ void completionCallback (SystemSoundID  mySSID, void* data) {
                             updateAlert.tag = 3;
                             [updateAlert show];
                         }else if (status == 4) {//失效了，不能用了
+                            UIAlertView *updateAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:des delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil];
+                            updateAlert.tag = 4;
+                            [updateAlert show];
                         }
                     }
                 }else {

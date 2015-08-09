@@ -18,7 +18,6 @@
 @dynamic peripheralUUID;
 @dynamic dataType;
 @dynamic remark;
-@dynamic timeZone;
 @dynamic userId;
 @dynamic sync;
 
