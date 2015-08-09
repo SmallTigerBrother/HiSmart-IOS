@@ -92,7 +92,6 @@ AVAudioSessionDelegate>
             NSError *portErr = nil;
             [[AVAudioSession sharedInstance] setPreferredInput:port error:&portErr];
         }
-
         
         NSError *error = [NSError new];
         _avRecorder = [[AVAudioRecorder alloc] initWithURL:[NSURL fileURLWithPath:destinationFilePath] settings:recordSettings error:&error];
@@ -100,15 +99,11 @@ AVAudioSessionDelegate>
         _avRecorder.delegate = self;
         [_avSession setActive:YES error:nil];
         [_avRecorder record];
-
     }
     else if(_avRecorder.recording)
     {
         [_avRecorder stop];
-
     }
-
-  
 }
 
 - (void)recordStop
@@ -289,7 +284,7 @@ AVAudioSessionDelegate>
     {
         [_avPlayer stop];
 //        [self openProximityMoniroingOrNot:NO];
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+//        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 
     }
     self.playingAudioPath = nil;
