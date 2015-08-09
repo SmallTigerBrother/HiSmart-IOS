@@ -557,7 +557,7 @@ void completionCallback (SystemSoundID  mySSID, void* data) {
 
 
 - (void)checkTheNewApp {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.31.210:8090/lepow/api/apps"]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://app.lepow.net:8080/lepow/api/apps"]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                        timeoutInterval:60.0];
     NSMutableDictionary *paraDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"ios",@"system", nil];
@@ -597,11 +597,11 @@ void completionCallback (SystemSoundID  mySSID, void* data) {
         if (!connectionError) {
             NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
             if ([result count] > 0) {
-                int code = [[result valueForKey:@"code"] integerValue];
+                long code = [[result valueForKey:@"code"] integerValue];
                 if (code == 0) {//成功
                     NSDictionary *infoDic = [result valueForKey:@"data"];
                     if (infoDic) {
-                        int status = [[infoDic valueForKey:@"status"] integerValue];
+                        long status = [[infoDic valueForKey:@"status"] integerValue];
                         NSString *des = [infoDic valueForKey:@"description"];
                         self.updateAppUrl = [infoDic valueForKey:@"plistUrl"];
                         if (status == 2) { //有效需要升级
