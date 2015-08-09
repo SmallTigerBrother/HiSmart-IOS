@@ -713,6 +713,11 @@ HPCoreLocationMangerDelegate>
 }
 
 -(void)menuButtonClick:(id)sender {
+    if (appDelegate.updateStatus == 3) {
+        [appDelegate needUpdateAppForce];
+        return;
+    }
+    
     NSNumber *lastTag = [[NSUserDefaults standardUserDefaults] valueForKey:@"lastSeletedButtonTag"];
     long seletedTag = [lastTag longValue];
     for (UIView *subV in [self.mainMenuScrollView subviews]) {
@@ -767,6 +772,10 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)addNewDevice:(id)sender {
+    if (appDelegate.updateStatus == 3) {
+        [appDelegate needUpdateAppForce];
+        return;
+    }
     HirSettingTableViewController *settingTableViewController = [[HirSettingTableViewController alloc]init];
     [self.navigationController pushViewController:settingTableViewController animated:YES];
     
@@ -810,7 +819,10 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)segmentViewSelectIndex:(NSInteger)index {
-    
+    if (appDelegate.updateStatus == 3) {
+        [appDelegate needUpdateAppForce];
+        return;
+    }
     if (index == 0) {
         self.mainMenuTableView.hidden = YES;
         self.mainMenuScrollView.hidden = NO;
@@ -856,6 +868,11 @@ HPCoreLocationMangerDelegate>
     [self.outTimer invalidate];
     self.outTimer = nil;
     [self.changeIndicator stopAnimating];
+    
+    if (appDelegate.updateStatus == 3) {
+        [appDelegate needUpdateAppForce];
+        return;
+    }
     
     int page = (int)self.pageControl.currentPage;
     if (page != [HirUserInfo shareUserInfo].currentPeripheraIndex) {

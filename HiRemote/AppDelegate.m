@@ -39,6 +39,7 @@
 @property (nonatomic, strong)NSTimer *myTimer;
 
 @property(nonatomic, strong) NSString *updateAppUrl;
+@property(nonatomic, strong) NSString *updateDes;
 
 @end
 
@@ -53,7 +54,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.locManger = [[HPCoreLocationManger alloc] init];
-
+    _updateStatus = 0;
     
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -106,7 +107,9 @@
     [MobClick startWithAppkey:UMENG_APPKEY reportPolicy:BATCH   channelId:@""];
     
     ///检测是否有新版本
-    [self checkTheNewApp];
+    
+    [self performSelector:@selector(checkTheNewApp) withObject:nil afterDelay:2];
+   // [self checkTheNewApp];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needIphoneAlertNotify:) name:NEED_IPHONE_ALERT_NOTIFICATION object:nil];
     
@@ -478,6 +481,16 @@
 
 
 
+    
+- (void)needUpdateAppForce {
+    if ([self.updateDes length] == 0) {
+        self.updateDes = NSLocalizedString(@"updateForce", @"");
+    }
+    UIAlertView *updateAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:self.updateDes delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil];
+    updateAlert.tag = 3;
+    [updateAlert show];
+}
+
 #pragma mark uialertView delegater
 -(void)needIphoneAlertNotify:(NSNotification *)notification{
     [self playPhoneAlertAudio];
@@ -602,7 +615,9 @@ void completionCallback (SystemSoundID  mySSID, void* data) {
                     NSDictionary *infoDic = [result valueForKey:@"data"];
                     if (infoDic) {
                         long status = [[infoDic valueForKey:@"status"] integerValue];
+                        _updateStatus = status;
                         NSString *des = [infoDic valueForKey:@"description"];
+                        self.updateDes = des;
                         self.updateAppUrl = [infoDic valueForKey:@"plistUrl"];
                         if (status == 2) { //有效需要升级
                             UIAlertView *updateAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:des delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""),NSLocalizedString(@"cancel", @""), nil];
@@ -613,6 +628,9 @@ void completionCallback (SystemSoundID  mySSID, void* data) {
                             updateAlert.tag = 3;
                             [updateAlert show];
                         }else if (status == 4) {//失效了，不能用了
+                            UIAlertView *updateAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:des delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil];
+                            updateAlert.tag = 4;
+                            [updateAlert show];
                         }
                     }
                 }else {
