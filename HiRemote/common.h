@@ -92,8 +92,6 @@ return _instance; \
 
 #define UpdateAppUrlString @""
 
-#define ShowTestAlert   @"ShowTestAlert"
-
 #define NotificationVoiceOpen @"NotificationVoiceOpen"
 
 

@@ -608,12 +608,14 @@ void completionCallback (SystemSoundID  mySSID, void* data) {
     
     [HIRHttpRequest sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         if (!connectionError) {
+            
             NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
             if ([result count] > 0) {
                 long code = [[result valueForKey:@"code"] integerValue];
                 if (code == 0) {//成功
                     NSDictionary *infoDic = [result valueForKey:@"data"];
                     if (infoDic) {
+                        NSLog(@"sosododododooddooddo:%@",infoDic);
                         long status = [[infoDic valueForKey:@"status"] integerValue];
                         _updateStatus = status;
                         NSString *des = [infoDic valueForKey:@"description"];

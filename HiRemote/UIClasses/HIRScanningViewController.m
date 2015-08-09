@@ -66,6 +66,7 @@
     self.scanIndicator = [[UIActivityIndicatorView alloc] init];
     self.scanIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     self.scaningLabel = [[UILabel alloc] init];
+
     self.scaningLabel.text = NSLocalizedString(@"scanning", @"");
     self.scaningLabel.textAlignment = NSTextAlignmentCenter;
     self.scaningLabel.textColor = [UIColor whiteColor];

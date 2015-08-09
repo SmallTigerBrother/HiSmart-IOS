@@ -272,9 +272,6 @@ HPCoreLocationMangerDelegate>
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-#ifdef ShowTestAlert
-    [SGInfoAlert showInfo:@"this version is for test"];
-#endif
     [self openVoicePath];
     
     //#ifdef DEBUG
