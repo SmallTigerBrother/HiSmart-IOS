@@ -12,6 +12,7 @@
 #import "HirDataManageCenter+DeviceRecord.h"
 #import "HirActionTextField.h"
 #import "HirAlertView.h"
+#import "EHAudioController.h"
 
 @interface HirVoiceMemosViewController ()
 <UISearchDisplayDelegate,
@@ -21,17 +22,7 @@ AVAudioRecorderDelegate,
 UITextFieldDelegate>
 {
     BOOL toggle;
-    AVAudioPlayer *audioPlayer;
     AVAudioRecorder *audioRecorder;
-    enum
-    {
-        ENC_AAC = 1,
-        ENC_ALAC = 2,
-        ENC_IMA4 = 3,
-        ENC_ILBC = 4,
-        ENC_ULAW = 5,
-        ENC_PCM = 6,
-    } encodingTypes;
     int recordEncoding;
     NSTimer *timerForPitch;
     float Pitch;
@@ -111,7 +102,6 @@ UITextFieldDelegate>
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
-
 - (void)levelTimerCallback:(NSTimer *)timer {
     [audioRecorder updateMeters];
 //    NSLog(@"Average input: %f Peak input: %f", [audioRecorder averagePowerForChannel:0], [audioRecorder peakPowerForChannel:0]);
@@ -141,15 +131,11 @@ UITextFieldDelegate>
     
 }
 
-
 -(IBAction) playRecording
 {
-    NSLog(@"playRecording");
+    
     // Init audio with playback capability
     NSError *erro;
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-//    [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
-    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionDefaultToSpeaker error:&erro];
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
                                                             NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docsDir = [dirPaths objectAtIndex:0];
@@ -157,20 +143,67 @@ UITextFieldDelegate>
     NSString *soundFilePath = [docsDir
                                stringByAppendingPathComponent:self.currentDeviceRecord.fileName];
     
-    NSURL *url = [NSURL fileURLWithPath:soundFilePath];
+//    soundFilePath = [docsDir stringByAppendingPathComponent:@"mine.mp3"];
+
     
-    // NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/recordTest.caf", [[NSBundle mainBundle] resourcePath]]];
-    NSError *error;
-    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-    audioPlayer.numberOfLoops = 0;
-    [audioPlayer play];
+    EHAudioController * playAudio = [EHAudioController shareAudioController];
+    [playAudio audioPlayFire:soundFilePath duration:nil];
+    
     NSLog(@"playing");
 }
+
+-(void)viewDidAppear:(BOOL)animated{
+}
+
+-(void)testRecode{
+    NSLog(@"start recode");
+
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
+                                                            NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = [dirPaths objectAtIndex:0];
+    
+    NSString *mediaPath = @"test.aac";
+    
+    
+    NSString *soundFilePath = [docsDir
+                               stringByAppendingPathComponent:mediaPath];
+
+    NSLog(@"recoer soundFilePath = %@",soundFilePath);
+    __block EHAudioController * playAudio = [EHAudioController shareAudioController];
+
+    [playAudio recordFire:soundFilePath];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [playAudio recordStop];
+    });
+}
+
+-(void)testPlay{
+    NSLog(@"playRecording");
+
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
+                                                            NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = [dirPaths objectAtIndex:0];
+    
+    NSString *mediaPath = @"test.aac";//[NSString stringWithFormat:@"test.aac",(long long)[[NSDate date] timeIntervalSince1970]];
+    // NSString *mediaPath = [NSString stringWithFormat:@"%lld.caf",(long long)[[NSDate date]timeIntervalSinceReferenceDate]*1000000];
+    
+    NSString *soundFilePath = [docsDir
+                               stringByAppendingPathComponent:mediaPath];
+
+    NSLog(@"recoer soundFilePath = %@",soundFilePath);
+
+    EHAudioController * playAudio = [EHAudioController shareAudioController];
+    [playAudio audioPlayFire:soundFilePath duration:nil];
+}
+
 
 -(IBAction) stopPlaying
 {
     NSLog(@"stopPlaying");
-    [audioPlayer stop];
+    EHAudioController * playAudio = [EHAudioController shareAudioController];
+    [playAudio audioStopPlay];
     NSLog(@"stopped");
     
 }
@@ -224,7 +257,7 @@ UITextFieldDelegate>
     //用[NSDate date]可以获取系统当前时间
     self.voiceBeginTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:self.playingTime]];//@"15/10/15:10:50";
     
-    CGFloat progress = (CGFloat)self.playingTime / self.currentDeviceRecord.duration.floatValue;
+    CGFloat progress = (CGFloat)self.playingTime / (self.currentDeviceRecord.duration.floatValue/1000);
     self.voiceProgressView.progress = progress;
     
     if (progress>=1) {
@@ -294,10 +327,10 @@ UITextFieldDelegate>
     //设定时间格式,这里可以设置成自己需要的格式
     [dateFormatter setDateFormat:@"MM/dd/yy"];
     //用[NSDate date]可以获取系统当前时间
-    cell.dateLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.timestamp.doubleValue]];//@"15/10/15:10:50";
+    cell.dateLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:deviceRecord.timestamp.doubleValue/1000]];//@"15/10/15:10:50";
     
     [dateFormatter setDateFormat:@"HH:mm:ss"];
-    cell.voiceRecodeTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.timestamp.doubleValue]];//@"15/10/15:10:50";
+    cell.voiceRecodeTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:deviceRecord.timestamp.doubleValue/1000]];//@"15/10/15:10:50";
     cell.titleLabel.font = FONT_TABLE_CELL_TITLE;
     cell.dateLabel.font = FONT_TABLE_CELL_CONTENT;
     cell.voiceRecodeTimeLabel.font = FONT_TABLE_CELL_CONTENT;
@@ -339,13 +372,13 @@ UITextFieldDelegate>
     //设定时间格式,这里可以设置成自己需要的格式
     [dateFormatter setDateFormat:@"MM/dd/yy"];
     //用[NSDate date]可以获取系统当前时间
-    self.recordDateLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.timestamp.doubleValue]];//@"15/10/15:10:50";
+    self.recordDateLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:deviceRecord.timestamp.doubleValue/1000]];//@"15/10/15:10:50";
     
     [dateFormatter setDateFormat:@"HH:mm:ss"];
-    self.recordTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.timestamp.doubleValue]];//@"15/10/15:10:50";
+    self.recordTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:deviceRecord.timestamp.doubleValue/1000]];//@"15/10/15:10:50";
 
     [dateFormatter setDateFormat:@"mm:ss"];
-    self.voiceEndTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSinceReferenceDate:deviceRecord.duration.doubleValue]];
+    self.voiceEndTimeLabel.text = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:deviceRecord.duration.doubleValue/1000]];
 
 }
 

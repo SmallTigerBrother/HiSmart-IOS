@@ -88,9 +88,6 @@
 }
 
 - (void)cancelConnectionWithPeripheral:(CBPeripheral *)peripheral {
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter postNotificationName:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil userInfo:nil];
-    
     [self cleanDiscoveredPeripheral];
 
     [self.peripheralsMArray removeObject:self.discoveredPeripheral];

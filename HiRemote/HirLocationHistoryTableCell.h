@@ -18,6 +18,6 @@
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
-+(CGFloat)heightOfCellWithData:(id)data;
++(CGFloat)heightOfCellWithData:(NSString *)content;
 
 @end

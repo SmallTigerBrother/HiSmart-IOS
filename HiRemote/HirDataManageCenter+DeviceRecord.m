@@ -70,7 +70,6 @@
     NSString *userId = [HirUserInfo shareUserInfo].userId;
     deviceRecord.userId = userId;
     deviceRecord.sync = @0;
-    deviceRecord.timeZone = [NSTimeZone localTimeZone].name;
     
     [[NSManagedObjectContext MR_context]MR_saveOnlySelfAndWait];
     dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.7 * NSEC_PER_SEC));

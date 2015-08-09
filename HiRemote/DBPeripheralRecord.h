@@ -17,7 +17,6 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * duration;
 @property (nonatomic, retain) NSString * peripheralUUID;
-@property (nonatomic, retain) NSString * timeZone;
 @property (nonatomic, retain) NSString * userId;
 @property (nonatomic, retain) NSNumber * sync;
 @property (nonatomic, retain) NSString * recordFileUrl;

@@ -25,6 +25,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "HirDataManageCenter+DeviceRecord.h"
 #import "HirSettingTableViewController.h"
+#import "EHAudioController.h"
 
 @interface HIRRootViewController () <UIScrollViewDelegate,
 UITableViewDataSource,
@@ -33,17 +34,7 @@ HIRSegmentViewDelegate,
 HPCoreLocationMangerDelegate>
 {
     BOOL toggle;
-    enum
-    {
-        ENC_AAC = 1,
-        ENC_ALAC = 2,
-        ENC_IMA4 = 3,
-        ENC_ILBC = 4,
-        ENC_ULAW = 5,
-        ENC_PCM = 6,
-    } encodingTypes;
     int recordEncoding;
-    NSTimer *timerForPitch;
     float Pitch;
     BOOL hadOpenVoicePath;
 }
@@ -73,9 +64,6 @@ HPCoreLocationMangerDelegate>
 @property (nonatomic, assign) NSInteger needSavePeripheralLocationCount;    //需要记录历史的次数
 @property (nonatomic, assign) NSInteger peripheralDisconnectCount;          //需要记录到断开连接表的次数
 @property (nonatomic, assign) BOOL isVoiceRecordNotification;
-@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
-@property (nonatomic, strong) AVAudioRecorder *audioRecorder;
-
 
 @end
 
@@ -284,6 +272,15 @@ HPCoreLocationMangerDelegate>
 //        [self stopRecording];
 //    });
 //#endif
+    
+//#ifdef DEBUG
+//    NSLog(@"timeIntervalSince1970 = %@",@([NSDate date].timeIntervalSince1970));
+//
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [[NSNotificationCenter defaultCenter]postNotificationName:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil];
+//    });
+//#endif
+    
 }
 
 
@@ -318,16 +315,18 @@ HPCoreLocationMangerDelegate>
 
 
 -(void)openVoicePath{
-    if ([HirUserInfo shareUserInfo].isNotificationForVoiceMemo) {
-        static dispatch_once_t pred = 0;
-        dispatch_once(&pred, ^{
-            [self startRecording];
-            dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC));
-            dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
-                [self stopRecording];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([HirUserInfo shareUserInfo].isNotificationForVoiceMemo) {
+            static dispatch_once_t pred = 0;
+            dispatch_once(&pred, ^{
+                [self startRecording];
+                dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC));
+                dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
+                    [self stopRecording];
+                });
             });
-        });
-    }
+        }
+    });
 }
 
 -(BOOL)isVoiceRecordNotification{
@@ -378,99 +377,22 @@ HPCoreLocationMangerDelegate>
 
 -(void) startRecording
 {
-    // kSeconds = 150.0;
     NSLog(@"startRecording");
     //    [SGInfoAlert showInfo:NSLocalizedString(@"startRecording", nil)];
-    self.audioRecorder = nil;
-    NSError *erro;
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    //    [audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
-    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionDefaultToSpeaker error:&erro];
     
-    NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] initWithCapacity:10];
-//    if(recordEncoding == ENC_PCM)
-//    {
-        [recordSettings setObject:[NSNumber numberWithInt: kAudioFormatLinearPCM] forKey: AVFormatIDKey];
-        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
-        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-        [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
-        [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
-//    }
-//    else
-//    {
-//        NSNumber *formatObject;
-    
-//        switch (recordEncoding) {
-//            case (ENC_AAC):
-//                formatObject = [NSNumber numberWithInt: kAudioFormatMPEG4AAC];
-//                break;
-//            case (ENC_ALAC):
-//                formatObject = [NSNumber numberWithInt: kAudioFormatAppleLossless];
-//                break;
-//            case (ENC_IMA4):
-//                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
-//                break;
-//            case (ENC_ILBC):
-//                formatObject = [NSNumber numberWithInt: kAudioFormatiLBC];
-//                break;
-//            case (ENC_ULAW):
-//                formatObject = [NSNumber numberWithInt: kAudioFormatULaw];
-//                break;
-//            default:
-//                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
-//        }
-    
-//    NSNumber *formatObject = [NSNumber numberWithInt: kAudioFormatMPEGLayer3];
-
-//        [recordSettings setObject:formatObject forKey: AVFormatIDKey];
-//        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
-//        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-//        [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
-//        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-//        [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
-//    }
-//    NSDictionary *recordSettings; = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                    [NSNumber numberWithInt: kAudioFormatMPEG4AAC], AVFormatIDKey,
-//                                    [NSNumber numberWithFloat:16000.0], AVSampleRateKey,
-//                                    [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,
-//                                    nil];
-    
-//            [recordSettings setObject:[NSNumber numberWithInt: kAudioFormatMPEG4AAC] forKey: AVFormatIDKey];
-//            [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
-//            [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-//            [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
-//            [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-//            [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
-
-    
-    //    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/recordTest.caf", [[NSBundle mainBundle] resourcePath]]];
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
                                                             NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docsDir = [dirPaths objectAtIndex:0];
     
-    NSString *mediaPath = [NSString stringWithFormat:@"%lld.caf",(long long)[[NSDate date] timeIntervalSince1970]];
-    // NSString *mediaPath = [NSString stringWithFormat:@"%lld.caf",(long long)[[NSDate date]timeIntervalSinceReferenceDate]*1000000];
+    NSString *mediaPath = [NSString stringWithFormat:@"%lld.aac",(long long)([[NSDate date] timeIntervalSince1970]*1000)];
     NSLog(@"recoer mediaPath = %@",mediaPath);
     
     NSString *soundFilePath = [docsDir
                                stringByAppendingPathComponent:mediaPath];
     
-    NSURL *url = [NSURL fileURLWithPath:soundFilePath];
+    EHAudioController * playAudio = [EHAudioController shareAudioController];
+    [playAudio recordFire:soundFilePath];
     
-    NSError *error = nil;
-    self.audioRecorder = [[ AVAudioRecorder alloc] initWithURL:url settings:recordSettings error:&error];
-    _audioRecorder.meteringEnabled = YES;
-    if ([_audioRecorder prepareToRecord] == YES){
-        _audioRecorder.meteringEnabled = YES;
-        [_audioRecorder record];
-        timerForPitch =[NSTimer scheduledTimerWithTimeInterval: 0.01 target: self selector: @selector(levelTimerCallback:) userInfo: nil repeats: YES];
-    }else {
-        
-        int errorCode = CFSwapInt32HostToBig ([error code]);
-        NSLog(@"Error: %@ [%4.4s])" , [error localizedDescription], (char*)&errorCode);
-        
-    }
 }
 
 -(void) stopRecording
@@ -479,14 +401,11 @@ HPCoreLocationMangerDelegate>
     
     //    [SGInfoAlert showInfo:NSLocalizedString(@"stopRecording", nil)];
     // kSeconds = 0.0;
-    [_audioRecorder stop];
-    NSLog(@"stopped");
-    [timerForPitch invalidate];
-    timerForPitch = nil;
     
-    NSLog(@"url=%@",_audioRecorder.url);
+    EHAudioController * playAudio = [EHAudioController shareAudioController];
+    [playAudio recordStop];
     
-    NSString *mediaPath = [_audioRecorder.url.path lastPathComponent];
+    NSString *mediaPath = [playAudio.destinationFilePath lastPathComponent];
     
     NSLog(@"mmmm:%@",mediaPath);
     NSRange range = [mediaPath rangeOfString:@"."];
@@ -500,41 +419,12 @@ HPCoreLocationMangerDelegate>
     
     NSLog(@"stop time = %f",[[NSDate date]timeIntervalSince1970]);
     
-    double voiceTime = [[NSDate date]timeIntervalSince1970] - beginRecordTime;
+    double voiceTime = [[NSDate date]timeIntervalSince1970]*1000 - beginRecordTime;
     
     if (hadOpenVoicePath) {
         [HirDataManageCenter insertVoicePath:mediaPath peripheraUUID:[HirUserInfo shareUserInfo].currentPeriphera.uuid recoderTimestamp:[NSNumber numberWithDouble:beginRecordTime] title:NSLocalizedString(@"newRecording", nil) voiceTime:[NSNumber numberWithDouble:voiceTime]];
     }
     hadOpenVoicePath = YES;
-}
-
-- (void)levelTimerCallback:(NSTimer *)timer {
-    [_audioRecorder updateMeters];
-    //    NSLog(@"Average input: %f Peak input: %f", [audioRecorder averagePowerForChannel:0], [audioRecorder peakPowerForChannel:0]);
-    
-//    float linear = pow (10, [audioRecorder peakPowerForChannel:0] / 20);
-    //    NSLog(@"linear===%f",linear);
-//    float linear1 = pow (10, [audioRecorder averagePowerForChannel:0] / 20);
-//    //    NSLog(@"linear1===%f",linear1);
-//    if (linear1>0.03) {
-//        
-//        Pitch = linear1+.20;//pow (10, [audioRecorder averagePowerForChannel:0] / 20);//[audioRecorder peakPowerForChannel:0];
-//    }
-//    else {
-//        
-//        Pitch = 0.0;
-//    }
-    //Pitch =linear1;
-    //    NSLog(@"Pitch==%f",Pitch);
-    //    _customRangeBar.value = Pitch;//linear1+.30;
-//    [_voiceProgressView setProgress:Pitch];
-//    float minutes = floor(audioRecorder.currentTime/60);
-//    float seconds = audioRecorder.currentTime - (minutes * 60);
-    
-//    NSString *time = [NSString stringWithFormat:@"%0.0f.%0.0f",minutes, seconds];
-//    [self.recordTimeLabel setText:[NSString stringWithFormat:@"%@ sec", time]];
-    //    NSLog(@"recording");
-    
 }
 
 - (void)getLossAlertValue:(NSNotification *)notify {
