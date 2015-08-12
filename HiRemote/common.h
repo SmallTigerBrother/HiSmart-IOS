@@ -97,7 +97,7 @@ return _instance; \
 
 #define HirFAQUrl @"http://hismart.us/faq"
 #define HirContactUs @"http://hismart.us/contact"
-#define HirTeamsAndConditions @"http://hismart.us/about"
+#define HirTeamsAndConditions @"http://hismart.us/help/privacy"
 #define HirPrivacyPolicy @"http://hismart.us/help/privacy"
 
 #if DEBUG

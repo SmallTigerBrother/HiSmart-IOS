@@ -315,14 +315,12 @@ HPCoreLocationMangerDelegate>
 
 
 -(void)openVoicePath{
+    hadOpenVoicePath = NO;
     if ([HirUserInfo shareUserInfo].isNotificationForVoiceMemo) {
-        static dispatch_once_t pred = 0;
-        dispatch_once(&pred, ^{
-            [self startRecording];
-            dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC));
-            dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
-                [self stopRecording];
-            });
+        [self startRecording];
+        dispatch_time_t dispatchTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC));
+        dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
+            [self stopRecording];
         });
     }
 }
@@ -979,6 +977,7 @@ HPCoreLocationMangerDelegate>
         //[SGInfoAlert showInfo:NSLocalizedString(@"deviceConnectionFailed", @"") bgColor:[UIColor darkGrayColor].CGColor inView:[UIApplication sharedApplication].delegate.window vertical:.8];
         
     }else if ([state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_SUCCESS]) {
+        [self openVoicePath];
         ////蓝牙链接外设成功
         if ([self.deviceInfoArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex && [self.deviceShowArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
             DBPeripheral *remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];

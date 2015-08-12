@@ -46,7 +46,16 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:0.35 green:0.75 blue:0.58 alpha:1];
     self.titleArray = [NSArray arrayWithObjects:NSLocalizedString(@"pinnedLocation", @""), NSLocalizedString(@"findMyItem", @""),NSLocalizedString(@"cameraShutte", @""),NSLocalizedString(@"voiceMemos", @""),NSLocalizedString(@"hiremoteControl", @""),nil];
-    self.imageArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"pinnedm"],[UIImage imageNamed:@"findm"],[UIImage imageNamed:@"cameram"],[UIImage imageNamed:@"voicem"],[UIImage imageNamed:@"controlm"], nil];
+    
+    NSString *chinaControlm;
+    if ([self isChinessLanguage]) {
+        chinaControlm = @"controlm_cn";
+    }
+    else{
+        chinaControlm = @"controlm";
+    }
+    
+    self.imageArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"pinnedm"],[UIImage imageNamed:@"findm"],[UIImage imageNamed:@"cameram"],[UIImage imageNamed:@"voicem"],[UIImage imageNamed:chinaControlm], nil];
     self.notesArray = [NSArray arrayWithObjects:NSLocalizedString(@"pinedTips", @""), NSLocalizedString(@"findTips", @""),NSLocalizedString(@"cameraTips", @""),NSLocalizedString(@"voiceTips", @""),@"",nil];
     self.welcomeScrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
     self.welcomeScrollView.pagingEnabled = YES;
@@ -76,6 +85,23 @@
     [self.view addSubview:self.startButton];
     
     [self.view setNeedsUpdateConstraints];
+}
+
+-(BOOL)isChinessLanguage{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *languages = [defaults objectForKey:@"AppleLanguages"];
+    NSString *currentLang = [languages objectAtIndex:0];
+
+    BOOL isChinessLanguage;
+    if([currentLang compare:@"zh-Hans" options:NSCaseInsensitiveSearch]==NSOrderedSame || [currentLang compare:@"zh-Hant" options:NSCaseInsensitiveSearch]==NSOrderedSame)
+    {
+        isChinessLanguage = YES;
+        NSLog(@"current Language == Chinese");
+    }else{
+        isChinessLanguage = NO;
+        NSLog(@"current Language == English");
+    }
+    return isChinessLanguage;
 }
 
 - (void)pageControlChange:(id)sender {
