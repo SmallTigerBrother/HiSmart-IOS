@@ -19,7 +19,7 @@
 #import "HirMsgPlaySound.h"
 #import "MobClick.h"
 #import "HIRHttpRequest.h"
-
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate,AVAudioPlayerDelegate,UIAlertViewDelegate>{
     UIBackgroundTaskIdentifier bgTask;
@@ -62,7 +62,8 @@
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     NSString *lastVersion = [userDefault valueForKey:@"lastVersion"];
     NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    if (!lastVersion || ![lastVersion isEqualToString:currentVersion]) {
+//    if (!lastVersion || ![lastVersion isEqualToString:currentVersion]) {
+    if (YES) {
         if (currentVersion) {
             [userDefault setObject:currentVersion forKey:@"lastVersion"];
         }
@@ -94,15 +95,6 @@
     
     [HirUserInfo shareUserInfo].deviceInfoArray = [HirDataManageCenter findAllPerphera];
     
-//#if DEBUG
-//    [NSTimer scheduledTimerWithTimeInterval:1.0f
-//     
-//                                     target:self
-//     
-//                                   selector:@selector(task) userInfo:nil
-//     
-//                                    repeats:YES];
-//#endif
     [MobClick setEncryptEnabled:YES];
     [MobClick startWithAppkey:UMENG_APPKEY reportPolicy:BATCH   channelId:@""];
     
@@ -113,7 +105,10 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needIphoneAlertNotify:) name:NEED_IPHONE_ALERT_NOTIFICATION object:nil];
     
-    return YES;
+//    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
+
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                    didFinishLaunchingWithOptions:launchOptions];
 }
 
 
@@ -222,36 +217,6 @@
     
 }
 
-//- (void)backgroundHandler {
-//    
-//    NSLog(@"### -->backgroundinghandler");
-//    
-//    UIApplication* app = [UIApplication sharedApplication];
-//    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
-//        
-//        [app endBackgroundTask:bgTask];
-//        
-//        bgTask = UIBackgroundTaskInvalid;
-//        
-//    }];
-//    
-//    // Start the long-running task
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        if ([[UIApplication sharedApplication] backgroundTimeRemaining] < 61.0) {
-////            HirMsgPlaySound *msgPlaySound = [[HirMsgPlaySound alloc]initSystemSoundWithName:@"sms-received4" SoundType:@"caf"];
-////            [msgPlaySound play];
-//
-//            [[SoundTool sharedSoundTool]playBgMusic];
-//            bgTask = [app beginBackgroundTaskWithExpirationHandler:nil];
-//        }
-//        
-//        //        while (1) {
-//        //            [self task];
-//        //        }
-//    });
-//    
-//}
-
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     
     [HirUserInfo shareUserInfo].appIsEnterBackgroud = NO;
@@ -260,16 +225,24 @@
     if (_isPhoneAlertPlaying) {
        
     }
-//    if (bgTask != UIBackgroundTaskInvalid){
-//        [[UIApplication sharedApplication] endBackgroundTask:bgTask];
-//        
-//        bgTask = UIBackgroundTaskInvalid;
-//    }
-
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [FBSDKAppEvents activateApp];
+    
+    // Do the following if you use Mobile App Engagement Ads to get the deferred
+    // app link after your app is installed.
+    [FBSDKAppLinkUtility fetchDeferredAppLink:^(NSURL *url, NSError *error) {
+        if (error) {
+            NSLog(@"Received error while fetching deferred app link %@", error);
+        }
+        if (url) {
+            [[UIApplication sharedApplication] openURL:url];
+        }
+    }];
+
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -335,7 +308,12 @@
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    return [WXApi handleOpenURL:url delegate:self];
+//    return [WXApi handleOpenURL:url delegate:self];
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation
+            ];
 }
 
 -(void)onReq:(BaseReq *)req

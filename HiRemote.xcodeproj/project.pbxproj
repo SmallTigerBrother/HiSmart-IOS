@@ -161,6 +161,9 @@
 		B8DF7DC41B3E97F5000BD43E /* nextBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DF7DC31B3E97F5000BD43E /* nextBtn.png */; };
 		B8DF7DC71B3EA910000BD43E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */; };
 		B8DF7DC81B3EA910000BD43E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DF7DC61B3EA910000BD43E /* Default@2x.png */; };
+		CEDA5A0B1B8369F800918BB7 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDA5A081B8369F800918BB7 /* FBSDKCoreKit.framework */; };
+		CEDA5A0C1B8369F800918BB7 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDA5A091B8369F800918BB7 /* FBSDKLoginKit.framework */; };
+		CEDA5A0D1B8369F800918BB7 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDA5A0A1B8369F800918BB7 /* FBSDKShareKit.framework */; };
 		DBC8E0BD7AE7791DAB760C88 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EEC68A1FCE3A9ABA965D36 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -426,6 +429,9 @@
 		B8DF7DC31B3E97F5000BD43E /* nextBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextBtn.png; sourceTree = "<group>"; };
 		B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B8DF7DC61B3EA910000BD43E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		CEDA5A081B8369F800918BB7 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		CEDA5A091B8369F800918BB7 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		CEDA5A0A1B8369F800918BB7 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		E36CA8EE71365DA8477ACA8D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -436,12 +442,15 @@
 			files = (
 				B887061C1B48FE6800A87300 /* libz.dylib in Frameworks */,
 				0450BCB21B52786900B3BF93 /* AudioToolbox.framework in Frameworks */,
+				CEDA5A0D1B8369F800918BB7 /* FBSDKShareKit.framework in Frameworks */,
 				043772221B4BF81D0089051C /* CoreAudio.framework in Frameworks */,
 				04D651281B5BA8A900B5BB13 /* libMobClickLibrary.a in Frameworks */,
+				CEDA5A0C1B8369F800918BB7 /* FBSDKLoginKit.framework in Frameworks */,
 				043772201B4BF8130089051C /* AVFoundation.framework in Frameworks */,
 				B887061E1B48FE6F00A87300 /* libsqlite3.0.dylib in Frameworks */,
 				B887061A1B48FE0700A87300 /* SystemConfiguration.framework in Frameworks */,
 				B88706171B48FD8400A87300 /* libWeChatSDK.a in Frameworks */,
+				CEDA5A0B1B8369F800918BB7 /* FBSDKCoreKit.framework in Frameworks */,
 				B88706181B48FD8400A87300 /* libWeiboSDK.a in Frameworks */,
 				B88706101B48FC9700A87300 /* libc++.dylib in Frameworks */,
 				04D7A8381B47C91900579EC2 /* CoreData.framework in Frameworks */,
@@ -906,6 +915,9 @@
 		66309597BEE9CEC8844359A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CEDA5A081B8369F800918BB7 /* FBSDKCoreKit.framework */,
+				CEDA5A091B8369F800918BB7 /* FBSDKLoginKit.framework */,
+				CEDA5A0A1B8369F800918BB7 /* FBSDKShareKit.framework */,
 				0450BCB11B52786900B3BF93 /* AudioToolbox.framework */,
 				043772211B4BF81D0089051C /* CoreAudio.framework */,
 				0437721F1B4BF8130089051C /* AVFoundation.framework */,
@@ -1013,7 +1025,7 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = ZEGW96P32G;
+						DevelopmentTeam = P48BTQK4HW;
 					};
 				};
 			};
@@ -1355,9 +1367,13 @@
 			baseConfigurationReference = 04976BB78AFBE5AFBEEC05BA /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = HiRemote/HirProject.pch;
 				INFOPLIST_FILE = HiRemote/Info.plist;
@@ -1371,7 +1387,7 @@
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = HiSmart;
-				PROVISIONING_PROFILE = "7ece147c-df71-4a30-b53d-edc7e3598c78";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1380,9 +1396,13 @@
 			baseConfigurationReference = E36CA8EE71365DA8477ACA8D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = HiRemote/HirProject.pch;
 				INFOPLIST_FILE = HiRemote/Info.plist;
@@ -1396,7 +1416,7 @@
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = HiSmart;
-				PROVISIONING_PROFILE = "7ece147c-df71-4a30-b53d-edc7e3598c78";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
