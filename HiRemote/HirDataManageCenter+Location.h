@@ -19,7 +19,7 @@
 +(DBPeripheralLocationInfo *)findLastLocationByPeriperaUUID:(NSString *)peripheraUUID;
 
 //插入一条记录
-+(void)insertLocationRecordByPeripheraUUID:(NSString *)peripheraUUID latitude:(NSString *)latitude longitude:(NSString *)longitude location:(NSString *)location dataType:(NSNumber *)dataType remark:(NSString *)remark;
++(void)insertLocationRecordByPeripheraUUID:(NSString *)peripheraUUID latitude:(NSString *)latitude longitude:(NSString *)longitude location:(NSString *)location dataType:(NSNumber *)dataType remark:(NSString *)remark battery:(NSNumber *)battery;
 
 //删除一条记录
 +(void)delLocationRecordByModel:(DBPeripheralLocationInfo *)peripheraLocationInfo;

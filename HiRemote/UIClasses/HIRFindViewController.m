@@ -132,11 +132,16 @@
     
         NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
         if ([self.hiremoteData.uuid isEqualToString:currentUuid]) {
-            if ([HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.state == CBPeripheralStateConnected) {
-                self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConnYes"]];;
-            }else {
-                self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConn"]];
-            }
+            self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConnYes"]];;
+
+//            if ([HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.state == CBPeripheralStateConnected) {
+//                self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConnYes"]];;
+//            }else {
+//                self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConn"]];
+//            }
+        }else {
+            self.connnectImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"darkConn"]];
+
         }
         
     }

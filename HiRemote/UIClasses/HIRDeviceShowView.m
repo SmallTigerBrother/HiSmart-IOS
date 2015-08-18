@@ -21,7 +21,7 @@
 @synthesize batteryPercent;
 @synthesize deviceNameLabel;
 @synthesize deviceLocationLabel;
-
+@synthesize reconnectionButton;
 
 - (id)init{
     self = [super init];
@@ -35,6 +35,7 @@
         ///这个是背景颜色,不随百分比变化
         self.batteryPercent.arcBackColor = [UIColor colorWithRed:0.92 green:0.92 blue:0.93 alpha:1];
         //self.batteryPercent.percent = 1;
+        self.reconnectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.deviceNameLabel = [[UILabel alloc] init];
         self.deviceNameLabel.textColor = [UIColor whiteColor];
        // self.deviceNameLabel.backgroundColor = [UIColor yellowColor];
@@ -50,6 +51,7 @@
         
         [self addSubview:self.batteryPercent];
         [self addSubview:self.avatarImageView];
+        [self addSubview:self.reconnectionButton];
         [self addSubview:self.deviceNameLabel];
         [self addSubview:self.deviceLocationLabel];
         
@@ -88,6 +90,9 @@
             [self.batteryPercent autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:2];
         }
         
+        [self.reconnectionButton autoSetDimensionsToSize:CGSizeMake(140, 140)];
+        [self.reconnectionButton autoAlignAxisToSuperviewAxis:ALAxisVertical];
+        [self.reconnectionButton autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:2];
         
         [self.deviceNameLabel autoSetDimension:ALDimensionHeight toSize:23];
         [self.deviceNameLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:40.0];
@@ -110,6 +115,7 @@
     NSLog(@"show view dealloc");
     self.avatarImageView = nil;
     self.batteryPercent = nil;
+    self.reconnectionButton = nil;
     self.deviceLocationLabel = nil;
     self.deviceNameLabel = nil;
 }

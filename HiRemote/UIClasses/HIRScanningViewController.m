@@ -39,7 +39,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.35 green:0.75 blue:0.58 alpha:1];
     _isGetPeripheralStatus = NO;
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.backButton setImage:[UIImage imageNamed:@"nextBtn"] forState:UIControlStateNormal];
+    [self.backButton setImage:[UIImage imageNamed:@"preBtn"] forState:UIControlStateNormal];
     [self.backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     self.titleLabel = [[UILabel alloc] init];
@@ -71,7 +71,7 @@
     self.scaningLabel.textAlignment = NSTextAlignmentCenter;
     self.scaningLabel.textColor = [UIColor whiteColor];
     self.scaningLabel.font = [UIFont boldSystemFontOfSize:17];
-   // [self.view addSubview:self.backButton];
+    [self.view addSubview:self.backButton];
     [self.view addSubview:self.titleLabel];
     [self.view addSubview:self.tipsLabel1];
     [self.view addSubview:self.tipsLabel2];
@@ -94,11 +94,7 @@
         [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil;
         [self scanningTheDevice:uuid];
     }else { ///进入retry
-        [self.outTimer invalidate];
-        self.outTimer = nil;
-        [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
-        AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDeleg connectSuccessToShowRootVC];
+        [self backButtonClick:nil];
     }
 }
 - (void)outTimerForScanning {
@@ -124,7 +120,7 @@
     
     NSInteger timeOutInterval = 45;
 #ifdef DEBUG
-    timeOutInterval = 10;
+    timeOutInterval = 40;
 #endif
     
     self.outTimer = [NSTimer scheduledTimerWithTimeInterval:timeOutInterval target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
@@ -150,10 +146,10 @@
 - (void)updateViewConstraints
 {
     if (!self.didSetupConstraints) {
-//        [self.backButton autoSetDimensionsToSize:CGSizeMake(60, 50)];
-//        [self.backButton autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:30];
-//        [self.backButton autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:10];
-//        
+        [self.backButton autoSetDimensionsToSize:CGSizeMake(60, 50)];
+        [self.backButton autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:30];
+        [self.backButton autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:10];
+        
         [self.titleLabel autoSetDimensionsToSize:CGSizeMake(200, 40)];
         [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:70];
         [self.titleLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
@@ -195,7 +191,8 @@
     self.outTimer = nil;
     [self.scanIndicator stopAnimating];
     [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
-    [self.navigationController popViewControllerAnimated:YES];
+    AppDelegate *appDeleg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDeleg connectSuccessToShowRootVC];
 }
 
 - (void)hirCBStateChange:(NSNotification *)notif {

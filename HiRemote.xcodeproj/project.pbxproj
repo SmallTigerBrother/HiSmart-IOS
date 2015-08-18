@@ -108,6 +108,11 @@
 		2CCB4EC91B6E01E300783616 /* HIRHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB4EC81B6E01E300783616 /* HIRHttpRequest.m */; };
 		2CCB4ECC1B6E067500783616 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB4ECB1B6E067500783616 /* Reachability.m */; };
 		2CECD4241B723F84008DF798 /* controlmforscan.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CECD4231B723F84008DF798 /* controlmforscan.png */; };
+<<<<<<< HEAD
+=======
+		B80321B51B7B87D6001C5A2E /* controlm_cn.png in Resources */ = {isa = PBXBuildFile; fileRef = B80321B41B7B87D6001C5A2E /* controlm_cn.png */; };
+		B83849E51B83567F006223C8 /* defaultDeviceDark.png in Resources */ = {isa = PBXBuildFile; fileRef = B83849E41B83567F006223C8 /* defaultDeviceDark.png */; };
+>>>>>>> 6f8c96f20694808c87eab9c407dc35ad7cfcc85e
 		B84CD4A71B441E58008FAA53 /* CallOutAnnotationVifew.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */; };
 		B84CD4A81B441E58008FAA53 /* HIRConnFailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49C1B441E58008FAA53 /* HIRConnFailViewController.m */; };
 		B84CD4A91B441E58008FAA53 /* HIRConnSuccViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49E1B441E58008FAA53 /* HIRConnSuccViewController.m */; };
@@ -161,6 +166,9 @@
 		B8DF7DC41B3E97F5000BD43E /* nextBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DF7DC31B3E97F5000BD43E /* nextBtn.png */; };
 		B8DF7DC71B3EA910000BD43E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */; };
 		B8DF7DC81B3EA910000BD43E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DF7DC61B3EA910000BD43E /* Default@2x.png */; };
+		CEDA5A0B1B8369F800918BB7 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDA5A081B8369F800918BB7 /* FBSDKCoreKit.framework */; };
+		CEDA5A0C1B8369F800918BB7 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDA5A091B8369F800918BB7 /* FBSDKLoginKit.framework */; };
+		CEDA5A0D1B8369F800918BB7 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDA5A0A1B8369F800918BB7 /* FBSDKShareKit.framework */; };
 		DBC8E0BD7AE7791DAB760C88 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EEC68A1FCE3A9ABA965D36 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -350,6 +358,11 @@
 		2CCB4ECB1B6E067500783616 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		2CECD4231B723F84008DF798 /* controlmforscan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controlmforscan.png; sourceTree = "<group>"; };
 		A3EEC68A1FCE3A9ABA965D36 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+<<<<<<< HEAD
+=======
+		B80321B41B7B87D6001C5A2E /* controlm_cn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controlm_cn.png; sourceTree = "<group>"; };
+		B83849E41B83567F006223C8 /* defaultDeviceDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultDeviceDark.png; sourceTree = "<group>"; };
+>>>>>>> 6f8c96f20694808c87eab9c407dc35ad7cfcc85e
 		B84CD4991B441E58008FAA53 /* CallOutAnnotationVifew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallOutAnnotationVifew.h; sourceTree = "<group>"; };
 		B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallOutAnnotationVifew.m; sourceTree = "<group>"; };
 		B84CD49B1B441E58008FAA53 /* HIRConnFailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRConnFailViewController.h; sourceTree = "<group>"; };
@@ -426,6 +439,9 @@
 		B8DF7DC31B3E97F5000BD43E /* nextBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextBtn.png; sourceTree = "<group>"; };
 		B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B8DF7DC61B3EA910000BD43E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		CEDA5A081B8369F800918BB7 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		CEDA5A091B8369F800918BB7 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		CEDA5A0A1B8369F800918BB7 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		E36CA8EE71365DA8477ACA8D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -436,12 +452,15 @@
 			files = (
 				B887061C1B48FE6800A87300 /* libz.dylib in Frameworks */,
 				0450BCB21B52786900B3BF93 /* AudioToolbox.framework in Frameworks */,
+				CEDA5A0D1B8369F800918BB7 /* FBSDKShareKit.framework in Frameworks */,
 				043772221B4BF81D0089051C /* CoreAudio.framework in Frameworks */,
 				04D651281B5BA8A900B5BB13 /* libMobClickLibrary.a in Frameworks */,
+				CEDA5A0C1B8369F800918BB7 /* FBSDKLoginKit.framework in Frameworks */,
 				043772201B4BF8130089051C /* AVFoundation.framework in Frameworks */,
 				B887061E1B48FE6F00A87300 /* libsqlite3.0.dylib in Frameworks */,
 				B887061A1B48FE0700A87300 /* SystemConfiguration.framework in Frameworks */,
 				B88706171B48FD8400A87300 /* libWeChatSDK.a in Frameworks */,
+				CEDA5A0B1B8369F800918BB7 /* FBSDKCoreKit.framework in Frameworks */,
 				B88706181B48FD8400A87300 /* libWeiboSDK.a in Frameworks */,
 				B88706101B48FC9700A87300 /* libc++.dylib in Frameworks */,
 				04D7A8381B47C91900579EC2 /* CoreData.framework in Frameworks */,
@@ -858,6 +877,7 @@
 				04D651291B5BBD8B00B5BB13 /* defaultDevice.png */,
 				04D6512A1B5BBD8B00B5BB13 /* mainviewbg.jpg */,
 				B887061F1B4939CE00A87300 /* darkConnYes.png */,
+				B83849E41B83567F006223C8 /* defaultDeviceDark.png */,
 				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
 				B84CD4B91B441EA2008FAA53 /* camera.png */,
 				B856CE911B5BCAA200800195 /* voiceSelected.png */,
@@ -906,6 +926,9 @@
 		66309597BEE9CEC8844359A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CEDA5A081B8369F800918BB7 /* FBSDKCoreKit.framework */,
+				CEDA5A091B8369F800918BB7 /* FBSDKLoginKit.framework */,
+				CEDA5A0A1B8369F800918BB7 /* FBSDKShareKit.framework */,
 				0450BCB11B52786900B3BF93 /* AudioToolbox.framework */,
 				043772211B4BF81D0089051C /* CoreAudio.framework */,
 				0437721F1B4BF8130089051C /* AVFoundation.framework */,
@@ -946,9 +969,9 @@
 				B8DF7DAC1B3E7AE7000BD43E /* HIRDeviceShowView.m */,
 				B8DF7DB21B3E7AE7000BD43E /* HIRSegmentView.m */,
 				B8DF7DAD1B3E7AE7000BD43E /* HIRMainMenuView.h */,
-				B8DF7DAE1B3E7AE7000BD43E /* HIRMainMenuView.m */,
 				B84CD49F1B441E58008FAA53 /* HIRFindViewController.h */,
 				B8DF7DAF1B3E7AE7000BD43E /* HIRScanningViewController.h */,
+				B8DF7DAE1B3E7AE7000BD43E /* HIRMainMenuView.m */,
 				B8DF7DB11B3E7AE7000BD43E /* HIRSegmentView.h */,
 				04D38D041B3E84FC0012D65A /* ViewController */,
 				B8DF7DB31B3E7AE7000BD43E /* HIRUserInfoTableViewController.h */,
@@ -1099,6 +1122,7 @@
 				04D7A8841B47EF9700579EC2 /* camera_line_h@2x.png in Resources */,
 				B856CE8A1B5B6EBD00800195 /* mainviewbg.jpg in Resources */,
 				B84CD4D01B441EA2008FAA53 /* find.png in Resources */,
+				B83849E51B83567F006223C8 /* defaultDeviceDark.png in Resources */,
 				2C18AB601B3D4F5F00CE6588 /* preBtn.png in Resources */,
 				04D7A8811B47EF9700579EC2 /* camera_line.png in Resources */,
 				2C18AAFD1B3BECDE00CE6588 /* Images.xcassets in Resources */,
@@ -1356,7 +1380,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+<<<<<<< HEAD
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+=======
+
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
+>>>>>>> 6f8c96f20694808c87eab9c407dc35ad7cfcc85e
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1375,7 +1404,11 @@
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = HiSmart;
+<<<<<<< HEAD
 				PROVISIONING_PROFILE = "";
+=======
+				PROVISIONING_PROFILE = "5040040e-f3e3-4c65-aacd-283f2916816d";
+>>>>>>> 6f8c96f20694808c87eab9c407dc35ad7cfcc85e
 			};
 			name = Debug;
 		};
@@ -1385,7 +1418,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+<<<<<<< HEAD
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+=======
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
+>>>>>>> 6f8c96f20694808c87eab9c407dc35ad7cfcc85e
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1404,7 +1441,11 @@
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = HiSmart;
+<<<<<<< HEAD
 				PROVISIONING_PROFILE = "";
+=======
+				PROVISIONING_PROFILE = "5040040e-f3e3-4c65-aacd-283f2916816d";
+>>>>>>> 6f8c96f20694808c87eab9c407dc35ad7cfcc85e
 			};
 			name = Release;
 		};

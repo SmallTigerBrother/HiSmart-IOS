@@ -14,7 +14,6 @@
 #import "HirDataManageCenter+Perphera.h"
 
 @interface HIRCBCentralClass () <CBCentralManagerDelegate, CBPeripheralDelegate>
-@property (strong, nonatomic) NSMutableArray *peripheralsMArray;
 @property (strong, nonatomic) NSString *theChangeUuid;
 @property (nonatomic, assign) BOOL isScanningPeripherals;
 @end
@@ -29,13 +28,11 @@
 @synthesize batteryCharacter;
 @synthesize searchPhoneCharacter;
 @synthesize theAddNewNeedToAvoidLastUuid;
-@synthesize peripheralsMArray;
 @synthesize batteryLevel;
 
 - (id)init {
     self = [super init];
     if (self) {
-        self.peripheralsMArray = [NSMutableArray arrayWithCapacity:5];
         self.discoveredPeripheral = nil;
         self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
         _theChangeUuid = nil;
@@ -64,13 +61,11 @@
     ///蓝牙关闭的
     if (self.centralManager.state != CBCentralManagerStatePoweredOn) {
         [self stopCentralManagerScan];
-        //[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"checkBluetooth", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
         return;
     }
 
     if (_isScanningPeripherals) {
         [self stopCentralManagerScan];
-        [self.peripheralsMArray removeObject:self.discoveredPeripheral];
         self.discoveredPeripheral = nil;
     }
     
@@ -89,8 +84,6 @@
 
 - (void)cancelConnectionWithPeripheral:(CBPeripheral *)peripheral {
     [self cleanDiscoveredPeripheral];
-
-    [self.peripheralsMArray removeObject:self.discoveredPeripheral];
     self.discoveredPeripheral = nil;
     self.theChangeUuid = nil;
 }
@@ -101,7 +94,8 @@
 {
     ///表示蓝牙可用
     if (central.state == CBCentralManagerStatePoweredOn) {
-        [self scanPeripheral:nil];
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter postNotificationName:NEED_SCANNING_WHEN_BTOPEN_NOTIFICATION object:nil userInfo:nil];
     }else {
         [self stopCentralManagerScan];
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -109,7 +103,6 @@
         
         if (self.discoveredPeripheral) {
             [self stopCentralManagerScan];
-            [self.peripheralsMArray removeObject:self.discoveredPeripheral];
             self.discoveredPeripheral = nil;
             [notificationCenter postNotificationName:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil userInfo:nil];
         }
@@ -120,6 +113,7 @@
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     NSLog(@"per:%@, SSI:%d, uuid:%@, data:%@",peripheral,[RSSI intValue],peripheral.identifier,advertisementData);
+    NSLog(@"changage：%@---avoid:%@",self.theChangeUuid,self.theAddNewNeedToAvoidLastUuid);
     if ([self.theChangeUuid length] > 0 && ![[peripheral.identifier UUIDString] isEqualToString:self.theChangeUuid]) {
         return;
     }
@@ -127,22 +121,10 @@
     if ([self.theAddNewNeedToAvoidLastUuid length] > 0 && [[peripheral.identifier UUIDString] isEqualToString:self.theAddNewNeedToAvoidLastUuid]) {
         return;
     }
-
-    if (![self.peripheralsMArray containsObject:peripheral]) {
-        [self.peripheralsMArray addObject:peripheral];
-        if ([self.peripheralsMArray count] == 1) {
-            [self.centralManager connectPeripheral:peripheral options:nil];
-        }
-        [self stopCentralManagerScan];
-    }else {
-        /////这里要判断是新的设备，还是切换的
-        [self.centralManager connectPeripheral:peripheral options:nil];
-        [self stopCentralManagerScan];
-    }
+    self.discoveredPeripheral = peripheral;
+    [self.centralManager connectPeripheral:peripheral options:nil];
     
     self.theChangeUuid = nil;
-    //    [self.centralManager retrievePeripheralsWithIdentifiers:[NSArray arrayWithObjects:peripheral.identifier, nil]];
-    //    [self stopCentralManagerScan];
     
 }
 
@@ -160,7 +142,9 @@
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     NSLog(@"connect:%@  %@",peripheral,peripheral.identifier);
     [self stopCentralManagerScan];
-    self.discoveredPeripheral = peripheral;
+    if (self.discoveredPeripheral && self.discoveredPeripheral != peripheral) {
+        self.discoveredPeripheral = peripheral;
+    }
     self.discoveredPeripheral.delegate = self;
     
     NSString *perUuid = [peripheral.identifier UUIDString];
@@ -178,7 +162,6 @@
     NSLog(@"%@",error);
     self.theChangeUuid = nil;
     [self cleanDiscoveredPeripheral];
-    [self.peripheralsMArray removeObject:peripheral];
     self.discoveredPeripheral = nil;
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter postNotificationName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:CBCENTERAL_CONNECT_PERIPHERAL_FAIL,@"state", nil]];
@@ -197,7 +180,6 @@
 {
     self.theChangeUuid = nil;
     [self cleanDiscoveredPeripheral];
-    [self.peripheralsMArray removeObject:peripheral];
     self.discoveredPeripheral = nil;
 
     NSLog(@"断开连接，要定位");
@@ -414,7 +396,6 @@
 
 
 - (void)dealloc {
-    self.peripheralsMArray = nil;
     self.centralManager = nil;
     self.discoveredPeripheral = nil;
     self.alertImmediateCharacter = nil;
