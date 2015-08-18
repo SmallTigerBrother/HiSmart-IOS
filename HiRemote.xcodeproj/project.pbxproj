@@ -1372,11 +1372,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-<<<<<<< HEAD
+
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
-=======
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
->>>>>>> f7f28d57acb8bfb1ea9c05893decab4ffde4e8f9
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1395,11 +1392,7 @@
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = HiSmart;
-<<<<<<< HEAD
 				PROVISIONING_PROFILE = "5040040e-f3e3-4c65-aacd-283f2916816d";
-=======
-				PROVISIONING_PROFILE = "";
->>>>>>> f7f28d57acb8bfb1ea9c05893decab4ffde4e8f9
 			};
 			name = Debug;
 		};
@@ -1409,11 +1402,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-<<<<<<< HEAD
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
-=======
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
->>>>>>> f7f28d57acb8bfb1ea9c05893decab4ffde4e8f9
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1432,11 +1421,7 @@
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = HiSmart;
-<<<<<<< HEAD
 				PROVISIONING_PROFILE = "5040040e-f3e3-4c65-aacd-283f2916816d";
-=======
-				PROVISIONING_PROFILE = "";
->>>>>>> f7f28d57acb8bfb1ea9c05893decab4ffde4e8f9
 			};
 			name = Release;
 		};
