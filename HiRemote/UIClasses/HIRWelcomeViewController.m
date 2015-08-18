@@ -9,13 +9,17 @@
 #import "HIRWelcomeViewController.h"
 #import "PureLayout.h"
 #define WELCOME_PAGE_COUNT 5
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 
-@interface HIRWelcomeViewController () <UIScrollViewDelegate>
+@interface HIRWelcomeViewController ()
+<UIScrollViewDelegate,
+FBSDKLoginButtonDelegate>
 
 @property (nonatomic ,strong) UIScrollView *welcomeScrollView;
 @property (nonatomic ,strong) UIPageControl *pageControl;
-@property (nonatomic, strong) UIButton *startButton;
+@property (nonatomic, strong) FBSDKLoginButton *startButton;
 @property (nonatomic, strong) NSArray *titleArray;
 @property (nonatomic, strong) NSArray *imageArray;
 @property (nonatomic, strong) NSArray *notesArray;
@@ -76,13 +80,23 @@
     self.pageControl.numberOfPages = WELCOME_PAGE_COUNT;
     
     [self.pageControl addTarget:self action:@selector(pageControlChange:) forControlEvents:UIControlEventValueChanged];
-    self.startButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.startButton = [[FBSDKLoginButton alloc]init];
+    self.startButton.readPermissions = @[@"public_profile", @"user_friends"];
     [self.startButton setTitle:NSLocalizedString(@"getStarted", @"") forState:UIControlStateNormal];
     [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.startButton addTarget:self action:@selector(startButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.startButton addTarget:self action:@selector(startButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.startButton.backgroundColor = [UIColor colorWithRed:0.57 green:0.84 blue:0.73 alpha:1];
     [self.view addSubview:self.pageControl];
     [self.view addSubview:self.startButton];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observeProfileChange:) name:FBSDKProfileDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observeTokenChange:) name:FBSDKAccessTokenDidChangeNotification object:nil];
+
+    // If there's already a cached token, read the profile information.
+    if ([FBSDKAccessToken currentAccessToken]) {
+        [self observeProfileChange:nil];
+    }
+
     
     [self.view setNeedsUpdateConstraints];
 }
@@ -186,6 +200,42 @@
       //  UtilityAppDelegate *appDelegate = (UtilityAppDelegate *)[[UIApplication sharedApplication] delegate];
       //  [appDelegate performSelector:@selector(updateAdvertisementImage)];
 
+    
+}
+
+#pragma mark - Observations
+
+- (void)observeProfileChange:(NSNotification *)notfication {
+    if ([FBSDKProfile currentProfile]) {
+        NSString *title = [NSString stringWithFormat:@"continue as %@", [FBSDKProfile currentProfile].name];
+    }
+}
+
+- (void)observeTokenChange:(NSNotification *)notfication {
+    if (![FBSDKAccessToken currentAccessToken]) {
+    } else {
+        [self observeProfileChange:nil];
+    }
+}
+
+#pragma mark - FBSDKLoginButtonDelegate
+
+- (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
+    if (error) {
+        NSLog(@"Unexpected login error: %@", error);
+        NSString *alertMessage = error.userInfo[FBSDKErrorLocalizedDescriptionKey] ?: @"There was a problem logging in. Please try again later.";
+        NSString *alertTitle = error.userInfo[FBSDKErrorLocalizedTitleKey] ?: @"Oops";
+        [[[UIAlertView alloc] initWithTitle:alertTitle
+                                    message:alertMessage
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+    } else {
+        
+    }
+}
+
+- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
     
 }
 

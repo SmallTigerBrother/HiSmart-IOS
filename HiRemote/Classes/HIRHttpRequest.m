@@ -57,7 +57,7 @@
 		return FALSE;
 	}
 	self.resultData = [NSMutableData data];
-
+    
     NSString *theUrl = url;
     
 	NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:theUrl]];
