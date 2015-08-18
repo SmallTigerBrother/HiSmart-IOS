@@ -138,12 +138,7 @@ UITextFieldDelegate>
     NSString *hourStr = [dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:locationInfo.timestamp.longLongValue/1000]];
 
     NSString *contentLabel;
-    if (locationInfo.remark) {
-        contentLabel = locationInfo.remark;
-    }
-    else{
-        contentLabel = locationInfo.address;
-    }
+    contentLabel = locationInfo.address;
     
     NSString *copyStr = [NSString stringWithFormat:@"%@,%@ %@\n%@",title,dateStr,hourStr,contentLabel];
     

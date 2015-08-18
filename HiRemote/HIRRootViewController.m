@@ -281,6 +281,10 @@ HPCoreLocationMangerDelegate>
     //        [self stopRecording];
     //    });
     //#endif
+//    
+//#ifdef DEBUG
+//    [self testVoice];
+//#endif
 }
 
 
@@ -477,6 +481,20 @@ HPCoreLocationMangerDelegate>
     
 }
 
+
+//-(void)testVoice{
+//    NSString *soundPath;
+//    for (NSInteger i = 1; i<=6; i++) {
+//        soundPath = [NSString stringWithFormat:@"sms-received%d",i];
+//            HirMsgPlaySound *msgPlaySound = [[HirMsgPlaySound alloc]initSystemSoundWithName:soundPath SoundType:@"caf"];
+//            [msgPlaySound play];
+//            NSLog(@"sound:%@ playing",soundPath);
+//
+//        sleep(2);
+//    }
+//
+//}
+
 - (void)getLossAlertValue:(NSNotification *)notify {
     NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
     [self resetTheSwitchStatusByUuid:currentUuid forceRefresh:NO];
@@ -524,6 +542,9 @@ HPCoreLocationMangerDelegate>
 }
 
 - (void)locationFinished:(CLLocation *)location withFlag:(NSNumber *)isSuccess{
+    HirMsgPlaySound *msgPlaySound = [[HirMsgPlaySound alloc]initSystemSoundWithName:@"sms-received5" SoundType:@"caf"];
+    [msgPlaySound play];
+    
     self.isLocationing = NO;
     
     NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;
