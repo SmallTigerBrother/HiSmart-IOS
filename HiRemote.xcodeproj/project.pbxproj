@@ -108,6 +108,7 @@
 		2CCB4ECC1B6E067500783616 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB4ECB1B6E067500783616 /* Reachability.m */; };
 		2CECD4241B723F84008DF798 /* controlmforscan.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CECD4231B723F84008DF798 /* controlmforscan.png */; };
 		B80321B51B7B87D6001C5A2E /* controlm_cn.png in Resources */ = {isa = PBXBuildFile; fileRef = B80321B41B7B87D6001C5A2E /* controlm_cn.png */; };
+		B83849E51B83567F006223C8 /* defaultDeviceDark.png in Resources */ = {isa = PBXBuildFile; fileRef = B83849E41B83567F006223C8 /* defaultDeviceDark.png */; };
 		B84CD4A71B441E58008FAA53 /* CallOutAnnotationVifew.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */; };
 		B84CD4A81B441E58008FAA53 /* HIRConnFailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49C1B441E58008FAA53 /* HIRConnFailViewController.m */; };
 		B84CD4A91B441E58008FAA53 /* HIRConnSuccViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49E1B441E58008FAA53 /* HIRConnSuccViewController.m */; };
@@ -350,6 +351,7 @@
 		2CECD4231B723F84008DF798 /* controlmforscan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controlmforscan.png; sourceTree = "<group>"; };
 		A3EEC68A1FCE3A9ABA965D36 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B80321B41B7B87D6001C5A2E /* controlm_cn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controlm_cn.png; sourceTree = "<group>"; };
+		B83849E41B83567F006223C8 /* defaultDeviceDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultDeviceDark.png; sourceTree = "<group>"; };
 		B84CD4991B441E58008FAA53 /* CallOutAnnotationVifew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallOutAnnotationVifew.h; sourceTree = "<group>"; };
 		B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallOutAnnotationVifew.m; sourceTree = "<group>"; };
 		B84CD49B1B441E58008FAA53 /* HIRConnFailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRConnFailViewController.h; sourceTree = "<group>"; };
@@ -858,6 +860,7 @@
 				04D651291B5BBD8B00B5BB13 /* defaultDevice.png */,
 				04D6512A1B5BBD8B00B5BB13 /* mainviewbg.jpg */,
 				B887061F1B4939CE00A87300 /* darkConnYes.png */,
+				B83849E41B83567F006223C8 /* defaultDeviceDark.png */,
 				B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */,
 				B84CD4B91B441EA2008FAA53 /* camera.png */,
 				B856CE911B5BCAA200800195 /* voiceSelected.png */,
@@ -946,9 +949,9 @@
 				B8DF7DAC1B3E7AE7000BD43E /* HIRDeviceShowView.m */,
 				B8DF7DB21B3E7AE7000BD43E /* HIRSegmentView.m */,
 				B8DF7DAD1B3E7AE7000BD43E /* HIRMainMenuView.h */,
-				B8DF7DAE1B3E7AE7000BD43E /* HIRMainMenuView.m */,
 				B84CD49F1B441E58008FAA53 /* HIRFindViewController.h */,
 				B8DF7DAF1B3E7AE7000BD43E /* HIRScanningViewController.h */,
+				B8DF7DAE1B3E7AE7000BD43E /* HIRMainMenuView.m */,
 				B8DF7DB11B3E7AE7000BD43E /* HIRSegmentView.h */,
 				04D38D041B3E84FC0012D65A /* ViewController */,
 				B8DF7DB31B3E7AE7000BD43E /* HIRUserInfoTableViewController.h */,
@@ -1099,6 +1102,7 @@
 				04D7A8841B47EF9700579EC2 /* camera_line_h@2x.png in Resources */,
 				B856CE8A1B5B6EBD00800195 /* mainviewbg.jpg in Resources */,
 				B84CD4D01B441EA2008FAA53 /* find.png in Resources */,
+				B83849E51B83567F006223C8 /* defaultDeviceDark.png in Resources */,
 				2C18AB601B3D4F5F00CE6588 /* preBtn.png in Resources */,
 				04D7A8811B47EF9700579EC2 /* camera_line.png in Resources */,
 				2C18AAFD1B3BECDE00CE6588 /* Images.xcassets in Resources */,
@@ -1355,7 +1359,7 @@
 			baseConfigurationReference = 04976BB78AFBE5AFBEEC05BA /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1371,7 +1375,7 @@
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = HiSmart;
-				PROVISIONING_PROFILE = "7ece147c-df71-4a30-b53d-edc7e3598c78";
+				PROVISIONING_PROFILE = "5040040e-f3e3-4c65-aacd-283f2916816d";
 			};
 			name = Debug;
 		};
@@ -1380,7 +1384,7 @@
 			baseConfigurationReference = E36CA8EE71365DA8477ACA8D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1396,7 +1400,7 @@
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = HiSmart;
-				PROVISIONING_PROFILE = "7ece147c-df71-4a30-b53d-edc7e3598c78";
+				PROVISIONING_PROFILE = "5040040e-f3e3-4c65-aacd-283f2916816d";
 			};
 			name = Release;
 		};
