@@ -19,7 +19,7 @@ FBSDKLoginButtonDelegate>
 
 @property (nonatomic ,strong) UIScrollView *welcomeScrollView;
 @property (nonatomic ,strong) UIPageControl *pageControl;
-@property (nonatomic, strong) FBSDKLoginButton *startButton;
+@property (nonatomic, strong) UIButton *startButton;
 @property (nonatomic, strong) NSArray *titleArray;
 @property (nonatomic, strong) NSArray *imageArray;
 @property (nonatomic, strong) NSArray *notesArray;
@@ -80,11 +80,11 @@ FBSDKLoginButtonDelegate>
     self.pageControl.numberOfPages = WELCOME_PAGE_COUNT;
     
     [self.pageControl addTarget:self action:@selector(pageControlChange:) forControlEvents:UIControlEventValueChanged];
-    self.startButton = [[FBSDKLoginButton alloc]init];
-    self.startButton.readPermissions = @[@"public_profile", @"user_friends"];
+    self.startButton = [[UIButton alloc]init];
+//    self.startButton.readPermissions = @[@"public_profile", @"user_friends"];
     [self.startButton setTitle:NSLocalizedString(@"getStarted", @"") forState:UIControlStateNormal];
     [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [self.startButton addTarget:self action:@selector(startButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.startButton addTarget:self action:@selector(startButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.startButton.backgroundColor = [UIColor colorWithRed:0.57 green:0.84 blue:0.73 alpha:1];
     [self.view addSubview:self.pageControl];
     [self.view addSubview:self.startButton];

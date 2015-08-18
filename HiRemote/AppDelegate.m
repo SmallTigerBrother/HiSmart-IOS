@@ -62,8 +62,8 @@
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     NSString *lastVersion = [userDefault valueForKey:@"lastVersion"];
     NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-//    if (!lastVersion || ![lastVersion isEqualToString:currentVersion]) {
-    if (YES) {
+    if (!lastVersion || ![lastVersion isEqualToString:currentVersion]) {
+//    if (YES) {
         if (currentVersion) {
             [userDefault setObject:currentVersion forKey:@"lastVersion"];
         }
