@@ -20,5 +20,5 @@
 @dynamic remark;
 @dynamic userId;
 @dynamic sync;
-
+@dynamic battery;
 @end

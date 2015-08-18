@@ -27,6 +27,9 @@
 
 
 - (void)setPercent:(float)percent{
+    if (percent > 0.999) {
+        percent = 0.999;
+    }
     _percent = percent;
     [self setNeedsDisplay];
 }

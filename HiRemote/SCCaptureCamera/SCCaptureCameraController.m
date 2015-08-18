@@ -402,7 +402,7 @@ UIImagePickerControllerDelegate>
 
 - (void)showCameraCover:(BOOL)toShow {
     
-    [UIView animateWithDuration:0.38f animations:^{
+    [UIView animateWithDuration:0.2f animations:^{
         CGRect upFrame = _doneCameraUpView.frame;
         upFrame.size.height = (toShow ? SC_APP_SIZE.width / 2 + CAMERA_TOPVIEW_HEIGHT : 0);
         _doneCameraUpView.frame = upFrame;
@@ -582,7 +582,7 @@ void c_slideAlpha() {
         [actiView removeFromSuperview];
         actiView = nil;
         
-        double delayInSeconds = 2.f;
+        double delayInSeconds = 0.3f;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             sender.userInteractionEnabled = YES;

@@ -15,4 +15,5 @@
 @property (nonatomic, strong) HIRBatteryPercentView *batteryPercent;
 @property (nonatomic, strong) UILabel *deviceNameLabel;
 @property (nonatomic, strong) UILabel *deviceLocationLabel;
+@property (nonatomic, strong) UIButton *reconnectionButton;
 @end

@@ -29,7 +29,7 @@
     return peripheraLocationInfo;
 }
 
-+(void)insertLocationRecordByPeripheraUUID:(NSString *)peripheraUUID latitude:(NSString *)latitude longitude:(NSString *)longitude location:(NSString *)location dataType:(NSNumber *)dataType remark:(NSString *)remark{
++(void)insertLocationRecordByPeripheraUUID:(NSString *)peripheraUUID latitude:(NSString *)latitude longitude:(NSString *)longitude location:(NSString *)location dataType:(NSNumber *)dataType remark:(NSString *)remark battery:(NSNumber *)battery{
     NSLog(@"latitude = %@,longitude = %@",latitude,longitude);
         
     NSString *userId = [HirUserInfo shareUserInfo].userId;
@@ -44,6 +44,7 @@
     peripheraLocationInfo.dataType = dataType;
     peripheraLocationInfo.remark = remark;
     peripheraLocationInfo.sync = @0;
+    peripheraLocationInfo.battery = battery;
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     
     if (dataType.integerValue == HirLocationDataType_history) {

@@ -26,6 +26,11 @@
 #import "HirDataManageCenter+DeviceRecord.h"
 #import "HirSettingTableViewController.h"
 
+#define COLOR_BATTERY_HLEVEL [UIColor colorWithRed:0.38 green:0.74 blue:0.56 alpha:1] //高电量颜色
+#define COLOR_BATTERY_LLEVEL [UIColor colorWithRed:1.0 green:0.57 blue:0.02 alpha:1] //低电量颜色
+#define COLOR_BATTERY_NLEVEL [UIColor colorWithRed:0.31 green:0.31 blue:0.30 alpha:1]  //未链接电量颜色
+
+
 @interface HIRRootViewController () <UIScrollViewDelegate,
 UITableViewDataSource,
 UITableViewDelegate,
@@ -76,7 +81,6 @@ HPCoreLocationMangerDelegate>
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (nonatomic, strong) AVAudioRecorder *audioRecorder;
 
-
 @end
 
 @implementation HIRRootViewController
@@ -96,7 +100,6 @@ HPCoreLocationMangerDelegate>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.edgesForExtendedLayout = UIRectEdgeNone;
     NSString *bgPath = [[NSBundle mainBundle] pathForResource:@"mainviewbg" ofType:@"jpg"];
     UIImage *bgImage = [UIImage imageWithContentsOfFile:bgPath];
@@ -143,7 +146,6 @@ HPCoreLocationMangerDelegate>
     
     self.changeIndicator = [[UIActivityIndicatorView alloc] init];
     self.changeIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    ////[self.changeIndicator startAnimating];
     self.preButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.preButton.hidden = YES;
     [self.preButton setImage:[UIImage imageNamed:@"preBtn"] forState:UIControlStateNormal];
@@ -201,7 +203,7 @@ HPCoreLocationMangerDelegate>
     dispatch_after(dispatchTime,dispatch_get_main_queue(), ^(void){
         [HirUserInfo shareUserInfo].currentPeripheraIndex = 0;
         for (HIRDeviceShowView *showView in self.deviceShowArray) {
-            [showView.avatarImageView setImage:[UIImage imageNamed:@"defaultDevice"]];
+            [showView.avatarImageView setImage:[UIImage imageNamed:@"defaultDeviceDark"]];
         }
         
         for (int i = 0; i < [self.deviceInfoArray count]; i++) {
@@ -233,7 +235,14 @@ HPCoreLocationMangerDelegate>
                 NSString *currentUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
                 if ([remoteData.uuid isEqualToString:currentUuid]) {
                     device.deviceLocationLabel.text = locationInfo.address;
-                    device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
+                    [device.avatarImageView setImage:[UIImage imageNamed:@"defaultDevice"]];
+                    float battLevel  = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
+                    if (battLevel > 0.5) {
+                        device.batteryPercent.arcUnfinishColor = COLOR_BATTERY_HLEVEL;
+                    }else {
+                        device.batteryPercent.arcUnfinishColor = COLOR_BATTERY_LLEVEL;
+                    }
+                    device.batteryPercent.percent = battLevel;
                     
                     self.pageControl.currentPage = i;
                     [HirUserInfo shareUserInfo].currentPeripheraIndex = i;
@@ -254,7 +263,13 @@ HPCoreLocationMangerDelegate>
                         self.preButton.hidden = YES;
                     }
                     [self resetTheSwitchStatusByUuid:remoteData.uuid forceRefresh:NO];
-                    
+                }else {
+                    float battLevel = [remoteData.battery floatValue];
+                    if (battLevel < 0.001) {
+                        battLevel = 0.4;
+                    }
+                    device.batteryPercent.arcUnfinishColor = COLOR_BATTERY_NLEVEL;
+                    device.batteryPercent.percent = battLevel;
                 }
             }
         }
@@ -266,6 +281,8 @@ HPCoreLocationMangerDelegate>
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peripheralDisconnect:) name:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openVoicePath) name:NotificationVoiceOpen object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getLossAlertValue:) name:LOSS_ALERT_NEED_UPDATEUI_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needScanningWhenBTopen:) name:NEED_SCANNING_WHEN_BTOPEN_NOTIFICATION object:nil];
+
     
     appDelegate.locManger.delegate = self;
     [appDelegate.locManger startUpdatingUserLocation];
@@ -339,6 +356,11 @@ HPCoreLocationMangerDelegate>
     int page = (int)(self.pageControl.currentPage);
     if ([self.deviceShowArray count] > page) {
         HIRDeviceShowView *view = [self.deviceShowArray objectAtIndex:page];
+        if (level > 0.5) {
+            view.batteryPercent.arcUnfinishColor = COLOR_BATTERY_HLEVEL;
+        }else {
+            view.batteryPercent.arcUnfinishColor = COLOR_BATTERY_LLEVEL;
+        }
         view.batteryPercent.percent = level;
     }
 }
@@ -513,7 +535,13 @@ HPCoreLocationMangerDelegate>
             [alertView show];
         }
     }
-    
+    if ([self.deviceShowArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
+        HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+        [device.avatarImageView setImage:[UIImage imageNamed:@"defaultDeviceDark"]];
+        float battLevel = device.batteryPercent.percent;
+        device.batteryPercent.arcUnfinishColor = COLOR_BATTERY_NLEVEL;
+        device.batteryPercent.percent = battLevel;
+    }
     if (self.isLocationing) {
         return;
     }
@@ -532,10 +560,10 @@ HPCoreLocationMangerDelegate>
     NSString *locationStr = appDelegate.locManger.fullLocation;
     
     if (_isDisconnectLocation) {
-        [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:locationStr dataType:@(HirLocationDataType_lost) remark:nil];
+        [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:locationStr dataType:@(HirLocationDataType_lost) remark:nil battery:@(0.4)];
     }
     else{
-        [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:locationStr dataType:@(HirLocationDataType_history) remark:nil];
+        [HirDataManageCenter insertLocationRecordByPeripheraUUID:uuid latitude:latitude longitude:longitude location:locationStr dataType:@(HirLocationDataType_history) remark:nil battery:@(0.4)];
     }
     
     for (int i = 0; i < [self.deviceInfoArray count]; i++) {
@@ -645,6 +673,8 @@ HPCoreLocationMangerDelegate>
         frame.origin.y = 0;
         showView.frame = frame;
         showView.deviceLocationLabel.text = NSLocalizedString(@"isNotConnected", @"");
+        [showView.reconnectionButton addTarget:self action:@selector(reconnectionCurrentDevice:) forControlEvents:UIControlEventTouchUpInside];
+        showView.reconnectionButton.tag = 0;
         [self.showDeviceScrollView addSubview:showView];
         [self.deviceShowArray addObject:showView];
     }else {
@@ -655,6 +685,8 @@ HPCoreLocationMangerDelegate>
             frame.origin.y = 0;
             showView.frame = frame;
             showView.deviceLocationLabel.text = NSLocalizedString(@"isNotConnected", @"");
+            [showView.reconnectionButton addTarget:self action:@selector(reconnectionCurrentDevice:) forControlEvents:UIControlEventTouchUpInside];
+            showView.reconnectionButton.tag = i;
             [self.showDeviceScrollView addSubview:showView];
             [self.deviceShowArray addObject:showView];
         }
@@ -912,6 +944,55 @@ HPCoreLocationMangerDelegate>
     [self changeTheDeviceByUser];
 }
 
+///以下用来更新当前设备的链接
+- (void)reconnectionCurrentDevice:(id)sender {
+    if (self.changeIndicator.isAnimating) {
+        return;
+    }
+    
+    if ([self.deviceInfoArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
+        DBPeripheral *remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+        if ([remoteData.uuid isEqualToString:[[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString]]) {
+            return;
+        }
+    }
+    
+    if (appDelegate.updateStatus == 3) {
+        [appDelegate needUpdateAppForce];
+        return;
+    }
+    long currentTag = ((UIButton *)sender).tag;
+    if ([self.deviceInfoArray count] > currentTag) {
+        [self.outTimer invalidate];
+        self.outTimer = nil;
+        [self.changeIndicator stopAnimating];
+        [[HIRCBCentralClass shareHIRCBcentralClass] cancelConnectionWithPeripheral:nil];
+        
+        DBPeripheral *remoteData = [self.deviceInfoArray objectAtIndex:currentTag];
+        [self.changeIndicator startAnimating];
+        self.outTimer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
+        
+        [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil;
+        [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:remoteData.uuid];
+    }
+}
+
+///当蓝牙从关闭到打开时，会自动触发扫描
+- (void)needScanningWhenBTopen:(NSNotification *)notify {
+    if ([self.deviceInfoArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
+        DBPeripheral *remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+        if ([remoteData.uuid length] > 0) {
+            NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+            [defaults removeObjectForKey:@"tempLostAlertValue"];
+            [defaults synchronize];
+            [self.changeIndicator startAnimating];
+            self.outTimer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
+            
+            [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil;
+            [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:remoteData.uuid];
+        }
+    }
+}
 
 ///以下是用来设置设备切换的
 - (void)changeTheDeviceByUser {
@@ -928,6 +1009,10 @@ HPCoreLocationMangerDelegate>
     if (page != [HirUserInfo shareUserInfo].currentPeripheraIndex) {
         for (HIRDeviceShowView *tmpDevice in self.deviceShowArray) {
             tmpDevice.deviceLocationLabel.text = NSLocalizedString(@"isNotConnected", @"");
+            float battLevel = tmpDevice.batteryPercent.percent;
+            tmpDevice.batteryPercent.arcUnfinishColor = COLOR_BATTERY_NLEVEL;
+            tmpDevice.batteryPercent.percent = battLevel;
+            [tmpDevice.avatarImageView setImage:[UIImage imageNamed:@"defaultDeviceDark"]];
         }
         
         [HirUserInfo shareUserInfo].currentPeripheraIndex = page;
@@ -968,30 +1053,88 @@ HPCoreLocationMangerDelegate>
     NSString *state = [info valueForKey:@"state"];
     if ([state isEqualToString:CBCENTERAL_STATE_NOT_SUPPORT] || [state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_FAIL]) {
         ////蓝牙不支持或关闭或者链接失败
-        if ([self.deviceShowArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
-            HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
-            device.deviceLocationLabel.text = NSLocalizedString(@"isNotConnected", @"");
+        if (!([HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral) || ![[HirUserInfo shareUserInfo].currentPeriphera.uuid isEqualToString:[[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString]]) {
+            if ([self.deviceShowArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
+                HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+                device.deviceLocationLabel.text = NSLocalizedString(@"isNotConnected", @"");
+                float battLevel = device.batteryPercent.percent;
+                device.batteryPercent.arcUnfinishColor = COLOR_BATTERY_NLEVEL;
+                device.batteryPercent.percent = battLevel;
+                [device.avatarImageView setImage:[UIImage imageNamed:@"defaultDeviceDark"]];
+            }
+            [SGInfoAlert showInfo:NSLocalizedString(@"deviceConnectionFailed", @"")];
+            //[SGInfoAlert showInfo:NSLocalizedString(@"deviceConnectionFailed", @"") bgColor:[UIColor darkGrayColor].CGColor inView:[UIApplication sharedApplication].delegate.window vertical:.8];
         }
-        
-        [SGInfoAlert showInfo:NSLocalizedString(@"deviceConnectionFailed", @"")];
-        //[SGInfoAlert showInfo:NSLocalizedString(@"deviceConnectionFailed", @"") bgColor:[UIColor darkGrayColor].CGColor inView:[UIApplication sharedApplication].delegate.window vertical:.8];
-        
     }else if ([state isEqualToString:CBCENTERAL_CONNECT_PERIPHERAL_SUCCESS]) {
         [self openVoicePath];
         ////蓝牙链接外设成功
         if ([self.deviceInfoArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex && [self.deviceShowArray count] > [HirUserInfo shareUserInfo].currentPeripheraIndex) {
             DBPeripheral *remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
-            HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
-            DBPeripheralLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
             NSString *discoverUuid = [[HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral.identifier UUIDString];
             if ([discoverUuid isEqualToString:remoteData.uuid]) {
+                HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+                DBPeripheralLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
                 if ([remoteData.remarkName length] > 0) {
                     device.deviceNameLabel.text = remoteData.remarkName;
                 }else {
                     device.deviceNameLabel.text = remoteData.name;
                 }
                 device.deviceLocationLabel.text = locationInfo.address;
-                device.batteryPercent.percent = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
+                [device.avatarImageView setImage:[UIImage imageNamed:@"defaultDevice"]];
+                float battLevel = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
+                if (battLevel > 0.5) {
+                    device.batteryPercent.arcUnfinishColor = COLOR_BATTERY_HLEVEL;
+                }else {
+                    device.batteryPercent.arcUnfinishColor = COLOR_BATTERY_LLEVEL;
+                }
+                device.batteryPercent.percent = battLevel;
+            }else if ([discoverUuid length] > 0) {
+                int j = -1;;
+                for (int i= 0; i < [self.deviceInfoArray count]; i++) {
+                    DBPeripheral *remoteData = [self.deviceInfoArray objectAtIndex:i];
+                    if ([remoteData.uuid isEqualToString:discoverUuid]) {
+                        j = i;
+                        break;
+                    }
+                }
+                if (j >= 0 && [self.deviceInfoArray count] > j) {
+                    self.pageControl.currentPage = j;
+                    [HirUserInfo shareUserInfo].currentPeripheraIndex = j;
+                    [self.showDeviceScrollView  setContentOffset:CGPointMake(j * self.view.frame.size.width, 0) animated:NO];
+                    
+                    CGFloat pageWidth = self.showDeviceScrollView.frame.size.width;
+                    int page = self.showDeviceScrollView.contentOffset.x / pageWidth;
+                    self.pageControl.currentPage = page;
+                    int totalPage = (int)self.pageControl.numberOfPages;
+                    if (totalPage > 1) {
+                        self.preButton.hidden = NO;
+                        self.nextButton.hidden = NO;
+                    }
+                    if (page >= (totalPage - 1)) {
+                        self.nextButton.hidden = YES;
+                    }
+                    if (page <= 0) {
+                        self.preButton.hidden = YES;
+                    }
+                    DBPeripheral *remoteData = [self.deviceInfoArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+                    HIRDeviceShowView *device = [self.deviceShowArray objectAtIndex:[HirUserInfo shareUserInfo].currentPeripheraIndex];
+                    DBPeripheralLocationInfo *locationInfo = [HirDataManageCenter findLastLocationByPeriperaUUID:remoteData.uuid];
+                    if ([remoteData.remarkName length] > 0) {
+                        device.deviceNameLabel.text = remoteData.remarkName;
+                    }else {
+                        device.deviceNameLabel.text = remoteData.name;
+                    }
+                    device.deviceLocationLabel.text = locationInfo.address;
+                    [device.avatarImageView setImage:[UIImage imageNamed:@"defaultDevice"]];
+                    float battLevel = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
+                    if (battLevel > 0.5) {
+                        device.batteryPercent.arcUnfinishColor = COLOR_BATTERY_HLEVEL;
+                    }else {
+                        device.batteryPercent.arcUnfinishColor = COLOR_BATTERY_LLEVEL;
+                    }
+                    device.batteryPercent.percent = battLevel;
+                    
+                }
             }
         }
     }

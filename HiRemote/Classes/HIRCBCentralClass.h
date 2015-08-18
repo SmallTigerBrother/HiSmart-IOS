@@ -51,6 +51,9 @@ typedef enum
 #define NEED_IPHONE_ALERT_NOTIFICATION @"needIphoneAlertNotification" ////电池发生变化通知
 #define LOSS_ALERT_NEED_UPDATEUI_NOTIFICATION @"lossAlertNeedUpdateUINotification" ///该通知用来设置丢失报警开关
 
+#define NEED_SCANNING_WHEN_BTOPEN_NOTIFICATION @"needScanningWhenBTOpenNotification" ///当蓝牙开启时，扫描
+
+
 #define CBCENTERAL_STATE_NOT_SUPPORT @"notSupport"   ////蓝牙不支持 （通知值）
 #define CBCENTERAL_CONNECT_PERIPHERAL_FAIL @"connectPeripheralFail" ///外设链接失败 (通知值）
 #define CBCENTERAL_CONNECT_PERIPHERAL_SUCCESS  @"connectPeripheralSuccess"  ///外设链接成功 （通知值）
