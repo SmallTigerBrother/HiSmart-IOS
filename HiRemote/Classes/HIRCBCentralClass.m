@@ -79,7 +79,6 @@
 -(void)stopCentralManagerScan
 {
     NSLog(@"stooooooooop");
-    [self cleanDiscoveredPeripheral];
     [self.centralManager stopScan];
     _isScanningPeripherals = NO;
 }
