@@ -66,6 +66,7 @@
 
     if (_isScanningPeripherals) {
         [self stopCentralManagerScan];
+        self.discoveredPeripheral.delegate = nil;
         self.discoveredPeripheral = nil;
     }
     
@@ -78,12 +79,14 @@
 -(void)stopCentralManagerScan
 {
     NSLog(@"stooooooooop");
+    [self cleanDiscoveredPeripheral];
     [self.centralManager stopScan];
     _isScanningPeripherals = NO;
 }
 
 - (void)cancelConnectionWithPeripheral:(CBPeripheral *)peripheral {
     [self cleanDiscoveredPeripheral];
+    self.discoveredPeripheral.delegate = nil;
     self.discoveredPeripheral = nil;
     self.theChangeUuid = nil;
 }
@@ -103,6 +106,7 @@
         
         if (self.discoveredPeripheral) {
             [self stopCentralManagerScan];
+            self.discoveredPeripheral.delegate = nil;
             self.discoveredPeripheral = nil;
             [notificationCenter postNotificationName:NEED_DISCONNECT_LOCATION_NOTIFICATION object:nil userInfo:nil];
         }
@@ -121,6 +125,7 @@
     if ([self.theAddNewNeedToAvoidLastUuid length] > 0 && [[peripheral.identifier UUIDString] isEqualToString:self.theAddNewNeedToAvoidLastUuid]) {
         return;
     }
+    [self stopCentralManagerScan];
     self.discoveredPeripheral = peripheral;
     [self.centralManager connectPeripheral:peripheral options:nil];
     
@@ -142,7 +147,7 @@
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     NSLog(@"connect:%@  %@",peripheral,peripheral.identifier);
     [self stopCentralManagerScan];
-    if (self.discoveredPeripheral && self.discoveredPeripheral != peripheral) {
+    if (self.discoveredPeripheral != peripheral) {
         self.discoveredPeripheral = peripheral;
     }
     self.discoveredPeripheral.delegate = self;
@@ -162,6 +167,7 @@
     NSLog(@"%@",error);
     self.theChangeUuid = nil;
     [self cleanDiscoveredPeripheral];
+    self.discoveredPeripheral.delegate = nil;
     self.discoveredPeripheral = nil;
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter postNotificationName:HIR_CBSTATE_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:CBCENTERAL_CONNECT_PERIPHERAL_FAIL,@"state", nil]];
@@ -180,6 +186,7 @@
 {
     self.theChangeUuid = nil;
     [self cleanDiscoveredPeripheral];
+    self.discoveredPeripheral.delegate = nil;
     self.discoveredPeripheral = nil;
 
     NSLog(@"断开连接，要定位");
