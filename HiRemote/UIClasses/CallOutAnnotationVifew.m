@@ -26,6 +26,8 @@
 {
     self.arrowColor = nil;
     self.contentView = nil;
+    
+    
 }
 
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier

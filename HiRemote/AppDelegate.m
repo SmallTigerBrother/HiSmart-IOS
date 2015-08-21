@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "HIRWelcomeViewController.h"
-#import "HIRRegisterViewController.h"
+#import "HirLoginViewController.h"
 #import "HIRScanningViewController.h"
 #import <AVFoundation/AVFoundation.h>
 //#import "HIRRemoteData.h"
@@ -20,6 +20,7 @@
 #import "MobClick.h"
 #import "HIRHttpRequest.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 @interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate,AVAudioPlayerDelegate,UIAlertViewDelegate>{
     UIBackgroundTaskIdentifier bgTask;
@@ -30,7 +31,7 @@
     NSString *updateAppUrl;
 }
 @property(nonatomic) HIRWelcomeViewController *welcomeVC;
-@property(nonatomic) HIRRegisterViewController *registerVC;
+@property(nonatomic) HirLoginViewController *loginViewController;
 @property(nonatomic) HIRScanningViewController *scanVC;
 @property(nonatomic, strong)NSString *versionPath;
 @property(nonatomic, strong)AVAudioPlayer *audioPlayer;
@@ -44,13 +45,14 @@
 @end
 
 @implementation AppDelegate
-@synthesize window;
-@synthesize welcomeVC;
-@synthesize registerVC;
-@synthesize scanVC;
-@synthesize rootVC;
-@synthesize locManger;
 
++ (void)initialize
+{
+    // Nib files require the type to have been loaded before they can do the wireup successfully.
+    // http://stackoverflow.com/questions/1725881/unknown-class-myclass-in-interface-builder-file-error-at-runtime
+    [FBSDKLoginButton class];
+    [FBSDKProfilePictureView class];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.locManger = [[HPCoreLocationManger alloc] init];
@@ -63,7 +65,6 @@
     NSString *lastVersion = [userDefault valueForKey:@"lastVersion"];
     NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     if (!lastVersion || ![lastVersion isEqualToString:currentVersion]) {
-//    if (YES) {
         if (currentVersion) {
             [userDefault setObject:currentVersion forKey:@"lastVersion"];
         }
@@ -72,14 +73,8 @@
         
         [self.window addSubview:self.welcomeVC.view];
     }else {
-        self.scanVC = [[HIRScanningViewController alloc] init];
-        [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil;
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.scanVC];
-        //self.registerVC = [[HIRRegisterViewController alloc] init];
-       // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.registerVC];
-        nav.navigationBar.tintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
-        nav.navigationBar.hidden = YES;
-        nav.navigationBar.barTintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
+        self.loginViewController = [[HirLoginViewController alloc] init];
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:_loginViewController];
         self.window.rootViewController = nav;
     }
     
@@ -105,7 +100,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needIphoneAlertNotify:) name:NEED_IPHONE_ALERT_NOTIFICATION object:nil];
     
-//    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
+    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
 
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];
@@ -490,8 +485,8 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downUrl]];
     }else if (alertView.tag == 4) { ///失效
         [UIView animateWithDuration:.4f animations:^{
-            window.alpha = 0;
-            window.frame = CGRectMake(0, window.bounds.size.width, 0, 0);
+            _window.alpha = 0;
+            _window.frame = CGRectMake(0, _window.bounds.size.width, 0, 0);
         } completion:^(BOOL finished) {
             exit(0);
         }];
@@ -560,7 +555,7 @@ void completionCallback (SystemSoundID  mySSID, void* data) {
     if ([appVersion length] > 0) {
         [paraDic setObject:appVersion forKey:@"appVersion"];
     }
-    
+
     NSString *currentLanguage = nil;
     NSArray *languages = [NSLocale preferredLanguages];
     if ([languages count] > 0) {
@@ -570,7 +565,7 @@ void completionCallback (SystemSoundID  mySSID, void* data) {
     }
     [request addValue:currentLanguage forHTTPHeaderField:@"Accept-Language"];
     [request setHTTPMethod:@"POST"];
-    
+
     NSMutableString *dataStr = [NSMutableString string];
     NSArray *keys = [paraDic allKeys];
     for (int i = 0; i< [keys count]; i++) {

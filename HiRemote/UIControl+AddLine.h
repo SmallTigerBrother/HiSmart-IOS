@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIView+AddLine.h"
 
 @interface UIControl (AddLine)
-//0x1111  上左下右
--(void)addLine:(NSInteger)addLineType;
 
 
 @end

@@ -130,7 +130,6 @@
 	return request;
 }
 
-
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
 	self.requestReponse = response;
 }
@@ -150,7 +149,6 @@
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
-
 + (BOOL)sendAsynchronousRequest:(NSURLRequest*) request queue:(NSOperationQueue*) queue completionHandler:(void (^)(NSURLResponse* response, NSData* data, NSError* connectionError))handle {
     if (NotReachable == [[Reachability reachabilityForInternetConnection] currentReachabilityStatus]) {
         return FALSE;
@@ -159,10 +157,89 @@
     return YES;
 }
 
-
-
-
-
-
++(void)sendAsynchronousRequestWithParaDic:(NSDictionary *)paraDic api:(NSString *)api
+                        hirRequestSuccess:(HirRequestSuccess)hirRequestSuccess
+                           hirRequestErro:(HirRequestErro)hirRequestErro
+                    hirRequestConnectFail:(HirRequestConnectFail)hirRequestConnectFail
+{
+    if (NotReachable == [[Reachability reachabilityForInternetConnection] currentReachabilityStatus]) {
+        if (hirRequestConnectFail) {
+            hirRequestConnectFail();
+        }
+        else{
+            [SGInfoAlert showInfo:@"Connect network fail"];
+        }
+    }
+    else{
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:api]
+                                                               cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                           timeoutInterval:10];
+        
+        NSString *currentLanguage = nil;
+        NSArray *languages = [NSLocale preferredLanguages];
+        if ([languages count] > 0) {
+            currentLanguage = [languages objectAtIndex:0];
+        }else {
+            currentLanguage = @"en";
+        }
+        [request addValue:currentLanguage forHTTPHeaderField:@"Accept-Language"];
+        [request setHTTPMethod:@"POST"];
+        
+        NSMutableString *dataStr = [NSMutableString string];
+        NSArray *keys = [paraDic allKeys];
+        for (int i = 0; i< [keys count]; i++) {
+            NSString *key = [keys objectAtIndex:i];
+            [dataStr appendFormat:@"%@=%@",key,[paraDic valueForKey:key]];
+            if (i+1 < [keys count]) {
+                [dataStr appendString:@"&"];
+            }
+        }
+        
+        [request setHTTPBody:[dataStr dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+            if (!connectionError) {
+                
+                NSError *erro;
+                NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&erro];
+                if ([result count] > 0) {
+                    long code = [[result valueForKey:@"code"] integerValue];
+                    if (code == 0) {//成功
+                        NSDictionary *infoDic = [result valueForKey:@"data"];
+                        if (infoDic) {
+                            NSLog(@"sosododododooddooddo:%@",infoDic);
+                            hirRequestSuccess(infoDic);
+                        }
+                        else{
+                            NSLog(@"result data infoDic: %@\n api:%@",infoDic,api);
+                            if (hirRequestErro) {
+                                hirRequestErro(connectionError);
+                            }
+                        }
+                    }else {
+                        NSError *erro = [NSError errorWithDomain:api code:code userInfo:nil];
+                        NSLog(@"erroCode: %@",erro);
+                        if (hirRequestErro) {
+                            hirRequestErro(connectionError);
+                        }
+                    }
+                }
+                else{
+                    NSError *erro = [NSError errorWithDomain:api code:-1 userInfo:nil];
+                    NSLog(@"result empty: %@",erro);
+                    if (hirRequestErro) {
+                        hirRequestErro(connectionError);
+                    }
+                }
+            }
+            else{
+                NSLog(@"connectionError: %@",connectionError);
+                if (hirRequestErro) {
+                    hirRequestErro(connectionError);
+                }
+            }
+        }];
+    }
+}
 
 @end
