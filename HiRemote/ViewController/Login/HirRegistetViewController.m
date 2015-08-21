@@ -31,6 +31,8 @@
 }
 
 -(void)layoutSubView{
+    self.title = NSLocalizedString(@"Register new Account", nil);
+
     _userNameTextField.placeholder = NSLocalizedString(@"UserName/E-mail:", nil);
     [_userNameTextField addLine:HirAddLineTypeDown];
     [_passwordTextField addLine:HirAddLineTypeDown|HirAddLineTypeUp];
