@@ -92,9 +92,11 @@ UITextFieldDelegate>
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Please enter pass word", nil)];
         return;
     }
-    
+    __block __typeof(self)weakSelf = self;
+
     [HIRHttpRequest sendAsynchronousRequestWithParaDic:@{@"email":_userNameTextField.text,@"password":_passwordTextField.text} api:HIR_API_MEMBER_LOGIN hirRequestSuccess:^(id result) {
         NSLog(@"登陆成功 %@",result);
+        [weakSelf loginSuccess];
     } hirRequestErro:nil hirRequestConnectFail:nil];
 }
 
@@ -117,8 +119,10 @@ UITextFieldDelegate>
         NSString *facebookId = [FBSDKAccessToken currentAccessToken].userID;
         NSString *token = [FBSDKAccessToken currentAccessToken].tokenString;
         if (facebookId.length && token.length) {
+            __block __typeof(self)weakSelf = self;
             [HIRHttpRequest sendAsynchronousRequestWithParaDic:@{@"facebookId":facebookId,@"token":token} api:HIR_API_FACEBOOK_LOGIN hirRequestSuccess:^(id result) {
                 NSLog(@"登陆成功 %@",result);
+                [weakSelf loginSuccess];
             } hirRequestErro:nil hirRequestConnectFail:nil];
         }
         else{
@@ -128,6 +132,10 @@ UITextFieldDelegate>
     else{
         
     }
+}
+
+-(void)loginSuccess{
+    
 }
 
 - (void)observeTokenChange:(NSNotification *)notfication {
