@@ -21,11 +21,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.28 green:0.71 blue:0.50 alpha:1];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"preBtn"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backForword)];
+    
     [self layoutSubView];
     
     self.title = NSLocalizedString(@"Reset Password", nil);
     // Do any additional setup after loading the view from its nib.
 }
+
+- (void)backForword {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 -(void)layoutSubView{
     [self.titleLabel setText:NSLocalizedString(@"ResetPWTip", nil)];
