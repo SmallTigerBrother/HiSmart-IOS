@@ -357,6 +357,7 @@ HPCoreLocationMangerDelegate>
     NSDictionary *info = notify.userInfo;
     float level = [[info valueForKey:@"level"] floatValue];
     
+    NSLog(@"level---:%f",level);
     int page = (int)(self.pageControl.currentPage);
     if ([self.deviceShowArray count] > page) {
         HIRDeviceShowView *view = [self.deviceShowArray objectAtIndex:page];
@@ -1102,13 +1103,6 @@ HPCoreLocationMangerDelegate>
                 }
                 device.deviceLocationLabel.text = locationInfo.address;
                 [device.avatarImageView setImage:[UIImage imageNamed:@"defaultDevice"]];
-                float battLevel = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
-                if (battLevel > 0.5) {
-                    device.batteryPercent.arcUnfinishColor = COLOR_BATTERY_HLEVEL;
-                }else {
-                    device.batteryPercent.arcUnfinishColor = COLOR_BATTERY_LLEVEL;
-                }
-                device.batteryPercent.percent = battLevel;
             }else if ([discoverUuid length] > 0) {
                 int j = -1;;
                 for (int i= 0; i < [self.deviceInfoArray count]; i++) {
@@ -1147,13 +1141,6 @@ HPCoreLocationMangerDelegate>
                     }
                     device.deviceLocationLabel.text = locationInfo.address;
                     [device.avatarImageView setImage:[UIImage imageNamed:@"defaultDevice"]];
-                    float battLevel = [HIRCBCentralClass shareHIRCBcentralClass].batteryLevel;
-                    if (battLevel > 0.5) {
-                        device.batteryPercent.arcUnfinishColor = COLOR_BATTERY_HLEVEL;
-                    }else {
-                        device.batteryPercent.arcUnfinishColor = COLOR_BATTERY_LLEVEL;
-                    }
-                    device.batteryPercent.percent = battLevel;
                     
                 }
             }

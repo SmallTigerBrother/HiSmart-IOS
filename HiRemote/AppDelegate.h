@@ -17,7 +17,6 @@
 @property(nonatomic) HPCoreLocationManger *locManger;
 @property(nonatomic) HIRRootViewController *rootVC;
 @property(nonatomic) long updateStatus; ///应用更新状态，在3的时候将不可用
-
 - (void)addNewDevice;
 - (void)connectSuccessToShowRootVC; ////显示主界面
 

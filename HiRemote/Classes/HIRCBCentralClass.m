@@ -28,7 +28,6 @@
 @synthesize batteryCharacter;
 @synthesize searchPhoneCharacter;
 @synthesize theAddNewNeedToAvoidLastUuid;
-@synthesize batteryLevel;
 
 - (id)init {
     self = [super init];
@@ -38,7 +37,6 @@
         _theChangeUuid = nil;
         self.theAddNewNeedToAvoidLastUuid = nil;
         _isScanningPeripherals = NO;
-        self.batteryLevel = 0.5;
     }
     return self;
 }
@@ -331,12 +329,15 @@
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_BATTERY_CHARACTER]]) {
         NSString *strr = [self hexadecimalString:characteristic.value];
         float level = (float)strtol([strr UTF8String], 0, 16)/99.99f;
+        
         if (level > 1) {
             level = 1;
         }
-        self.batteryLevel = level;
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithFloat:level] forKey:@"level"];
+        [dic setObject:[peripheral.identifier UUIDString] forKey:@"uuid"];
+        
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-        [notificationCenter postNotificationName:BATTERY_LEVEL_CHANGE_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:level] forKey:@"level"]];
+        [notificationCenter postNotificationName:BATTERY_LEVEL_CHANGE_NOTIFICATION object:nil userInfo:dic];
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_SEARCHPHONE_CHARACTER]]) {
         ////判断是否打开相机
         switch ([HirUserInfo shareUserInfo].currentViewControllerType) {
