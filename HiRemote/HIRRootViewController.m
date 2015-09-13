@@ -347,9 +347,11 @@ HPCoreLocationMangerDelegate>
 }
 
 -(BOOL)isVoiceRecordNotification{
-    if ([HirUserInfo shareUserInfo].isNotificationForVoiceMemo) {
-        return YES;
-    }
+    return [[self.switchStatus objectAtIndex:1] boolValue];
+
+//    if ([HirUserInfo shareUserInfo].isNotificationForVoiceMemo) {
+//        return YES;
+//    }
     return NO;
 }
 
