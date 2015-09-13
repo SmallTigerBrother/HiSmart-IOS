@@ -339,34 +339,36 @@
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
         [notificationCenter postNotificationName:BATTERY_LEVEL_CHANGE_NOTIFICATION object:nil userInfo:dic];
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SPARK_BLE_DATA_SEARCHPHONE_CHARACTER]]) {
-        ////判断是否打开相机
-        switch ([HirUserInfo shareUserInfo].currentViewControllerType) {
-            case CurrentViewControllerType_other:
-            {
-                /////定位手机
-                NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-                [notificationCenter postNotificationName:NEED_SAVE_PERIPHERAL_LOCATION_NOTIFICATION object:nil userInfo:nil];
-                
-            }
-                break;
-            case CurrentViewControllerType_phone:
-            {
-                ////自动拍照
-                NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-                [notificationCenter postNotificationName:NEED_AUTO_PHONE_NOTIFICATION object:nil userInfo:nil];
-                
-            }
-                break;
-            default:
-                break;
-        }
-        
         ///让手机叫
         if ([[self hexadecimalString:characteristic.value] isEqualToString:@"3"]) {
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
             [notificationCenter postNotificationName:NEED_IPHONE_ALERT_NOTIFICATION object:nil userInfo:nil];
+        }else {
+            ////判断是否打开相机
+            switch ([HirUserInfo shareUserInfo].currentViewControllerType) {
+                case CurrentViewControllerType_other:
+                {
+                    /////定位手机
+                    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+                    [notificationCenter postNotificationName:NEED_SAVE_PERIPHERAL_LOCATION_NOTIFICATION object:nil userInfo:nil];
+                    
+                }
+                    break;
+                case CurrentViewControllerType_phone:
+                {
+                    ////自动拍照
+                    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+                    [notificationCenter postNotificationName:NEED_AUTO_PHONE_NOTIFICATION object:nil userInfo:nil];
+                    
+                }
+                    break;
+                default:
+                    break;
+            }
         }
+        
+        
         NSLog(@"查找手机：%@",[self hexadecimalString:characteristic.value]);
     }else {
         NSLog(@"update value fialue==%@",[self hexadecimalString:characteristic.value]);
