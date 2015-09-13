@@ -16,6 +16,10 @@
 		0450BCB51B5279BC00B3BF93 /* HirMsgPlaySound.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */; };
 		0450BCB81B53E8DA00B3BF93 /* DBPeripheralRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB71B53E8DA00B3BF93 /* DBPeripheralRecord.m */; };
 		0450BCBB1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */; };
+		04A25DDA1B860E7F004FF3C1 /* HirResetPasswordCtl.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A25DD81B860E7F004FF3C1 /* HirResetPasswordCtl.m */; };
+		04A25DDB1B860E7F004FF3C1 /* HirResetPasswordCtl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A25DD91B860E7F004FF3C1 /* HirResetPasswordCtl.xib */; };
+		04A25DE31B86A08C004FF3C1 /* HirRegistetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A25DE11B86A08C004FF3C1 /* HirRegistetViewController.m */; };
+		04A25DE41B86A08C004FF3C1 /* HirRegistetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A25DE21B86A08C004FF3C1 /* HirRegistetViewController.xib */; };
 		04A3702B1B64F28900C8F6EB /* HirBaseWebViewCtl.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A3702A1B64F28900C8F6EB /* HirBaseWebViewCtl.m */; };
 		04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AE11B4199CF009567BF /* SoundTool.m */; };
 		04BB4AEC1B43CFC1009567BF /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4AEB1B43CFC1009567BF /* SWTableViewCell.m */; };
@@ -83,6 +87,9 @@
 		04D7A8AF1B48006600579EC2 /* SGInfoAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7A8AE1B48006600579EC2 /* SGInfoAlert.m */; };
 		04DBCA631B6DC9B300498AB0 /* HirSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DBCA621B6DC9B300498AB0 /* HirSettingTableViewController.m */; };
 		04DBCA661B6DD50000498AB0 /* HirBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DBCA651B6DD50000498AB0 /* HirBaseTableViewController.m */; };
+		04DEB3DE1B857D5600C6E9C0 /* HirNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DEB3DD1B857D5600C6E9C0 /* HirNavigationController.m */; };
+		04DEB3E21B85F90D00C6E9C0 /* HirLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DEB3E01B85F90D00C6E9C0 /* HirLoginViewController.m */; };
+		04DEB3E31B85F90D00C6E9C0 /* HirLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DEB3E11B85F90D00C6E9C0 /* HirLoginViewController.xib */; };
 		04F3759E1B48EDD000E3FCD3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04F3759C1B48EDD000E3FCD3 /* Model.xcdatamodeld */; };
 		04F375A61B48F29100E3FCD3 /* HirDataManageCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375A51B48F29100E3FCD3 /* HirDataManageCenter.m */; };
 		04F375AA1B48FC3800E3FCD3 /* DBPeripheralLocationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F375A91B48FC3800E3FCD3 /* DBPeripheralLocationInfo.m */; };
@@ -114,7 +121,6 @@
 		B84CD4A91B441E58008FAA53 /* HIRConnSuccViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49E1B441E58008FAA53 /* HIRConnSuccViewController.m */; };
 		B84CD4AA1B441E58008FAA53 /* HIRFindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD4A01B441E58008FAA53 /* HIRFindViewController.m */; };
 		B84CD4AB1B441E58008FAA53 /* HIRMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD4A21B441E58008FAA53 /* HIRMapViewController.m */; };
-		B84CD4AC1B441E58008FAA53 /* HIRRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD4A41B441E58008FAA53 /* HIRRegisterViewController.m */; };
 		B84CD4AD1B441E58008FAA53 /* HIRRenameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD4A61B441E58008FAA53 /* HIRRenameViewController.m */; };
 		B84CD4B41B441E70008FAA53 /* HIRAnnotations.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD4AF1B441E70008FAA53 /* HIRAnnotations.m */; };
 		B84CD4B51B441E70008FAA53 /* HIRCBCentralClass.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD4B11B441E70008FAA53 /* HIRCBCentralClass.m */; };
@@ -184,6 +190,12 @@
 		0450BCB91B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HirDataManageCenter+DeviceRecord.h"; sourceTree = "<group>"; };
 		0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HirDataManageCenter+DeviceRecord.m"; sourceTree = "<group>"; };
 		04976BB78AFBE5AFBEEC05BA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		04A25DD71B860E7F004FF3C1 /* HirResetPasswordCtl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HirResetPasswordCtl.h; path = ViewController/Login/HirResetPasswordCtl.h; sourceTree = "<group>"; };
+		04A25DD81B860E7F004FF3C1 /* HirResetPasswordCtl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HirResetPasswordCtl.m; path = ViewController/Login/HirResetPasswordCtl.m; sourceTree = "<group>"; };
+		04A25DD91B860E7F004FF3C1 /* HirResetPasswordCtl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HirResetPasswordCtl.xib; path = ViewController/Login/HirResetPasswordCtl.xib; sourceTree = "<group>"; };
+		04A25DE01B86A08C004FF3C1 /* HirRegistetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HirRegistetViewController.h; path = ViewController/Login/HirRegistetViewController.h; sourceTree = "<group>"; };
+		04A25DE11B86A08C004FF3C1 /* HirRegistetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HirRegistetViewController.m; path = ViewController/Login/HirRegistetViewController.m; sourceTree = "<group>"; };
+		04A25DE21B86A08C004FF3C1 /* HirRegistetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HirRegistetViewController.xib; path = ViewController/Login/HirRegistetViewController.xib; sourceTree = "<group>"; };
 		04A370291B64F28900C8F6EB /* HirBaseWebViewCtl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirBaseWebViewCtl.h; sourceTree = "<group>"; };
 		04A3702A1B64F28900C8F6EB /* HirBaseWebViewCtl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirBaseWebViewCtl.m; sourceTree = "<group>"; };
 		04BB4ADF1B4199CF009567BF /* SoundNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundNames.h; sourceTree = "<group>"; };
@@ -296,6 +308,12 @@
 		04DBCA621B6DC9B300498AB0 /* HirSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirSettingTableViewController.m; sourceTree = "<group>"; };
 		04DBCA641B6DD50000498AB0 /* HirBaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirBaseTableViewController.h; sourceTree = "<group>"; };
 		04DBCA651B6DD50000498AB0 /* HirBaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirBaseTableViewController.m; sourceTree = "<group>"; };
+		04DEB3DC1B857D5600C6E9C0 /* HirNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirNavigationController.h; sourceTree = "<group>"; };
+		04DEB3DD1B857D5600C6E9C0 /* HirNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirNavigationController.m; sourceTree = "<group>"; };
+		04DEB3DF1B85F90D00C6E9C0 /* HirLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HirLoginViewController.h; path = ViewController/Login/HirLoginViewController.h; sourceTree = "<group>"; };
+		04DEB3E01B85F90D00C6E9C0 /* HirLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HirLoginViewController.m; path = ViewController/Login/HirLoginViewController.m; sourceTree = "<group>"; };
+		04DEB3E11B85F90D00C6E9C0 /* HirLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HirLoginViewController.xib; path = ViewController/Login/HirLoginViewController.xib; sourceTree = "<group>"; };
+		04DEB3E41B8601B100C6E9C0 /* HirApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirApi.h; sourceTree = "<group>"; };
 		04F3759D1B48EDD000E3FCD3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		04F375A41B48F29100E3FCD3 /* HirDataManageCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirDataManageCenter.h; sourceTree = "<group>"; };
 		04F375A51B48F29100E3FCD3 /* HirDataManageCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirDataManageCenter.m; sourceTree = "<group>"; };
@@ -350,8 +368,8 @@
 		2C18AB5F1B3D4F5F00CE6588 /* preBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preBtn.png; sourceTree = "<group>"; };
 		2CCB4EC71B6E01E300783616 /* HIRHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRHttpRequest.h; sourceTree = "<group>"; };
 		2CCB4EC81B6E01E300783616 /* HIRHttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRHttpRequest.m; sourceTree = "<group>"; };
-		2CCB4ECA1B6E067500783616 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		2CCB4ECB1B6E067500783616 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		2CCB4ECA1B6E067500783616 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Classes/Reachability.h; sourceTree = "<group>"; };
+		2CCB4ECB1B6E067500783616 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Classes/Reachability.m; sourceTree = "<group>"; };
 		2CECD4231B723F84008DF798 /* controlmforscan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controlmforscan.png; sourceTree = "<group>"; };
 		A3EEC68A1FCE3A9ABA965D36 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B83849E41B83567F006223C8 /* defaultDeviceDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultDeviceDark.png; sourceTree = "<group>"; };
@@ -365,16 +383,14 @@
 		B84CD4A01B441E58008FAA53 /* HIRFindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRFindViewController.m; sourceTree = "<group>"; };
 		B84CD4A11B441E58008FAA53 /* HIRMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRMapViewController.h; sourceTree = "<group>"; };
 		B84CD4A21B441E58008FAA53 /* HIRMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRMapViewController.m; sourceTree = "<group>"; };
-		B84CD4A31B441E58008FAA53 /* HIRRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRRegisterViewController.h; sourceTree = "<group>"; };
-		B84CD4A41B441E58008FAA53 /* HIRRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRRegisterViewController.m; sourceTree = "<group>"; };
 		B84CD4A51B441E58008FAA53 /* HIRRenameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRRenameViewController.h; sourceTree = "<group>"; };
 		B84CD4A61B441E58008FAA53 /* HIRRenameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRRenameViewController.m; sourceTree = "<group>"; };
-		B84CD4AE1B441E70008FAA53 /* HIRAnnotations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRAnnotations.h; sourceTree = "<group>"; };
-		B84CD4AF1B441E70008FAA53 /* HIRAnnotations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRAnnotations.m; sourceTree = "<group>"; };
-		B84CD4B01B441E70008FAA53 /* HIRCBCentralClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRCBCentralClass.h; sourceTree = "<group>"; };
-		B84CD4B11B441E70008FAA53 /* HIRCBCentralClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRCBCentralClass.m; sourceTree = "<group>"; };
-		B84CD4B21B441E70008FAA53 /* HIRRemoteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRRemoteData.h; sourceTree = "<group>"; };
-		B84CD4B31B441E70008FAA53 /* HIRRemoteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRRemoteData.m; sourceTree = "<group>"; };
+		B84CD4AE1B441E70008FAA53 /* HIRAnnotations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HIRAnnotations.h; path = Classes/HIRAnnotations.h; sourceTree = "<group>"; };
+		B84CD4AF1B441E70008FAA53 /* HIRAnnotations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HIRAnnotations.m; path = Classes/HIRAnnotations.m; sourceTree = "<group>"; };
+		B84CD4B01B441E70008FAA53 /* HIRCBCentralClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HIRCBCentralClass.h; path = Classes/HIRCBCentralClass.h; sourceTree = "<group>"; };
+		B84CD4B11B441E70008FAA53 /* HIRCBCentralClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HIRCBCentralClass.m; path = Classes/HIRCBCentralClass.m; sourceTree = "<group>"; };
+		B84CD4B21B441E70008FAA53 /* HIRRemoteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HIRRemoteData.h; path = Classes/HIRRemoteData.h; sourceTree = "<group>"; };
+		B84CD4B31B441E70008FAA53 /* HIRRemoteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HIRRemoteData.m; path = Classes/HIRRemoteData.m; sourceTree = "<group>"; };
 		B84CD4B71B441EA2008FAA53 /* avatar_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar_circle.png; sourceTree = "<group>"; };
 		B84CD4B81B441EA2008FAA53 /* avatar_circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar_circle@2x.png"; sourceTree = "<group>"; };
 		B84CD4B91B441EA2008FAA53 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
@@ -426,8 +442,8 @@
 		B8DF7DB41B3E7AE7000BD43E /* HIRUserInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRUserInfoTableViewController.m; sourceTree = "<group>"; };
 		B8DF7DB51B3E7AE7000BD43E /* HIRWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRWelcomeViewController.h; sourceTree = "<group>"; };
 		B8DF7DB61B3E7AE7000BD43E /* HIRWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRWelcomeViewController.m; sourceTree = "<group>"; };
-		B8DF7DC01B3E7B16000BD43E /* HPCoreLocationManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPCoreLocationManger.h; sourceTree = "<group>"; };
-		B8DF7DC11B3E7B16000BD43E /* HPCoreLocationManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPCoreLocationManger.m; sourceTree = "<group>"; };
+		B8DF7DC01B3E7B16000BD43E /* HPCoreLocationManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPCoreLocationManger.h; path = Classes/HPCoreLocationManger.h; sourceTree = "<group>"; };
+		B8DF7DC11B3E7B16000BD43E /* HPCoreLocationManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPCoreLocationManger.m; path = Classes/HPCoreLocationManger.m; sourceTree = "<group>"; };
 		B8DF7DC31B3E97F5000BD43E /* nextBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextBtn.png; sourceTree = "<group>"; };
 		B8DF7DC51B3EA910000BD43E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B8DF7DC61B3EA910000BD43E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -463,6 +479,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04A25DDC1B8633D1004FF3C1 /* NetWorking */ = {
+			isa = PBXGroup;
+			children = (
+				2CCB4EC71B6E01E300783616 /* HIRHttpRequest.h */,
+				2CCB4EC81B6E01E300783616 /* HIRHttpRequest.m */,
+			);
+			name = NetWorking;
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		04BB4AE51B4199DA009567BF /* playSound */ = {
 			isa = PBXGroup;
 			children = (
@@ -527,6 +553,7 @@
 		04D38D041B3E84FC0012D65A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				04DEB3D11B857A6C00C6E9C0 /* Login */,
 				04DBCA671B6DD57400498AB0 /* BaseViewController */,
 				04DBCA601B6DC7A500498AB0 /* Setting */,
 				04D7A8391B47CEBB00579EC2 /* Camera */,
@@ -540,6 +567,7 @@
 		04D38D081B3E85BC0012D65A /* Commond */ = {
 			isa = PBXGroup;
 			children = (
+				04A25DDC1B8633D1004FF3C1 /* NetWorking */,
 				04BB4B011B459C34009567BF /* category */,
 				04BB4AEE1B43DF66009567BF /* lib */,
 				04BB4AED1B43DF5B009567BF /* View */,
@@ -547,6 +575,17 @@
 				04D38D0F1B3E91EB0012D65A /* HirDevice.h */,
 				04D38D091B3E85D20012D65A /* HirDesign.h */,
 				04BB4B081B459DC4009567BF /* HirEnum.h */,
+				04DEB3E41B8601B100C6E9C0 /* HirApi.h */,
+				B8DF7DC01B3E7B16000BD43E /* HPCoreLocationManger.h */,
+				B84CD4AE1B441E70008FAA53 /* HIRAnnotations.h */,
+				B84CD4AF1B441E70008FAA53 /* HIRAnnotations.m */,
+				2CCB4ECA1B6E067500783616 /* Reachability.h */,
+				2CCB4ECB1B6E067500783616 /* Reachability.m */,
+				B84CD4B01B441E70008FAA53 /* HIRCBCentralClass.h */,
+				B84CD4B11B441E70008FAA53 /* HIRCBCentralClass.m */,
+				B84CD4B21B441E70008FAA53 /* HIRRemoteData.h */,
+				B84CD4B31B441E70008FAA53 /* HIRRemoteData.m */,
+				B8DF7DC11B3E7B16000BD43E /* HPCoreLocationManger.m */,
 			);
 			name = Commond;
 			sourceTree = "<group>";
@@ -750,8 +789,26 @@
 				04D38D111B3E94990012D65A /* HirBaseViewController.m */,
 				04DBCA641B6DD50000498AB0 /* HirBaseTableViewController.h */,
 				04DBCA651B6DD50000498AB0 /* HirBaseTableViewController.m */,
+				04DEB3DC1B857D5600C6E9C0 /* HirNavigationController.h */,
+				04DEB3DD1B857D5600C6E9C0 /* HirNavigationController.m */,
 			);
 			name = BaseViewController;
+			sourceTree = "<group>";
+		};
+		04DEB3D11B857A6C00C6E9C0 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				04DEB3DF1B85F90D00C6E9C0 /* HirLoginViewController.h */,
+				04DEB3E01B85F90D00C6E9C0 /* HirLoginViewController.m */,
+				04DEB3E11B85F90D00C6E9C0 /* HirLoginViewController.xib */,
+				04A25DD71B860E7F004FF3C1 /* HirResetPasswordCtl.h */,
+				04A25DD81B860E7F004FF3C1 /* HirResetPasswordCtl.m */,
+				04A25DD91B860E7F004FF3C1 /* HirResetPasswordCtl.xib */,
+				04A25DE01B86A08C004FF3C1 /* HirRegistetViewController.h */,
+				04A25DE11B86A08C004FF3C1 /* HirRegistetViewController.m */,
+				04A25DE21B86A08C004FF3C1 /* HirRegistetViewController.xib */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 		04F375AB1B48FC5800E3FCD3 /* DBManageCenter */ = {
@@ -802,7 +859,6 @@
 			children = (
 				2C18AAF31B3BECDE00CE6588 /* AppDelegate.h */,
 				2C18AAF41B3BECDE00CE6588 /* AppDelegate.m */,
-				B8DF7DBF1B3E7B16000BD43E /* Classes */,
 				2C18AAEE1B3BECDE00CE6588 /* HiRemote */,
 				2C18AAED1B3BECDE00CE6588 /* Products */,
 				5B23AB32055C73F387F1FB34 /* Pods */,
@@ -948,8 +1004,6 @@
 				B84CD4A01B441E58008FAA53 /* HIRFindViewController.m */,
 				B84CD4A11B441E58008FAA53 /* HIRMapViewController.h */,
 				B84CD4A21B441E58008FAA53 /* HIRMapViewController.m */,
-				B84CD4A31B441E58008FAA53 /* HIRRegisterViewController.h */,
-				B84CD4A41B441E58008FAA53 /* HIRRegisterViewController.m */,
 				B84CD4A51B441E58008FAA53 /* HIRRenameViewController.h */,
 				B84CD4A61B441E58008FAA53 /* HIRRenameViewController.m */,
 				B8DF7DA71B3E7AE7000BD43E /* HIRArcImageView.h */,
@@ -972,26 +1026,6 @@
 				B8DF7DB61B3E7AE7000BD43E /* HIRWelcomeViewController.m */,
 			);
 			path = UIClasses;
-			sourceTree = "<group>";
-		};
-		B8DF7DBF1B3E7B16000BD43E /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				B8DF7DC01B3E7B16000BD43E /* HPCoreLocationManger.h */,
-				B84CD4AE1B441E70008FAA53 /* HIRAnnotations.h */,
-				B84CD4AF1B441E70008FAA53 /* HIRAnnotations.m */,
-				2CCB4ECA1B6E067500783616 /* Reachability.h */,
-				2CCB4ECB1B6E067500783616 /* Reachability.m */,
-				B84CD4B01B441E70008FAA53 /* HIRCBCentralClass.h */,
-				2CCB4EC71B6E01E300783616 /* HIRHttpRequest.h */,
-				2CCB4EC81B6E01E300783616 /* HIRHttpRequest.m */,
-				B84CD4B11B441E70008FAA53 /* HIRCBCentralClass.m */,
-				B84CD4B21B441E70008FAA53 /* HIRRemoteData.h */,
-				B84CD4B31B441E70008FAA53 /* HIRRemoteData.m */,
-				B8DF7DC11B3E7B16000BD43E /* HPCoreLocationManger.m */,
-			);
-			name = Classes;
-			path = HiRemote/Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1061,6 +1095,7 @@
 				04D7A8831B47EF9700579EC2 /* camera_line_h.png in Resources */,
 				04D7A8971B47EF9700579EC2 /* touch_focus.png in Resources */,
 				04D7A8821B47EF9700579EC2 /* camera_line@2x.png in Resources */,
+				04A25DE41B86A08C004FF3C1 /* HirRegistetViewController.xib in Resources */,
 				04D7A88D1B47EF9700579EC2 /* flashing_on.png in Resources */,
 				B84CD4CB1B441EA2008FAA53 /* cameram.png in Resources */,
 				B84CD4CD1B441EA2008FAA53 /* controlm.png in Resources */,
@@ -1073,6 +1108,7 @@
 				B84CD4CA1B441EA2008FAA53 /* camera.png in Resources */,
 				2C18AB481B3C27A700CE6588 /* Localizable.strings in Resources */,
 				04D6512B1B5BBD8B00B5BB13 /* defaultDevice.png in Resources */,
+				04DEB3E31B85F90D00C6E9C0 /* HirLoginViewController.xib in Resources */,
 				B84CD4D51B441EA2008FAA53 /* pinImage.png in Resources */,
 				041411071B7F516A00708033 /* controlm_cn.png in Resources */,
 				2C18AB561B3D3F1700CE6588 /* addDevice.png in Resources */,
@@ -1108,6 +1144,7 @@
 				04D7A8911B47EF9700579EC2 /* shot_h.png in Resources */,
 				B856CE921B5BCAA200800195 /* voiceSelected.png in Resources */,
 				B84CD4D61B441EA2008FAA53 /* pinnedm.png in Resources */,
+				04A25DDB1B860E7F004FF3C1 /* HirResetPasswordCtl.xib in Resources */,
 				04D7A8871B47EF9700579EC2 /* close_cha_h.png in Resources */,
 				B856CE961B5BCD1A00800195 /* cameraSelected.png in Resources */,
 				B856CE971B5BCD1A00800195 /* findSelected.png in Resources */,
@@ -1188,8 +1225,10 @@
 				04BB4AFD1B45814F009567BF /* HirActionTextField.m in Sources */,
 				04BB4B001B458512009567BF /* HirButton.m in Sources */,
 				2CCB4EC91B6E01E300783616 /* HIRHttpRequest.m in Sources */,
+				04DEB3E21B85F90D00C6E9C0 /* HirLoginViewController.m in Sources */,
 				04D7A8A51B47EF9700579EC2 /* DCTextView.m in Sources */,
 				B84CD4A71B441E58008FAA53 /* CallOutAnnotationVifew.m in Sources */,
+				04DEB3DE1B857D5600C6E9C0 /* HirNavigationController.m in Sources */,
 				2C18AAF51B3BECDE00CE6588 /* AppDelegate.m in Sources */,
 				04D7A8311B47847D00579EC2 /* HirVoiceCell.m in Sources */,
 				04D7A89E1B47EF9700579EC2 /* SCSlider.m in Sources */,
@@ -1217,14 +1256,15 @@
 				04F375C51B49319F00E3FCD3 /* HirDataManageCenter+Perphera.m in Sources */,
 				04D38D241B3EB6770012D65A /* HirLocationHistoryTableCell.m in Sources */,
 				B8DF7DB91B3E7AE7000BD43E /* HIRDeviceShowView.m in Sources */,
-				B84CD4AC1B441E58008FAA53 /* HIRRegisterViewController.m in Sources */,
 				04BB4AFA1B458084009567BF /* HirWindow.m in Sources */,
 				04BB4AE41B4199CF009567BF /* SoundTool.m in Sources */,
 				B8DF7DBA1B3E7AE7000BD43E /* HIRMainMenuView.m in Sources */,
+				04A25DE31B86A08C004FF3C1 /* HirRegistetViewController.m in Sources */,
 				04D7A8AC1B47F1BF00579EC2 /* PostViewController.m in Sources */,
 				04D7A8A41B47EF9700579EC2 /* DCStatusBarOverlay.m in Sources */,
 				04D7A8A21B47EF9700579EC2 /* DCFrameView.m in Sources */,
 				04BB4AF41B457544009567BF /* HirNavBackBtn.m in Sources */,
+				04A25DDA1B860E7F004FF3C1 /* HirResetPasswordCtl.m in Sources */,
 				04F375BF1B49310000E3FCD3 /* DBPeripheral.m in Sources */,
 				04D7A8A61B47EF9700579EC2 /* UIView+DCAdditions.m in Sources */,
 				04D7A8A31B47EF9700579EC2 /* DCIntrospect.m in Sources */,

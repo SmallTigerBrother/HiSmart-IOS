@@ -16,23 +16,23 @@
     BOOL rightFlag  = addLineType & (1<<3);
     
     if (upFlag) {
-        UIView *upLine = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, SEPARATE_LINE_HEIGHT_DEFAULT)];
-        upLine.backgroundColor = BG_COLOR_C8C7CC;
+        UIView *upLine = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SEPARATE_LINE_HEIGHT_DEFAULT)];
+        upLine.backgroundColor = [UIColor whiteColor];
         [self addSubview:upLine];
     }
     if (leftFlag) {
         UIView *leftLine = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SEPARATE_LINE_HEIGHT_DEFAULT, self.frame.size.height)];
-        leftLine.backgroundColor = BG_COLOR_C8C7CC;
+        leftLine.backgroundColor = [UIColor whiteColor];
         [self addSubview:leftLine];
     }
     if (downFlag) {
-        UIView *downLine = [[UIView alloc]initWithFrame:CGRectMake(0, self.frame.size.height - SEPARATE_LINE_HEIGHT_DEFAULT, self.frame.size.width, SEPARATE_LINE_HEIGHT_DEFAULT)];
-        downLine.backgroundColor = BG_COLOR_C8C7CC;
+        UIView *downLine = [[UIView alloc]initWithFrame:CGRectMake(0, self.frame.size.height - SEPARATE_LINE_HEIGHT_DEFAULT, SCREEN_WIDTH, SEPARATE_LINE_HEIGHT_DEFAULT)];
+        downLine.backgroundColor = [UIColor whiteColor];
         [self addSubview:downLine];
     }
     if (rightFlag) {
         UIView *rightLine = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width - SEPARATE_LINE_HEIGHT_DEFAULT, 0, SEPARATE_LINE_HEIGHT_DEFAULT, self.frame.size.height)];
-        rightLine.backgroundColor = BG_COLOR_C8C7CC;
+        rightLine.backgroundColor = [UIColor whiteColor];
         [self addSubview:rightLine];
     }
 }

@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^HirRequestSuccess)(id result);
+typedef void (^HirRequestErro)(NSError *erro);
+typedef void (^HirRequestConnectFail)();
 
 @interface NSString (URLEncode) 
 - (NSString *)URLEncodeString;
@@ -42,5 +45,11 @@
 
 
 + (BOOL)sendAsynchronousRequest:(NSURLRequest*) request queue:(NSOperationQueue*) queue completionHandler:(void (^)(NSURLResponse* response, NSData* data, NSError* connectionError))handle;
+
++(void)sendAsynchronousRequestWithParaDic:(NSDictionary *)paraDic
+                                      api:(NSString *)api
+                        hirRequestSuccess:(HirRequestSuccess)hirRequestSuccess
+                           hirRequestErro:(HirRequestErro)hirRequestErro
+                    hirRequestConnectFail:(HirRequestConnectFail)hirRequestConnectFail;
 
 @end

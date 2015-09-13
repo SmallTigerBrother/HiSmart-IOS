@@ -1,121 +1,173 @@
 /*
- Localizable.strings
- HiSmart
- 
- Created by parker on 6/25/15.
- Copyright (c) 2015 HiSmart. All rights reserved.
- */
-"getStarted" = "Get Started";
-"scanning" = "Scanning...";
-"myBag" = "My Bag";
-"edit" = "Options";
-"myAccount" = "My Account";
-"close" = "Close";
-"pinnedLocations" = "Pin Locations";
-"mpinnedLocations" = "Location";
+Localizable.strings
+HiRemote
 
-"cameraShutte" = "Take Photos";
-"mcameraShutte" = "Camera";
-
-"Location history" = "Location history";
-"ok" = "OK";
-"tips" = "Tips";
-"deviceConnectionFailed" = "Device Connection Failed";
-"addNewFailure" = "The new device cannot find. connecting the last one?";
-"checkLocation" = "Please check the setting for location!";
-"location" = "Location";
-"hello" = "Hello";
-"rateus" = "RATE US";
-"about" = "ABOUT";
+Created by parker on 6/25/15.
+Copyright (c) 2015 hiremote. All rights reserved.
+*/
+"getStarted" = "체험시작";
+"scanning" = "스캔중...";
+"myBag" = "나의 hi백";
+"edit" = "편집";
+"myAccount" = "계정";
+"close" = "닫기";
+"pinnedLocations" = "위치기록";
+"mpinnedLocations" = "위치";
+"cameraShutte" = "카메라 셔터";
+"mcameraShutte" = "카메라";
+"Location history" = "위치내역";
+"ok" = "확인";
+"tips" = "팁";
+"deviceConnectionFailed" = "기기연결실패";
+"addNewFailure" = "기기 검색 실패.이전 기기를 연결?";
+"checkLocation" = "위치확인";
+"location" = "위치";
+"hello" = "안녕하세요";
+"rateus" = "평가";
+"about" = "에 관하여";
 "facebook" = "Facebook";
-"logout" = "Logout";
-"checkBluetooth" = "Please check the Bluetooth setting!";
-"welcome" = "Welcome HiSmart";
-"hiRemote" = "HiSmart";
-"signUp" = "Sign Up";
-"haveAccount" = "I already have an account";
-"addedSuccess" = "HiSmart was added successfully!";
-"photoTips" = "Please rename your HiSmart.";
-"rename" = "Rename";
-"next" = "Next";
-"retry" = "Retry";
-"renameTips" = "Rename your HiSmart";
-"cancel" = "Cancel";
-"accessCameraTip" = "To access camera, authorize in Settings-Privacy-Camera.";
-"oops" = "Oops";
-"cannotFind" = "It looks like we can't find it, Let's try again!";
-"haveProblem" = "Have a problem";
-"pinnedLocation" = "Pin Locations";
-"findMyItem" = "Track Devices";
-"mfindMyItem" = "Tracking";
-
-"voiceMemos" = "Record Memos";
-"mvoiceMemos" = "Recording";
-
-"hiremoteControl" = "HiSmart Control";
-"pinedTips" = "You can easily find the history of all the locations you have been to.";
-"findTips" = "Search for the item attached to the HiSmart.";
-"cameraTips" = "Use the shutter button on your HiSmart to snap pics.";
-"voiceTips" = "You easily can store, rename, or delete your audio files.";
-"edit10" = "Connect to HiSmart";
-"edit11" = "Turn on the Alarm to activate the function; otherwise, turn on the Voice Recording. Only one or the other can be activated.";
-"edit20" = "Find My Item";
-"edit21" = "Keep track of your bag and smartphone. Turing on 'Find My Item' will automatically deactivate 'Voice Memo'.";
-"edit30" = "Notification";
-"edit31" = "Receive push notifications when your bag is not within range of the HiSmart.";
-"edit40" = "Voice Memo";
-"edit41" = "Keep track of your bag and smartphone. Turning on 'Find My Item' will automatically deactivate 'Voice Memo'.";
-"buzzItem" = "Buzz my Item";
-"stop" = "Stop";
-"rateus10" = "Like us on Facebook";
-"rateus11" = "Follow us on Twitter";
-"rateus12" = "Rate us in App Store";
-"rateus20" = "About this Version";
-"rateus21" = "Terms of Service";
-"rateus22" = "Privacy";
-"addAHiRemote" = "Add a HiSmart";
-"addTipsOne" = "ⅰ: Make sure your smartphone's Bluetooth is turned on.";
-"addTipsTwo" = "ⅱ: Hold the play button of the HiSmart to activate it.";
-"changeName" = "Change a name";
-"CANCEL" = "CANCEL";
-"CONFIRM" = "CONFIRM";
-"search" = "search";
-"history" = "History";
-"isNotConnected" = "Device is not connected";
-"warning" = "WARNING";
-"doYouWantToDelThisRecord" = "do you want to deleter this record?";
-
-"youDeviceIsAwayFromYou" = "Warning your HiSmart bag is 90 feet away from you!";
-"newRecording" = "New Recording";
-"stopRecording" = "stop recording";
-"startRecording" = "start recording";
-"copy" = "copy";
+"logout" = "로그아웃";
+"checkBluetooth" = "블루투스 기기 체크하세요!";
+"welcome" = "환영 HiRemote";
+"hiRemote" = "HiRemote";
+"signUp" = "로그인";
+"haveAccount" = "기존계정";
+"addedSuccess" = "HiRemote 추가되였습니다.";
+"photoTips" = "1단계:당신의 스마트기기와 HiRemote가 연결되였다면 사진을 찍어보세요.";
+"rename" = "이름바꾸기";
+"next" = "다음";
+"retry" = "재시도";
+"renameTips" = "이름바꾸기 팁";
+"cancel" = "취소";
+"accessCameraTip" = "설정－프라이버시－카메라에서 권한부여하여 스마트폰을 사용해주세요";
+"oops" = "웁스!";
+"cannotFind" = "기기 검색 되지않았습니다. 다시한번 검색해주세요.";
+"haveProblem" = "문제 발생";
+"pinnedLocation" = "위치";
+"findMyItem" = "나의 기기 검색";
+"mfindMyItem" = "찾는 중";
+"voiceMemos" = "음성메모";
+"mvoiceMemos" = "녹음 중";
+"hiremoteControl" = "HiRemote 제어";
+"pinedTips" = "나의 위치 이력을 간편하게 찾을 수 있습니다.";
+"findTips" = "HiRemote에 첨부한 기기 검색";
+"cameraTips" = "hiremote의 카메라셔터로 사진을 찍으세요.";
+"voiceTips" = "hiremote의 카메라셔터로 사진을 찍으세요";
+"edit10" = " hiremote에 연결 ";
+"edit11" = "알람 기능,음성메모 중 활성화는 하나만 됩니다.";
+"edit20" = "기기검색";
+"edit21" = "당신의 백 과 스마트폰 추적. “나의 기기 검색”오픈,“음성 메모”자동정지";
+"edit30" = "알림";
+"edit31" = "당신의 팩이hiremote의 범위내에 있을 경우 푸시 알림 접수가능합니다.";
+"edit40" = "음성메모";
+"edit41" = "당신의 팩 과 스마트폰 추적. “나의 기기 검색”오픈,“음성 메모 ”자동정지";
+"buzzItem" = "기기호출";
+"stop" = "정지";
+"rateus10" = "Facebook에서 저희에게 “좋아요” 평가를 해 주세요.";
+"rateus11" = "Twitter에서 저희에게 “좋아요” 평가를 해 주세요. ";
+"rateus12" = "APP Store에서 저희에게 점수를 주세요";
+"rateus20" = "기존버전에 관하여";
+"rateus21" = "서비스 약관";
+"rateus22" = "프라이버시y";
+"addAHiRemote" = " HiRemote 한개 추가";
+"addTipsOne" = "ⅰ: 당신의 스마트기기에 블루투스가 오픈되였는지 확인해주세요.";
+"addTipsTwo" = "ⅱ: HiRemote중간의 버튼을 눌러 활성화시킵니다.";
+"changeName" = "이름변경";
+"CANCEL" = "취소";
+"CONFIRM" = "확인";
+"search" = "검색";
+"history" = "이력";
+"isNotConnected" = "연결안됨";
+"warning" = "경고";
+"doYouWantToDelThisRecord" = "이 기록을 삭제하실 건가요?";
+"youDeviceIsAwayFromYou" = "경고 당신의Hismart백은 90피드 밖에 있습니다.";
+"newRecording" = "새로운 기록";
+"stopRecording" = "기록중지g";
+"startRecording" = "기록시작";
 
 
 
-"lgUsername" = "Username:";
-"lgEmail" = "E-mail:";
-"lgPassword" = "Password:";
-"lgComfirmPassword" = "Comfirm password:";
-"lgIagree" = "I agree to......";
-"lgSignup" = "Sign Up with Facebook";
-"lgForgotPassword" = "An email with instructions on how to change your password has been sent to soya@sina.com.";
 
-"deviceCallIphone" = "The HiSmart is calling you!";
-"deviceUnsportCamera" = "This device doesn't support camera";
+"copy" = "복사";
+"lgUsername" = "사용자명:";
+
+"lgEmail" = "이메일:";
+
+"lgPassword" = "비밀번호:";
+
+"lgComfirmPassword" = "비밀번호 확인:";
+
+"lgIagree" = "......동의함";
+
+"lgSignup" = "페이스북 로그인";
+
+"lgForgotPassword" = "비밀번호를 변경하는 방법에 대한 설명을 soya@sina.com로 이메일 전송하였습니다..";
+
+
+"deviceCallIphone" = "HiSmart가  당신을 호출합니다!";
+"deviceUnsportCamera" = "이장치는 카메라를 지원하지 않습니다.";
 
 //setting
-"Setting" = "Setting";
-"addANewDevice" = "Add a New Device";
-"supportAndFaqs" = "Support and FAQs";
-"contactUs" = "Contact Us";
-"TermsAndConditions" = "Terms and conditions";
-"PrivacyPolicy" = "Privacy Policy";
-"Include another HiSmart device by adding it here." = "Include another HiSmart device by adding it here.";
-"Need any help? We can help you." = "Need any help? We can help you.";
-"Did't find your answer in FAQs." = "Did't find your answer in FAQs.";
-"Find the information here." = "Find the information here.";
-"Find the privacy policy here." = "Find the privacy policy here.";
+"Setting" = "설치중";
+
+"addANewDevice" = "새로운 장치 추가";
+
+"supportAndFaqs" = "지원 및 FAQ";
+
+"contactUs" = "문의";
+
+"TermsAndConditions" = "이용약관";
+
+"PrivacyPolicy" = "개인정보취급방침";
+
+"Include another HiSmart device by adding it here." = "이곳에 추가함으로써 또 다른 HiSmart 장치를 포함하세요.";
+
+"Need any help? We can help you." = "다른 도움이 필요하신가요? 도움을 드리겠습니다.";
+
+"Did't find your answer in FAQs." = "질문에 답을 찾지 못하였습니다.";
+
+"Find the information here." = "이곳에서 정보를 찾으세요.";
+
+"Find the privacy policy here." = "이곳에서 개인정보취급방침을 찾으세요.";
 
 //
-"playSounds" = "Play Sound";
+"playSounds" = "재생";
+
+"updateForce" = "먼저 앱을 업그레이드해주세요.";
+
+
+//login
+"UserName/E-mail:" = "사용자명/이메일:";
+
+"Password:" = "비밀번호:";
+"Forgot password" = "비밀본호를 잊어버렸습니다.";
+"Register new Account" = "새 계정 등록";
+
+"Facebook" = "페이스북";
+
+
+//reset pw
+"ResetPWTip" = "회원님의 이메일로 새로운 비밀번호를 설청하기 위한 이메일을 보내드립니다. .";
+
+"E-mail" = "이메일";
+
+"Reset Password" = "새로운 비밀번호";
+
+"Please enter email" = "이메일을 입력해주세요.";
+
+"Reset password email had send,please turn to your email reset password." = "비밀번호 설정 이메일을 보내드렸습니다. 받은 메일에서 비밀번호를 설정해 주십시오..";
+
+
+//register
+"Confirm password" = "비밀번호 확인";
+
+"I Agree to..." = "동의합니다...";
+
+"Please enter user name" = "이름을 입력해주세요.";
+
+"Please enter pass word" = "비밀번호를 입력해주세요.";
+
+"confirm password is no equal" = "비밀번호가 일치하지 않습니다.";
+
+"you should agree to before continue" = "계속 진행하기 전에 동의해주세요.";
+
