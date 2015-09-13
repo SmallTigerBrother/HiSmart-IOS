@@ -347,9 +347,11 @@ HPCoreLocationMangerDelegate>
 }
 
 -(BOOL)isVoiceRecordNotification{
-    if ([HirUserInfo shareUserInfo].isNotificationForVoiceMemo) {
-        return YES;
-    }
+    return [[self.switchStatus objectAtIndex:1] boolValue];
+
+//    if ([HirUserInfo shareUserInfo].isNotificationForVoiceMemo) {
+//        return YES;
+//    }
     return NO;
 }
 
@@ -570,10 +572,7 @@ HPCoreLocationMangerDelegate>
     [appDelegate.locManger startUpdatingUserLocation];
 }
 
-- (void)locationFinished:(CLLocation *)location withFlag:(NSNumber *)isSuccess{
-    HirMsgPlaySound *msgPlaySound = [[HirMsgPlaySound alloc]initSystemSoundWithName:@"sms-received5" SoundType:@"caf"];
-    [msgPlaySound play];
-    
+- (void)locationFinished:(CLLocation *)location withFlag:(NSNumber *)isSuccess{    
     self.isLocationing = NO;
     
     NSString *uuid = [HirUserInfo shareUserInfo].currentPeriphera.uuid;

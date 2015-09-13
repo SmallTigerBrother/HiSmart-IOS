@@ -1,5 +1,4 @@
 #import "EHAudioController.h"
-#import <AVFoundation/AVFoundation.h>
 
 @interface EHAudioController ()
 <AVAudioPlayerDelegate,
@@ -7,7 +6,6 @@ AVAudioRecorderDelegate,
 AVAudioSessionDelegate>
 @property (nonatomic, strong) AVAudioRecorder *avRecorder;
 @property (nonatomic, strong) AVAudioSession *avSession;
-@property (nonatomic, strong) AVAudioPlayer *avPlayer;
 @end
 
 @implementation EHAudioController

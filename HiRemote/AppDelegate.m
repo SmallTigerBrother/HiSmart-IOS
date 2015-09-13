@@ -21,8 +21,9 @@
 #import "HIRHttpRequest.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import "EHAudioController.h"
 
-@interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate,AVAudioPlayerDelegate,UIAlertViewDelegate>{
+@interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate,AVAudioPlayerDelegate,UIAlertViewDelegate,EHAudioControllerDelegate>{
     UIBackgroundTaskIdentifier bgTask;
     
     NSUInteger counter;
@@ -481,7 +482,6 @@
 {
     if (alertView.tag == 1) {
         if (buttonIndex == 0) {
-            _isPhoneAlertPlaying = NO;
             [self stopPhoneAlertAudio];
         }
     }else if(alertView.tag == 2) {///需要更新
@@ -510,14 +510,27 @@ static bool _isPhoneAlertPlaying;
         return;
     }
 
+//    NSURL *url = [[NSBundle mainBundle]URLForResource:@"fkjb" withExtension:@"mp3"];
+//    
+//    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url,&_sound);
+//    AudioServicesPlaySystemSound(_sound);
+//    AudioServicesAddSystemSoundCompletion (_sound, NULL, NULL,
+//                                           completionCallback,
+//                                           NULL);
+//
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+
+    AVAudioSession *session = [AVAudioSession sharedInstance];
     NSURL *url = [[NSBundle mainBundle]URLForResource:@"fkjb" withExtension:@"mp3"];
-    
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url,&_sound);
-    AudioServicesPlaySystemSound(_sound);
+    EHAudioController * playAudio = [EHAudioController shareAudioController];
+    playAudio.delegate = self;
+    [playAudio audioPlayFire:[url absoluteString] duration:nil];
     _isPhoneAlertPlaying = YES;
-    AudioServicesAddSystemSoundCompletion (_sound, NULL, NULL,
-                                           completionCallback,
-                                           NULL);
+    NSError *erro;
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+
+    [session setActive:YES error:&erro];
     if(!self.phoneSoundAlert.visible){
         self.phoneSoundAlert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"deviceCallIphone", @"") delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""),nil];
         self.phoneSoundAlert.tag = 1;
@@ -525,6 +538,11 @@ static bool _isPhoneAlertPlaying;
         [self.phoneSoundAlert show];
     }
     NSLog(@"playing");
+}
+
+- (void)audioPlayFinish:(NSString *)destinationFilePath;
+{
+    _isPhoneAlertPlaying = NO;
 }
 
 void completionCallback (SystemSoundID  mySSID, void* data) {
@@ -540,7 +558,9 @@ void completionCallback (SystemSoundID  mySSID, void* data) {
 {
     _isPhoneAlertPlaying = NO;
     
-    AudioServicesDisposeSystemSoundID(_sound);
+//    AudioServicesDisposeSystemSoundID(_sound);
+    EHAudioController * playAudio = [EHAudioController shareAudioController];
+    [playAudio audioStopPlay];
     NSLog(@"stopPlaying");
 //    [self.audioPlayer stop];
 }

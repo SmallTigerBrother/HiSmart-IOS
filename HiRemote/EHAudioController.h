@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 #define AUDIO_RECORD_TEMP_FILE_EXTEN_NAME @"aac"
 
@@ -41,6 +42,8 @@ typedef void(^AudioPlayCallBack)(CGFloat duration);
 @property (nonatomic, weak) id<EHAudioControllerDelegate>delegate;
 @property (nonatomic,copy) NSString* playingAudioPath;
 @property (nonatomic,copy) NSString *destinationFilePath;
+@property (nonatomic, strong) AVAudioPlayer *avPlayer;
+
 + (instancetype)shareAudioController;
 
 /**
