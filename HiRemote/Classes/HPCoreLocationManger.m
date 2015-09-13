@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CLLocationManagerDelegate.h>
 #import "CLLocation+Sino.h"
+#import "HirMsgPlaySound.h"
 
 @interface HPCoreLocationManger() <CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locManager;
@@ -125,6 +126,9 @@
     
     if ([error code] == kCLErrorDenied) {
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"checkLocation", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
+        HirMsgPlaySound *msgPlaySound = [[HirMsgPlaySound alloc]initSystemSoundWithName:@"sms-received5" SoundType:@"caf"];
+        [msgPlaySound play];
+
     }
 
     [self.delegate performSelector:@selector(locationFinished:withFlag:) withObject:nil withObject:[NSNumber numberWithBool:NO]];
