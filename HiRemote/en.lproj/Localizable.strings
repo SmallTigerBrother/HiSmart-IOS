@@ -80,7 +80,6 @@
 "CANCEL" = "CANCEL";
 "CONFIRM" = "CONFIRM";
 "search" = "search";
-"history" = "History";
 "isNotConnected" = "Device is not connected";
 "warning" = "WARNING";
 "doYouWantToDelThisRecord" = "do you want to deleter this record?";
@@ -143,7 +142,7 @@
 "confirm password is no equal" = "confirm password is no equal";
 "you should agree to before continue" = "you should agree to before continue";
 
-
+"Lost History" = "Lost History";
 
 
 

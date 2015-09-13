@@ -90,7 +90,7 @@
     
     
     NSDictionary* textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:0.35 green:0.75 blue:0.58 alpha:1],NSForegroundColorAttributeName,nil];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"history", @"") style:UIBarButtonItemStylePlain target:self action:@selector(showTheHistoryList:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Lost History", @"") style:UIBarButtonItemStylePlain target:self action:@selector(showTheHistoryList:)];
     [self.navigationItem.rightBarButtonItem setTitleTextAttributes:textAttributes forState:UIControlStateNormal];
     
     NSMutableArray *deviceInfoAry = [HirUserInfo shareUserInfo].deviceInfoArray;
