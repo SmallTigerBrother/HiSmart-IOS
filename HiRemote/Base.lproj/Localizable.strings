@@ -119,3 +119,31 @@
 
 //
 "playSounds" = "Play Sound";
+"updateForce" = "Please update your App first.";
+
+//login
+"UserName/E-mail:" = "UserName/E-mail:";
+"Password:" = "Password:";
+"Forgot password" = "Forgot password";
+"Register new Account" = "Register new Account";
+"Facebook" = "Facebook";
+
+//reset pw
+"ResetPWTip" = "We will send an email to your email box,you can reset your password by the email.";
+"E-mail" = "E-mail";
+"Reset Password" = "Reset Password";
+"Please enter email" = "Please enter email";
+"Reset password email had send,please turn to your email reset password." = "Reset password email had send,please turn to your email reset password.";
+
+//register
+"Confirm password" = "Confirm password";
+"I Agree to..." = "I Agree to...";
+"Please enter user name" = "Please enter user name";
+"Please enter pass word" = "Please enter pass word";
+"confirm password is no equal" = "confirm password is no equal";
+"you should agree to before continue" = "you should agree to before continue";
+
+
+
+
+

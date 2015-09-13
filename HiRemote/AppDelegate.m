@@ -73,9 +73,18 @@
         
         [self.window addSubview:self.welcomeVC.view];
     }else {
-        self.loginViewController = [[HirLoginViewController alloc] init];
-        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:_loginViewController];
+        self.scanVC = [[HIRScanningViewController alloc] init];
+        [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.scanVC];
+        nav.navigationBar.tintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
+        nav.navigationBar.hidden = YES;
+        nav.navigationBar.barTintColor = [UIColor colorWithRed:0.27 green:0.74 blue:0.55 alpha:1];
         self.window.rootViewController = nav;
+        
+        
+//        self.loginViewController = [[HirLoginViewController alloc] init];
+//        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:_loginViewController];
+//        self.window.rootViewController = nav;
     }
     
     [self.window makeKeyAndVisible];

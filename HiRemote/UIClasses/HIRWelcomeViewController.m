@@ -80,7 +80,7 @@
     self.startButton = [[UIButton alloc]init];
     [self.startButton setTitle:NSLocalizedString(@"getStarted", @"") forState:UIControlStateNormal];
     [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [self.startButton addTarget:self action:@selector(startButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.startButton addTarget:self action:@selector(startButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.startButton.backgroundColor = [UIColor colorWithRed:0.57 green:0.84 blue:0.73 alpha:1];
     [self.view addSubview:self.pageControl];
     [self.view addSubview:self.startButton];

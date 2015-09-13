@@ -112,6 +112,7 @@
 }
 
 
+static int isTheFirstScanning = 1;
 - (void)scanningTheDevice:(NSString *)uuid {
     [self.outTimer invalidate];
     self.outTimer = nil;
@@ -119,6 +120,10 @@
     ///放在这里进行扫描的原因是，当失败后再扫描时回回到该页面再扫描
     
     NSInteger timeOutInterval = 45;
+    if (isTheFirstScanning > 0) {
+        timeOutInterval+= 25;
+        isTheFirstScanning = -1;
+    }
 #ifdef DEBUG
     timeOutInterval = 40;
 #endif
