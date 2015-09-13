@@ -108,7 +108,6 @@
 		2CCB4EC91B6E01E300783616 /* HIRHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB4EC81B6E01E300783616 /* HIRHttpRequest.m */; };
 		2CCB4ECC1B6E067500783616 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB4ECB1B6E067500783616 /* Reachability.m */; };
 		2CECD4241B723F84008DF798 /* controlmforscan.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CECD4231B723F84008DF798 /* controlmforscan.png */; };
-		B80321B51B7B87D6001C5A2E /* controlm_cn.png in Resources */ = {isa = PBXBuildFile; fileRef = B80321B41B7B87D6001C5A2E /* controlm_cn.png */; };
 		B83849E51B83567F006223C8 /* defaultDeviceDark.png in Resources */ = {isa = PBXBuildFile; fileRef = B83849E41B83567F006223C8 /* defaultDeviceDark.png */; };
 		B84CD4A71B441E58008FAA53 /* CallOutAnnotationVifew.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */; };
 		B84CD4A81B441E58008FAA53 /* HIRConnFailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84CD49C1B441E58008FAA53 /* HIRConnFailViewController.m */; };
@@ -355,7 +354,6 @@
 		2CCB4ECB1B6E067500783616 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		2CECD4231B723F84008DF798 /* controlmforscan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controlmforscan.png; sourceTree = "<group>"; };
 		A3EEC68A1FCE3A9ABA965D36 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		B80321B41B7B87D6001C5A2E /* controlm_cn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controlm_cn.png; sourceTree = "<group>"; };
 		B83849E41B83567F006223C8 /* defaultDeviceDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultDeviceDark.png; sourceTree = "<group>"; };
 		B84CD4991B441E58008FAA53 /* CallOutAnnotationVifew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallOutAnnotationVifew.h; sourceTree = "<group>"; };
 		B84CD49A1B441E58008FAA53 /* CallOutAnnotationVifew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallOutAnnotationVifew.m; sourceTree = "<group>"; };
@@ -1030,7 +1028,7 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = P48BTQK4HW;
+						DevelopmentTeam = ZEGW96P32G;
 					};
 				};
 			};
@@ -1324,7 +1322,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "7ece147c-df71-4a30-b53d-edc7e3598c78";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1361,7 +1359,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "7ece147c-df71-4a30-b53d-edc7e3598c78";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1393,7 +1391,7 @@
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = HiSmart;
-				PROVISIONING_PROFILE = "5040040e-f3e3-4c65-aacd-283f2916816d";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1422,7 +1420,7 @@
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
 				PRODUCT_NAME = HiSmart;
-				PROVISIONING_PROFILE = "5040040e-f3e3-4c65-aacd-283f2916816d";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
