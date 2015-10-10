@@ -47,14 +47,24 @@ UITextFieldDelegate>
     if (self = [super init]) {
         self.locationDataType = dataType;
         _tableViewHadAddLongPressGestureRec = NO;
+        
+        switch (self.locationDataType) {
+            case HirLocationDataType_history:
+                self.title = NSLocalizedString(@"Location history", nil);
+                break;
+                case HirLocationDataType_lost:
+                self.title = NSLocalizedString(@"Lost History", nil);
+                break;
+            default:
+                break;
+        }
+
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = NSLocalizedString(@"Location history", nil);
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.frame.size.height) style:UITableViewStylePlain];
     self.tableView.delegate = self;

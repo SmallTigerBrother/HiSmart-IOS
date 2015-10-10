@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2C18AAEB1B3BECDE00CE6588"
-               BuildableName = "HiRemote.app"
+               BuildableName = "HiSmart.app"
                BlueprintName = "HiRemote"
                ReferencedContainer = "container:HiRemote.xcodeproj">
             </BuildableReference>
@@ -40,7 +40,7 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Debug">
+      buildConfiguration = "Release">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C18AAEB1B3BECDE00CE6588"
-            BuildableName = "HiRemote.app"
+            BuildableName = "HiSmart.app"
             BlueprintName = "HiRemote"
             ReferencedContainer = "container:HiRemote.xcodeproj">
          </BuildableReference>
@@ -68,7 +68,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
@@ -77,7 +77,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C18AAEB1B3BECDE00CE6588"
-            BuildableName = "HiRemote.app"
+            BuildableName = "HiSmart.app"
             BlueprintName = "HiRemote"
             ReferencedContainer = "container:HiRemote.xcodeproj">
          </BuildableReference>
@@ -96,14 +96,14 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C18AAEB1B3BECDE00CE6588"
-            BuildableName = "HiRemote.app"
+            BuildableName = "HiSmart.app"
             BlueprintName = "HiRemote"
             ReferencedContainer = "container:HiRemote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug">
+      buildConfiguration = "Release">
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"

@@ -44,7 +44,7 @@
     peripheraLocationInfo.dataType = dataType;
     peripheraLocationInfo.remark = remark;
     peripheraLocationInfo.sync = @0;
-    peripheraLocationInfo.battery = battery;
+//    peripheraLocationInfo.battery = battery;
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     
     if (dataType.integerValue == HirLocationDataType_history) {
