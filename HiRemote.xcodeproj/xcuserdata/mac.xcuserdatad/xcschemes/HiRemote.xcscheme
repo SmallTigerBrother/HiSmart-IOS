@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2C18AAEB1B3BECDE00CE6588"
-               BuildableName = "HiSmart.app"
+               BuildableName = "HiRemote.app"
                BlueprintName = "HiRemote"
                ReferencedContainer = "container:HiRemote.xcodeproj">
             </BuildableReference>
@@ -37,10 +37,10 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Debug">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -57,27 +57,30 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C18AAEB1B3BECDE00CE6588"
-            BuildableName = "HiSmart.app"
+            BuildableName = "HiRemote.app"
             BlueprintName = "HiRemote"
             ReferencedContainer = "container:HiRemote.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C18AAEB1B3BECDE00CE6588"
-            BuildableName = "HiSmart.app"
+            BuildableName = "HiRemote.app"
             BlueprintName = "HiRemote"
             ReferencedContainer = "container:HiRemote.xcodeproj">
          </BuildableReference>
@@ -96,17 +99,17 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C18AAEB1B3BECDE00CE6588"
-            BuildableName = "HiSmart.app"
+            BuildableName = "HiRemote.app"
             BlueprintName = "HiRemote"
             ReferencedContainer = "container:HiRemote.xcodeproj">
          </BuildableReference>

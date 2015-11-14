@@ -30,16 +30,16 @@
 "facebook" = "Facebook";
 "logout" = "Logout";
 "checkBluetooth" = "Please check the Bluetooth setting!";
-"welcome" = "Welcome HiSmart";
-"hiRemote" = "HiSmart";
+"welcome" = "Welcome HiRemote";
+"hiRemote" = "HiRemote";
 "signUp" = "Sign Up";
 "haveAccount" = "I already have an account";
-"addedSuccess" = "HiSmart was added successfully!";
-"photoTips" = "Please rename your HiSmart.";
+"addedSuccess" = "HiRemote was added successfully!";
+"photoTips" = "Please rename your HiRemote.";
 "rename" = "Rename";
 "next" = "Next";
 "retry" = "Retry";
-"renameTips" = "Rename your HiSmart";
+"renameTips" = "Rename your HiRemote";
 "cancel" = "Cancel";
 "accessCameraTip" = "To access camera, authorize in Settings-Privacy-Camera.";
 "oops" = "Oops";
@@ -52,17 +52,17 @@
 "voiceMemos" = "Record Memos";
 "mvoiceMemos" = "Recording";
 
-"hiremoteControl" = "HiSmart Control";
+"hiremoteControl" = "HiRemote Control";
 "pinedTips" = "You can easily find the history of all the locations you have been to.";
-"findTips" = "Search for the item attached to the HiSmart.";
-"cameraTips" = "Use the shutter button on your HiSmart to snap pics.";
+"findTips" = "Search for the item attached to the HiRemote.";
+"cameraTips" = "Use the shutter button on your HiRemote to snap pics.";
 "voiceTips" = "You easily can store, rename, or delete your audio files.";
-"edit10" = "Connect to HiSmart";
+"edit10" = "Connect to HiRemote";
 "edit11" = "Turn on the Alarm to activate the function; otherwise, turn on the Voice Recording. Only one or the other can be activated.";
 "edit20" = "Find My Item";
 "edit21" = "Keep track of your bag and smartphone. Turing on 'Find My Item' will automatically deactivate 'Voice Memo'.";
 "edit30" = "Notification";
-"edit31" = "Receive push notifications when your bag is not within range of the HiSmart.";
+"edit31" = "Receive push notifications when your bag is not within range of the HiRemote.";
 "edit40" = "Voice Memo";
 "edit41" = "Keep track of your bag and smartphone. Turning on 'Find My Item' will automatically deactivate 'Voice Memo'.";
 "buzzItem" = "Buzz my Item";
@@ -73,9 +73,9 @@
 "rateus20" = "About this Version";
 "rateus21" = "Terms of Service";
 "rateus22" = "Privacy";
-"addAHiRemote" = "Add a HiSmart";
+"addAHiRemote" = "Add a HiRemote";
 "addTipsOne" = "ⅰ: Make sure your smartphone's Bluetooth is turned on.";
-"addTipsTwo" = "ⅱ: Hold the play button of the HiSmart to activate it.";
+"addTipsTwo" = "ⅱ: Hold the play button of the HiRemote to activate it.";
 "changeName" = "Change a name";
 "CANCEL" = "CANCEL";
 "CONFIRM" = "CONFIRM";
@@ -84,7 +84,7 @@
 "warning" = "WARNING";
 "doYouWantToDelThisRecord" = "do you want to deleter this record?";
 
-"youDeviceIsAwayFromYou" = "Warning your HiSmart bag is 90 feet away from you!";
+"youDeviceIsAwayFromYou" = "Warning your HiRemote bag is 90 feet away from you!";
 "newRecording" = "New Recording";
 "stopRecording" = "stop recording";
 "startRecording" = "start recording";
@@ -100,7 +100,7 @@
 "lgSignup" = "Sign Up with Facebook";
 "lgForgotPassword" = "An email with instructions on how to change your password has been sent to soya@sina.com.";
 
-"deviceCallIphone" = "The HiSmart is calling you!";
+"deviceCallIphone" = "The HiRemote is calling you!";
 "deviceUnsportCamera" = "This device doesn't support camera";
 
 //setting
@@ -110,7 +110,7 @@
 "contactUs" = "Contact Us";
 "TermsAndConditions" = "Terms and conditions";
 "PrivacyPolicy" = "Privacy Policy";
-"Include another HiSmart device by adding it here." = "Include another HiSmart device by adding it here.";
+"Include another HiRemote device by adding it here." = "Include another HiRemote device by adding it here.";
 "Need any help? We can help you." = "Need any help? We can help you.";
 "Did't find your answer in FAQs." = "Did't find your answer in FAQs.";
 "Find the information here." = "Find the information here.";
@@ -142,7 +142,7 @@
 "confirm password is no equal" = "confirm password is no equal";
 "you should agree to before continue" = "you should agree to before continue";
 
-"Lost History" = "Lost History";
+"Lost History" = "History";
 
 
 

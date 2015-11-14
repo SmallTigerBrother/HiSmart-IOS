@@ -30,16 +30,16 @@
 "facebook" = "Facebook";
 "logout" = "Logout";
 "checkBluetooth" = "Please check the Bluetooth setting!";
-"welcome" = "Welcome HiSmart";
-"hiRemote" = "HiSmart";
+"welcome" = "Welcome HiRemote";
+"hiRemote" = "HiRemote";
 "signUp" = "Sign Up";
 "haveAccount" = "I already have an account";
-"addedSuccess" = "HiSmart was added successfully!";
-"photoTips" = "Please rename your HiSmart.";
+"addedSuccess" = "HiRemote was added successfully!";
+"photoTips" = "Please rename your HiRemote.";
 "rename" = "Rename";
 "next" = "Next";
 "retry" = "Retry";
-"renameTips" = "Rename your HiSmart";
+"renameTips" = "Rename your HiRemote";
 "cancel" = "Cancel";
 "accessCameraTip" = "To access camera, authorize in Settings-Privacy-Camera.";
 "oops" = "Oops";
@@ -142,7 +142,7 @@
 "confirm password is no equal" = "confirm password is no equal";
 "you should agree to before continue" = "you should agree to before continue";
 
-"Lost History" = "Lost History";
+"Lost History" = "History";
 
 
 

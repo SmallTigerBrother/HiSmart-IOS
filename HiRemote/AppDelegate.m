@@ -31,6 +31,7 @@
     
     NSString *updateAppUrl;
 }
+
 @property(nonatomic) HIRWelcomeViewController *welcomeVC;
 @property(nonatomic) HirLoginViewController *loginViewController;
 @property(nonatomic) HIRScanningViewController *scanVC;
@@ -111,7 +112,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needIphoneAlertNotify:) name:NEED_IPHONE_ALERT_NOTIFICATION object:nil];
     
     [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
-
+    
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];
 }
@@ -464,14 +465,15 @@
 
 
 
-    
+
+//个人版不用提示升级
 - (void)needUpdateAppForce {
-    if ([self.updateDes length] == 0) {
-        self.updateDes = NSLocalizedString(@"updateForce", @"");
-    }
-    UIAlertView *updateAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:self.updateDes delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil];
-    updateAlert.tag = 3;
-    [updateAlert show];
+//    if ([self.updateDes length] == 0) {
+//        self.updateDes = NSLocalizedString(@"updateForce", @"");
+//    }
+//    UIAlertView *updateAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:self.updateDes delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil];
+//    updateAlert.tag = 3;
+//    [updateAlert show];
 }
 
 #pragma mark uialertView delegater

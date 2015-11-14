@@ -36,33 +36,33 @@
 "facebook" = "Facebook";
 "logout" = "退出";
 "checkBluetooth" = "请检查蓝牙设置项是否已打开!";
-"welcome" = "欢迎 HiSmart";
-"hiRemote" = "HiSmart";
+"welcome" = "欢迎 HiRemote";
+"hiRemote" = "HiRemote";
 "signUp" = "登录";
 "haveAccount" = "已拥有账号";
-"addedSuccess" = "HiSmart 已经成功添加";
-"photoTips" = "给您的HiSmart设备起个名字吧";
-"rename" = "重命名HiSmart为";
+"addedSuccess" = "HiRemote 已经成功添加";
+"photoTips" = "给您的HiRemote设备起个名字吧";
+"rename" = "重命名HiRemote为";
 "next" = "下一步";
 "retry" = "重试";
-"renameTips" = "重命名你的HiSmart";
+"renameTips" = "重命名你的HiRemote";
 "cancel" = "取消";
 "accessCameraTip" = "在设置－隐私－相机中进行授权以使用拍照功能";
 "oops" = "啊哦";
 "cannotFind" = "看来我们没能找到它，让我们再试一次";
 "haveProblem" = "有一个问题";
 "pinnedLocation" = "定位";
-"hiremoteControl" = "HiSmart 控制";
+"hiremoteControl" = "HiRemote 控制";
 "pinedTips" = "您能够轻松地找到您所到之处的历史记录.";
-"findTips" = "寻找和HiSmart连接的手机.";
-"cameraTips" = "使用您的HiSmart上的快门按键来拍摄照片.";
+"findTips" = "寻找和HiRemote连接的手机.";
+"cameraTips" = "使用您的HiRemote上的快门按键来拍摄照片.";
 "voiceTips" = "你可以轻松的录制、管理您的录音.";
-"edit10" = "连接到HiSmart";
+"edit10" = "连接到HiRemote";
 "edit11" = "打开闹铃激活功能；否则打开语音记录。只有一个或另一个能被激活.";
 "edit20" = "寻找我的设备";
 "edit21" = "跟踪你的包和智能手机。打开“寻找我的设备”将使“语音备忘录”自动停止.";
 "edit30" = "通知";
-"edit31" = "当你的包不在HiSmart的范围内时将收到推送通知.";
+"edit31" = "当你的包不在HiRemote的范围内时将收到推送通知.";
 "edit40" = "语音备忘录";
 "edit41" = "跟踪你的包和智能手机,打开“寻找我的设备”将使“语音备忘录”自动停止.";
 "buzzItem" = "呼叫我的设备";
@@ -73,9 +73,9 @@
 "rateus20" = "关于这个版本";
 "rateus21" = "服务条款";
 "rateus22" = "隐私";
-"addAHiRemote" = "添加一个 HiSmart";
+"addAHiRemote" = "添加一个 HiRemote";
 "addTipsOne" = "ⅰ: 确保你的智能手机的蓝牙已经打开";
-"addTipsTwo" = "ⅱ: 按住HiSmart中间的按钮来激活它";
+"addTipsTwo" = "ⅱ: 按住HiRemote中间的按钮来激活它";
 "changeName" = "更改名称";
 "CANCEL" = "取消";
 "CONFIRM" = "确定";
@@ -84,13 +84,13 @@
 "isNotConnected" = "设备没有连接";
 "warning" = "警告";
 "doYouWantToDelThisRecord" = "您想删除这条记录吗?";
-"youDeviceIsAwayFromYou" = "警告 你的HiSmart包在离你90英尺外";
+"youDeviceIsAwayFromYou" = "警告 你的HiRemote包在离你90英尺外";
 "newRecording" = "新录音记录";
 "stopRecording" = "停止录音";
 "startRecording" = "开始录音";
 "copy" = "复制";
 
-"deviceCallIphone" = "您的HiSmart正在向您发起呼叫!";
+"deviceCallIphone" = "您的HiRemote正在向您发起呼叫!";
 "deviceUnsportCamera" = "设备不支持拍照功能";
 
 //setting
@@ -100,7 +100,7 @@
 "contactUs" = "联系我们";
 "TermsAndConditions" = "服务条款";
 "PrivacyPolicy" = "隐私策略";
-"Include another HiSmart device by adding it here." = "可以添加另外一台设备.";
+"Include another HiRemote device by adding it here." = "可以添加另外一台设备.";
 "Need any help? We can help you." = "需要帮助？请找我们.";
 "Did't find your answer in FAQs." = "在常见问题中找不到答案?直接与我们联系.";
 "Find the information here." = "查看其他信息.";
@@ -109,4 +109,4 @@
 "playSounds" = "断开响铃";
 "updateForce" = "请先更新您的App";
 
-"Lost History" = "丢失历史";
+"Lost History" = "历史";
