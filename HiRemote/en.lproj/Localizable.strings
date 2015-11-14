@@ -84,7 +84,7 @@
 "warning" = "WARNING";
 "doYouWantToDelThisRecord" = "do you want to deleter this record?";
 
-"youDeviceIsAwayFromYou" = "Warning your HiRemote bag is 90 feet away from you!";
+"youDeviceIsAwayFromYou" = "Warning your HiSmart bag is 90 feet away from you!";
 "newRecording" = "New Recording";
 "stopRecording" = "stop recording";
 "startRecording" = "start recording";
@@ -110,7 +110,7 @@
 "contactUs" = "Contact Us";
 "TermsAndConditions" = "Terms and conditions";
 "PrivacyPolicy" = "Privacy Policy";
-"Include another HiRemote device by adding it here." = "Include another HiRemote device by adding it here.";
+"Include another HiSmart device by adding it here." = "Include another HiRemote device by adding it here.";
 "Need any help? We can help you." = "Need any help? We can help you.";
 "Did't find your answer in FAQs." = "Did't find your answer in FAQs.";
 "Find the information here." = "Find the information here.";

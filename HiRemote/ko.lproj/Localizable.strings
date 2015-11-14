@@ -8,14 +8,14 @@ Copyright (c) 2015 hiremote. All rights reserved.
 "getStarted" = "체험시작";
 "scanning" = "스캔중...";
 "myBag" = "나의 hi백";
-"edit" = "편집";
+"edit" = "설정";
 "myAccount" = "계정";
 "close" = "닫기";
 "pinnedLocations" = "위치기록";
 "mpinnedLocations" = "위치";
 "cameraShutte" = "카메라 셔터";
 "mcameraShutte" = "카메라";
-"Location history" = "위치내역";
+"Location history" = "기록";
 "ok" = "확인";
 "tips" = "팁";
 "deviceConnectionFailed" = "기기연결실패";
@@ -54,10 +54,10 @@ Copyright (c) 2015 hiremote. All rights reserved.
 "cameraTips" = "hiremote의 카메라셔터로 사진을 찍으세요.";
 "voiceTips" = "hiremote의 카메라셔터로 사진을 찍으세요";
 "edit10" = " hiremote에 연결 ";
-"edit11" = "알람 기능,음성메모 중 활성화는 하나만 됩니다.";
+"edit11" = "알람 기능,음성 메모 중 활성화는 하나만 됩니다.";
 "edit20" = "기기검색";
 "edit21" = "당신의 백 과 스마트폰 추적. “나의 기기 검색”오픈,“음성 메모”자동정지";
-"edit30" = "알림";
+"edit30" = "소식 알림";
 "edit31" = "당신의 팩이hiremote의 범위내에 있을 경우 푸시 알림 접수가능합니다.";
 "edit40" = "음성메모";
 "edit41" = "당신의 팩 과 스마트폰 추적. “나의 기기 검색”오픈,“음성 메모 ”자동정지";
@@ -71,7 +71,7 @@ Copyright (c) 2015 hiremote. All rights reserved.
 "rateus22" = "프라이버시y";
 "addAHiRemote" = " HiRemote 한개 추가";
 "addTipsOne" = "ⅰ: 당신의 스마트기기에 블루투스가 오픈되였는지 확인해주세요.";
-"addTipsTwo" = "ⅱ: HiRemote중간의 버튼을 눌러 활성화시킵니다.";
+"addTipsTwo" = "ⅱ: 아래 이미지와 같이 HiRemote재생 버턴 길게 눌러서 활성화 시킵니다.";
 "changeName" = "이름변경";
 "CANCEL" = "취소";
 "CONFIRM" = "확인";
@@ -103,7 +103,7 @@ Copyright (c) 2015 hiremote. All rights reserved.
 "lgForgotPassword" = "비밀번호를 변경하는 방법에 대한 설명을 soya@sina.com로 이메일 전송하였습니다..";
 
 
-"deviceCallIphone" = "HiSmart가  당신을 호출합니다!";
+"deviceCallIphone" = "HiRemote가  당신을 호출합니다!";
 "deviceUnsportCamera" = "이장치는 카메라를 지원하지 않습니다.";
 
 //setting
@@ -119,7 +119,7 @@ Copyright (c) 2015 hiremote. All rights reserved.
 
 "PrivacyPolicy" = "개인정보취급방침";
 
-"Include another HiSmart device by adding it here." = "이곳에 추가함으로써 또 다른 HiSmart 장치를 포함하세요.";
+"Include another HiSmart device by adding it here." = "이곳에 추가함으로써 또 다른 HiRemote 장치를 포함하세요.";
 
 "Need any help? We can help you." = "다른 도움이 필요하신가요? 도움을 드리겠습니다.";
 
@@ -130,7 +130,7 @@ Copyright (c) 2015 hiremote. All rights reserved.
 "Find the privacy policy here." = "이곳에서 개인정보취급방침을 찾으세요.";
 
 //
-"playSounds" = "재생";
+"playSounds" = "연결 끊기 알림";
 
 "updateForce" = "먼저 앱을 업그레이드해주세요.";
 

@@ -1256,6 +1256,29 @@ HPCoreLocationMangerDelegate>
     }
 }
 
+
++(int)theCurrentLanguage{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *languages = [defaults objectForKey:@"AppleLanguages"];
+    NSString *currentLang = [languages objectAtIndex:0];
+    
+    int currentLanguage = 1;
+    if([currentLang compare:@"zh-Hans" options:NSCaseInsensitiveSearch]==NSOrderedSame || [currentLang compare:@"zh-Hant" options:NSCaseInsensitiveSearch]==NSOrderedSame)
+    {
+        currentLanguage = 2;
+        NSLog(@"current Language == Chinese");
+    }else if([currentLang compare:@"ko" options:NSCaseInsensitiveSearch]==NSOrderedSame)
+    {
+        currentLanguage = 3;
+        NSLog(@"current Language == korean");
+    }else{
+        currentLanguage = 1;
+        NSLog(@"current Language == English");
+    }
+    return currentLanguage;
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

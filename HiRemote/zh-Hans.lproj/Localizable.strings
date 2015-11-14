@@ -84,7 +84,7 @@
 "isNotConnected" = "设备没有连接";
 "warning" = "警告";
 "doYouWantToDelThisRecord" = "您想删除这条记录吗?";
-"youDeviceIsAwayFromYou" = "警告 你的HiRemote包在离你90英尺外";
+"youDeviceIsAwayFromYou" = "警告 你的HiSmart包在离你90英尺外";
 "newRecording" = "新录音记录";
 "stopRecording" = "停止录音";
 "startRecording" = "开始录音";
@@ -100,7 +100,7 @@
 "contactUs" = "联系我们";
 "TermsAndConditions" = "服务条款";
 "PrivacyPolicy" = "隐私策略";
-"Include another HiRemote device by adding it here." = "可以添加另外一台设备.";
+"Include another HiSmart device by adding it here." = "可以添加另外一台设备.";
 "Need any help? We can help you." = "需要帮助？请找我们.";
 "Did't find your answer in FAQs." = "在常见问题中找不到答案?直接与我们联系.";
 "Find the information here." = "查看其他信息.";

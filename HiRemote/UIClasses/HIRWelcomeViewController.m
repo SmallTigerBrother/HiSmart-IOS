@@ -7,6 +7,8 @@
 //
 
 #import "HIRWelcomeViewController.h"
+#import "HIRRootViewController.h"
+
 #import "PureLayout.h"
 #define WELCOME_PAGE_COUNT 5
 
@@ -48,15 +50,20 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.35 green:0.75 blue:0.58 alpha:1];
     self.titleArray = [NSArray arrayWithObjects:NSLocalizedString(@"pinnedLocation", @""), NSLocalizedString(@"findMyItem", @""),NSLocalizedString(@"cameraShutte", @""),NSLocalizedString(@"voiceMemos", @""),NSLocalizedString(@"hiremoteControl", @""),nil];
     
-    NSString *chinaControlm;
-    if ([self isChinessLanguage]) {
-        chinaControlm = @"controlm_cn";
+    int theLange = [HIRRootViewController theCurrentLanguage];
+    UIImage *theConForWelImg = nil;
+    if (theLange == 2) {//chinese
+        theConForWelImg = [UIImage imageNamed:@"controlm_cn"];
+    }else if(theLange == 3) {///korea
+        theConForWelImg = [UIImage imageNamed:@"controlm_ko"];
+    }else{//english
+        theConForWelImg = [UIImage imageNamed:@"controlm"];
     }
-    else{
-        chinaControlm = @"controlm";
+    if (!theConForWelImg) {
+        theConForWelImg = [UIImage imageNamed:@"controlm"];
     }
     
-    self.imageArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"pinnedm"],[UIImage imageNamed:@"findm"],[UIImage imageNamed:@"cameram"],[UIImage imageNamed:@"voicem"],[UIImage imageNamed:chinaControlm], nil];
+    self.imageArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"pinnedm"],[UIImage imageNamed:@"findm"],[UIImage imageNamed:@"cameram"],[UIImage imageNamed:@"voicem"],theConForWelImg, nil];
     self.notesArray = [NSArray arrayWithObjects:NSLocalizedString(@"pinedTips", @""), NSLocalizedString(@"findTips", @""),NSLocalizedString(@"cameraTips", @""),NSLocalizedString(@"voiceTips", @""),@"",nil];
     self.welcomeScrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
     self.welcomeScrollView.pagingEnabled = YES;

@@ -9,6 +9,7 @@
 #import "HIRScanningViewController.h"
 #import "HIRConnSuccViewController.h"
 #import "HIRConnFailViewController.h"
+#import "HIRRootViewController.h"
 #import "HIRCBCentralClass.h"
 #import "PureLayout.h"
 
@@ -61,7 +62,19 @@
     self.tipsLabel2.numberOfLines = 2;
     
     self.controlImageV = [[UIImageView alloc] init];
-    self.controlImageV.image = [UIImage imageNamed:@"controlmforscan"];
+    int theLange = [HIRRootViewController theCurrentLanguage];
+    UIImage *theConForScanImg = nil;
+    if (theLange == 2) {//chinese
+        theConForScanImg = [UIImage imageNamed:@"controlmforscan_cn"];
+    }else if(theLange == 3) {//korea
+        theConForScanImg = [UIImage imageNamed:@"controlmforscan_ko"];
+    }else{//english
+        theConForScanImg = [UIImage imageNamed:@"controlmforscan"];
+    }
+    if (!theConForScanImg) {
+        theConForScanImg = [UIImage imageNamed:@"controlmforscan"];
+    }
+    self.controlImageV.image = theConForScanImg;
     
     self.scanIndicator = [[UIActivityIndicatorView alloc] init];
     self.scanIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
