@@ -72,8 +72,8 @@
         }
         self.welcomeVC = [[HIRWelcomeViewController alloc] initWithNibName:nil bundle:nil];
         self.welcomeVC.delegate = self;
-        
-        [self.window addSubview:self.welcomeVC.view];
+        self.window.rootViewController = self.welcomeVC;
+//        [self.window addSubview:self.welcomeVC.view];
     }else {
         self.scanVC = [[HIRScanningViewController alloc] init];
         [HIRCBCentralClass shareHIRCBcentralClass].theAddNewNeedToAvoidLastUuid = nil;

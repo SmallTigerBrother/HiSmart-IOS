@@ -156,6 +156,8 @@
 		B887061C1B48FE6800A87300 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B887061B1B48FE6800A87300 /* libz.dylib */; };
 		B887061E1B48FE6F00A87300 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B887061D1B48FE6F00A87300 /* libsqlite3.0.dylib */; };
 		B88706201B4939CE00A87300 /* darkConnYes.png in Resources */ = {isa = PBXBuildFile; fileRef = B887061F1B4939CE00A87300 /* darkConnYes.png */; };
+		B8D0899D1BF869D1005C85FC /* controlm_ko.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D0899C1BF869D1005C85FC /* controlm_ko.png */; };
+		B8D0899F1BF869DD005C85FC /* controlmforscan_ko.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D0899E1BF869DD005C85FC /* controlmforscan_ko.png */; };
 		B8DF7DB71B3E7AE7000BD43E /* HIRArcImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DF7DA81B3E7AE7000BD43E /* HIRArcImageView.m */; };
 		B8DF7DB81B3E7AE7000BD43E /* HIRBatteryPercentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DF7DAA1B3E7AE7000BD43E /* HIRBatteryPercentView.m */; };
 		B8DF7DB91B3E7AE7000BD43E /* HIRDeviceShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DF7DAC1B3E7AE7000BD43E /* HIRDeviceShowView.m */; };
@@ -424,6 +426,8 @@
 		B887061B1B48FE6800A87300 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		B887061D1B48FE6F00A87300 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		B887061F1B4939CE00A87300 /* darkConnYes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkConnYes.png; sourceTree = "<group>"; };
+		B8D0899C1BF869D1005C85FC /* controlm_ko.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controlm_ko.png; sourceTree = "<group>"; };
+		B8D0899E1BF869DD005C85FC /* controlmforscan_ko.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controlmforscan_ko.png; sourceTree = "<group>"; };
 		B8DF7DA71B3E7AE7000BD43E /* HIRArcImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRArcImageView.h; sourceTree = "<group>"; };
 		B8DF7DA81B3E7AE7000BD43E /* HIRArcImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIRArcImageView.m; sourceTree = "<group>"; };
 		B8DF7DA91B3E7AE7000BD43E /* HIRBatteryPercentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIRBatteryPercentView.h; sourceTree = "<group>"; };
@@ -930,6 +934,8 @@
 				B84CD4B71B441EA2008FAA53 /* avatar_circle.png */,
 				B84CD4BA1B441EA2008FAA53 /* cameram.png */,
 				041411061B7F516A00708033 /* controlm_cn.png */,
+				B8D0899E1BF869DD005C85FC /* controlmforscan_ko.png */,
+				B8D0899C1BF869D1005C85FC /* controlm_ko.png */,
 				2CECD4231B723F84008DF798 /* controlmforscan.png */,
 				B84CD4BB1B441EA2008FAA53 /* connectedSuccess.png */,
 				B84CD4BC1B441EA2008FAA53 /* controlm.png */,
@@ -1056,7 +1062,7 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = FZCVBHN4V3;
+						DevelopmentTeam = ZEGW96P32G;
 					};
 				};
 			};
@@ -1125,6 +1131,7 @@
 				B856CE901B5B93D500800195 /* defaultDevice.png in Resources */,
 				B84CD4D11B441EA2008FAA53 /* findm.png in Resources */,
 				04D7A8981B47EF9700579EC2 /* touch_focus@2x.png in Resources */,
+				B8D0899F1BF869DD005C85FC /* controlmforscan_ko.png in Resources */,
 				B84CD4D81B441EA2008FAA53 /* voicem.png in Resources */,
 				04D38D1D1B3EB1410012D65A /* HirBaseTableCell.xib in Resources */,
 				04D7A8A71B47EF9700579EC2 /* SVProgressHUD.bundle in Resources */,
@@ -1150,6 +1157,7 @@
 				B88706201B4939CE00A87300 /* darkConnYes.png in Resources */,
 				04D7A8861B47EF9700579EC2 /* close_cha@2x.png in Resources */,
 				04D7A8951B47EF9700579EC2 /* switch_camera_h.png in Resources */,
+				B8D0899D1BF869D1005C85FC /* controlm_ko.png in Resources */,
 				B84CD4CE1B441EA2008FAA53 /* darkConn.png in Resources */,
 				04D7A8851B47EF9700579EC2 /* close_cha.png in Resources */,
 				04F375B91B4904D900E3FCD3 /* WeiboSDK.bundle in Resources */,
@@ -1404,7 +1412,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Baichuan Cao (42K3H788J4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1423,9 +1431,9 @@
 					"$(PROJECT_DIR)/HiRemote",
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lepow.ioshismart.appStore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lepow.ioshismart;
 				PRODUCT_NAME = HiRemote;
-				PROVISIONING_PROFILE = "903ca0eb-59dd-4094-b4a8-ddf35e9bbb6f";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1436,7 +1444,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tracy cao (FZCVBHN4V3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1455,9 +1463,9 @@
 					"$(PROJECT_DIR)/HiRemote",
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lepow.ioshismart.appStore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lepow.ioshismart;
 				PRODUCT_NAME = HiRemote;
-				PROVISIONING_PROFILE = "da7ee2e9-daef-4d4a-b043-7dab0b00c240";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
