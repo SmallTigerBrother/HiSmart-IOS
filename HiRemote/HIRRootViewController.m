@@ -1258,22 +1258,24 @@ HPCoreLocationMangerDelegate>
 
 
 +(int)theCurrentLanguage{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *languages = [defaults objectForKey:@"AppleLanguages"];
-    NSString *currentLang = [languages objectAtIndex:0];
-    
     int currentLanguage = 1;
-    if([currentLang compare:@"zh-Hans" options:NSCaseInsensitiveSearch]==NSOrderedSame || [currentLang compare:@"zh-Hant" options:NSCaseInsensitiveSearch]==NSOrderedSame)
-    {
-        currentLanguage = 2;
-        NSLog(@"current Language == Chinese");
-    }else if([currentLang compare:@"ko" options:NSCaseInsensitiveSearch]==NSOrderedSame)
-    {
-        currentLanguage = 3;
-        NSLog(@"current Language == korean");
-    }else{
+    NSArray *locLangs = [NSLocale preferredLanguages];
+    if ([locLangs count] > 0) {
+        NSString *currentLang = [locLangs objectAtIndex:0];
+        if([currentLang hasPrefix:@"zh-Hans"] || [currentLang hasPrefix:@"zh-Hant"])
+        {
+            currentLanguage = 2;
+            NSLog(@"current Language == Chinese");
+        }else if([currentLang compare:@"ko" options:NSCaseInsensitiveSearch]==NSOrderedSame)
+        {
+            currentLanguage = 3;
+            NSLog(@"current Language == korean");
+        }else{
+            currentLanguage = 1;
+            NSLog(@"current Language == English");
+        }
+    }else {
         currentLanguage = 1;
-        NSLog(@"current Language == English");
     }
     return currentLanguage;
 }
