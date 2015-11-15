@@ -1266,7 +1266,7 @@ HPCoreLocationMangerDelegate>
         {
             currentLanguage = 2;
             NSLog(@"current Language == Chinese");
-        }else if([currentLang compare:@"ko" options:NSCaseInsensitiveSearch]==NSOrderedSame)
+        }else if([currentLang hasPrefix:@"ko"])
         {
             currentLanguage = 3;
             NSLog(@"current Language == korean");
