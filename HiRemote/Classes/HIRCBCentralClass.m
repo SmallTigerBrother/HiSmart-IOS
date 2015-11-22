@@ -61,7 +61,6 @@
         [self stopCentralManagerScan];
         return;
     }
-
     if (_isScanningPeripherals) {
         [self stopCentralManagerScan];
         self.discoveredPeripheral.delegate = nil;
@@ -94,6 +93,10 @@
 {
     ///表示蓝牙可用
     if (central.state == CBCentralManagerStatePoweredOn) {
+        //蓝牙只有走了这一句才算有效，第一次或者蓝牙开关发生变化会调用。走完这句后再扫描就没问题。
+        //所以在第一次扫描需要在该处调用，非第一次，将不会触发该方法
+        [self scanPeripheral:self.theChangeUuid];
+        
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
         [notificationCenter postNotificationName:NEED_SCANNING_WHEN_BTOPEN_NOTIFICATION object:nil userInfo:nil];
     }else {
@@ -333,6 +336,7 @@
         if (level > 1) {
             level = 1;
         }
+        self.batteryLevel = level;///第一次扫描，发通知在主界面生成之前，所以收不到通知，故临时保存
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithFloat:level] forKey:@"level"];
         [dic setObject:[peripheral.identifier UUIDString] forKey:@"uuid"];
         
