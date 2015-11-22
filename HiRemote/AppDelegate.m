@@ -22,10 +22,13 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "EHAudioController.h"
+#import "HIRCBCentralClass.h"
+
 
 @interface AppDelegate () <HIRWelcomeViewControllerDelegate,WXApiDelegate,WeiboSDKDelegate,AVAudioPlayerDelegate,UIAlertViewDelegate,EHAudioControllerDelegate>{
     UIBackgroundTaskIdentifier bgTask;
-    
+    NSTimer *bgScanningOutTimer;
+
     NSUInteger counter;
     SystemSoundID _sound;
     
@@ -40,6 +43,8 @@
 @property(nonatomic, strong)UIAlertView *phoneSoundAlert;
 
 @property (nonatomic, strong)NSTimer *myTimer;
+@property (nonatomic, strong) NSTimer *bgScanningOutTimer;
+
 
 @property(nonatomic, strong) NSString *updateAppUrl;
 @property(nonatomic, strong) NSString *updateDes;
@@ -222,6 +227,45 @@
 
     
 }
+
+//后台定时扫描外设
+
+- (void)outTimerForScanning {
+    if (self.bgScanningOutTimer) {
+        [self.bgScanningOutTimer invalidate];
+        self.bgScanningOutTimer = nil;
+    }
+    [[HIRCBCentralClass shareHIRCBcentralClass] stopCentralManagerScan];
+}
+
+- (void)forBackgroundScanningPeripheral {
+    UIApplication *appShare = [UIApplication sharedApplication];
+    UIApplicationState state = appShare.applicationState;
+    if (state != UIApplicationStateBackground) {
+        if (bgTask != UIBackgroundTaskInvalid) {
+            [appShare endBackgroundTask:bgTask];
+            bgTask = UIBackgroundTaskInvalid;
+        }
+        return;
+    }
+    
+    if ([HIRCBCentralClass shareHIRCBcentralClass].discoveredPeripheral == nil) {
+        bgTask = [appShare beginBackgroundTaskWithExpirationHandler:^{
+            [appShare endBackgroundTask:bgTask];
+            bgTask = UIBackgroundTaskInvalid;
+        }];
+        // Start the long-running task
+        [self outTimerForScanning];
+        self.bgScanningOutTimer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(outTimerForScanning) userInfo:nil repeats:NO];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[HIRCBCentralClass shareHIRCBcentralClass] scanPeripheral:[HIRCBCentralClass shareHIRCBcentralClass].theChangeUuid];
+            });
+        });
+    }
+}
+/////
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     

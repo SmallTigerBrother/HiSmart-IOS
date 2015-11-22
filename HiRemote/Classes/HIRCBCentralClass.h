@@ -71,6 +71,7 @@ typedef enum
 @property (strong, nonatomic) CBCharacteristic *searchPhoneCharacter;
 @property (strong, nonatomic) NSString *theAddNewNeedToAvoidLastUuid;///当添加新设备时，需要避开上次链接的设备。
 @property (nonatomic, assign) float batteryLevel;
+@property (readonly,nonatomic,strong) NSString *theChangeUuid;
 
 + (HIRCBCentralClass *)shareHIRCBcentralClass;
 - (void)scanPeripheral:(NSString *)uuid;

@@ -109,6 +109,9 @@
 }
 
 -(void)pushWebViewCtl:(NSString *)url title:(NSString *)title{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    
+    return;
     title = NSLocalizedString(title, nil);
     HirBaseWebViewCtl *baseWebViewCtl = [[HirBaseWebViewCtl alloc]init];
     baseWebViewCtl.title = title;
