@@ -14,13 +14,13 @@ Copyright (c) 2015 hiremote. All rights reserved.
 "pinnedLocations" = "위치기록";
 "mpinnedLocations" = "위치";
 "cameraShutte" = "카메라 셔터";
-"mcameraShutte" = "카메라";
+"mcameraShutte" = "카메라 셔터";
 "Location history" = "기록";
 "ok" = "확인";
 "tips" = "팁";
 "deviceConnectionFailed" = "기기연결실패";
 "addNewFailure" = "기기 검색 실패.이전 기기를 연결?";
-"checkLocation" = "위치확인";
+"checkLocation" = "위치 접근 권한을 켰는지 확인해주세요";
 "location" = "위치";
 "hello" = "안녕하세요";
 "rateus" = "평가";
@@ -33,7 +33,7 @@ Copyright (c) 2015 hiremote. All rights reserved.
 "signUp" = "로그인";
 "haveAccount" = "기존계정";
 "addedSuccess" = "HiRemote 추가되였습니다.";
-"photoTips" = "1단계:당신의 스마트기기와 HiRemote가 연결되였다면 사진을 찍어보세요.";
+"photoTips" = "당신의 HiRemote에게 이름을 달아주세요";
 "rename" = "이름바꾸기";
 "next" = "다음";
 "retry" = "재시도";
@@ -43,16 +43,16 @@ Copyright (c) 2015 hiremote. All rights reserved.
 "oops" = "웁스!";
 "cannotFind" = "기기 검색 되지않았습니다. 다시한번 검색해주세요.";
 "haveProblem" = "문제 발생";
-"pinnedLocation" = "위치";
+"pinnedLocation" = "위치기록";
 "findMyItem" = "나의 기기 검색";
-"mfindMyItem" = "찾는 중";
+"mfindMyItem" = "나의 기기 검색";
 "voiceMemos" = "음성메모";
-"mvoiceMemos" = "녹음 중";
+"mvoiceMemos" = "음성메모";
 "hiremoteControl" = "HiRemote 제어";
 "pinedTips" = "나의 위치 이력을 간편하게 찾을 수 있습니다.";
 "findTips" = "HiRemote에 첨부한 기기 검색";
 "cameraTips" = "hiremote의 카메라셔터로 사진을 찍으세요.";
-"voiceTips" = "hiremote의 카메라셔터로 사진을 찍으세요";
+"voiceTips" = "간편한 방법으로 녹음을 할수 있고 녹음한 파일을 쉽게 관리 할수 있다";
 "edit10" = " hiremote에 연결 ";
 "edit11" = "알람 기능,음성 메모 중 활성화는 하나만 됩니다.";
 "edit20" = "기기검색";
@@ -71,7 +71,7 @@ Copyright (c) 2015 hiremote. All rights reserved.
 "rateus22" = "프라이버시y";
 "addAHiRemote" = " HiRemote 한개 추가";
 "addTipsOne" = "ⅰ: 당신의 스마트기기에 블루투스가 오픈되였는지 확인해주세요.";
-"addTipsTwo" = "ⅱ: 아래 이미지와 같이 HiRemote재생 버턴 길게 눌러서 활성화 시킵니다.";
+"addTipsTwo" = "ⅱ: HiRemote재생 버  턴 길게 눌러서 활성화 시킵니다.";
 "changeName" = "이름변경";
 "CANCEL" = "취소";
 "CONFIRM" = "확인";
@@ -170,4 +170,4 @@ Copyright (c) 2015 hiremote. All rights reserved.
 
 "you should agree to before continue" = "계속 진행하기 전에 동의해주세요.";
 
-"Lost History" = "기록";
+"Lost History" = "지난 기록";
