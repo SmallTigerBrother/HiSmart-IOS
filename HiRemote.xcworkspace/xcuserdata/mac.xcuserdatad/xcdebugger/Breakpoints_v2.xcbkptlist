@@ -1549,8 +1549,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "512"
             endingLineNumber = "512"
-            landmarkName = "-playPhoneAlertAudio"
-            landmarkType = "5">
+            landmarkName = "@implementation AppDelegate"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1629,7 +1629,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "547"
             endingLineNumber = "547"
-            landmarkName = "-audioPlayFinish:"
+            landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1645,8 +1645,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "553"
             endingLineNumber = "553"
-            landmarkName = "completionCallback()"
-            landmarkType = "7">
+            landmarkName = "-playPhoneAlertAudio"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1661,7 +1661,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "561"
             endingLineNumber = "561"
-            landmarkName = "-stopPhoneAlertAudio"
+            landmarkName = "-playPhoneAlertAudio"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1677,7 +1677,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "572"
             endingLineNumber = "572"
-            landmarkName = "-audioPlayerDidFinishPlaying:successfully:"
+            landmarkName = "-playPhoneAlertAudio"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1693,7 +1693,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "526"
             endingLineNumber = "526"
-            landmarkName = "-playPhoneAlertAudio"
+            landmarkName = "-needIphoneAlertNotify:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
