@@ -50,7 +50,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.35 green:0.75 blue:0.58 alpha:1];
     self.titleArray = [NSArray arrayWithObjects:NSLocalizedString(@"pinnedLocation", @""), NSLocalizedString(@"findMyItem", @""),NSLocalizedString(@"cameraShutte", @""),NSLocalizedString(@"voiceMemos", @""),NSLocalizedString(@"hiremoteControl", @""),nil];
     
-    int theLange = [HIRRootViewController theCurrentLanguage];
+    int theLange = [HirTool theCurrentLanguage];
     UIImage *theConForWelImg = nil;
     if (theLange == 2) {//chinese
         theConForWelImg = [UIImage imageNamed:@"controlm_cn"];

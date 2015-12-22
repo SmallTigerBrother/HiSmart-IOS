@@ -1256,31 +1256,6 @@ HPCoreLocationMangerDelegate>
     }
 }
 
-
-+(int)theCurrentLanguage{
-    int currentLanguage = 1;
-    NSArray *locLangs = [NSLocale preferredLanguages];
-    if ([locLangs count] > 0) {
-        NSString *currentLang = [locLangs objectAtIndex:0];
-        if([currentLang hasPrefix:@"zh-Hans"] || [currentLang hasPrefix:@"zh-Hant"])
-        {
-            currentLanguage = 2;
-            NSLog(@"current Language == Chinese");
-        }else if([currentLang hasPrefix:@"ko"])
-        {
-            currentLanguage = 3;
-            NSLog(@"current Language == korean");
-        }else{
-            currentLanguage = 1;
-            NSLog(@"current Language == English");
-        }
-    }else {
-        currentLanguage = 1;
-    }
-    return currentLanguage;
-}
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

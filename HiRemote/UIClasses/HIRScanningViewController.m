@@ -62,7 +62,7 @@
     self.tipsLabel2.numberOfLines = 2;
     
     self.controlImageV = [[UIImageView alloc] init];
-    int theLange = [HIRRootViewController theCurrentLanguage];
+    int theLange = [HirTool theCurrentLanguage];
     UIImage *theConForScanImg = nil;
     if (theLange == 2) {//chinese
         theConForScanImg = [UIImage imageNamed:@"controlmforscan_cn"];

@@ -16,6 +16,7 @@
 		0450BCB51B5279BC00B3BF93 /* HirMsgPlaySound.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB41B5279BC00B3BF93 /* HirMsgPlaySound.m */; };
 		0450BCB81B53E8DA00B3BF93 /* DBPeripheralRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCB71B53E8DA00B3BF93 /* DBPeripheralRecord.m */; };
 		0450BCBB1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */; };
+		0473B4561C29ACBE00F048E0 /* HirTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473B4551C29ACBE00F048E0 /* HirTool.m */; };
 		04A25DDA1B860E7F004FF3C1 /* HirResetPasswordCtl.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A25DD81B860E7F004FF3C1 /* HirResetPasswordCtl.m */; };
 		04A25DDB1B860E7F004FF3C1 /* HirResetPasswordCtl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A25DD91B860E7F004FF3C1 /* HirResetPasswordCtl.xib */; };
 		04A25DE31B86A08C004FF3C1 /* HirRegistetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A25DE11B86A08C004FF3C1 /* HirRegistetViewController.m */; };
@@ -190,6 +191,8 @@
 		0450BCB71B53E8DA00B3BF93 /* DBPeripheralRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPeripheralRecord.m; sourceTree = "<group>"; };
 		0450BCB91B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HirDataManageCenter+DeviceRecord.h"; sourceTree = "<group>"; };
 		0450BCBA1B53EA8A00B3BF93 /* HirDataManageCenter+DeviceRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HirDataManageCenter+DeviceRecord.m"; sourceTree = "<group>"; };
+		0473B4541C29ACBE00F048E0 /* HirTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HirTool.h; sourceTree = "<group>"; };
+		0473B4551C29ACBE00F048E0 /* HirTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HirTool.m; sourceTree = "<group>"; };
 		04976BB78AFBE5AFBEEC05BA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		04A25DD71B860E7F004FF3C1 /* HirResetPasswordCtl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HirResetPasswordCtl.h; path = ViewController/Login/HirResetPasswordCtl.h; sourceTree = "<group>"; };
 		04A25DD81B860E7F004FF3C1 /* HirResetPasswordCtl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HirResetPasswordCtl.m; path = ViewController/Login/HirResetPasswordCtl.m; sourceTree = "<group>"; };
@@ -588,6 +591,8 @@
 				B84CD4B21B441E70008FAA53 /* HIRRemoteData.h */,
 				B84CD4B31B441E70008FAA53 /* HIRRemoteData.m */,
 				B8DF7DC11B3E7B16000BD43E /* HPCoreLocationManger.m */,
+				0473B4541C29ACBE00F048E0 /* HirTool.h */,
+				0473B4551C29ACBE00F048E0 /* HirTool.m */,
 			);
 			name = Commond;
 			sourceTree = "<group>";
@@ -1222,6 +1227,7 @@
 				2C18AAF81B3BECDE00CE6588 /* HIRRootViewController.m in Sources */,
 				04BB4AF11B43DF87009567BF /* HirVerticalLabel.m in Sources */,
 				04D7A89C1B47EF9700579EC2 /* SCCaptureSessionManager.m in Sources */,
+				0473B4561C29ACBE00F048E0 /* HirTool.m in Sources */,
 				044C58621B762B3900D72CCC /* EHAudioController.m in Sources */,
 				04D7A89D1B47EF9700579EC2 /* SCNavigationController.m in Sources */,
 				B8DF7DBD1B3E7AE7000BD43E /* HIRUserInfoTableViewController.m in Sources */,

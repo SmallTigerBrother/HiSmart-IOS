@@ -91,19 +91,19 @@
         [appDeleg addNewDevice];
     }
     else if ([title isEqualToString:supportAndFaqs]) {
-        NSString *url = HirFAQUrl;
+        NSString *url = [HirTool getFAQString];
         [self pushWebViewCtl:url title:title];
     }
     else if ([title isEqualToString:contactUs]) {
-        NSString *url = HirContactUs;
+        NSString *url = [HirTool getquestionString];
         [self pushWebViewCtl:url title:title];
     }
     else if ([title isEqualToString:TermsAndConditions]) {
-        NSString *url = HirTeamsAndConditions;
+        NSString *url = [HirTool getPolicyString];
         [self pushWebViewCtl:url title:title];
     }
     else if ([title isEqualToString:PrivacyPolicy]) {
-        NSString *url = HirPrivacyPolicy;
+        NSString *url = [HirTool getPolicyString];
         [self pushWebViewCtl:url title:title];
     }
 }

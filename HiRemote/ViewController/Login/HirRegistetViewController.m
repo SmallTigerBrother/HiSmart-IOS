@@ -50,7 +50,7 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)agreetoBtnPressed:(id)sender {
-    NSString *url = HirPrivacyPolicy;
+    NSString *url = [HirTool getPolicyString];
     [self pushWebViewCtl:url title:NSLocalizedString(@"PrivacyPolicy", nil)];
 }
 

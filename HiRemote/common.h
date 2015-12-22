@@ -95,10 +95,10 @@ return _instance; \
 #define NotificationVoiceOpen @"NotificationVoiceOpen"
 
 
-#define HirFAQUrl @"http://hismart.us/faq"
-#define HirContactUs @"http://hismart.us/contact"
-#define HirTeamsAndConditions @"http://hismart.us/help/privacy"
-#define HirPrivacyPolicy @"http://hismart.us/help/privacy"
+//#define HirFAQUrl @"http://hismart.us/faq"
+//#define HirContactUs @"http://hismart.us/contact"
+//#define HirTeamsAndConditions @"http://hismart.us/help/privacy"
+//#define HirPrivacyPolicy @"http://hismart.us/help/privacy"
 
 #if DEBUG
 // 日志输出

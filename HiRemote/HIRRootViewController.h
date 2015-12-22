@@ -18,7 +18,5 @@ typedef NS_ENUM(NSInteger, HirRootSetSwith) {
 
 @interface HIRRootViewController : UIViewController
 
-///1 english 2chinese 3korea
-+(int)theCurrentLanguage;
 @end
 

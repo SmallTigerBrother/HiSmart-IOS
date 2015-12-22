@@ -132,7 +132,7 @@
 
 -(void)haveProplemBtnPressed:(UIButton *)sender{
     HirBaseWebViewCtl *baseWebViewCtl = [[HirBaseWebViewCtl alloc]init];
-    baseWebViewCtl.theUrl = [NSURL URLWithString:HirFAQUrl];
+    baseWebViewCtl.theUrl = [NSURL URLWithString:[HirTool getFAQString]];
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:baseWebViewCtl];
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
