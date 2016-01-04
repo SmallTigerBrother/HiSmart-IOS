@@ -145,7 +145,6 @@
 		B84CD4D61B441EA2008FAA53 /* pinnedm.png in Resources */ = {isa = PBXBuildFile; fileRef = B84CD4C51B441EA2008FAA53 /* pinnedm.png */; };
 		B84CD4D71B441EA2008FAA53 /* voice.png in Resources */ = {isa = PBXBuildFile; fileRef = B84CD4C61B441EA2008FAA53 /* voice.png */; };
 		B84CD4D81B441EA2008FAA53 /* voicem.png in Resources */ = {isa = PBXBuildFile; fileRef = B84CD4C71B441EA2008FAA53 /* voicem.png */; };
-		B856CE901B5B93D500800195 /* defaultDevice.png in Resources */ = {isa = PBXBuildFile; fileRef = B856CE8F1B5B93D500800195 /* defaultDevice.png */; };
 		B856CE921B5BCAA200800195 /* voiceSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = B856CE911B5BCAA200800195 /* voiceSelected.png */; };
 		B856CE961B5BCD1A00800195 /* cameraSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = B856CE931B5BCD1A00800195 /* cameraSelected.png */; };
 		B856CE971B5BCD1A00800195 /* findSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = B856CE941B5BCD1A00800195 /* findSelected.png */; };
@@ -414,7 +413,6 @@
 		B84CD4C51B441EA2008FAA53 /* pinnedm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinnedm.png; sourceTree = "<group>"; };
 		B84CD4C61B441EA2008FAA53 /* voice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voice.png; sourceTree = "<group>"; };
 		B84CD4C71B441EA2008FAA53 /* voicem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voicem.png; sourceTree = "<group>"; };
-		B856CE8F1B5B93D500800195 /* defaultDevice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultDevice.png; sourceTree = "<group>"; };
 		B856CE911B5BCAA200800195 /* voiceSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voiceSelected.png; sourceTree = "<group>"; };
 		B856CE931B5BCD1A00800195 /* cameraSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cameraSelected.png; sourceTree = "<group>"; };
 		B856CE941B5BCD1A00800195 /* findSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = findSelected.png; sourceTree = "<group>"; };
@@ -955,7 +953,6 @@
 				B856CE951B5BCD1A00800195 /* locationSelecetd.png */,
 				B84CD4C01B441EA2008FAA53 /* findm.png */,
 				B84CD4C11B441EA2008FAA53 /* greenConn.png */,
-				B856CE8F1B5B93D500800195 /* defaultDevice.png */,
 				B84CD4C21B441EA2008FAA53 /* location.png */,
 				B84CD4C31B441EA2008FAA53 /* photo.png */,
 				B84CD4C41B441EA2008FAA53 /* pinImage.png */,
@@ -1070,7 +1067,7 @@
 				TargetAttributes = {
 					2C18AAEB1B3BECDE00CE6588 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = ZEGW96P32G;
+						DevelopmentTeam = FZCVBHN4V3;
 					};
 				};
 			};
@@ -1136,7 +1133,6 @@
 				B84CD4CF1B441EA2008FAA53 /* facebook.png in Resources */,
 				04D7A88F1B47EF9700579EC2 /* shot.png in Resources */,
 				04D7A82D1B477C1100579EC2 /* HirVoiceMemosViewController.xib in Resources */,
-				B856CE901B5B93D500800195 /* defaultDevice.png in Resources */,
 				04CCD8311C15F81500BA3727 /* Default-568h@2x.png in Resources */,
 				B84CD4D11B441EA2008FAA53 /* findm.png in Resources */,
 				04D7A8981B47EF9700579EC2 /* touch_focus@2x.png in Resources */,
@@ -1351,8 +1347,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: tracy cao (FZCVBHN4V3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tracy cao (FZCVBHN4V3)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1372,7 +1368,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "da7ee2e9-daef-4d4a-b043-7dab0b00c240";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1395,8 +1391,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: shenzhen lepow creative technology CO.,LTD";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: tracy cao (FZCVBHN4V3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tracy cao (FZCVBHN4V3)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1409,7 +1405,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "da7ee2e9-daef-4d4a-b043-7dab0b00c240";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1421,8 +1417,8 @@
 			baseConfigurationReference = 04976BB78AFBE5AFBEEC05BA /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: tracy cao (FZCVBHN4V3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tracy cao (FZCVBHN4V3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Baichuan Cao (42K3H788J4)";
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1441,7 +1437,7 @@
 					"$(PROJECT_DIR)/HiRemote",
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lepow.ioshismart.appStore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lepow.ioshismart;
 				PRODUCT_NAME = HiRemote;
 				PROVISIONING_PROFILE = "da7ee2e9-daef-4d4a-b043-7dab0b00c240";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1453,7 +1449,7 @@
 			baseConfigurationReference = E36CA8EE71365DA8477ACA8D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: tracy cao (FZCVBHN4V3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tracy cao (FZCVBHN4V3)";
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
@@ -1473,7 +1469,7 @@
 					"$(PROJECT_DIR)/HiRemote",
 					"$(PROJECT_DIR)/HiRemote/uMen",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lepow.ioshismart.appStore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lepow.ioshismart;
 				PRODUCT_NAME = HiRemote;
 				PROVISIONING_PROFILE = "da7ee2e9-daef-4d4a-b043-7dab0b00c240";
 				TARGETED_DEVICE_FAMILY = 1;

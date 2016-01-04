@@ -12,7 +12,7 @@ Copyright (c) 2015 hiremote. All rights reserved.
 "myAccount" = "계정";
 "close" = "닫기";
 "pinnedLocations" = "위치기록";
-"mpinnedLocations" = "위치";
+"mpinnedLocations" = "위치기록";
 "cameraShutte" = "카메라 셔터";
 "mcameraShutte" = "카메라 셔터";
 "Location history" = "기록";

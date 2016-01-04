@@ -16,7 +16,6 @@
     BOOL _isHaveCancelBtn;
 }
 @property (nonatomic,strong)NSMutableArray *otherButtonTitles;
-@property (nonatomic,weak) id<HirAlertViewDelegate> delegater;
 @property (nonatomic,strong)UIView *backView;
 @property (nonatomic,copy)HirAlertViewClick alertViewClick;
 @end
@@ -26,7 +25,6 @@
 - (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id /*<HirAlertViewDelegate>*/)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION{
     self = [super initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     if(self){
-        self.delegater = delegate;
         self.isModelView = YES;
         self.alpha = 0;
         self.backgroundColor = POPUP_WINDOW_BG_COLOR;
@@ -116,7 +114,7 @@
 }
 
 -(instancetype)initWithTitle:(NSString *)title message:(NSString *)message clickBlock:(HirAlertViewClick)alertViewClick cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ...{
-    self = [self initWithTitle:title message:message delegate:self cancelButtonTitle:cancelButtonTitle otherButtonTitles:otherButtonTitles, nil];
+    self = [self initWithTitle:title message:message delegate:nil cancelButtonTitle:cancelButtonTitle otherButtonTitles:otherButtonTitles, nil];
     if (self) {
         self.alertViewClick = alertViewClick;
     }
@@ -266,9 +264,6 @@
     else{
         if (self.alertViewClick) {
             self.alertViewClick(btn.tag);
-        }
-        if (self.delegater && [self.delegater respondsToSelector:@selector(HirAlertView:clickedButtonAtIndex:)]) {
-            [self.delegater HirAlertView:self clickedButtonAtIndex:btn.tag];
         }
         [self hideWithAnimation:NO];
     }

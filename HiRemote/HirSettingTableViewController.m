@@ -8,6 +8,7 @@
 
 #import "HirSettingTableViewController.h"
 #import "HirBaseWebViewCtl.h"
+#import "HirTool.h"
 
 #define addANewDevice NSLocalizedString(@"addANewDevice", nil)
 #define supportAndFaqs NSLocalizedString(@"supportAndFaqs", nil)
@@ -46,6 +47,9 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([HirTool theCurrentLanguage] == 3 && [indexPath row]==0){
+        return 0;
+    }
     return 60;
 }
 
@@ -63,6 +67,7 @@
         UIImageView *accessoryView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, accessoryImg.size.width, accessoryImg.size.height)];
         accessoryView.image = accessoryImg;
         cell.accessoryView = accessoryView;
+        cell.clipsToBounds = YES;
     }
     
     NSInteger row = [indexPath row];

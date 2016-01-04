@@ -28,7 +28,7 @@
 #define Color_title                 [UIColor blackColor]
 #define Color_message               (COLOR(109,109,114))
 
-@protocol HirAlertViewDelegate;
+
 
 typedef void (^HirAlertViewClick)(NSInteger index);
 
@@ -38,7 +38,6 @@ typedef void (^HirAlertViewClick)(NSInteger index);
 
 @property (nonatomic, strong)UIView *contentView;   //装载中间内容的view
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id /*<HirAlertViewDelegate>*/)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION;
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message clickBlock:(HirAlertViewClick)alertViewClick cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION;
 
@@ -49,8 +48,3 @@ typedef void (^HirAlertViewClick)(NSInteger index);
 
 @end
 
-@protocol HirAlertViewDelegate <NSObject>
-
-// Called when a button is clicked. The view will be automatically dismissed after this call returns
-- (void)HirAlertView:(HirAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
-@end

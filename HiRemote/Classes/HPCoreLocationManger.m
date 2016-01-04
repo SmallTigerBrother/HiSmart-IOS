@@ -95,6 +95,7 @@
         }
         self.currentStreet = detailLocal;
         [self.delegate performSelector:@selector(locationFinished:withFlag:) withObject:self.location withObject:[NSNumber numberWithBool:YES]];
+        self.delegate = nil;
         NSLog(@"state:%@  city:%@  street:%@",self.currentState,self.currentCity,self.currentStreet);
     }
 }
@@ -128,10 +129,10 @@
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"checkLocation", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", @""), nil] show];
         HirMsgPlaySound *msgPlaySound = [[HirMsgPlaySound alloc]initSystemSoundWithName:@"sms-received5" SoundType:@"caf"];
         [msgPlaySound play];
-
     }
 
     [self.delegate performSelector:@selector(locationFinished:withFlag:) withObject:nil withObject:[NSNumber numberWithBool:NO]];
+    self.delegate = nil;
 }
 
 - (void)dealloc {

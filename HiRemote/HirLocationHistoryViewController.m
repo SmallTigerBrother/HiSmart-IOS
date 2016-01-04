@@ -368,14 +368,13 @@ UITextFieldDelegate>
         }
         case 1:
         {
+            __weak typeof(self) weakSelf = self;
             HirAlertView *alertView = [[HirAlertView alloc]initWithTitle:NSLocalizedString(@"warning", nil) message:NSLocalizedString(@"doYouWantToDelThisRecord", nil) clickBlock:^(NSInteger index){
                 if (index == 1) {
-                    [self.tableView beginUpdates];
-                    DBPeripheralLocationInfo *peripheraLocationInfo = [self.data objectAtIndex:cell.indexPath.row];
+                    DBPeripheralLocationInfo *peripheraLocationInfo = [weakSelf.data objectAtIndex:cell.indexPath.row];
                     [HirDataManageCenter delLocationRecordByModel:peripheraLocationInfo];
-                    [self.data removeObjectAtIndex:cell.indexPath.row];
-                    [self.tableView deleteRowsAtIndexPaths: [NSArray arrayWithObjects:cell.indexPath, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
-                    [self.tableView endUpdates];
+                    [weakSelf.data removeObjectAtIndex:cell.indexPath.row];
+                    [weakSelf.tableView deleteRowsAtIndexPaths: [NSArray arrayWithObjects:cell.indexPath, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
             }cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) otherButtonTitles:NSLocalizedString(@"CONFIRM", nil), nil];
             [alertView showWithAnimation:YES];
